@@ -15,7 +15,7 @@ $ yarn dev
 
   - https://qiita.com/keisei_otsuka/items/4e1c4ba5b9ee32c2334f
 
-- もし vscode を使用している場合は prettier と ESLint の拡張機能を入れてください。自動で設定ファイルに合わせて修正が入る、もしくは Lint で注意を促してくれるようになります。
+- もし vscode を使用している場合は prettier と ESLint の拡張機能を入れてください。自動で設定ファイルに合わせて修正が入る、また Lint で注意を促してくれるようになります。
 
 # version
 
