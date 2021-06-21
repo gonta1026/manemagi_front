@@ -7,7 +7,7 @@ import { ThemeProvider } from 'styled-components';
 import theme from '../styles/js/theme';
 import '../styles/css/utility.scss';
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   React.useEffect(() => {
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side');
@@ -20,7 +20,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <StylesProvider injectFirst>
       <MuiThemeProvider theme={theme}>
         <ThemeProvider theme={theme}>
-          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+          {/* CssBaseline kickstart an elegant, consistent, and simple baseline  to build upon. */}
           <CssBaseline />
           <Component {...pageProps} />
         </ThemeProvider>
