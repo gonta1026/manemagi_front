@@ -4,6 +4,10 @@
   - https://qiita.com/tonkotsuboy_com/items/5322d226b6783d25b5df
 
 ```
+$ git clone https://github.com/gonta1026/manemagi_front.git
+```
+
+```
 $ yarn install
 ```
 
@@ -16,6 +20,8 @@ $ yarn dev
   - https://qiita.com/keisei_otsuka/items/4e1c4ba5b9ee32c2334f
 
 - もし vscode を使用している場合は prettier と ESLint の拡張機能を入れてください。自動で設定ファイルに合わせて修正が入る、また Lint で注意を促してくれるようになります。
+
+- env ファイルを用意する必要があります。必要な際は gonta1026 まで連絡ください。
 
 # version
 
