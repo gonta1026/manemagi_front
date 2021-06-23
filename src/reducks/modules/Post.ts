@@ -1,31 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { fetchPosts } from '../services/Post';
+import { commonState } from './type/common';
+import { TLoadingAndErrorState } from '../../types/Common';
+import { TPostState } from '../../types/Post';
 
-// state
-export type TPost = {
-  id: string | null;
-  body: string | null;
-  title: Date | null;
-  userId: Date | null;
-};
+export type TPostAndLoadingAndError = TPostState & TLoadingAndErrorState;
 
-export type TPostState = {
-  post: TPost | null;
-  posts: Array<TPost> | null;
-  loading: boolean;
-  error: boolean;
-  errorMessage: string;
-};
-
-export const initialState: TPostState = {
+export const initialState: TPostAndLoadingAndError = {
   post: null,
   posts: [],
-  loading: false,
-  error: false,
-  errorMessage: '',
+  ...commonState,
 };
 
-// createSlice(action, reducer)
 export const postSlice = createSlice({
   name: 'posts',
   initialState: initialState,
@@ -34,8 +20,6 @@ export const postSlice = createSlice({
     builder.addCase(fetchPosts.fulfilled, (state, action) => {
       state.post = action.payload[0];
       state.posts = action.payload;
-      state.loading = false;
-      state.error = false;
     });
     builder.addCase(fetchPosts.pending, (state) => {
       state.loading = true;

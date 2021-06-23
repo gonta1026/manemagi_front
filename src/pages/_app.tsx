@@ -7,7 +7,7 @@ import { ThemeProvider } from 'styled-components';
 import theme from '../styles/js/theme';
 import '../styles/css/utility.scss';
 import { Provider } from 'react-redux';
-import store from '../store';
+import store from '../reducks/store';
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   React.useEffect(() => {
