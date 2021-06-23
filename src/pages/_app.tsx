@@ -6,8 +6,9 @@ import { Provider } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
 import store from '../reducks/store';
 import theme from '../styles/js/theme';
-import '../styles/scss/ress.scss';
-import '../styles/scss/utility.scss';
+import 'tailwindcss/tailwind.css';
+import '../styles/css/global.css';
+import '../styles/scss/normalize.scss';
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   React.useEffect(() => {

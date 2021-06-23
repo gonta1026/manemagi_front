@@ -12,10 +12,10 @@ const Home: React.FC = () => {
 
   return (
     <>
-      <BaseButton color="primary" variant="contained" onClick={() => console.log('click')}>
-        ボタンです
-      </BaseButton>
-      <div className="mt-10">
+      <div className="flex ml-10 mt-10">
+        <BaseButton color="primary" variant="contained" onClick={() => console.log('click')}>
+          ボタンです
+        </BaseButton>
         <BaseButton color="secondary" variant="contained" onClick={() => console.log('click')}>
           secondary
         </BaseButton>
