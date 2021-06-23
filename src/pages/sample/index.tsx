@@ -16,6 +16,7 @@ const Home: React.FC = () => {
 
   return (
     <>
+      <div>微修正</div>
       {posts?.map((post, index) => (
         <p key={index}>{post.title}</p>
       ))}
