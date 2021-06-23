@@ -6,6 +6,8 @@ import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import theme from '../styles/js/theme';
 import '../styles/css/utility.scss';
+import { Provider } from 'react-redux';
+import store from '../store';
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   React.useEffect(() => {
@@ -17,15 +19,17 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   }, []);
 
   return (
-    <StylesProvider injectFirst>
-      <MuiThemeProvider theme={theme}>
-        <ThemeProvider theme={theme}>
-          {/* CssBaseline kickstart an elegant, consistent, and simple baseline  to build upon. */}
-          <CssBaseline />
-          <Component {...pageProps} />
-        </ThemeProvider>
-      </MuiThemeProvider>
-    </StylesProvider>
+    <Provider store={store()}>
+      <StylesProvider injectFirst>
+        <MuiThemeProvider theme={theme}>
+          <ThemeProvider theme={theme}>
+            {/* CssBaseline kickstart an elegant, consistent, and simple baseline  to build upon. */}
+            <CssBaseline />
+            <Component {...pageProps} />
+          </ThemeProvider>
+        </MuiThemeProvider>
+      </StylesProvider>
+    </Provider>
   );
 }
 
