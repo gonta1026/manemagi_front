@@ -21,7 +21,7 @@ const BaseButton = ({
   size?: 'large' | 'medium' | 'small';
   startIcon?: 'AddCircleOutline' | '';
 }) => {
-  const switchIcon = (Icon: string) => {
+  const switchIcon = (startIcon: string) => {
     switch (startIcon) {
       case 'AddCircleOutline':
         <AddCircleOutline />;
