@@ -1,13 +1,13 @@
-/* eslint-disable react/jsx-props-no-spreading */
-import CssBaseline from '@material-ui/core/CssBaseline';
-import { MuiThemeProvider, StylesProvider } from '@material-ui/core/styles';
-import { AppProps } from 'next/app';
 import React from 'react';
-import { ThemeProvider } from 'styled-components';
-import theme from '../styles/js/theme';
-import '../styles/css/utility.scss';
+import { AppProps } from 'next/app';
+import { MuiThemeProvider, StylesProvider } from '@material-ui/core/styles';
+import { CssBaseline } from '@material-ui/core';
 import { Provider } from 'react-redux';
+import { ThemeProvider } from 'styled-components';
 import store from '../reducks/store';
+import theme from '../styles/js/theme';
+import '../styles/scss/ress.scss';
+import '../styles/scss/utility.scss';
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   React.useEffect(() => {
