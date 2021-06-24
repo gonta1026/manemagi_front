@@ -11,16 +11,18 @@ const Home: React.FC = () => {
   });
 
   return (
-    <>
-      <div className="flex ml-10 mt-10">
-        <BaseButton color="primary" variant="contained" onClick={() => console.log('click')}>
-          ボタンです
-        </BaseButton>
-        <BaseButton color="secondary" variant="contained" onClick={() => console.log('click')}>
-          secondary
-        </BaseButton>
-      </div>
-    </>
+    <div>
+      <header>ヘッダー</header>
+      <section>メインビジュアル</section>
+      <section>アプリの説明文</section>
+      <BaseButton color="secondary" variant="contained" onClick={() => console.log('click')}>
+        新規登録
+      </BaseButton>
+      <BaseButton color="secondary" variant="contained" onClick={() => console.log('click')}>
+        ログイン
+      </BaseButton>
+      <p>もしログインをしていたら買い物一覧画面へリダイレクトさせる。</p>
+    </div>
   );
 };
 
