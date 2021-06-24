@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { TPostState } from '../../types/post';
+import { TPostState } from '../../types/Post';
 import { fetchPosts } from '../../reducks/services/Post';
 
 const Home: React.FC = () => {
