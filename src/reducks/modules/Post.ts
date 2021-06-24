@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { fetchPosts } from '../services/Post';
 import { commonState } from './type/common';
 import { TLoadingAndErrorState } from '../../types/common';
-import { TPostState } from '../../types/Post';
+import { TPostState } from '../../types/post';
 
 export type TPostAndLoadingAndError = TPostState & TLoadingAndErrorState;
 
