@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import styled from 'styled-components';
-import { mediaSize } from '../../const/media';
+import { mediaSize } from '../../../const/media';
 
 const BasePageTitle = ({ children }: { children: ReactNode }) => {
   return <Heading>{children}</Heading>;

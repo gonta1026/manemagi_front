@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import ApiClient from '../network/ApiClient';
-import { BaseButton } from '../components/UiKit';
+import { BaseButton } from '../components/uiParts';
 
 const Home: React.FC = () => {
   useEffect(() => {
