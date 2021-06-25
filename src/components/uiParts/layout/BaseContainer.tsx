@@ -7,7 +7,7 @@ const BaseContainer = ({ children }: { children: ReactNode }) => {
 
 const Container = styled.div`
   width: 92%;
-  max-width: 1000px;
+  max-width: 600px;
   margin: 0 auto;
 `;
 
