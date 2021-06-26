@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import ApiClient from '../network/ApiClient';
 import { BaseButton } from '../components/uiParts';
+import ApiConnect from 'src/components/ApiConnect';
 
 const Home: React.FC = () => {
   useEffect(() => {
@@ -22,6 +23,7 @@ const Home: React.FC = () => {
         ログイン
       </BaseButton>
       <p>もしログインをしていたら買い物一覧画面へリダイレクトさせる。</p>
+      <ApiConnect />
     </div>
   );
 };
