@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import ApiClient from '../network/ApiClient';
 import { BaseButton } from '../components/uiParts';
+import { BaseTextField } from '../components/uiParts';
 
 const Home: React.FC = () => {
   useEffect(() => {
@@ -15,6 +16,9 @@ const Home: React.FC = () => {
       <header>ヘッダー</header>
       <section>メインビジュアル</section>
       <section>アプリの説明文</section>
+      <BaseTextField />
+      <BaseTextField />
+      <BaseTextField />
       <BaseButton color="secondary" variant="contained" onClick={() => console.log('click')}>
         新規登録
       </BaseButton>

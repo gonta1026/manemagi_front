@@ -1,14 +1,12 @@
-import React, { ReactNode } from 'react';
-import styled from 'styled-components';
+import React from 'react';
+import TextField from '@material-ui/core/TextField';
 
-const BaseTextField = ({ children }: { children: ReactNode }) => {
-  return <TextField>{children}</TextField>;
+const BaseTextField = function BaseTextField() {
+  return (
+    <div>
+      <TextField variant="outlined" />
+    </div>
+  );
 };
-
-const TextField = styled.div`
-  width: 92%;
-  max-width: 600px;
-  margin: 0 auto;
-`;
 
 export default BaseTextField;
