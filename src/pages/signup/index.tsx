@@ -1,6 +1,5 @@
 import React from 'react';
 import { useFormik } from 'formik';
-import CommonWrapTemplate from '../../components/common/template/CommonWrapTemplate';
 import {
   BasePageTitle,
   BaseButton,
@@ -29,7 +28,9 @@ const SignUp = (): JSX.Element => {
   const formik = useFormik<TUser>({
     initialValues: initialValues,
     validate,
-    onSubmit: async (values) => {},
+    onSubmit: async (values) => {
+      console.log(values);
+    },
   });
 
   console.log(formik.values);
