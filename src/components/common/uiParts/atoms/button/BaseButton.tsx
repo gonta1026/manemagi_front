@@ -18,7 +18,7 @@ const BaseButton = ({
   color?: 'default' | 'inherit' | 'primary' | 'secondary';
   disabled?: boolean;
   onClick: VoidFunction;
-  type?: string;
+  type?: 'button' | 'submit' | 'reset';
   size?: 'large' | 'medium' | 'small';
   startIcon?: 'AddCircleOutline' | '';
   variant: 'contained' | 'outlined' | 'text';
