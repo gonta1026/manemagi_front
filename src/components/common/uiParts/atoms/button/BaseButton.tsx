@@ -14,7 +14,7 @@ const BaseButton = ({
 }: {
   className?: string;
   children: ReactNode;
-  color: 'default' | 'inherit' | 'primary' | 'secondary';
+  color?: 'default' | 'inherit' | 'primary' | 'secondary';
   disabled?: boolean;
   onClick: VoidFunction;
   variant: 'contained' | 'outlined' | 'text';
