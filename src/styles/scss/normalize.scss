@@ -3,3 +3,27 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+body {
+  font-family: 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'メイリオ', 'Meiryo', '游ゴシック',
+    'Yu Gothic', 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
+  font-size: 16px;
+}
+
+.base-vertical-10 {
+  > .base-vertical-item + .base-vertical-item {
+    margin-top: 20px;
+  }
+}
+
+.base-vertical-20 {
+  > .base-vertical-item + .base-vertical-item {
+    margin-top: 20px;
+  }
+}
+
+.base-vertical-30 {
+  > .base-vertical-item + .base-vertical-item {
+    margin-top: 20px;
+  }
+}
