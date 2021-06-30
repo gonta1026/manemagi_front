@@ -1,47 +1,43 @@
 import { TUser } from '../../types/User';
-import { validateMessage } from '../message';
-import { validHankakuEngNum, validEmail } from '../regExp';
 import { USERFORM } from '../../const/form/user';
+import {
+  blankCheckMessage,
+  emailFormatCheckMessage,
+  rangeCheckMessage,
+  hankakuEngNumCheckMessage,
+  sameCheckMessage,
+} from '../';
 
 export const signupAndLoginValidate = (
   values: TUser,
   errors: TUser,
   targetForm: 'signup' | 'login',
 ) => {
-  const { END_MESSAGE, FORMAT, MINI_ENG_NUM, PASSWORD_MESSAGE } = validateMessage;
-
+  const { NAME, EMAIL, PASSWORD, PASSWORD_CONFIRM } = USERFORM;
   /******** 名前 ********/
-  if (!values.name && targetForm === 'signup') {
-    errors.name = USERFORM.NAME.LABEL + END_MESSAGE;
+  if (targetForm === 'signup') {
+    errors.name = blankCheckMessage(values.name, NAME.LABEL);
   }
-
   /******** メールアドレス ********/
-  if (!values.email) {
-    errors.email = USERFORM.PASSWORD_CONFIRM.LABEL + END_MESSAGE;
-  } else if (!validEmail.test(values.email) && values.email) {
-    errors.email = USERFORM.PASSWORD_CONFIRM.LABEL + FORMAT;
-  }
-
+  errors.email = blankCheckMessage(values.email, EMAIL.LABEL);
+  errors.email = emailFormatCheckMessage(values.email, EMAIL.LABEL);
   /******** パスワード ********/
-  if (!values.password) {
-    errors.password = USERFORM.PASSWORD.LABEL + END_MESSAGE;
-  } else if (values.password.length < 4 || values.password.length > 30) {
-    errors.password = USERFORM.PASSWORD.LABEL + PASSWORD_MESSAGE;
-  } else if (!validHankakuEngNum.test(values.password)) {
-    errors.password = USERFORM.PASSWORD.LABEL + END_MESSAGE;
-  }
-
+  errors.password = blankCheckMessage(values.password, PASSWORD.LABEL);
+  errors.password = rangeCheckMessage(values.password, PASSWORD.LABEL, 4, 30);
+  errors.password = hankakuEngNumCheckMessage(values.password, PASSWORD.LABEL);
   /******** パスワードの再確認 ********/
-  if (!values.passwordConfirm && targetForm === 'signup') {
-    errors.passwordConfirm = USERFORM.PASSWORD_CONFIRM.LABEL + END_MESSAGE;
-  } else if (values.passwordConfirm.length < 4 || values.passwordConfirm.length > 30) {
-    errors.passwordConfirm = USERFORM.PASSWORD_CONFIRM.LABEL + PASSWORD_MESSAGE;
-  } else if (!validHankakuEngNum.test(values.passwordConfirm)) {
-    errors.passwordConfirm = USERFORM.PASSWORD_CONFIRM.LABEL + MINI_ENG_NUM + END_MESSAGE;
-  } else if (values.password !== values.passwordConfirm) {
-    errors.passwordConfirm =
-      USERFORM.PASSWORD_CONFIRM.LABEL + 'は' + USERFORM.PASSWORD.LABEL + 'と同じにしてください。';
-  }
+  errors.passwordConfirm = blankCheckMessage(values.passwordConfirm, PASSWORD_CONFIRM.LABEL);
+  errors.passwordConfirm = rangeCheckMessage(values.passwordConfirm, PASSWORD_CONFIRM.LABEL, 4, 30);
+  errors.passwordConfirm = hankakuEngNumCheckMessage(
+    values.passwordConfirm,
+    PASSWORD_CONFIRM.LABEL,
+  );
+  errors.passwordConfirm = sameCheckMessage(
+    values.passwordConfirm,
+    PASSWORD_CONFIRM.LABEL,
+    values.password,
+    PASSWORD.LABEL,
+  );
 
   return errors;
 };
