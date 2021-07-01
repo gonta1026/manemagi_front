@@ -8,18 +8,18 @@ type Data = {
   password: string;
 };
 
-class Mydb {
-  public indexedDb: IDBFactory;
-  public dbConstants: Constants;
-  public storeConstants: any;
-  public db: IDBDatabase;
+let indexedDb: IDBFactory;
+let dbConstants: Constants;
+let storeConstants: any;
+let db: IDBDatabase;
 
+class Mydb {
   constructor() {
-    this.dbConstants = {
+    dbConstants = {
       name: 'mydb',
       version: 3,
     };
-    this.storeConstants = {
+    storeConstants = {
       name: 'data',
       storeOptions: { keyPath: 'id', autoIncrement: true },
       indexes: [
@@ -32,20 +32,17 @@ class Mydb {
   connect() {
     console.log('接続開始');
 
-    this.indexedDb = window.indexedDB;
-    const request = this.indexedDb.open(this.dbConstants.name, this.dbConstants.version);
+    indexedDb = window.indexedDB;
+    const request = indexedDb.open(dbConstants.name, dbConstants.version);
 
     // 接続成功（初回 or DBのバージョンが変わったとき）
     request.onupgradeneeded = (event: any) => {
-      this.db = (<IDBRequest>event.target).result;
+      db = (<IDBRequest>event.target).result;
 
-      if (!Array.from(this.db.objectStoreNames).includes(this.storeConstants.name)) {
+      if (!Array.from(db.objectStoreNames).includes(storeConstants.name)) {
         // store"data"が存在しないとき、新規作成する。
-        const objectStore = this.db.createObjectStore(
-          this.storeConstants.name,
-          this.storeConstants.storeOptions,
-        );
-        for (const index of this.storeConstants.indexes) {
+        const objectStore = db.createObjectStore(storeConstants.name, storeConstants.storeOptions);
+        for (const index of storeConstants.indexes) {
           objectStore.createIndex(index.indexName, index.indexName, { unique: index.unique });
         }
       }
@@ -53,7 +50,7 @@ class Mydb {
     // 接続成功（すでにDBが存在する場合）
     request.onsuccess = (event: any) => {
       console.log('接続成功');
-      this.db = (<IDBRequest>event.target).result;
+      db = (<IDBRequest>event.target).result;
     };
     // 接続失敗
     request.onerror = (event: any) => {
@@ -64,8 +61,8 @@ class Mydb {
   add(data: Data) {
     console.log('登録');
 
-    const trans = this.db.transaction(this.storeConstants.name, 'readwrite');
-    const store = trans.objectStore(this.storeConstants.name);
+    const trans = db.transaction(storeConstants.name, 'readwrite');
+    const store = trans.objectStore(storeConstants.name);
     const request = store.put(data);
     request.onsuccess = () => {
       console.log('登録成功');
