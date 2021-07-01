@@ -1,12 +1,6 @@
 import { TUser } from '../../types/User';
 import { USERFORM } from '../../const/form/user';
-import {
-  blankCheckMessage,
-  emailFormatCheckMessage,
-  rangeCheckMessage,
-  hankakuEngNumCheckMessage,
-  sameCheckMessage,
-} from '../';
+import { emailFormat, validRange, validhankakuEngNum, validSame, validBlank } from '../';
 
 export const signupAndLoginValidate = (
   values: TUser,
@@ -14,30 +8,44 @@ export const signupAndLoginValidate = (
   targetForm: 'signup' | 'login',
 ) => {
   const { NAME, EMAIL, PASSWORD, PASSWORD_CONFIRM } = USERFORM;
-  /******** 名前 ********/
-  if (targetForm === 'signup') {
-    errors.name = blankCheckMessage(values.name, NAME.LABEL);
+  /******************
+   *      名前
+   ******************/
+  if (targetForm === 'signup' && validBlank.check(values.name)) {
+    errors.name = validBlank.message(NAME.LABEL);
   }
-  /******** メールアドレス ********/
-  errors.email = blankCheckMessage(values.email, EMAIL.LABEL);
-  errors.email = emailFormatCheckMessage(values.email, EMAIL.LABEL);
-  /******** パスワード ********/
-  errors.password = blankCheckMessage(values.password, PASSWORD.LABEL);
-  errors.password = rangeCheckMessage(values.password, PASSWORD.LABEL, 4, 30);
-  errors.password = hankakuEngNumCheckMessage(values.password, PASSWORD.LABEL);
-  /******** パスワードの再確認 ********/
-  errors.passwordConfirm = blankCheckMessage(values.passwordConfirm, PASSWORD_CONFIRM.LABEL);
-  errors.passwordConfirm = rangeCheckMessage(values.passwordConfirm, PASSWORD_CONFIRM.LABEL, 4, 30);
-  errors.passwordConfirm = hankakuEngNumCheckMessage(
-    values.passwordConfirm,
-    PASSWORD_CONFIRM.LABEL,
-  );
-  errors.passwordConfirm = sameCheckMessage(
-    values.passwordConfirm,
-    PASSWORD_CONFIRM.LABEL,
-    values.password,
-    PASSWORD.LABEL,
-  );
-
+  /******************
+   *  メールアドレス
+   ******************/
+  if (validBlank.check(values.email)) {
+    errors.email = validBlank.message(EMAIL.LABEL);
+  }
+  if (emailFormat.check(values.email)) {
+    errors.email = emailFormat.message(EMAIL.LABEL);
+  }
+  /******************
+   *    パスワード
+   ******************/
+  if (validBlank.check(values.password)) {
+    errors.password = validBlank.message(PASSWORD.LABEL);
+  }
+  if (validRange.check(values.password, 4, 30)) {
+    errors.password = validRange.message(PASSWORD.LABEL);
+  }
+  if (validhankakuEngNum.check(values.password)) {
+    errors.password = validhankakuEngNum.message(PASSWORD.LABEL);
+  }
+  /******************
+   * パスワードの再確認
+   ******************/
+  if (validBlank.check(values.passwordConfirm)) {
+    errors.passwordConfirm = validBlank.message(PASSWORD_CONFIRM.LABEL);
+  }
+  if (validRange.check(values.passwordConfirm, 4, 30)) {
+    errors.passwordConfirm = validRange.message(PASSWORD_CONFIRM.LABEL);
+  }
+  if (validSame.check(values.passwordConfirm, values.password)) {
+    errors.passwordConfirm = validSame.message(PASSWORD_CONFIRM.LABEL, PASSWORD.LABEL);
+  }
   return errors;
 };

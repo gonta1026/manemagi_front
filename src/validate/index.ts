@@ -3,52 +3,58 @@ import { validHankakuEngNum, validEmail } from './regExp';
 
 const { END_MESSAGE, FORMAT, MINI_ENG_NUM, PASSWORD_MESSAGE } = validateMessage;
 
-export const blankCheckMessage = (value: string, labelName: string): string => {
-  let message = '';
-  if (!value) {
-    message = labelName + END_MESSAGE;
-  }
-  return message;
+export const validBlank = {
+  check: (value: string): boolean => {
+    let isValid = false;
+    if (!value) {
+      isValid = true;
+    }
+    return isValid;
+  },
+  message: (label: string) => label + END_MESSAGE,
 };
 
-export const emailFormatCheckMessage = (email: string, labelName: string): string => {
-  let message = '';
-  if (email && !validEmail.test(email)) {
-    message = labelName + FORMAT;
-  }
-  return message;
+export const validRange = {
+  check: (value: string, minNum: number, maxNum: number): boolean => {
+    let isValid = false;
+    if ((value.length !== 0 && value.length < minNum) || value.length > maxNum) {
+      console.log(isValid);
+      isValid = true;
+    }
+    return isValid;
+  },
+  message: (label: string) => label + PASSWORD_MESSAGE,
 };
 
-export const sameCheckMessage = (
-  value01: string,
-  valueLabel01: string,
-  value02: string,
-  value02Label: string,
-): string => {
-  let message = '';
-  if (value01 !== value02) {
-    message = valueLabel01 + 'は' + value02Label + 'と同じにしてください。';
-  }
-  return message;
+export const validhankakuEngNum = {
+  check: (value: string): boolean => {
+    let isValid = false;
+    if (!validHankakuEngNum.test(value) && value.length !== 0) {
+      isValid = true;
+    }
+    return isValid;
+  },
+  message: (label: string) => label + MINI_ENG_NUM + END_MESSAGE,
 };
 
-export const rangeCheckMessage = (
-  value: string,
-  labelName: string,
-  minNum: number,
-  maxNum: number,
-): string => {
-  let message = '';
-  if ((value.length !== 0 && value.length < minNum) || value.length > maxNum) {
-    message = labelName + PASSWORD_MESSAGE;
-  }
-  return message;
+export const validSame = {
+  check: (value01: string, value02: string): boolean => {
+    let isValid = false;
+    if (value01 !== value02) {
+      isValid = true;
+    }
+    return isValid;
+  },
+  message: (label01: string, label02: string) => `${label01}は${label02}と同じにしてください。`,
 };
 
-export const hankakuEngNumCheckMessage = (value: string, labelName: string): string => {
-  let message = '';
-  if (!validHankakuEngNum.test(value) && value.length !== 0) {
-    message = labelName + MINI_ENG_NUM + END_MESSAGE;
-  }
-  return message;
+export const emailFormat = {
+  check: (email: string): boolean => {
+    let isValid = false;
+    if (email && !validEmail.test(email)) {
+      isValid = true;
+    }
+    return isValid;
+  },
+  message: (label: string) => label + FORMAT,
 };
