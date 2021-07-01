@@ -18,22 +18,18 @@ const SignUp = (): JSX.Element => {
     return errors;
   };
 
-  const initialValues = {
-    name: '',
-    email: '',
-    password: '',
-    passwordConfirm: '',
-  };
-
   const formik = useFormik<TUser>({
-    initialValues: initialValues,
+    initialValues: {
+      name: '',
+      email: '',
+      password: '',
+      passwordConfirm: '',
+    },
     validate,
     onSubmit: async (values) => {
       console.log(values);
     },
   });
-
-  console.log(formik.values);
 
   return (
     <BaseContainer>
@@ -43,7 +39,6 @@ const SignUp = (): JSX.Element => {
           <BaseTextField
             id={USERFORM.NAME.ID}
             label={USERFORM.NAME.LABEL}
-            required
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.name}
@@ -59,7 +54,6 @@ const SignUp = (): JSX.Element => {
           <BaseTextField
             id={USERFORM.EMAIL.ID}
             label={USERFORM.EMAIL.LABEL}
-            required
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.email}
@@ -75,7 +69,6 @@ const SignUp = (): JSX.Element => {
           <BaseTextField
             id={USERFORM.PASSWORD.ID}
             label={USERFORM.PASSWORD.LABEL}
-            required
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.password}
@@ -91,7 +84,6 @@ const SignUp = (): JSX.Element => {
           <BaseTextField
             id={USERFORM.PASSWORD_CONFIRM.ID}
             label={USERFORM.PASSWORD_CONFIRM.LABEL}
-            required
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.passwordConfirm}
