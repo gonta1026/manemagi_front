@@ -2,7 +2,7 @@ export type TUser = {
   name: string;
   email: string;
   password: string;
-  passwordConfirm: string;
+  passwordConfirmation: string;
 };
 
 export type TUserState = {

@@ -2,7 +2,7 @@ export const LABEL_NAMES = {
   NAME: '名前',
   EMAIL: 'メールアドレス',
   PASSWORD: 'パスワード',
-  PASSWORD_CONFIRM: 'パスワードの再確認',
+  PASSWORD_CONFIRMATION: 'パスワードの再確認',
 } as const;
 
 export const USERFORM = {
@@ -18,8 +18,8 @@ export const USERFORM = {
     LABEL: LABEL_NAMES.PASSWORD,
     ID: 'password',
   },
-  PASSWORD_CONFIRM: {
-    LABEL: LABEL_NAMES.PASSWORD_CONFIRM,
-    ID: 'passwordConfirm',
+  PASSWORD_CONFIRMATION: {
+    LABEL: LABEL_NAMES.PASSWORD_CONFIRMATION,
+    ID: 'passwordConfirmation',
   },
 } as const;

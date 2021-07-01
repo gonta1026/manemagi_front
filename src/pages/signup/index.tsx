@@ -10,8 +10,11 @@ import { BaseContainer } from '../../components/common/uiParts/layout';
 import { USERFORM } from '../../const/form/user';
 import { TUser } from '../../types/User';
 import { signupAndLoginValidate } from '../../validate/user/signupAndLogin';
+import { signupUser } from '../../reducks/services/User';
+import { useDispatch } from 'react-redux';
 
 const SignUp = (): JSX.Element => {
+  const dispatch = useDispatch();
   const validate = (values: TUser) => {
     let errors = {} as TUser;
     errors = signupAndLoginValidate(values, errors, 'signup');
@@ -23,11 +26,22 @@ const SignUp = (): JSX.Element => {
       name: '',
       email: '',
       password: '',
-      passwordConfirm: '',
+      passwordConfirmation: '',
     },
     validate,
     onSubmit: async (values) => {
-      console.log(values);
+      const { name, email, password, passwordConfirmation } = values;
+      const response: any = await dispatch(
+        signupUser({
+          name,
+          email,
+          password,
+          passwordConfirmation,
+        }),
+      );
+      if (response.status === 200) {
+        console.log('新規登録後のログイン成功です！');
+      }
     },
   });
 
@@ -82,15 +96,15 @@ const SignUp = (): JSX.Element => {
 
         <div className="base-vertical-item">
           <BaseTextField
-            id={USERFORM.PASSWORD_CONFIRM.ID}
-            label={USERFORM.PASSWORD_CONFIRM.LABEL}
+            id={USERFORM.PASSWORD_CONFIRMATION.ID}
+            label={USERFORM.PASSWORD_CONFIRMATION.LABEL}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            value={formik.values.passwordConfirm}
+            value={formik.values.passwordConfirmation}
           />
-          {formik.errors.passwordConfirm && formik.touched.passwordConfirm && (
+          {formik.errors.passwordConfirmation && formik.touched.passwordConfirmation && (
             <BaseErrorMessagesWrapper>
-              <li>{formik.errors.passwordConfirm}</li>
+              <li>{formik.errors.passwordConfirmation}</li>
             </BaseErrorMessagesWrapper>
           )}
         </div>

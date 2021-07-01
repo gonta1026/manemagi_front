@@ -7,7 +7,7 @@ export const signupAndLoginValidate = (
   errors: TUser,
   targetForm: 'signup' | 'login',
 ) => {
-  const { NAME, EMAIL, PASSWORD, PASSWORD_CONFIRM } = USERFORM;
+  const { NAME, EMAIL, PASSWORD, PASSWORD_CONFIRMATION } = USERFORM;
   /******************
    *      名前
    ******************/
@@ -38,14 +38,14 @@ export const signupAndLoginValidate = (
   /******************
    * パスワードの再確認
    ******************/
-  if (validBlank.check(values.passwordConfirm)) {
-    errors.passwordConfirm = validBlank.message(PASSWORD_CONFIRM.LABEL);
+  if (validBlank.check(values.passwordConfirmation)) {
+    errors.passwordConfirmation = validBlank.message(PASSWORD_CONFIRMATION.LABEL);
   }
-  if (validRange.check(values.passwordConfirm, 4, 30)) {
-    errors.passwordConfirm = validRange.message(PASSWORD_CONFIRM.LABEL);
+  if (validRange.check(values.passwordConfirmation, 4, 30)) {
+    errors.passwordConfirmation = validRange.message(PASSWORD_CONFIRMATION.LABEL);
   }
-  if (validSame.check(values.passwordConfirm, values.password)) {
-    errors.passwordConfirm = validSame.message(PASSWORD_CONFIRM.LABEL, PASSWORD.LABEL);
+  if (validSame.check(values.passwordConfirmation, values.password)) {
+    errors.passwordConfirmation = validSame.message(PASSWORD_CONFIRMATION.LABEL, PASSWORD.LABEL);
   }
   return errors;
 };
