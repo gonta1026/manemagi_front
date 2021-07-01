@@ -18,7 +18,6 @@ export const validRange = {
   check: (value: string, minNum: number, maxNum: number): boolean => {
     let isValid = false;
     if ((value.length !== 0 && value.length < minNum) || value.length > maxNum) {
-      console.log(isValid);
       isValid = true;
     }
     return isValid;
