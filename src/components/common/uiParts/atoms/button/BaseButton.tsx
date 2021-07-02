@@ -10,16 +10,18 @@ const BaseButton = ({
   onClick,
   size = 'medium',
   startIcon = '',
+  type = 'button',
   variant,
 }: {
   className?: string;
   children: ReactNode;
-  color: 'default' | 'inherit' | 'primary' | 'secondary';
+  color?: 'default' | 'inherit' | 'primary' | 'secondary';
   disabled?: boolean;
   onClick: VoidFunction;
-  variant: 'contained' | 'outlined' | 'text';
+  type?: 'button' | 'submit' | 'reset';
   size?: 'large' | 'medium' | 'small';
   startIcon?: 'AddCircleOutline' | '';
+  variant: 'contained' | 'outlined' | 'text';
 }) => {
   const switchIcon = (startIcon: string) => {
     switch (startIcon) {
@@ -40,6 +42,7 @@ const BaseButton = ({
       onClick={onClick}
       size={size}
       startIcon={switchIcon(startIcon)}
+      type={type}
       variant={variant}
     >
       {children}
