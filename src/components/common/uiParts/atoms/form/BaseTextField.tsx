@@ -1,12 +1,14 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 
+export type TSize = 'medium' | 'small';
+export type TVariant = 'filled' | 'outlined' | 'standard';
+
 const BaseTextField = ({
   className = '',
   disabled,
   fullWidth = true,
   id,
-  label,
   onBlur,
   onChange,
   required = false,
@@ -18,13 +20,12 @@ const BaseTextField = ({
   disabled?: boolean;
   fullWidth?: boolean;
   id: string;
-  label: string;
   onBlur: any;
   onChange: any;
   required?: boolean;
   value: string;
-  size?: 'medium' | 'small';
-  variant?: 'filled' | 'outlined' | 'standard';
+  size?: TSize;
+  variant?: TVariant;
 }) => {
   return (
     <TextField
@@ -33,7 +34,6 @@ const BaseTextField = ({
         disabled,
         fullWidth,
         id,
-        label,
         onBlur,
         onChange,
         required,
