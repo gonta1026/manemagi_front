@@ -1,5 +1,5 @@
 // railsのコントローラーに一致する形でエンドポイントを整理している。こちらは試作で作っているので使わない可能性もあり。（2021/6/26）
-export const ENTRY_POINT = {
+export const END_POINT = {
   DEVISE_TOKEN_AUTH: {
     REGISTRATIONS: {
       CREATE: '/auth', // ユーザー新規登録

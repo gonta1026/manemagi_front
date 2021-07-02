@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { TPostState } from '../../types/Post';
+import CommonWrapTemplate from '../../components/common/template/CommonWrapTemplate';
 import { fetchPosts } from '../../reducks/services/Post';
 
 const Home: React.FC = () => {
@@ -15,12 +16,12 @@ const Home: React.FC = () => {
   }, []);
 
   return (
-    <>
+    <CommonWrapTemplate>
       <div>微修正</div>
       {posts?.map((post, index) => (
         <p key={index}>{post.title}</p>
       ))}
-    </>
+    </CommonWrapTemplate>
   );
 };
 
