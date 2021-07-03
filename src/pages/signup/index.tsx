@@ -39,7 +39,7 @@ const SignUp = (): JSX.Element => {
           passwordConfirmation,
         }),
       );
-      if (response.status === 200) {
+      if (response.payload.status === 'success') {
         console.log('新規登録後のログイン成功です！');
         // TODO トップページへリダイレクトをさせる予定
       }
