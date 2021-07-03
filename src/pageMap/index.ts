@@ -1,16 +1,3 @@
-import { TIcon } from '../components/common/uiParts/atoms/icon/BaseIcon';
-
-type TPageMap = {
-  name: string;
-  link: string;
-  icon: TIcon;
-  query: string;
-  childLinks: {
-    name: string;
-    link: string;
-  }[];
-}[];
-
 export const pageMap = [
   {
     name: '買い物',
@@ -33,10 +20,3 @@ export const pageMap = [
     icon: 'settings',
   },
 ] as const;
-
-// childLinks: [
-//   {
-//     name: '買い物登録',
-//     link: '/shopping/new',
-//   },
-// ],
