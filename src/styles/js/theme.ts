@@ -9,6 +9,12 @@ const theme = createMuiTheme({
         minWidth: 35,
       },
     },
+    MuiListItem: {
+      root: {
+        paddingTop: 6,
+        paddingBottom: 6,
+      },
+    },
   },
   palette: {
     primary: {
