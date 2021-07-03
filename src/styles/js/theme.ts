@@ -3,6 +3,13 @@ import { red } from '@material-ui/core/colors';
 
 // Create a theme instance.
 const theme = createMuiTheme({
+  overrides: {
+    MuiListItemIcon: {
+      root: {
+        minWidth: 35,
+      },
+    },
+  },
   palette: {
     primary: {
       main: '#226cd6',
