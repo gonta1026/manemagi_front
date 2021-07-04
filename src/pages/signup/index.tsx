@@ -3,13 +3,13 @@ import { useFormik } from 'formik';
 import { signupUser } from '../../reducks/services/User';
 import { useDispatch } from 'react-redux';
 import { USERFORM } from '../../const/form/user';
+import CommonWrapTemplate from '../../components/common/template/CommonWrapTemplate';
 import { LabelAndTextField } from '../../components/common/molecules';
 import {
   BasePageTitle,
   BaseButton,
   BaseErrorMessagesWrapper,
 } from '../../components/common/uiParts/atoms';
-import { BaseContainer } from '../../components/common/uiParts/layout';
 import { signupAndLoginValidate } from '../../validate/user/signupAndLogin';
 import { TUser } from '../../types/User';
 
@@ -39,7 +39,7 @@ const SignUp = (): JSX.Element => {
           passwordConfirmation,
         }),
       );
-      if (response.status === 200) {
+      if (response.payload.status === 'success') {
         console.log('新規登録後のログイン成功です！');
         // TODO トップページへリダイレクトをさせる予定
       }
@@ -47,7 +47,7 @@ const SignUp = (): JSX.Element => {
   });
 
   return (
-    <BaseContainer>
+    <CommonWrapTemplate>
       <BasePageTitle className={'my-5'}>新規登録</BasePageTitle>
       <form className="base-vertical-20" onSubmit={formik.handleSubmit}>
         <LabelAndTextField
@@ -121,7 +121,7 @@ const SignUp = (): JSX.Element => {
           </BaseButton>
         </div>
       </form>
-    </BaseContainer>
+    </CommonWrapTemplate>
   );
 };
 

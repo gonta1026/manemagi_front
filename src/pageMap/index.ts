@@ -1,17 +1,24 @@
-// サイドバーなどのpageのリンクn仕様をする想定
+import { TIcon } from '../components/common/uiParts/atoms/icon/BaseIcon';
+
+type TPageMap = {
+  name: string;
+  link: string;
+  icon: TIcon;
+  query: string;
+  childLinks: {
+    name: string;
+    link: string;
+  }[];
+}[];
+
 export const pageMap = [
   {
-    name: '買い物一覧',
+    name: '買い物',
     link: '/shopping',
-    icon: '',
+    icon: 'shoppingCart',
   },
   {
-    name: '買い物登録',
-    link: '/shopping/new',
-    icon: '',
-  },
-  {
-    name: '請求一覧',
+    name: '請求',
     link: '/claim',
     icon: '',
   },
@@ -21,8 +28,15 @@ export const pageMap = [
     icon: '',
   },
   {
-    name: '設定編集',
+    name: '設定',
     link: '/setting',
-    icon: '',
+    icon: 'settings',
   },
-];
+] as const;
+
+// childLinks: [
+//   {
+//     name: '買い物登録',
+//     link: '/shopping/new',
+//   },
+// ],

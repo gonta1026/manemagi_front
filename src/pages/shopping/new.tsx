@@ -1,7 +1,8 @@
 import React from 'react';
+import CommonWrapTemplate from '../../components/common/template/CommonWrapTemplate';
 
 const ShoppingNew = (): JSX.Element => {
-  return <div>Shopping登録ページ</div>;
+  return <CommonWrapTemplate>Shopping登録ページ</CommonWrapTemplate>;
 };
 
 export default ShoppingNew;
