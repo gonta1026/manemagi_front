@@ -5,6 +5,7 @@ export { default as BaseLoading } from './loading/BaseLoading';
 export { default as BaseLink } from './link/BaseLink';
 export { default as BaseList } from './list/BaseList';
 export { default as BaseListItem } from './list/BaseListItem';
+export { default as BaseListItemText } from './text/BaseListItemText';
 export { default as BasePageTitle } from './title/BasePageTitle';
 export { default as BaseRequired } from './form/BaseRequired';
 export { default as BaseIcon } from './icon//BaseIcon';

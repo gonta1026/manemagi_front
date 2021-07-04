@@ -1,7 +1,13 @@
 import React from 'react';
-import { ListItemText } from '@material-ui/core/';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import { BaseIcon, BaseLink, BaseList, BaseListItem, BaseDrawer } from '../../uiParts/atoms';
+import {
+  BaseIcon,
+  BaseLink,
+  BaseList,
+  BaseListItem,
+  BaseListItemText,
+  BaseDrawer,
+} from '../../uiParts/atoms';
 import { pageMap } from '../../../../pageMap';
 
 const Drawer = ({
@@ -32,7 +38,10 @@ const Drawer = ({
             <BaseLink pathname={page.link} key={index}>
               <BaseListItem>
                 {page.icon && <BaseIcon icon={page.icon} />}
-                <ListItemText primary={page.name} className={!page.icon ? classes.childLink : ''} />
+                <BaseListItemText
+                  primary={page.name}
+                  className={!page.icon ? classes.childLink : ''}
+                />
               </BaseListItem>
             </BaseLink>
           ))}
