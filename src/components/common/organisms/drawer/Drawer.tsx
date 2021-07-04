@@ -1,12 +1,10 @@
 import React from 'react';
-import List from '@material-ui/core/List';
-import Drawer from '@material-ui/core/Drawer';
-import { ListItem, ListItemText } from '@material-ui/core/';
+import { ListItemText } from '@material-ui/core/';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import { BaseIcon, BaseLink } from '../../uiParts/atoms';
+import { BaseIcon, BaseLink, BaseList, BaseListItem, BaseDrawer } from '../../uiParts/atoms';
 import { pageMap } from '../../../../pageMap';
 
-const BaseDrawer = ({
+const Drawer = ({
   className = '',
   toggleDrawer,
   isDrawerOpen,
@@ -27,21 +25,21 @@ const BaseDrawer = ({
   )();
 
   return (
-    <Drawer anchor={'left'} open={isDrawerOpen} onClose={toggleDrawer(false)} className={className}>
+    <BaseDrawer className={className} open={isDrawerOpen} onClose={toggleDrawer}>
       <div className={classes.list} role="presentation">
-        <List>
+        <BaseList>
           {pageMap.map((page, index) => (
             <BaseLink pathname={page.link} key={index}>
-              <ListItem button>
+              <BaseListItem>
                 {page.icon && <BaseIcon icon={page.icon} />}
                 <ListItemText primary={page.name} className={!page.icon ? classes.childLink : ''} />
-              </ListItem>
+              </BaseListItem>
             </BaseLink>
           ))}
-        </List>
+        </BaseList>
       </div>
-    </Drawer>
+    </BaseDrawer>
   );
 };
 
-export default BaseDrawer;
+export default Drawer;

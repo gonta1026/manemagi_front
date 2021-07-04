@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { BaseContainer } from '../uiParts/layout';
-import { BaseHeader, BaseDrawer } from '../organisms';
+import { BaseHeader, Drawer } from '../organisms';
 
 const CommonWrapTemplate = ({ children }: { children: ReactNode }) => {
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
@@ -15,7 +15,7 @@ const CommonWrapTemplate = ({ children }: { children: ReactNode }) => {
   return (
     <>
       <BaseHeader toggleDrawer={toggleDrawer} />
-      <BaseDrawer isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
+      <Drawer isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
       <BaseContainer>{children}</BaseContainer>
     </>
   );
