@@ -1,5 +1,6 @@
 import React from 'react';
-import { makeStyles, createStyles } from '@material-ui/core/styles';
+import { pageMap } from '../../../../pageMap';
+import { materialStyles } from '../../../../styles/js/material';
 import {
   BaseIcon,
   BaseLink,
@@ -8,28 +9,20 @@ import {
   BaseListItemText,
   BaseDrawer,
 } from '../../uiParts/atoms';
-import { pageMap } from '../../../../pageMap';
-
-const Drawer = ({
-  className = '',
-  toggleDrawer,
-  isDrawerOpen,
-}: {
+type TProps = {
   className?: string;
   toggleDrawer: any;
   isDrawerOpen: boolean;
-}) => {
-  const classes = makeStyles(() =>
-    createStyles({
-      list: {
-        width: 250,
-      },
-      childLink: {
-        paddingLeft: 35,
-      },
-    }),
-  )();
-
+};
+const Drawer = ({ className = '', toggleDrawer, isDrawerOpen }: TProps) => {
+  const classes = materialStyles({
+    list: {
+      width: 250,
+    },
+    childLink: {
+      paddingLeft: 35,
+    },
+  });
   return (
     <BaseDrawer className={className} open={isDrawerOpen} onClose={toggleDrawer}>
       <div className={classes.list} role="presentation">
@@ -50,5 +43,4 @@ const Drawer = ({
     </BaseDrawer>
   );
 };
-
 export default Drawer;
