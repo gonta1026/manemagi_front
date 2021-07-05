@@ -24,3 +24,20 @@ export const signupUser = createAsyncThunk(
     }
   },
 );
+
+export const loginUser = createAsyncThunk('user/loginUser', async (loginForm: TUser, thunkAPI) => {
+  try {
+    const response: any = await ApiClient.postRequest(
+      DEVISE_TOKEN_AUTH.REGISTRATIONS.CREATE,
+      loginForm,
+    );
+    const { headers } = response;
+    localStorage.setItem('accessToken', headers['access-token']);
+    localStorage.setItem('client', headers['client']);
+    localStorage.setItem('uid', headers['uid']);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    return thunkAPI.rejectWithValue({ errorMessage: error.message });
+  }
+});

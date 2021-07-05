@@ -1,6 +1,6 @@
 import React from 'react';
 import { useFormik } from 'formik';
-import { signupUser } from '../../reducks/services/User';
+import { loginUser } from '../../reducks/services/User';
 import { useDispatch } from 'react-redux';
 import { USERFORM } from '../../const/form/user';
 import CommonWrapTemplate from '../../components/common/template/CommonWrapTemplate';
@@ -23,20 +23,16 @@ const Login = (): JSX.Element => {
 
   const formik = useFormik<TUser>({
     initialValues: {
-      name: '',
       email: '',
       password: '',
-      passwordConfirmation: '',
     },
     validate,
     onSubmit: async (values) => {
-      const { name, email, password, passwordConfirmation } = values;
+      const { email, password } = values;
       const response: any = await dispatch(
-        signupUser({
-          name,
+        loginUser({
           email,
           password,
-          passwordConfirmation,
         }),
       );
       if (response.payload.status === 'success') {
@@ -50,21 +46,6 @@ const Login = (): JSX.Element => {
     <CommonWrapTemplate>
       <BasePageTitle className={'my-5'}>ログイン</BasePageTitle>
       <form className="base-vertical-20" onSubmit={formik.handleSubmit}>
-        {/* <LabelAndTextField
-          wrapClass="base-vertical-item"
-          id={USERFORM.NAME.ID}
-          label={USERFORM.NAME.LABEL}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.name}
-        >
-          {formik.errors.name && formik.touched.name && (
-            <BaseErrorMessagesWrapper>
-              <li>{formik.errors.name}</li>
-            </BaseErrorMessagesWrapper>
-          )}
-        </LabelAndTextField> */}
-
         <LabelAndTextField
           wrapClass="base-vertical-item"
           id={USERFORM.EMAIL.ID}
@@ -94,21 +75,6 @@ const Login = (): JSX.Element => {
             </BaseErrorMessagesWrapper>
           )}
         </LabelAndTextField>
-
-        {/* <LabelAndTextField
-          wrapClass="base-vertical-item"
-          id={USERFORM.PASSWORD_CONFIRMATION.ID}
-          label={USERFORM.PASSWORD_CONFIRMATION.LABEL}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.passwordConfirmation}
-        >
-          {formik.errors.passwordConfirmation && formik.touched.passwordConfirmation && (
-            <BaseErrorMessagesWrapper>
-              <li>{formik.errors.passwordConfirmation}</li>
-            </BaseErrorMessagesWrapper>
-          )}
-        </LabelAndTextField> */}
 
         <div className="base-vertical-item flex justify-center">
           <BaseButton
