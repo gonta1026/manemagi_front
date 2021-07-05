@@ -3,11 +3,6 @@ type Constants = {
   version: number;
 };
 
-type Data = {
-  email: string;
-  password: string;
-};
-
 let indexedDb: IDBFactory;
 let dbConstants: Constants;
 let storeConstants: any;
@@ -21,10 +16,11 @@ class Mydb {
     };
     storeConstants = {
       name: 'data',
-      storeOptions: { keyPath: 'id', autoIncrement: true },
+      storeOptions: { keyPath: 'uid', autoIncrement: true },
       indexes: [
-        { indexName: 'email', unique: false },
-        { indexName: 'password', unique: false },
+        { indexName: 'accessToken', unique: false },
+        { indexName: 'client', unique: false },
+        { indexName: 'uid', unique: false },
       ],
     };
   }
@@ -54,11 +50,11 @@ class Mydb {
     };
     // 接続失敗
     request.onerror = (event: any) => {
-      console.log('接続成功:' + event.message);
+      console.log('接続失敗:' + event.message);
     };
   }
 
-  add(data: Data) {
+  add(data: any) {
     console.log('登録');
 
     const trans = db.transaction(storeConstants.name, 'readwrite');
@@ -69,6 +65,21 @@ class Mydb {
     };
     request.onerror = (event: any) => {
       console.log('登録失敗:' + event.message);
+    };
+  }
+
+  getAll() {
+    console.log('全取得');
+
+    const trans = db.transaction([storeConstants.name]);
+    const store = trans.objectStore(storeConstants.name);
+    const request = store.getAll();
+    request.onsuccess = (event: any) => {
+      const rows = event.target.result;
+      console.log(rows);
+    };
+    request.onerror = (event: any) => {
+      console.log('取得失敗:' + event.message);
     };
   }
 }
