@@ -8,3 +8,4 @@ export { default as BaseRequired } from './form/BaseRequired';
 export { default as BaseIcon } from './icon//BaseIcon';
 export { default as BaseLabel } from './form/BaseLabel';
 export { default as BaseTextField } from './form/BaseTextField';
+export { default as BaseTextArea } from './form/BaseTextArea';

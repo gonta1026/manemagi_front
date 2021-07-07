@@ -7,7 +7,7 @@ export const END_POINT = {
     },
   },
   SHOPS: {
-    CREATE: '/api/shops', // ショップ登録
+    CREATE: '/shops', // ショップ登録
   },
   SHOPPINGS: {
     INDEX: '/api/shoppings', // ショップ一覧
