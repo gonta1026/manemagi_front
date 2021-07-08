@@ -16,6 +16,7 @@ const BaseTextArea = ({
   value,
   variant = 'outlined',
   rows,
+  placeholder = '',
 }: {
   className?: string;
   disabled?: boolean;
@@ -28,6 +29,7 @@ const BaseTextArea = ({
   size?: TSize;
   variant?: TVariant;
   rows: number;
+  placeholder?: string;
 }) => {
   return (
     <TextField
@@ -44,6 +46,7 @@ const BaseTextArea = ({
         size,
         variant,
         rows,
+        placeholder,
       }}
     />
   );

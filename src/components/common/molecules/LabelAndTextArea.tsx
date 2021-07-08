@@ -15,6 +15,7 @@ type TProps = {
   size?: TSize;
   variant?: TVariant;
   rows: number;
+  placeholder?: string;
   wrapClass?: string;
   labelClass?: string;
 };
@@ -31,6 +32,7 @@ const LabelAndTextField = ({
   value,
   variant = 'outlined',
   rows,
+  placeholder,
   wrapClass = '',
   labelClass = '',
 }: TProps) => {
@@ -53,6 +55,7 @@ const LabelAndTextField = ({
               size,
               variant,
               rows,
+              placeholder,
             }}
             className={FieldClass}
           />
