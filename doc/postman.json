@@ -1,0 +1,362 @@
+{
+  "info": {
+    "_postman_id": "83c06a79-a12a-46dd-b6e3-77e6eac4483b",
+    "name": "Manamagi_api",
+    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "新規登録",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"name\": \"fugafuga駄々\",\n    \"email\": \"ssswsqqqssswsewa@example.com\",\n    \"password\": \"11111111\",\n    \"password_confirmation\": \"11111111\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "http://localhost:3001/api/auth"
+      },
+      "response": []
+    },
+    {
+      "name": "ログイン",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "access-token",
+            "value": "uBfWnjViU32U1afF2qEBkA",
+            "type": "text"
+          },
+          {
+            "key": "client",
+            "value": "6vAN0MO7DOW1BBCbkgMK_Q",
+            "type": "text"
+          },
+          {
+            "key": "uid",
+            "value": "faga@example.com",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"email\": \"text_user@example.com\",\n    \"password\": \"11111111\"\n}\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "http://localhost:3001/api/auth/sign_in"
+      },
+      "response": []
+    },
+    {
+      "name": "お店の登録",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "access-token",
+            "value": "ndgwidx1ld4jpAHmYx1ZwA",
+            "type": "text"
+          },
+          {
+            "key": "client",
+            "value": "84IGadNWw_YRbYsdSZK_4Q",
+            "type": "text"
+          },
+          {
+            "key": "uid",
+            "value": "fugafuga@example.com",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"name\": \"namename\",\n    \"description\": \"descriptiondescription\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "http://localhost:3001/api/shops"
+      },
+      "response": []
+    },
+    {
+      "name": "店名の一覧を取得",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "http://localhost:3001/api/shops"
+      },
+      "response": []
+    },
+    {
+      "name": "LINEのtoken確認",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer please line_token_set",
+            "type": "text"
+          },
+          {
+            "key": "",
+            "value": "",
+            "description": "\n",
+            "type": "text"
+          }
+        ],
+        "url": "https://notify-api.line.me/api/status"
+      },
+      "response": []
+    },
+    {
+      "name": "設定登録（一旦使用せず）",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "access-token",
+            "value": "ndgwidx1ld4jpAHmYx1ZwA",
+            "type": "text"
+          },
+          {
+            "key": "client",
+            "value": "84IGadNWw_YRbYsdSZK_4Q",
+            "type": "text"
+          },
+          {
+            "key": "uid",
+            "value": "fugafuga@example.com",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"is_use_line\": true,\n    \"line_notice_token\": \"cytHtLYOIg8POCjAOcC8Y3Z8uCIb0v6qKl3GgbmppkC\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "http://localhost:3001/api/settings/1"
+      },
+      "response": []
+    },
+    {
+      "name": "設定編集",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "access-token",
+            "value": "ndgwidx1ld4jpAHmYx1ZwA",
+            "type": "text"
+          },
+          {
+            "key": "client",
+            "value": "84IGadNWw_YRbYsdSZK_4Q",
+            "type": "text"
+          },
+          {
+            "key": "uid",
+            "value": "fugafuga@example.com",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"is_use_line\": true,\n    \"line_notice_token\": \"cytHtLYOIg8POCjAOcC8Y3Z8uCIb0v6qKl3GgbmppkC\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "http://localhost:3001/api/settings/20"
+      },
+      "response": []
+    },
+    {
+      "name": "設定一覧",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "access-token",
+            "value": "ndgwidx1ld4jpAHmYx1ZwA",
+            "type": "text"
+          },
+          {
+            "key": "client",
+            "value": "84IGadNWw_YRbYsdSZK_4Q",
+            "type": "text"
+          },
+          {
+            "key": "uid",
+            "value": "fugafuga@example.com",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "http://localhost:3001/api/settings"
+      },
+      "response": []
+    },
+    {
+      "name": "買い物登録",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "access-token",
+            "value": "ndgwidx1ld4jpAHmYx1ZwA",
+            "type": "text"
+          },
+          {
+            "key": "client",
+            "value": "84IGadNWw_YRbYsdSZK_4Q",
+            "type": "text"
+          },
+          {
+            "key": "uid",
+            "value": "fugafuga@example.com",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"price\": 3000,\n    \"date\": \"2021-07-07\",\n    \"description\": \"\",\n    \"is_line_notice\": false,\n    \"shop_id\": 1\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "http://localhost:3001/api/shoppings"
+      },
+      "response": []
+    },
+    {
+      "name": "買い物情報一覧",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "access-token",
+            "value": "ndgwidx1ld4jpAHmYx1ZwA",
+            "type": "text"
+          },
+          {
+            "key": "client",
+            "value": "84IGadNWw_YRbYsdSZK_4Q",
+            "type": "text"
+          },
+          {
+            "key": "uid",
+            "value": "fugafuga@example.com",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": "http://localhost:3001/api/shoppings"
+      },
+      "response": []
+    },
+    {
+      "name": "買い物情報詳細",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "access-token",
+            "value": "ndgwidx1ld4jpAHmYx1ZwA",
+            "type": "text"
+          },
+          {
+            "key": "client",
+            "value": "84IGadNWw_YRbYsdSZK_4Q",
+            "type": "text"
+          },
+          {
+            "key": "uid",
+            "value": "fugafuga@example.com",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": "http://localhost:3001/api/shoppings/64"
+      },
+      "response": []
+    },
+    {
+      "name": "請求登録",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "access-token",
+            "value": "ndgwidx1ld4jpAHmYx1ZwA",
+            "type": "text"
+          },
+          {
+            "key": "client",
+            "value": "84IGadNWw_YRbYsdSZK_4Q",
+            "type": "text"
+          },
+          {
+            "key": "uid",
+            "value": "fugafuga@example.com",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"is_line_notice\": true,\n    \"shopping_ids\": [66, 67, 68, 69]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "http://localhost:3001/api/claims"
+      },
+      "response": []
+    }
+  ]
+}
