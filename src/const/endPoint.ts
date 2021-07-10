@@ -7,14 +7,14 @@ export const END_POINT = {
     },
   },
   SHOPS: {
-    CREATE: '/api/shops', // ショップ登録
+    CREATE: '/shops', // ショップ登録
   },
   SHOPPINGS: {
-    INDEX: '/api/shoppings', // ショップ一覧
-    CREATE: '/api/shoppings', // 買い物登録
+    INDEX: '/shoppings', // ショップ一覧
+    CREATE: '/shoppings', // 買い物登録
   },
   CLAIMS: {
-    INDEX: '/api/claims', // 請求一覧
-    CREATE: 'api/claims', // 請求登録
+    INDEX: '/claims', // 請求一覧
+    CREATE: '/claims', // 請求登録
   },
 } as const;
