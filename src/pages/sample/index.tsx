@@ -38,6 +38,14 @@ const Sample: React.FC = () => {
         戻る
       </BaseButton>
       <BaseButton
+        color="primary"
+        onClick={() => console.log('click')}
+        startIcon="search"
+        variant="contained"
+      >
+        検索
+      </BaseButton>
+      <BaseButton
         color="inherit"
         onClick={() => console.log('click')}
         startIcon="update"
