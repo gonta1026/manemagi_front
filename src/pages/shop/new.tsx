@@ -10,7 +10,7 @@ import {
   BaseButton,
   BaseErrorMessagesWrapper,
 } from '../../components/common/uiParts/atoms';
-import { registerShopValidate } from '../../validate/shop/regist';
+import { registerShopValidate } from '../../validate/shop/register';
 import { TShop } from '../../types/Shop';
 
 const NewShop = (): JSX.Element => {

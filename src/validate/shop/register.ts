@@ -1,6 +1,6 @@
 import { TShop } from '../../types/Shop';
 import { SHOPFORM } from '../../const/form/shop';
-import { validBlank } from '../';
+import { validBlank } from '..';
 
 export const registerShopValidate = (values: TShop, errors: TShop) => {
   const { NAME } = SHOPFORM;
