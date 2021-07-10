@@ -4,7 +4,7 @@ import { TSize, TVariant } from '../uiParts/atoms/form/BaseTextField';
 import useIsAfterSsr from '../../../customHook/useIsAfterSsr';
 
 type TProps = {
-  FieldClass?: string;
+  AreaClass?: string;
   disabled?: boolean;
   fullWidth?: boolean;
   id: string;
@@ -14,14 +14,14 @@ type TProps = {
   value: string;
   size?: TSize;
   variant?: TVariant;
-  rows: number;
+  rows?: number;
   placeholder?: string;
   wrapClass?: string;
   labelClass?: string;
 };
 
-const LabelAndTextField = ({
-  FieldClass = '',
+const LabelAndTextArea = ({
+  AreaClass = '',
   disabled,
   fullWidth = true,
   id,
@@ -31,7 +31,7 @@ const LabelAndTextField = ({
   size = 'small',
   value,
   variant = 'outlined',
-  rows,
+  rows = 3,
   placeholder,
   wrapClass = '',
   labelClass = '',
@@ -57,7 +57,7 @@ const LabelAndTextField = ({
               rows,
               placeholder,
             }}
-            className={FieldClass}
+            className={AreaClass}
           />
         </div>
       )}
@@ -65,4 +65,4 @@ const LabelAndTextField = ({
   );
 };
 
-export default LabelAndTextField;
+export default LabelAndTextArea;

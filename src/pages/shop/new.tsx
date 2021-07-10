@@ -1,6 +1,6 @@
 import React from 'react';
 import { useFormik } from 'formik';
-import { registShop } from '../../reducks/services/Shop';
+import { registerShop } from '../../reducks/services/Shop';
 import { useDispatch } from 'react-redux';
 import { SHOPFORM } from '../../const/form/shop';
 import CommonWrapTemplate from '../../components/common/template/CommonWrapTemplate';
@@ -10,16 +10,14 @@ import {
   BaseButton,
   BaseErrorMessagesWrapper,
 } from '../../components/common/uiParts/atoms';
-import { validBlank } from '../../validate/index';
+import { registerShopValidate } from '../../validate/shop/regist';
 import { TShop } from '../../types/Shop';
 
 const NewShop = (): JSX.Element => {
   const dispatch = useDispatch();
   const validate = (values: TShop) => {
-    const errors = {} as TShop;
-    if (validBlank.check(values.name)) {
-      errors.name = validBlank.message(SHOPFORM.NAME.LABEL);
-    }
+    let errors = {} as TShop;
+    errors = registerShopValidate(values, errors);
     return errors;
   };
 
@@ -32,7 +30,7 @@ const NewShop = (): JSX.Element => {
     onSubmit: async (values) => {
       const { name, description } = values;
       const response: any = await dispatch(
-        registShop({
+        registerShop({
           name,
           description,
         }),
@@ -69,7 +67,6 @@ const NewShop = (): JSX.Element => {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.description}
-          rows={3}
         />
 
         <div className="base-vertical-item flex justify-center">

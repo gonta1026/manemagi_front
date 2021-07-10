@@ -5,11 +5,11 @@ import { END_POINT } from '../../const/endPoint';
 
 const { SHOPS } = END_POINT;
 
-export const registShop = createAsyncThunk(
-  'shop/regist',
-  async (shopRegistForm: TShop, thunkAPI) => {
+export const registerShop = createAsyncThunk(
+  'shop/register',
+  async (registerShopForm: TShop, thunkAPI) => {
     try {
-      const response: any = await ApiClient.postRequest(SHOPS.CREATE, shopRegistForm);
+      const response: any = await ApiClient.postRequest(SHOPS.CREATE, registerShopForm);
       return response.data;
     } catch (error) {
       console.log(error);
