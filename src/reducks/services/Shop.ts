@@ -12,7 +12,6 @@ export const registerShop = createAsyncThunk(
       const response: any = await ApiClient.postRequest(SHOPS.CREATE, registerShopForm);
       return response.data;
     } catch (error) {
-      console.log(error);
       return thunkAPI.rejectWithValue({ errorMessage: error.message });
     }
   },
