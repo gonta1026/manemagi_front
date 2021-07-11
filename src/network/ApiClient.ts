@@ -53,8 +53,7 @@ class APIClient {
        * NOTE axiosの処理がpost から OPTIONS に変わってしまうので下記のようにクエリパラメーターを構築している。
        **/
       const snakeParams: any = snakecaseKeys(params);
-      const normalizeParams = new URLSearchParams(snakeParams);
-      const response = await this.axiosInstance.post(url, normalizeParams, config);
+      const response = await this.axiosInstance.post(url, snakeParams, config);
       return response;
     } catch (e) {
       const error = this._normalizeError(e);
