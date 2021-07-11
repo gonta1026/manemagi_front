@@ -17,7 +17,7 @@ const SignUp = (): JSX.Element => {
   const dispatch = useDispatch();
   const validate = (values: TUser) => {
     let errors = {} as TUser;
-    errors = signupAndLoginValidate(values, errors, 'signup');
+    errors = signupAndLoginValidate(values, errors);
     return errors;
   };
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 import { loginUser } from '../../reducks/services/User';
 import { useDispatch } from 'react-redux';
@@ -10,18 +11,21 @@ import {
   BaseButton,
   BaseErrorMessagesWrapper,
 } from '../../components/common/uiParts/atoms';
+import { validateMessage } from '../../validate/message';
 import { signupAndLoginValidate } from '../../validate/user/signupAndLogin';
-import { TUser } from '../../types/User';
+import { TLoginUser } from '../../types/User';
 
 const Login = (): JSX.Element => {
+  const { EMAIL_OR_PASSWORD } = validateMessage;
+  const router = useRouter();
   const dispatch = useDispatch();
-  const validate = (values: TUser) => {
-    let errors = {} as TUser;
-    errors = signupAndLoginValidate(values, errors, 'login');
+  const validate = (values: TLoginUser) => {
+    let errors = {} as TLoginUser;
+    errors = signupAndLoginValidate(values, errors);
     return errors;
   };
 
-  const formik = useFormik<TUser>({
+  const formik = useFormik<TLoginUser>({
     initialValues: {
       email: '',
       password: '',
@@ -35,9 +39,11 @@ const Login = (): JSX.Element => {
           password,
         }),
       );
-      if (response.payload.status === 'success') {
-        console.log('ログイン成功です！');
-        // TODO トップページへリダイレクトをさせる予定
+      if (response.payload.data.id) {
+        router.push('/shop/new');
+      }
+      if (response.payload.data.status === 401) {
+        formik.setFieldError(USERFORM.PASSWORD.ID, EMAIL_OR_PASSWORD);
       }
     },
   });
