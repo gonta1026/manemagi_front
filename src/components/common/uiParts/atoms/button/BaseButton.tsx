@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import Button from '@material-ui/core/Button';
-import { AddCircleOutline } from '@material-ui/icons';
+import { AddCircleOutline, Delete, Update, ArrowBack, Search } from '@material-ui/icons';
 
 const BaseButton = ({
   className = '',
@@ -20,18 +20,24 @@ const BaseButton = ({
   onClick: VoidFunction;
   type?: 'button' | 'submit' | 'reset';
   size?: 'large' | 'medium' | 'small';
-  startIcon?: 'AddCircleOutline' | '';
+  startIcon?: 'addCircleOutline' | 'update' | 'delete' | 'arrowBack' | 'search' | '';
   variant: 'contained' | 'outlined' | 'text';
 }) => {
   const switchIcon = (startIcon: string) => {
     switch (startIcon) {
-      case 'AddCircleOutline':
-        <AddCircleOutline />;
-        break;
+      case 'addCircleOutline':
+        return <AddCircleOutline />;
+      case 'update':
+        return <Update />;
+      case 'delete':
+        return <Delete />;
+      case 'arrowBack':
+        return <ArrowBack />;
+      case 'search':
+        return <Search />;
       default:
         return;
     }
-    return <AddCircleOutline />;
   };
 
   return (

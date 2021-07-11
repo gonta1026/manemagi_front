@@ -15,13 +15,15 @@ const theme = createMuiTheme({
         paddingBottom: 6,
       },
     },
+    MuiButton: {
+      contained: {
+        backgroundColor: '#ffee58',
+      },
+    },
   },
   palette: {
     primary: {
       main: '#226cd6',
-    },
-    secondary: {
-      main: '#19857b',
     },
     error: {
       main: red.A400,
