@@ -1,18 +1,20 @@
-import { TUser } from '../../types/User';
+import { TLoginUser, TUser } from '../../types/User';
 import { USERFORM } from '../../const/form/user';
 import { emailFormat, validRange, validhankakuEngNum, validSame, validBlank } from '../';
 
-export const signupAndLoginValidate = (
-  values: TUser,
-  errors: TUser,
-  targetForm: 'signup' | 'login',
-) => {
+type TLoginUserAndUser = TLoginUser | TUser;
+export const signupAndLoginValidate = <T>(
+  values: TLoginUserAndUser,
+  errors: TLoginUserAndUser,
+): T => {
   const { NAME, EMAIL, PASSWORD, PASSWORD_CONFIRMATION } = USERFORM;
   /******************
    *      名前
    ******************/
-  if (targetForm === 'signup' && validBlank.check(values.name)) {
-    errors.name = validBlank.message(NAME.LABEL);
+  if ('name' in values && 'name' in errors) {
+    if (validBlank.check(values.name)) {
+      errors.name = validBlank.message(NAME.LABEL);
+    }
   }
   /******************
    *  メールアドレス
@@ -38,14 +40,17 @@ export const signupAndLoginValidate = (
   /******************
    * パスワードの再確認
    ******************/
-  if (validBlank.check(values.passwordConfirmation)) {
-    errors.passwordConfirmation = validBlank.message(PASSWORD_CONFIRMATION.LABEL);
+  if ('passwordConfirmation' in values && 'passwordConfirmation' in errors) {
+    if (validBlank.check(values.passwordConfirmation)) {
+      errors.passwordConfirmation = validBlank.message(PASSWORD_CONFIRMATION.LABEL);
+    }
+    if (validRange.check(values.passwordConfirmation, 4, 30)) {
+      errors.passwordConfirmation = validRange.message(PASSWORD_CONFIRMATION.LABEL);
+    }
+    if (validSame.check(values.passwordConfirmation, values.password)) {
+      errors.passwordConfirmation = validSame.message(PASSWORD_CONFIRMATION.LABEL, PASSWORD.LABEL);
+    }
   }
-  if (validRange.check(values.passwordConfirmation, 4, 30)) {
-    errors.passwordConfirmation = validRange.message(PASSWORD_CONFIRMATION.LABEL);
-  }
-  if (validSame.check(values.passwordConfirmation, values.password)) {
-    errors.passwordConfirmation = validSame.message(PASSWORD_CONFIRMATION.LABEL, PASSWORD.LABEL);
-  }
-  return errors;
+
+  return errors as any;
 };
