@@ -7,7 +7,6 @@ const CommonWrapTemplate = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [isDisplay, setIsDisplay] = useState(false);
 
   const toggleDrawer = (open: boolean) => (event: any) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -21,14 +20,12 @@ const CommonWrapTemplate = ({ children }: { children: ReactNode }) => {
     const pages = ['/signup', '/login', '/'];
     const isCurrentPageCheck = pages.some((pageName) => pageName === router.pathname);
     if (
-      isCurrentPageCheck &&
-      // localStorageの扱いもAuth系のクラスでメソッド化させたい。
-      localStorage.getItem('uid') &&
-      localStorage.getItem('accessToken') &&
-      localStorage.getItem('client')
+      !isCurrentPageCheck &&
+      // localStorageの扱いもAuth系のクラスで処理を変更予定。
+      !localStorage.getItem('uid') &&
+      !localStorage.getItem('accessToken') &&
+      !localStorage.getItem('client')
     ) {
-      setIsDisplay(true);
-    } else {
       router.push('/login');
     }
   };
@@ -39,13 +36,9 @@ const CommonWrapTemplate = ({ children }: { children: ReactNode }) => {
 
   return (
     <>
-      {isDisplay && (
-        <>
-          <BaseHeader toggleDrawer={toggleDrawer} />
-          <Drawer isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
-          <BaseContainer>{children}</BaseContainer>
-        </>
-      )}
+      <BaseHeader toggleDrawer={toggleDrawer} />
+      <Drawer isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
+      <BaseContainer>{children}</BaseContainer>
     </>
   );
 };
