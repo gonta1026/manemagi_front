@@ -17,7 +17,7 @@ export type OmitTToastOpenType = Omit<ToastType, 'handleToastOpen' | 'onClose' |
 const useToastAction = (): ToastType => {
   const [open, setOpen] = useState<boolean>(false);
   const [message, setMessage] = useState<string>('');
-  const [severity, setSeverity] = useState<TSeverity>('');
+  const [severity, setSeverity] = useState<TSeverity>('info');
   const [autoHideDuration, setAutoHideDuration] = useState<number>(0);
 
   const handleToastOpen = ({
