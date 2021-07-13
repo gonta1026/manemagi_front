@@ -1,11 +1,19 @@
 import React, { ReactNode, useEffect, useState } from 'react';
 import { BaseContainer } from '../uiParts/layout';
 import { BaseHeader, Drawer } from '../organisms';
+import { BaseToast } from '../molecules';
 import { useRouter } from 'next/router';
+import { ToastType } from '../../../customHook/useToastAction';
+import Button from '@material-ui/core/Button';
 
-const CommonWrapTemplate = ({ children }: { children: ReactNode }) => {
+const CommonWrapTemplate = ({
+  children,
+  toastActions,
+}: {
+  children: ReactNode;
+  toastActions: ToastType;
+}) => {
   const router = useRouter();
-
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const toggleDrawer = (open: boolean) => (event: any) => {
@@ -37,6 +45,8 @@ const CommonWrapTemplate = ({ children }: { children: ReactNode }) => {
   return (
     <>
       <BaseHeader toggleDrawer={toggleDrawer} />
+      <BaseToast {...toastActions} />
+      <Button variant="outlined">Open success snackbar</Button>
       <Drawer isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
       <BaseContainer>{children}</BaseContainer>
     </>
