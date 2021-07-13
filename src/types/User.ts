@@ -6,8 +6,3 @@ export type TUser = {
 };
 
 export type TLoginUser = Omit<TUser, 'name' | 'passwordConfirmation'>;
-
-export type TUserState = {
-  post: TUser | null;
-  posts: TUser[] | null;
-};
