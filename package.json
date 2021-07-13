@@ -14,6 +14,7 @@
   "dependencies": {
     "@material-ui/core": "^4.11.4",
     "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.60",
     "@reduxjs/toolkit": "^1.6.0",
     "@types/react-redux": "^7.1.16",
     "@types/redux-logger": "^3.0.8",
