@@ -11,7 +11,7 @@ const CommonWrapTemplate = ({
   toastActions,
 }: {
   children: ReactNode;
-  toastActions: ToastType;
+  toastActions?: ToastType;
 }) => {
   const router = useRouter();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -44,8 +44,8 @@ const CommonWrapTemplate = ({
 
   return (
     <>
+      {toastActions && <BaseToast {...toastActions} />}
       <BaseHeader toggleDrawer={toggleDrawer} />
-      <BaseToast {...toastActions} />
       <Button variant="outlined">Open success snackbar</Button>
       <Drawer isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
       <BaseContainer>{children}</BaseContainer>

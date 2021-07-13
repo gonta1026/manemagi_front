@@ -1,9 +1,10 @@
 import { useState } from 'react';
 
+type TSeverity = 'info' | 'success' | 'error' | 'warning' | '';
 export interface ToastType {
   handleToastOpen: ({ message, severity, autoHideDuration }: OmitTToastOpenType) => void;
   onClose: (_: any, reason: string) => void;
-  severity?: 'info' | 'success';
+  severity?: TSeverity;
   autoHideDuration?: number;
   open: boolean;
   message: string;
@@ -16,7 +17,7 @@ export type OmitTToastOpenType = Omit<ToastType, 'handleToastOpen' | 'onClose' |
 const useToastAction = (): ToastType => {
   const [open, setOpen] = useState<boolean>(false);
   const [message, setMessage] = useState<string>('');
-  const [severity, setSeverity] = useState<string>('');
+  const [severity, setSeverity] = useState<TSeverity>('');
   const [autoHideDuration, setAutoHideDuration] = useState<number>(0);
 
   const handleToastOpen = ({
