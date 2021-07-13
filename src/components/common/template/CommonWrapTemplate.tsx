@@ -1,4 +1,6 @@
 import React, { ReactNode, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { fetchSettingAndUser } from '../../../reducks/services/Setting';
 import { BaseContainer } from '../uiParts/layout';
 import { BaseHeader, Drawer } from '../organisms';
 import { BaseToast } from '../molecules';
@@ -12,6 +14,7 @@ const CommonWrapTemplate = ({
   children: ReactNode;
   toastActions?: ToastType;
 }) => {
+  const dispatch = useDispatch();
   const router = useRouter();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
@@ -33,7 +36,11 @@ const CommonWrapTemplate = ({
       !localStorage.getItem('accessToken') &&
       !localStorage.getItem('client')
     ) {
+      // NOTE ログインしていなければ
       router.push('/login');
+    } else {
+      // ログインしていたら初期データの取得しグローバル登録
+      dispatch(fetchSettingAndUser());
     }
   };
 
