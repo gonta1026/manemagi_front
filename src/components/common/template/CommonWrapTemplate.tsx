@@ -1,11 +1,18 @@
 import React, { ReactNode, useEffect, useState } from 'react';
 import { BaseContainer } from '../uiParts/layout';
 import { BaseHeader, Drawer } from '../organisms';
+import { BaseToast } from '../molecules';
 import { useRouter } from 'next/router';
+import { ToastType } from '../../../customHook/useToastAction';
 
-const CommonWrapTemplate = ({ children }: { children: ReactNode }) => {
+const CommonWrapTemplate = ({
+  children,
+  toastActions,
+}: {
+  children: ReactNode;
+  toastActions?: ToastType;
+}) => {
   const router = useRouter();
-
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const toggleDrawer = (open: boolean) => (event: any) => {
@@ -36,6 +43,7 @@ const CommonWrapTemplate = ({ children }: { children: ReactNode }) => {
 
   return (
     <>
+      {toastActions && <BaseToast {...toastActions} />}
       <BaseHeader toggleDrawer={toggleDrawer} />
       <Drawer isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
       <BaseContainer>{children}</BaseContainer>
