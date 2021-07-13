@@ -4,7 +4,6 @@ import { BaseHeader, Drawer } from '../organisms';
 import { BaseToast } from '../molecules';
 import { useRouter } from 'next/router';
 import { ToastType } from '../../../customHook/useToastAction';
-import Button from '@material-ui/core/Button';
 
 const CommonWrapTemplate = ({
   children,
@@ -46,7 +45,6 @@ const CommonWrapTemplate = ({
     <>
       {toastActions && <BaseToast {...toastActions} />}
       <BaseHeader toggleDrawer={toggleDrawer} />
-      <Button variant="outlined">Open success snackbar</Button>
       <Drawer isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
       <BaseContainer>{children}</BaseContainer>
     </>
