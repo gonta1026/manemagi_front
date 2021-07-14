@@ -25,7 +25,7 @@ const CommonWrapTemplate = ({
     setIsDrawerOpen(open);
   };
 
-  const isStorageCheck = (): boolean => {
+  const storageExists = (): boolean => {
     let flag = false;
     if (
       localStorage.getItem('uid') &&
@@ -40,12 +40,11 @@ const CommonWrapTemplate = ({
   // Auth系のclassのところに処理を持ってくる。
   const isLogindCheck = () => {
     const perimitPages = ['/signup', '/login', '/'];
-    const perimitPage = perimitPages.find((pageName) => pageName === router.pathname);
-
+    const perimitPageExists = perimitPages.find((pageName) => pageName === router.pathname);
     if (
       // pages以外のところでトークンがなかったらログインページに飛ばす。
-      perimitPage &&
-      !isStorageCheck()
+      !perimitPageExists &&
+      !storageExists()
     ) {
       router.push('/login');
     }
@@ -53,7 +52,7 @@ const CommonWrapTemplate = ({
 
   useEffect(() => {
     isLogindCheck();
-    if (isStorageCheck()) {
+    if (storageExists()) {
       dispatch(fetchSettingAndUser());
     }
   }, []);
