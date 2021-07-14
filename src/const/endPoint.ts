@@ -18,6 +18,6 @@ export const END_POINT = {
     CREATE: '/claims', // 請求登録
   },
   SETTINGS: {
-    UPDATE: '/settings', // LINEトークン登録・更新
+    INDEX: '/settings',
   },
 } as const;
