@@ -12,8 +12,10 @@ import {
 } from '../../components/common/uiParts/atoms';
 import { registerShopValidate } from '../../validate/shop/register';
 import { TShop } from '../../types/Shop';
+import useToastAction from '../../customHook/useToastAction';
 
 const NewShop = (): JSX.Element => {
+  const toastActions = useToastAction();
   const dispatch = useDispatch();
   const validate = (values: TShop) => {
     let errors = {} as TShop;
@@ -35,14 +37,21 @@ const NewShop = (): JSX.Element => {
           description,
         }),
       );
-      if (response.payload.status === 'success') {
-        console.log('お店の登録完了!');
+
+      console.log(response.payload.status);
+      if (response.payload.status === 'SUCCESS') {
+        const { handleToastOpen } = toastActions;
+        handleToastOpen({
+          message: `お店の${name}を登録しました！`,
+          severity: 'success',
+          autoHideDuration: 5000,
+        });
       }
     },
   });
 
   return (
-    <CommonWrapTemplate>
+    <CommonWrapTemplate toastActions={toastActions}>
       <BasePageTitle className={'my-5'}>お店登録</BasePageTitle>
       <form className="base-vertical-20" onSubmit={formik.handleSubmit}>
         <LabelAndTextField
@@ -70,12 +79,7 @@ const NewShop = (): JSX.Element => {
         />
 
         <div className="base-vertical-item flex justify-center">
-          <BaseButton
-            color={'primary'}
-            onClick={() => console.log('click')}
-            type={'submit'}
-            variant={'contained'}
-          >
+          <BaseButton color={'primary'} type={'submit'} variant={'contained'}>
             登録
           </BaseButton>
         </div>

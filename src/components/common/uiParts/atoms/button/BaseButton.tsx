@@ -17,7 +17,7 @@ const BaseButton = ({
   children: ReactNode;
   color?: 'default' | 'inherit' | 'primary' | 'secondary';
   disabled?: boolean;
-  onClick: VoidFunction;
+  onClick?: VoidFunction;
   type?: 'button' | 'submit' | 'reset';
   size?: 'large' | 'medium' | 'small';
   startIcon?: 'addCircleOutline' | 'update' | 'delete' | 'arrowBack' | 'search' | '';

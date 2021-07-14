@@ -1,29 +1,28 @@
 import React, { ReactNode } from 'react';
-import { AccountCircle, Money, PersonOutline, Settings, ShoppingCart } from '@material-ui/icons';
+import { AccountCircle, Settings, ShoppingCart, Money } from '@material-ui/icons';
 import { ListItemIcon } from '@material-ui/core';
-export type TIcon = 'accountCircle' | 'money' | 'personOutline' | 'settings' | 'shoppingCart';
+
+export type TIcon = 'settings' | 'shoppingCart' | 'money' | 'accountCircle';
 
 const BaseIcon = ({
-  className = '',
-  onClick,
+  className,
   icon,
+  onClick,
 }: {
   className?: string;
-  onClick: any;
   icon: TIcon;
+  onClick?: any;
 }) => {
   const switchIcon = (icon: TIcon): ReactNode => {
     switch (icon) {
-      case 'accountCircle':
-        return <AccountCircle />;
-      case 'money':
-        return <Money />;
-      case 'personOutline':
-        return <PersonOutline />;
-      case 'settings':
-        return <Settings />;
       case 'shoppingCart':
         return <ShoppingCart />;
+      case 'money':
+        return <Money />;
+      case 'settings':
+        return <Settings />;
+      case 'accountCircle':
+        return <AccountCircle />;
       default:
         return;
     }

@@ -1,9 +1,22 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { fetchSettingAndUser } from '../../../reducks/services/Setting';
 import { BaseContainer } from '../uiParts/layout';
 import { BaseHeader, Drawer } from '../organisms';
+import { BaseToast } from '../molecules';
+import { useRouter } from 'next/router';
+import { ToastType } from '../../../customHook/useToastAction';
 
-const CommonWrapTemplate = ({ children }: { children: ReactNode }) => {
-  const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
+const CommonWrapTemplate = ({
+  children,
+  toastActions,
+}: {
+  children: ReactNode;
+  toastActions?: ToastType;
+}) => {
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const toggleDrawer = (open: boolean) => (event: any) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -12,8 +25,32 @@ const CommonWrapTemplate = ({ children }: { children: ReactNode }) => {
     setIsDrawerOpen(open);
   };
 
+  // Auth系のclassのところに処理を持ってくる。
+  const isLogindCheck = () => {
+    const pages = ['/signup', '/login', '/'];
+    const isCurrentPageCheck = pages.some((pageName) => pageName === router.pathname);
+    if (
+      !isCurrentPageCheck &&
+      // localStorageの扱いもAuth系のクラスで処理を変更予定。
+      !localStorage.getItem('uid') &&
+      !localStorage.getItem('accessToken') &&
+      !localStorage.getItem('client')
+    ) {
+      // NOTE ログインしていなければ
+      router.push('/login');
+    } else {
+      // ログインしていたら初期データの取得しグローバル登録
+      dispatch(fetchSettingAndUser());
+    }
+  };
+
+  useEffect(() => {
+    isLogindCheck();
+  }, []);
+
   return (
     <>
+      {toastActions && <BaseToast {...toastActions} />}
       <BaseHeader toggleDrawer={toggleDrawer} />
       <Drawer isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
       <BaseContainer>{children}</BaseContainer>

@@ -5,7 +5,4 @@ export type TUser = {
   passwordConfirmation: string;
 };
 
-export type TUserState = {
-  post: TUser | null;
-  posts: TUser[] | null;
-};
+export type TLoginUser = Omit<TUser, 'name' | 'passwordConfirmation'>;
