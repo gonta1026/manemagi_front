@@ -25,27 +25,37 @@ const CommonWrapTemplate = ({
     setIsDrawerOpen(open);
   };
 
+  const isStorageCheck = (): boolean => {
+    let flag = false;
+    if (
+      localStorage.getItem('uid') &&
+      localStorage.getItem('accessToken') &&
+      localStorage.getItem('client')
+    ) {
+      flag = true;
+    }
+    return flag;
+  };
+
   // Auth系のclassのところに処理を持ってくる。
   const isLogindCheck = () => {
-    const pages = ['/signup', '/login', '/'];
-    const isCurrentPageCheck = pages.some((pageName) => pageName === router.pathname);
+    const perimitPages = ['/signup', '/login', '/'];
+    const perimitPage = perimitPages.find((pageName) => pageName === router.pathname);
+
     if (
-      !isCurrentPageCheck &&
-      // localStorageの扱いもAuth系のクラスで処理を変更予定。
-      !localStorage.getItem('uid') &&
-      !localStorage.getItem('accessToken') &&
-      !localStorage.getItem('client')
+      // pages以外のところでトークンがなかったらログインページに飛ばす。
+      perimitPage &&
+      !isStorageCheck()
     ) {
-      // NOTE ログインしていなければ
       router.push('/login');
-    } else {
-      // ログインしていたら初期データの取得しグローバル登録
-      dispatch(fetchSettingAndUser());
     }
   };
 
   useEffect(() => {
     isLogindCheck();
+    if (isStorageCheck()) {
+      dispatch(fetchSettingAndUser());
+    }
   }, []);
 
   return (
