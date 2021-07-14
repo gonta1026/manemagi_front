@@ -1,6 +1,6 @@
 import React from 'react';
 import { useFormik } from 'formik';
-import { updateSettings } from '../../reducks/services/Settings';
+import { fetchSettingAndUser } from '../../reducks/services/Setting';
 import { useDispatch } from 'react-redux';
 import { SETTINGSFORM } from '../../const/form/settings';
 import CommonWrapTemplate from '../../components/common/template/CommonWrapTemplate';
@@ -12,33 +12,33 @@ import {
   BaseSwitch,
 } from '../../components/common/uiParts/atoms';
 import { settingsValidate } from '../../validate/settings/setting';
-import { TSettings } from '../../types/Settings';
+import { TSetting } from '../../types/Setting';
 
 const Settings = (): JSX.Element => {
   const dispatch = useDispatch();
-  const validate = (values: TSettings) => {
-    let errors = {} as TSettings;
+  const validate = (values: TSetting) => {
+    let errors = {} as TSetting;
     errors = settingsValidate(values, errors);
     return errors;
   };
 
-  const formik = useFormik<TSettings>({
+  const formik = useFormik<TSetting>({
     initialValues: {
-      isUseLine: true,
-      lineNoticeToken: '',
+      is_use_line: false,
+      line_notice_token: '',
     },
     validate,
     onSubmit: async (values) => {
-      const { isUseLine, lineNoticeToken } = values;
-      const response: any = await dispatch(
-        updateSettings({
-          isUseLine,
-          lineNoticeToken,
-        }),
-      );
-      if (response.payload.status === 'success') {
-        console.log('LINE設定の更新完了!');
-      }
+      // const { is_use_line, line_notice_token } = values;
+      // const response: any = await dispatch(
+      //   fetchSettingAndUser({
+      //     is_use_line,
+      //     line_notice_token,
+      //   }),
+      // );
+      // if (response.payload.status === 'success') {
+      //   console.log('LINE設定の更新完了!');
+      // }
     },
   });
 
@@ -53,22 +53,22 @@ const Settings = (): JSX.Element => {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           required={true}
-          value={formik.values.lineNoticeToken}
+          value={formik.values.line_notice_token as string}
         >
-          {formik.errors.lineNoticeToken && formik.touched.lineNoticeToken && (
+          {formik.errors.line_notice_token && formik.touched.line_notice_token && (
             <BaseErrorMessagesWrapper>
-              <li>{formik.errors.lineNoticeToken}</li>
+              <li>{formik.errors.line_notice_token}</li>
             </BaseErrorMessagesWrapper>
           )}
         </LabelAndTextField>
 
         <div className="base-vertical-item flex items-center">
           <BaseSwitch
-            checked={formik.values.isUseLine}
+            checked={formik.values.is_use_line}
             color="primary"
-            onChange={() => formik.setFieldValue('isUseLine', !formik.values.isUseLine)}
+            onChange={() => formik.setFieldValue('is_use_line', !formik.values.is_use_line)}
           />
-          <p className="ml-2">LINE通知{formik.values.isUseLine ? 'ON' : 'OFF'}</p>
+          <p className="ml-2">LINE通知{formik.values.is_use_line ? 'ON' : 'OFF'}</p>
         </div>
 
         <div className="base-vertical-item flex justify-center">
