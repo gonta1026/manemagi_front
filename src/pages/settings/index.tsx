@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useFormik } from 'formik';
-import { registerShop } from '../../reducks/services/Shop';
+import { updateSettings } from '../../reducks/services/Settings';
 import { useDispatch } from 'react-redux';
-import { SHOPFORM } from '../../const/form/shop';
+import { SETTINGSFORM } from '../../const/form/settings';
 import CommonWrapTemplate from '../../components/common/template/CommonWrapTemplate';
 import { LabelAndTextField } from '../../components/common/molecules';
 import {
@@ -11,42 +11,36 @@ import {
   BaseErrorMessagesWrapper,
   BaseSwitch,
 } from '../../components/common/uiParts/atoms';
-import { registerShopValidate } from '../../validate/shop/register';
-import { TShop } from '../../types/Shop';
+import { settingsValidate } from '../../validate/settings/setting';
+import { TSettings } from '../../types/Settings';
 
 const Settings = (): JSX.Element => {
-  const [checked, setChecked] = useState<boolean>(true);
-
   const dispatch = useDispatch();
-  const validate = (values: TShop) => {
-    let errors = {} as TShop;
-    errors = registerShopValidate(values, errors);
+  const validate = (values: TSettings) => {
+    let errors = {} as TSettings;
+    errors = settingsValidate(values, errors);
     return errors;
   };
 
-  const formik = useFormik<TShop>({
+  const formik = useFormik<TSettings>({
     initialValues: {
-      name: '',
-      description: '',
+      isUseLine: true,
+      lineNoticeToken: '',
     },
     validate,
     onSubmit: async (values) => {
-      const { name, description } = values;
+      const { isUseLine, lineNoticeToken } = values;
       const response: any = await dispatch(
-        registerShop({
-          name,
-          description,
+        updateSettings({
+          isUseLine,
+          lineNoticeToken,
         }),
       );
       if (response.payload.status === 'success') {
-        console.log('お店の登録完了!');
+        console.log('LINE設定の更新完了!');
       }
     },
   });
-
-  const handleSwitchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setChecked(event.target.checked);
-  };
 
   return (
     <CommonWrapTemplate>
@@ -54,22 +48,27 @@ const Settings = (): JSX.Element => {
       <form className="base-vertical-20" onSubmit={formik.handleSubmit}>
         <LabelAndTextField
           wrapClass="base-vertical-item"
-          id={SHOPFORM.NAME.ID}
-          label={SHOPFORM.NAME.LABEL}
+          id={SETTINGSFORM.LINE_NOTICE_TOKEN.ID}
+          label={SETTINGSFORM.LINE_NOTICE_TOKEN.LABEL}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
-          value={formik.values.name}
+          required={true}
+          value={formik.values.lineNoticeToken}
         >
-          {formik.errors.name && formik.touched.name && (
+          {formik.errors.lineNoticeToken && formik.touched.lineNoticeToken && (
             <BaseErrorMessagesWrapper>
-              <li>{formik.errors.name}</li>
+              <li>{formik.errors.lineNoticeToken}</li>
             </BaseErrorMessagesWrapper>
           )}
         </LabelAndTextField>
 
         <div className="base-vertical-item flex items-center">
-          <BaseSwitch checked={checked} color={'primary'} onChange={handleSwitchChange} />
-          <p className="ml-2">LINE通知{checked ? 'ON' : 'OFF'}</p>
+          <BaseSwitch
+            checked={formik.values.isUseLine}
+            color="primary"
+            onChange={() => formik.setFieldValue('isUseLine', !formik.values.isUseLine)}
+          />
+          <p className="ml-2">LINE通知{formik.values.isUseLine ? 'ON' : 'OFF'}</p>
         </div>
 
         <div className="base-vertical-item flex justify-center">
