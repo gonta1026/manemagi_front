@@ -17,6 +17,7 @@ import useToastAction from '../../customHook/useToastAction';
 
 const NewShop = (): JSX.Element => {
   const [open, setOpen] = useState<boolean>(false);
+  const [isErrorDisplay, setIsErrorDisplay] = useState<boolean>(true);
   const toastActions = useToastAction();
   const dispatch = useDispatch();
   const validate = (values: TShop) => {
@@ -32,9 +33,26 @@ const NewShop = (): JSX.Element => {
     },
     validate,
     onSubmit: async () => {
+      setIsErrorDisplay(false);
       setOpen(true);
     },
   });
+  // formik用のクラス等に移動をさせる可能性あり。
+  type TFormik = typeof formik;
+  const formikFieldInit = (
+    formik: TFormik,
+    setIsErrorDisplay: React.Dispatch<React.SetStateAction<boolean>>,
+    formIds: string[],
+  ) => {
+    formIds.forEach((formId) => {
+      formik.setFieldValue(formId, '');
+      setTimeout(() => {
+        formik.setFieldError(formId, '');
+        formik.setFieldTouched(formId, false);
+        setIsErrorDisplay(true);
+      }, 10);
+    });
+  };
 
   const { name, description } = formik.values;
 
@@ -52,6 +70,7 @@ const NewShop = (): JSX.Element => {
           );
           setOpen(false);
           if (response.payload.status === 'SUCCESS') {
+            formikFieldInit(formik, setIsErrorDisplay, [SHOPFORM.NAME.ID, SHOPFORM.DESCRIPTION.ID]);
             const { handleToastOpen } = toastActions;
             handleToastOpen({
               message: `お店の${name}を登録しました！`,
@@ -61,6 +80,7 @@ const NewShop = (): JSX.Element => {
           }
         }}
       >
+        <h4 className={'font-bold text-center'}>入力確認</h4>
         <dl>
           <dt>
             {SHOPFORM.NAME.LABEL}：{name}
@@ -80,7 +100,7 @@ const NewShop = (): JSX.Element => {
           onBlur={formik.handleBlur}
           value={name}
         >
-          {formik.errors.name && formik.touched.name && (
+          {isErrorDisplay && formik.errors.name && formik.touched.name && (
             <BaseErrorMessagesWrapper>
               <li>{formik.errors.name}</li>
             </BaseErrorMessagesWrapper>
