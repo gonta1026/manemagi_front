@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 import { registerShop } from '../../reducks/services/Shop';
 import { useDispatch } from 'react-redux';
@@ -16,6 +17,7 @@ import { TShop } from '../../types/Shop';
 import useToastAction from '../../customHook/useToastAction';
 
 const NewShop = (): JSX.Element => {
+  const router = useRouter();
   const [open, setOpen] = useState<boolean>(false);
   const [isErrorDisplay, setIsErrorDisplay] = useState<boolean>(true);
   const toastActions = useToastAction();
@@ -122,6 +124,20 @@ const NewShop = (): JSX.Element => {
           </BaseButton>
         </div>
       </form>
+      <hr className="my-5" />
+      <div className="flex justify-center">
+        <BaseButton
+          color={'secondary'}
+          onClick={() => {
+            formik.setFieldTouched(SHOPFORM.NAME.ID, false);
+            router.push('/');
+          }} //本来はショップ一覧画面へ遷移
+          type={'submit'}
+          variant={'contained'}
+        >
+          ショップ一覧画面
+        </BaseButton>
+      </div>
     </CommonWrapTemplate>
   );
 };
