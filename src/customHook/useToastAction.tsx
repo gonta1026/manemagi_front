@@ -21,7 +21,7 @@ const useToastAction = (): ToastType => {
   const [autoHideDuration, setAutoHideDuration] = useState<number>(0);
 
   const handleToastOpen = ({
-    severity = 'info',
+    severity = 'success',
     message,
     autoHideDuration = 4000,
   }: OmitTToastOpenType) => {
