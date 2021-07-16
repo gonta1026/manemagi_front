@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 import { registerShop } from '../../reducks/services/Shop';
@@ -15,9 +15,11 @@ import {
 import { registerShopValidate } from '../../validate/shop/register';
 import { TShop } from '../../types/Shop';
 import useToastAction from '../../customHook/useToastAction';
+import LocalStorage from '../../utils/LocalStorage';
 
 const NewShop = (): JSX.Element => {
   const router = useRouter();
+  console.log({ router });
   const [open, setOpen] = useState<boolean>(false);
   const [isErrorDisplay, setIsErrorDisplay] = useState<boolean>(true);
   const toastActions = useToastAction();
@@ -56,6 +58,18 @@ const NewShop = (): JSX.Element => {
     });
   };
 
+  useEffect(() => {
+    const loginedNotice = 'loginedNotice'; // TODO 共通の場所におく？
+    const storage = new LocalStorage();
+    const successLoginMessage = storage.getItem(loginedNotice);
+    if (successLoginMessage) {
+      storage.loginedNotice(loginedNotice, () =>
+        toastActions.handleToastOpen({
+          message: successLoginMessage,
+        }),
+      );
+    }
+  }, []);
   const { name, description } = formik.values;
 
   return (
@@ -76,8 +90,6 @@ const NewShop = (): JSX.Element => {
             const { handleToastOpen } = toastActions;
             handleToastOpen({
               message: `お店の${name}を登録しました！`,
-              severity: 'success',
-              autoHideDuration: 5000,
             });
           }
         }}
