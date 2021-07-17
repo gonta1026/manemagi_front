@@ -12,6 +12,7 @@ type TProps = {
   label: string;
   onBlur: any;
   onChange: any;
+  required?: boolean;
   value: string;
   size?: TSize;
   variant?: TVariant;
@@ -28,6 +29,7 @@ const LabelAndTextField = ({
   label,
   onBlur,
   onChange,
+  required = false,
   size = 'small',
   value,
   variant = 'outlined',
@@ -41,7 +43,7 @@ const LabelAndTextField = ({
         <div className={wrapClass}>
           <BaseLabel htmlFor={id} className={labelClass}>
             {label}
-            <BaseRequired>必須</BaseRequired>
+            {required ? <BaseRequired>必須</BaseRequired> : ''}
           </BaseLabel>
           <BaseTextField
             {...{

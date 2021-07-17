@@ -11,7 +11,7 @@ const BaseTextField = ({
   id,
   onBlur,
   onChange,
-  required = false,
+  required,
   size = 'small',
   value,
   variant = 'outlined',
