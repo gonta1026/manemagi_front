@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
-import { registerShop } from '../../reducks/services/Shop';
+import { createShop, fetchShops } from '../../reducks/services/Shop';
 import { useDispatch } from 'react-redux';
 import { SHOPFORM } from '../../const/form/shop';
 import CommonWrapTemplate from '../../components/common/template/CommonWrapTemplate';
@@ -12,25 +12,25 @@ import {
   BaseButton,
   BaseErrorMessagesWrapper,
 } from '../../components/common/uiParts/atoms';
-import { registerShopValidate } from '../../validate/shop/register';
-import { TShop } from '../../types/Shop';
+import { shopNewValidate } from '../../validate/shop/new';
+import { TShop, TShopForm } from '../../types/Shop';
 import useToastAction from '../../customHook/useToastAction';
 import LocalStorage from '../../utils/LocalStorage';
 
 const NewShop = (): JSX.Element => {
   const router = useRouter();
-  console.log({ router });
   const [open, setOpen] = useState<boolean>(false);
+  const [shopNames, setShopNames] = useState<string[]>([]);
   const [isErrorDisplay, setIsErrorDisplay] = useState<boolean>(true);
   const toastActions = useToastAction();
   const dispatch = useDispatch();
-  const validate = (values: TShop) => {
-    let errors = {} as TShop;
-    errors = registerShopValidate(values, errors);
+  const validate = (values: TShopForm) => {
+    let errors = {} as TShopForm;
+    errors = shopNewValidate(values, errors, shopNames);
     return errors;
   };
 
-  const formik = useFormik<TShop>({
+  const formik = useFormik<TShopForm>({
     initialValues: {
       name: '',
       description: '',
@@ -50,6 +50,7 @@ const NewShop = (): JSX.Element => {
   ) => {
     formIds.forEach((formId) => {
       formik.setFieldValue(formId, '');
+      // NOTE 時間差にしないとエラーが消えなかったため。setTimeoutを使用
       setTimeout(() => {
         formik.setFieldError(formId, '');
         formik.setFieldTouched(formId, false);
@@ -69,6 +70,15 @@ const NewShop = (): JSX.Element => {
         }),
       );
     }
+    (async () => {
+      const response: any = await dispatch(fetchShops());
+      const shops: TShop[] = response.payload.data.shops;
+      const shopNames = [] as string[];
+      shops.forEach((shop) => {
+        shopNames.push(shop.name);
+      });
+      setShopNames(shopNames);
+    })();
   }, []);
   const { name, description } = formik.values;
 
@@ -79,7 +89,7 @@ const NewShop = (): JSX.Element => {
         handleClose={() => setOpen(false)}
         handleOk={async () => {
           const response: any = await dispatch(
-            registerShop({
+            createShop({
               name,
               description,
             }),
