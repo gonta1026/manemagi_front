@@ -20,6 +20,16 @@ const theme = createMuiTheme({
         backgroundColor: '#ffee58',
       },
     },
+    MuiDialog: {
+      paper: {
+        margin: 5,
+      },
+      paperFullWidth: {
+        '@media (max-width: 768px)': {
+          maxWidth: 500,
+        },
+      },
+    },
   },
   palette: {
     primary: {
