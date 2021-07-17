@@ -1,9 +1,12 @@
 import { TSetting } from '../../types/Setting';
 import { SETTINGSFORM } from '../../const/form/settings';
-import { validBlank } from '..';
+// import { validBlank } from '..';
 
 export const settingsValidate = (values: TSetting, errors: TSetting) => {
   const { LINE_NOTICE_TOKEN } = SETTINGSFORM;
+  // TODO: コンソール削除
+  console.log(values);
+  console.log(LINE_NOTICE_TOKEN);
   /******************
    * LINEトークン
    ******************/

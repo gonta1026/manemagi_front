@@ -1,7 +1,7 @@
 import React from 'react';
 import { useFormik } from 'formik';
-import { fetchSettingAndUser } from '../../reducks/services/Setting';
-import { useDispatch } from 'react-redux';
+// import { fetchSettingAndUser } from '../../reducks/services/Setting';
+// import { useDispatch } from 'react-redux';
 import { SETTINGSFORM } from '../../const/form/settings';
 import CommonWrapTemplate from '../../components/common/template/CommonWrapTemplate';
 import { LabelAndTextField } from '../../components/common/molecules';
@@ -15,7 +15,7 @@ import { settingsValidate } from '../../validate/settings/setting';
 import { TSetting } from '../../types/Setting';
 
 const Settings = (): JSX.Element => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const validate = (values: TSetting) => {
     let errors = {} as TSetting;
     errors = settingsValidate(values, errors);
@@ -29,7 +29,10 @@ const Settings = (): JSX.Element => {
     },
     validate,
     onSubmit: async (values) => {
-      // const { is_use_line, line_notice_token } = values;
+      const { is_use_line, line_notice_token } = values;
+      // TODO: コンソール削除
+      console.log(is_use_line);
+      console.log(line_notice_token);
       // const response: any = await dispatch(
       //   fetchSettingAndUser({
       //     is_use_line,
