@@ -7,6 +7,7 @@ export const END_POINT = {
     },
   },
   SHOPS: {
+    INDEX: '/shops', // ショップ登録
     CREATE: '/shops', // ショップ登録
   },
   SHOPPINGS: {
@@ -16,5 +17,9 @@ export const END_POINT = {
   CLAIMS: {
     INDEX: '/claims', // 請求一覧
     CREATE: '/claims', // 請求登録
+  },
+  SETTINGS: {
+    INDEX: '/settings',
+    UPDATE: '/settings',
   },
 } as const;

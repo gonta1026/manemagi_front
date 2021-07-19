@@ -28,15 +28,17 @@ const Drawer = ({ className = '', toggleDrawer, isDrawerOpen }: TProps) => {
       <div className={classes.list} role="presentation">
         <BaseList>
           {pageMap.map((page, index) => (
-            <BaseLink pathname={page.link} key={index}>
-              <BaseListItem>
-                {page.icon && <BaseIcon icon={page.icon} />}
-                <BaseListItemText
-                  primary={page.name}
-                  className={!page.icon ? classes.childLink : ''}
-                />
-              </BaseListItem>
-            </BaseLink>
+            <BaseListItem key={index} className={page.icon && index !== 0 ? 'border-t-2' : ''}>
+              <BaseLink pathname={page.link}>
+                <div className="flex items-center">
+                  {page.icon && <BaseIcon icon={page.icon} />}
+                  <BaseListItemText
+                    primary={page.name}
+                    className={!page.icon ? classes.childLink : ''}
+                  />
+                </div>
+              </BaseLink>
+            </BaseListItem>
           ))}
         </BaseList>
       </div>

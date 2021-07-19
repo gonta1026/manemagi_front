@@ -1,4 +1,4 @@
-import { validateMessage } from './message';
+import { validateMessage, registerdColumn } from './message';
 import { validHankakuEngNum, validEmail } from './regExp';
 
 const { END_MESSAGE, FORMAT, MINI_ENG_NUM, PASSWORD_MESSAGE } = validateMessage;
@@ -56,4 +56,16 @@ export const emailFormat = {
     return isValid;
   },
   message: (label: string) => label + FORMAT,
+};
+
+export const validRegisterdName = {
+  check: (name: string, shopNames: string[]): boolean => {
+    let isValid = false;
+    const shopNameExists = shopNames.some((shopName) => shopName === name);
+    if (shopNameExists) {
+      isValid = true;
+    }
+    return isValid;
+  },
+  message: (name: string, label: string) => registerdColumn(name, label),
 };

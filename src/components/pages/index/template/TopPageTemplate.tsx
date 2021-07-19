@@ -1,13 +1,12 @@
 import React, { ReactNode, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { fetchSettingAndUser } from '../../../reducks/services/Setting';
-import { BaseContainer } from '../uiParts/layout';
-import { BaseHeader, Drawer } from '../organisms';
-import { BaseToast } from '../molecules';
+import { fetchSettingAndUser } from '../../../../reducks/services/Setting';
+import { BaseHeader, Drawer } from '../../../common/organisms';
+import { BaseToast } from '../../../common/molecules';
 import { useRouter } from 'next/router';
-import { ToastType } from '../../../customHook/useToastAction';
+import { ToastType } from '../../../../customHook/useToastAction';
 
-const CommonWrapTemplate = ({
+const TopPageTemplate = ({
   children,
   toastActions,
 }: {
@@ -60,11 +59,11 @@ const CommonWrapTemplate = ({
   return (
     <>
       {toastActions && <BaseToast {...toastActions} />}
-      <BaseHeader toggleDrawer={toggleDrawer} />
       <Drawer isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
-      <BaseContainer>{children}</BaseContainer>
+      <BaseHeader toggleDrawer={toggleDrawer} />
+      {children}
     </>
   );
 };
 
-export default CommonWrapTemplate;
+export default TopPageTemplate;

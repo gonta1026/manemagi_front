@@ -12,6 +12,7 @@ import {
   BaseErrorMessagesWrapper,
 } from '../../components/common/uiParts/atoms';
 import { validateMessage } from '../../validate/message';
+import LocalStorage from '../../utils/LocalStorage';
 import { signupAndLoginValidate } from '../../validate/user/signupAndLogin';
 import { TLoginUser } from '../../types/User';
 
@@ -40,7 +41,10 @@ const Login = (): JSX.Element => {
         }),
       );
       if (response.payload.data.id) {
+        const storage = new LocalStorage();
+        storage.setItemAtNotice({ key: 'loginedNotice', noticeMessage: 'ログインしました！' });
         router.push('/shop/new');
+        // TODO トップページ？へリダイレクトをさせる予定。とりあえずはお店の登録画面に遷移させておく
       }
       if (response.payload.data.status === 401) {
         formik.setFieldError(USERFORM.PASSWORD.ID, EMAIL_OR_PASSWORD);
@@ -56,6 +60,7 @@ const Login = (): JSX.Element => {
           wrapClass="base-vertical-item"
           id={USERFORM.EMAIL.ID}
           label={USERFORM.EMAIL.LABEL}
+          focus
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.email}

@@ -9,11 +9,9 @@ type NormalizeError = {
 };
 
 class APIClient {
-  public axiosInstance: AxiosInstance;
-
+  private axiosInstance: AxiosInstance;
   constructor() {
     this.axiosInstance = axios.create({
-      // 初期のtemplateリポジトリ時点では https://jsonplaceholder.typicode.com/posts を envファイルに入れている想定
       baseURL: process.env.API_URL,
       // withCredentials: true
     });
@@ -36,7 +34,7 @@ class APIClient {
     );
   }
 
-  async getRequest(url: string, config?: AxiosRequestConfig) {
+  public async getRequest(this: APIClient, url: string, config?: AxiosRequestConfig) {
     try {
       const response = await this.axiosInstance.get(url, config);
       const normalizeResponse = this.toCamelcaseKeys(response);
@@ -47,21 +45,36 @@ class APIClient {
     }
   }
 
-  async postRequest(url: string, params: any, config?: AxiosRequestConfig) {
+  public async patchRequest(
+    this: APIClient,
+    url: string,
+    params: any,
+    config?: AxiosRequestConfig,
+  ) {
     try {
-      /*
-       * NOTE axiosの処理がpost から OPTIONS に変わってしまうので下記のようにクエリパラメーターを構築している。
-       **/
       const snakeParams: any = snakecaseKeys(params);
-      const response = await this.axiosInstance.post(url, snakeParams, config);
-      return response;
+      const response = await this.axiosInstance.patch(url, snakeParams, config);
+      const normalizeResponse = this.toCamelcaseKeys(response);
+      return normalizeResponse;
     } catch (e) {
       const error = this._normalizeError(e);
       return error;
     }
   }
 
-  async deleteRequest(url: string, params: any) {
+  public async postRequest(this: APIClient, url: string, params: any, config?: AxiosRequestConfig) {
+    try {
+      const snakeParams: any = snakecaseKeys(params);
+      const response = await this.axiosInstance.post(url, snakeParams, config);
+      const normalizeResponse = this.toCamelcaseKeys(response);
+      return normalizeResponse;
+    } catch (e) {
+      const error = this._normalizeError(e);
+      return error;
+    }
+  }
+
+  public async deleteRequest(this: APIClient, url: string, params: any) {
     try {
       const response = await this.axiosInstance.delete(url, params);
       return response;
@@ -71,21 +84,13 @@ class APIClient {
     }
   }
 
-  // handleResponse (response: AxiosResponse<any>) {
-  //   const { data, status } = response
-  //   if (status === 200) {
-  //     return data
-  //   }
-  //   throw new Error(data)
-  // }
-
-  toCamelcaseKeys(response: AxiosResponse<any>) {
-    const data = camelcaseKeys({ ...response.data });
+  private toCamelcaseKeys(response: AxiosResponse<any>) {
+    const data = camelcaseKeys({ ...response.data }, { deep: true }); // NOTE deepによりネストされた箇所も変換対象となる。
     const normalizeResponse = { ...response, data };
     return normalizeResponse;
   }
 
-  _normalizeError(error: any) {
+  private _normalizeError(error: any) {
     const normalizeError: NormalizeError = {
       status: error.response && error.response.status,
       message: error.message,

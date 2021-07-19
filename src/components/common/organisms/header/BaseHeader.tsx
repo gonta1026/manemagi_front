@@ -25,7 +25,7 @@ const BaseHeader = ({
     localStorage.removeItem('uid');
     localStorage.removeItem('client');
     setAnchorEl(null);
-    router.push('/');
+    router.push('/login');
   };
 
   const handleClose = () => {

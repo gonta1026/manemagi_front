@@ -1,15 +1,20 @@
-export const LABEL_SHOPS = {
-  NAME: '店名もしくは場所',
+export const SHOP_LABEL = {
+  NAME: '店名',
   DESCRIPTION: '説明',
+} as const;
+
+export const SHOP_ID = {
+  NAME: 'name',
+  DESCRIPTION: 'description',
 } as const;
 
 export const SHOPFORM = {
   NAME: {
-    LABEL: LABEL_SHOPS.NAME,
-    ID: 'name',
+    LABEL: SHOP_LABEL.NAME,
+    ID: SHOP_ID.NAME,
   },
   DESCRIPTION: {
-    LABEL: LABEL_SHOPS.DESCRIPTION,
-    ID: 'description',
+    LABEL: SHOP_LABEL.DESCRIPTION,
+    ID: SHOP_ID.DESCRIPTION,
   },
 } as const;

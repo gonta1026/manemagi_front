@@ -7,13 +7,16 @@ type TProps = {
   FieldClass?: string;
   children: ReactNode;
   disabled?: boolean;
+  focus?: boolean;
   fullWidth?: boolean;
   id: string;
   label: string;
   onBlur: any;
   onChange: any;
+  required?: boolean;
   value: string;
   size?: TSize;
+  type?: 'text' | 'password';
   variant?: TVariant;
   wrapClass?: string;
   labelClass?: string;
@@ -23,12 +26,15 @@ const LabelAndTextField = ({
   FieldClass = '',
   children,
   disabled,
+  focus = false,
   fullWidth = true,
   id,
   label,
   onBlur,
   onChange,
+  required = false,
   size = 'small',
+  type = 'text',
   value,
   variant = 'outlined',
   wrapClass = '',
@@ -41,17 +47,19 @@ const LabelAndTextField = ({
         <div className={wrapClass}>
           <BaseLabel htmlFor={id} className={labelClass}>
             {label}
-            <BaseRequired>必須</BaseRequired>
+            {required ? <BaseRequired>必須</BaseRequired> : ''}
           </BaseLabel>
           <BaseTextField
             {...{
               disabled,
+              focus,
               fullWidth,
               id,
               onBlur,
               onChange,
               value,
               size,
+              type,
               variant,
             }}
             className={FieldClass}

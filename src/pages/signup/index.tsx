@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 import { signupUser } from '../../reducks/services/User';
 import { useDispatch } from 'react-redux';
@@ -12,8 +13,10 @@ import {
 } from '../../components/common/uiParts/atoms';
 import { signupAndLoginValidate } from '../../validate/user/signupAndLogin';
 import { TUser } from '../../types/User';
+import LocalStorage from '../../utils/LocalStorage';
 
 const SignUp = (): JSX.Element => {
+  const router = useRouter();
   const dispatch = useDispatch();
   const validate = (values: TUser) => {
     let errors = {} as TUser;
@@ -40,8 +43,13 @@ const SignUp = (): JSX.Element => {
         }),
       );
       if (response.payload.status === 'success') {
-        console.log('新規登録後のログイン成功です！');
-        // TODO トップページへリダイレクトをさせる予定
+        const storage = new LocalStorage();
+        storage.setItemAtNotice({
+          key: 'loginedNotice',
+          noticeMessage: 'ユーザー登録をしログインしました！',
+        });
+        router.push('/shop/new');
+        // TODO トップページ？へリダイレクトをさせる予定。とりあえずはお店の登録画面に遷移させておく
       }
     },
   });
@@ -54,6 +62,7 @@ const SignUp = (): JSX.Element => {
           wrapClass="base-vertical-item"
           id={USERFORM.NAME.ID}
           label={USERFORM.NAME.LABEL}
+          focus
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.name}
