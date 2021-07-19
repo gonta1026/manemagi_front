@@ -1,5 +1,5 @@
 import React from 'react';
-import { pageMap } from '../../../../pageMap';
+import { drawerLinks } from '../../../../pageMap';
 import { materialStyles } from '../../../../styles/js/material';
 import {
   BaseIcon,
@@ -27,9 +27,9 @@ const Drawer = ({ className = '', toggleDrawer, isDrawerOpen }: TProps) => {
     <BaseDrawer className={className} open={isDrawerOpen} onClose={toggleDrawer}>
       <div className={classes.list} role="presentation">
         <BaseList>
-          {pageMap.map((page, index) => (
+          {drawerLinks.map((page, index) => (
             <BaseListItem key={index} className={page.icon && index !== 0 ? 'border-t-2' : ''}>
-              <BaseLink pathname={page.link}>
+              <BaseLink pathname={page.link} className={'w-full'}>
                 <div className="flex items-center">
                   {page.icon && <BaseIcon icon={page.icon} />}
                   <BaseListItemText
