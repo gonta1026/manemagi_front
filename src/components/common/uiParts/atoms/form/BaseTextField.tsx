@@ -13,6 +13,7 @@ const BaseTextField = ({
   onChange,
   required,
   size = 'small',
+  type,
   value,
   variant = 'outlined',
 }: {
@@ -25,6 +26,7 @@ const BaseTextField = ({
   required?: boolean;
   value: string;
   size?: TSize;
+  type?: 'text' | 'password';
   variant?: TVariant;
 }) => {
   return (
@@ -37,10 +39,12 @@ const BaseTextField = ({
         onBlur,
         onChange,
         required,
-        value,
         size,
+        type,
+        value,
         variant,
       }}
+      type={'password'}
     />
   );
 };

@@ -15,6 +15,7 @@ type TProps = {
   required?: boolean;
   value: string;
   size?: TSize;
+  type?: 'text' | 'password';
   variant?: TVariant;
   wrapClass?: string;
   labelClass?: string;
@@ -31,6 +32,7 @@ const LabelAndTextField = ({
   onChange,
   required = false,
   size = 'small',
+  type = 'text',
   value,
   variant = 'outlined',
   wrapClass = '',
@@ -54,6 +56,7 @@ const LabelAndTextField = ({
               onChange,
               value,
               size,
+              type,
               variant,
             }}
             className={FieldClass}
