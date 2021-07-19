@@ -20,6 +20,6 @@ export const END_POINT = {
   },
   SETTINGS: {
     INDEX: '/settings',
-    PATCH: '/settings',
+    UPDATE: '/settings',
   },
 } as const;
