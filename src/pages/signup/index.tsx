@@ -62,6 +62,7 @@ const SignUp = (): JSX.Element => {
           wrapClass="base-vertical-item"
           id={USERFORM.NAME.ID}
           label={USERFORM.NAME.LABEL}
+          focus
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.name}

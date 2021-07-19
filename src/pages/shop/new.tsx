@@ -70,16 +70,18 @@ const NewShop = (): JSX.Element => {
         }),
       );
     }
-    (async () => {
-      const response: any = await dispatch(fetchShops());
-      const shops: TShop[] = response.payload.data.shops;
-      const shopNames = [] as string[];
-      shops.forEach((shop) => {
-        shopNames.push(shop.name);
-      });
-      setShopNames(shopNames);
-    })();
+    fetchShopsAndSetShopNames();
   }, []);
+
+  const fetchShopsAndSetShopNames = async () => {
+    const response: any = await dispatch(fetchShops());
+    const shops: TShop[] = response.payload.data.shops;
+    const shopNames = [] as string[];
+    shops.forEach((shop) => {
+      shopNames.push(shop.name);
+    });
+    setShopNames(shopNames);
+  };
   const { name, description } = formik.values;
 
   return (
@@ -101,6 +103,7 @@ const NewShop = (): JSX.Element => {
             handleToastOpen({
               message: `お店の${name}を登録しました！`,
             });
+            fetchShopsAndSetShopNames(); // 再取得とstateのセット
           }
         }}
       >
@@ -123,6 +126,8 @@ const NewShop = (): JSX.Element => {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={name}
+          focus={true}
+          required
         >
           {isErrorDisplay && formik.errors.name && formik.touched.name && (
             <BaseErrorMessagesWrapper>

@@ -60,6 +60,7 @@ const Login = (): JSX.Element => {
           wrapClass="base-vertical-item"
           id={USERFORM.EMAIL.ID}
           label={USERFORM.EMAIL.LABEL}
+          focus
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.email}

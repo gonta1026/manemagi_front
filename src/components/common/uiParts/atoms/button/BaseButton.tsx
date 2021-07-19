@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useRef, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import { AddCircleOutline, Delete, Update, ArrowBack, Search } from '@material-ui/icons';
 
@@ -7,6 +7,7 @@ const BaseButton = ({
   children,
   color = 'default',
   disabled,
+  focus = false,
   onClick,
   size = 'medium',
   startIcon = '',
@@ -17,6 +18,7 @@ const BaseButton = ({
   children: ReactNode;
   color?: 'default' | 'inherit' | 'primary' | 'secondary';
   disabled?: boolean;
+  focus?: boolean;
   onClick?: VoidFunction;
   type?: 'button' | 'submit' | 'reset';
   size?: 'large' | 'medium' | 'small';
@@ -40,8 +42,16 @@ const BaseButton = ({
     }
   };
 
+  const inputEl = useRef<HTMLButtonElement | null>(null);
+  useEffect(() => {
+    if (focus) {
+      inputEl.current?.focus();
+    }
+  }, []);
+
   return (
     <Button
+      ref={inputEl}
       className={className}
       color={color}
       disabled={disabled}

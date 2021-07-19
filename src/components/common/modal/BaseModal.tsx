@@ -23,7 +23,13 @@ const BaseModal = ({ children, handleClose, handleOk, open }: TProps): JSX.Eleme
         <CloseButton className={'right-1 top-1'} handleClose={handleClose} />
         {children}
         <div className="flex justify-center mt-5">
-          <BaseButton color={'primary'} onClick={handleOk} type={'submit'} variant={'contained'}>
+          <BaseButton
+            color={'primary'}
+            focus
+            onClick={handleOk}
+            type={'submit'}
+            variant={'contained'}
+          >
             登録
           </BaseButton>
           <BaseButton

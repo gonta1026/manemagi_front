@@ -7,6 +7,7 @@ type TProps = {
   FieldClass?: string;
   children: ReactNode;
   disabled?: boolean;
+  focus?: boolean;
   fullWidth?: boolean;
   id: string;
   label: string;
@@ -25,6 +26,7 @@ const LabelAndTextField = ({
   FieldClass = '',
   children,
   disabled,
+  focus = false,
   fullWidth = true,
   id,
   label,
@@ -50,6 +52,7 @@ const LabelAndTextField = ({
           <BaseTextField
             {...{
               disabled,
+              focus,
               fullWidth,
               id,
               onBlur,
