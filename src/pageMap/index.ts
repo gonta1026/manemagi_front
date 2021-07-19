@@ -1,6 +1,6 @@
 export const pageMap = [
   {
-    name: '買い物',
+    name: '買い物一覧',
     link: '/shopping',
     icon: 'shoppingCart',
   },
@@ -10,7 +10,7 @@ export const pageMap = [
     icon: '',
   },
   {
-    name: 'お店',
+    name: 'お店一覧',
     link: '/shop',
     icon: 'store',
   },
@@ -20,7 +20,7 @@ export const pageMap = [
     icon: '',
   },
   {
-    name: '請求',
+    name: '請求一覧',
     link: '/claim',
     icon: 'money',
   },
