@@ -5,9 +5,14 @@ export const pageMap = [
     icon: 'shoppingCart',
   },
   {
+    name: '買い物登録',
+    link: '/shopping/new',
+    icon: '',
+  },
+  {
     name: '請求',
     link: '/claim',
-    icon: '',
+    icon: 'money',
   },
   {
     name: '請求登録',
