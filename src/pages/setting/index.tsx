@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
-import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { SETTINGFORM } from '../../const/form/setting';
-import useToastAction from '../../customHook/useToastAction';
+import { useSelector, useDispatch } from 'react-redux';
+/* TODO FormControlLabelはコンポーネント化させる予定 */
+import { FormControlLabel } from '@material-ui/core';
+/* components */
 import CommonWrapTemplate from '../../components/common/template/CommonWrapTemplate';
 import { LabelAndTextField } from '../../components/common/molecules';
 import {
@@ -12,15 +11,22 @@ import {
   BaseButton,
   BaseErrorMessagesWrapper,
   BaseSwitch,
+  BaseLink,
 } from '../../components/common/uiParts/atoms';
-import { settingsValidate } from '../../validate/setting/setting';
+/* const */
+import { SETTINGFORM } from '../../const/form/setting';
+/* customHook */
+import useToastAction from '../../customHook/useToastAction';
+/* pageMap */
+import { page } from '../../pageMap';
+/* reducks */
 import { updateSetting } from '../../reducks/services/Setting';
+/* types */
 import { TSetting, settingAndUser } from '../../types/Setting';
-
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+/* validate */
+import { settingsValidate } from '../../validate/setting/setting';
 
 const Setting = (): JSX.Element => {
-  const router = useRouter();
   const dispatch = useDispatch();
   const toastActions = useToastAction();
   const { settingState } = useSelector((state: { settingState: settingAndUser }) => state);
@@ -70,7 +76,7 @@ const Setting = (): JSX.Element => {
 
   return (
     <CommonWrapTemplate {...{ toastActions }}>
-      <BasePageTitle className={'my-5'}>LINE設定</BasePageTitle>
+      <BasePageTitle className={'my-5'}>{page.setting.edit.name()}</BasePageTitle>
       <form className="base-vertical-20" onSubmit={formik.handleSubmit}>
         <LabelAndTextField
           wrapClass="base-vertical-item"
@@ -79,6 +85,7 @@ const Setting = (): JSX.Element => {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.lineNoticeToken ?? ''}
+          focus
         >
           {formik.errors.lineNoticeToken && formik.touched.lineNoticeToken && (
             <BaseErrorMessagesWrapper>
@@ -103,27 +110,17 @@ const Setting = (): JSX.Element => {
         </div>
 
         <div className="base-vertical-item flex justify-center">
-          <BaseButton
-            color={'primary'}
-            onClick={() => console.log('click')}
-            type={'submit'}
-            variant={'contained'}
-          >
+          <BaseButton color={'primary'} type={'submit'} variant={'contained'}>
             更新
           </BaseButton>
         </div>
         <hr className="my-5" />
         <div className="flex justify-center">
-          <BaseButton
-            color={'secondary'}
-            onClick={() => {
-              router.push('/shop/new');
-            }} //本来はショップ一覧画面へ遷移
-            type={'button'}
-            variant={'contained'}
-          >
-            戻る
-          </BaseButton>
+          <BaseLink pathname={page.shop.register.link()}>
+            <BaseButton color={'secondary'} variant={'contained'}>
+              {page.shop.register.name()}へ戻る
+            </BaseButton>
+          </BaseLink>
         </div>
       </form>
     </CommonWrapTemplate>

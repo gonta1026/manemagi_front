@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
-import { createShop, fetchShops } from '../../reducks/services/Shop';
 import { useDispatch } from 'react-redux';
+/* const */
 import { SHOPFORM } from '../../const/form/shop';
+/* components */
 import CommonWrapTemplate from '../../components/common/template/CommonWrapTemplate';
 import { LabelAndTextField, LabelAndTextArea } from '../../components/common/molecules';
 import BaseModal from '../../components/common/modal/BaseModal';
@@ -11,14 +11,22 @@ import {
   BasePageTitle,
   BaseButton,
   BaseErrorMessagesWrapper,
+  BaseLink,
 } from '../../components/common/uiParts/atoms';
-import { shopNewValidate } from '../../validate/shop/new';
-import { TShop, TShopForm } from '../../types/Shop';
+/* customHook */
 import useToastAction from '../../customHook/useToastAction';
+/* page */
+import { page } from '../../pageMap';
+/* reducks */
+import { createShop, fetchShops } from '../../reducks/services/Shop';
+/* types */
+import { TShop, TShopForm } from '../../types/Shop';
+/* utils */
 import LocalStorage from '../../utils/LocalStorage';
+/* validate */
+import { shopNewValidate } from '../../validate/shop/new';
 
 const NewShop = (): JSX.Element => {
-  const router = useRouter();
   const [open, setOpen] = useState<boolean>(false);
   const [shopNames, setShopNames] = useState<string[]>([]);
   const [isErrorDisplay, setIsErrorDisplay] = useState<boolean>(true);
@@ -117,7 +125,7 @@ const NewShop = (): JSX.Element => {
           </dd>
         </dl>
       </BaseModal>
-      <BasePageTitle className={'my-5'}>お店登録</BasePageTitle>
+      <BasePageTitle className={'my-5'}>{page.shop.register.name()}</BasePageTitle>
       <form className="base-vertical-20" onSubmit={formik.handleSubmit}>
         <LabelAndTextField
           wrapClass="base-vertical-item"
@@ -152,17 +160,11 @@ const NewShop = (): JSX.Element => {
         </div>
         <hr className="my-5" />
         <div className="base-vertical-item flex justify-center">
-          <BaseButton
-            color={'secondary'}
-            onClick={() => {
-              formik.setFieldTouched(SHOPFORM.NAME.ID, false);
-              router.push('/');
-            }} // 本来はショップ一覧画面へ遷移
-            type={'button'}
-            variant={'contained'}
-          >
-            ショップ一覧画面
-          </BaseButton>
+          <BaseLink pathname={page.top.link()}>
+            <BaseButton color={'secondary'} variant={'contained'}>
+              {page.top.name()}へ戻る
+            </BaseButton>
+          </BaseLink>
         </div>
       </form>
     </CommonWrapTemplate>
