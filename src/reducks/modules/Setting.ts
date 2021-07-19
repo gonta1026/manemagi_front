@@ -7,12 +7,13 @@ import { settingAndUser } from '../../types/Setting';
 export type TTUserAndSettingAndError = settingAndUser & TLoadingAndErrorState;
 
 export const initialState: TTUserAndSettingAndError = {
+  // NOTE nullを初期値にしたいが型エラーが出るので0やカラ文字を指定
   user: {
-    id: null,
-    name: null,
+    id: 0,
+    name: '',
     setting: {
-      is_use_line: false,
-      line_notice_token: null,
+      isUseLine: false,
+      lineNoticeToken: '',
     },
   },
   ...commonState,
