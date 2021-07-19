@@ -20,5 +20,6 @@ export const END_POINT = {
   },
   SETTINGS: {
     INDEX: '/settings',
+    PATCH: '/settings',
   },
 } as const;
