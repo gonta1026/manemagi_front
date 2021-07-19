@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import ApiClient from '../../network/ApiClient';
 import { END_POINT } from '../../const/endPoint';
+import { TSetting } from '../../types/Setting';
 
 const { SETTINGS } = END_POINT;
 
@@ -12,3 +13,18 @@ export const fetchSettingAndUser = createAsyncThunk('setting/fetchSetting', asyn
     return thunkAPI.rejectWithValue({ errorMessage: error.message });
   }
 });
+
+export const updateSetting = createAsyncThunk(
+  'setting/update',
+  async (settingForm: TSetting, thunkAPI) => {
+    try {
+      const response: any = await ApiClient.patchRequest(
+        `${SETTINGS.UPDATE}/dummy_id`,
+        settingForm,
+      ); // NOTE API側ではdeviseのcurrent_userからidを指定しているため『dummy_id』で対応している。
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue({ errorMessage: error.message });
+    }
+  },
+);
