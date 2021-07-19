@@ -1,7 +1,7 @@
 import React from 'react';
 import CommonWrapTemplate from '../../components/common/template/CommonWrapTemplate';
 import { BaseLink } from '../../components/common/uiParts/atoms';
-import { pageMap } from '../../pageMap';
+import { drawerLinks } from '../../pageMap';
 
 const Top = (): JSX.Element => {
   return (
@@ -9,7 +9,7 @@ const Top = (): JSX.Element => {
       <section className={'mt-10'}>
         <p>トップページを作ってここをルートのページにしようと考えているが内容が決まっていない。</p>
         <ul>
-          {pageMap.map((page, index) => {
+          {drawerLinks.map((page, index) => {
             return (
               <li key={index}>
                 <BaseLink pathname={page.link}>{page.name}</BaseLink>
