@@ -145,21 +145,21 @@ const NewShop = (): JSX.Element => {
             登録
           </BaseButton>
         </div>
+        <hr className="my-5" />
+        <div className="base-vertical-item flex justify-center">
+          <BaseButton
+            color={'secondary'}
+            onClick={() => {
+              formik.setFieldTouched(SHOPFORM.NAME.ID, false);
+              router.push('/');
+            }} // 本来はショップ一覧画面へ遷移
+            type={'button'}
+            variant={'contained'}
+          >
+            ショップ一覧画面
+          </BaseButton>
+        </div>
       </form>
-      <hr className="my-5" />
-      <div className="flex justify-center">
-        <BaseButton
-          color={'secondary'}
-          onClick={() => {
-            formik.setFieldTouched(SHOPFORM.NAME.ID, false);
-            router.push('/');
-          }} //本来はショップ一覧画面へ遷移
-          type={'submit'}
-          variant={'contained'}
-        >
-          ショップ一覧画面
-        </BaseButton>
-      </div>
     </CommonWrapTemplate>
   );
 };
