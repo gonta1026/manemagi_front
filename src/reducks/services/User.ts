@@ -1,7 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import ApiClient from '../../network/ApiClient';
-import { TUser, TLoginUser } from '../../types/User';
+/* const */
 import { END_POINT } from '../../const/endPoint';
+/* network */
+import ApiClient from '../../network/ApiClient';
+/* types */
+import { TUser, TLoginUser } from '../../types/User';
 
 const { DEVISE_TOKEN_AUTH } = END_POINT;
 

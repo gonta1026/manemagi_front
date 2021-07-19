@@ -1,10 +1,15 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import ApiClient from '../network/ApiClient';
+/* components */
 import TopPageTemplate from '../components/pages/index/template/TopPageTemplate';
-import { BaseButton } from '../components/common/uiParts/atoms';
+import { BaseButton, BaseLink } from '../components/common/uiParts/atoms';
 import { BaseContainer } from '../components/common/uiParts/layout';
+/* const */
 import { mediaSize } from '../const/media';
+/* network */
+import ApiClient from '../network/ApiClient';
+/* pageMap */
+import { page } from '../pageMap/';
 
 const Home: React.FC = () => {
   useEffect(() => {
@@ -73,14 +78,18 @@ const Home: React.FC = () => {
         <hr className="my-5" />
 
         <div className="text-center">
-          <BaseButton color="primary" variant="contained" onClick={() => console.log('click')}>
-            新規登録
-          </BaseButton>
+          <BaseLink pathname={page.signup.link()}>
+            <BaseButton color="primary" variant="contained">
+              {page.signup.name()}
+            </BaseButton>
+          </BaseLink>
 
           <hr className="my-5" />
-          <BaseButton color="primary" variant="contained" onClick={() => console.log('click')}>
-            ログイン
-          </BaseButton>
+          <BaseLink pathname={page.login.link()}>
+            <BaseButton color="primary" variant="contained">
+              {page.login.name()}
+            </BaseButton>
+          </BaseLink>
 
           <hr className="my-5" />
         </div>

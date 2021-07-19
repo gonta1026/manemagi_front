@@ -1,7 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import ApiClient from '../../network/ApiClient';
-import { TShopForm } from '../../types/Shop';
+/* const */
 import { END_POINT } from '../../const/endPoint';
+/* network */
+import ApiClient from '../../network/ApiClient';
+/* types */
+import { TShopForm } from '../../types/Shop';
 
 const { SHOPS } = END_POINT;
 

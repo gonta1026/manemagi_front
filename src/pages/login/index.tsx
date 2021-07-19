@@ -1,9 +1,8 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
-import { loginUser } from '../../reducks/services/User';
 import { useDispatch } from 'react-redux';
-import { USERFORM } from '../../const/form/user';
+/* components */
 import CommonWrapTemplate from '../../components/common/template/CommonWrapTemplate';
 import { LabelAndTextField } from '../../components/common/molecules';
 import {
@@ -11,10 +10,17 @@ import {
   BaseButton,
   BaseErrorMessagesWrapper,
 } from '../../components/common/uiParts/atoms';
-import { validateMessage } from '../../validate/message';
-import LocalStorage from '../../utils/LocalStorage';
-import { signupAndLoginValidate } from '../../validate/user/signupAndLogin';
+/* const */
+import { USERFORM } from '../../const/form/user';
+/* reducks */
+import { loginUser } from '../../reducks/services/User';
+/* types */
 import { TLoginUser } from '../../types/User';
+/* utils */
+import LocalStorage from '../../utils/LocalStorage';
+/* validate */
+import { signupAndLoginValidate } from '../../validate/user/signupAndLogin';
+import { validateMessage } from '../../validate/message';
 
 const Login = (): JSX.Element => {
   const { EMAIL_OR_PASSWORD } = validateMessage;

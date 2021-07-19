@@ -1,6 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import ApiClient from '../../network/ApiClient';
+/* const */
 import { END_POINT } from '../../const/endPoint';
+/* network */
+import ApiClient from '../../network/ApiClient';
+/* types */
 import { TSetting } from '../../types/Setting';
 
 const { SETTINGS } = END_POINT;

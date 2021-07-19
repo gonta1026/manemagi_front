@@ -1,9 +1,8 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
-import { signupUser } from '../../reducks/services/User';
 import { useDispatch } from 'react-redux';
-import { USERFORM } from '../../const/form/user';
+/* components */
 import CommonWrapTemplate from '../../components/common/template/CommonWrapTemplate';
 import { LabelAndTextField } from '../../components/common/molecules';
 import {
@@ -11,9 +10,16 @@ import {
   BaseButton,
   BaseErrorMessagesWrapper,
 } from '../../components/common/uiParts/atoms';
-import { signupAndLoginValidate } from '../../validate/user/signupAndLogin';
+/* const */
+import { USERFORM } from '../../const/form/user';
+/* reducks */
+import { signupUser } from '../../reducks/services/User';
+/* types */
 import { TUser } from '../../types/User';
+/* utils */
 import LocalStorage from '../../utils/LocalStorage';
+/* validate */
+import { signupAndLoginValidate } from '../../validate/user/signupAndLogin';
 
 const SignUp = (): JSX.Element => {
   const router = useRouter();
