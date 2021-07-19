@@ -10,6 +10,16 @@ export const pageMap = [
     icon: '',
   },
   {
+    name: 'お店',
+    link: '/shop',
+    icon: 'store',
+  },
+  {
+    name: 'お店登録',
+    link: '/shop/new',
+    icon: '',
+  },
+  {
     name: '請求',
     link: '/claim',
     icon: 'money',
