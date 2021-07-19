@@ -1,12 +1,12 @@
 export type TSetting = {
-  is_use_line: boolean;
-  line_notice_token?: string | null;
+  isUseLine: boolean;
+  lineNoticeToken: string;
 };
 
 export type settingAndUser = {
   user: {
-    id: number | null;
-    name: string | null;
+    id: number;
+    name: string;
     setting: TSetting;
   };
 };
