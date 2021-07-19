@@ -45,6 +45,23 @@ class APIClient {
     }
   }
 
+  public async patchRequest(
+    this: APIClient,
+    url: string,
+    params: any,
+    config?: AxiosRequestConfig,
+  ) {
+    try {
+      const snakeParams: any = snakecaseKeys(params);
+      const response = await this.axiosInstance.patch(url, snakeParams, config);
+      const normalizeResponse = this.toCamelcaseKeys(response);
+      return normalizeResponse;
+    } catch (e) {
+      const error = this._normalizeError(e);
+      return error;
+    }
+  }
+
   public async postRequest(this: APIClient, url: string, params: any, config?: AxiosRequestConfig) {
     try {
       const snakeParams: any = snakecaseKeys(params);
