@@ -7,10 +7,6 @@ const BaseListItem = ({
 }: {
   className?: string;
   children: ReactNode;
-}): JSX.Element => (
-  <ListItem button {...{ className }}>
-    {children}
-  </ListItem>
-);
+}): JSX.Element => <ListItem {...{ className }}>{children}</ListItem>;
 
 export default BaseListItem;
