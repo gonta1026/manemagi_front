@@ -1,16 +1,13 @@
 import React, { useEffect } from 'react';
 import { useFormik } from 'formik';
 import { useSelector, useDispatch } from 'react-redux';
-/* TODO FormControlLabelはコンポーネント化させる予定 */
-import { FormControlLabel } from '@material-ui/core';
 /* components */
 import CommonWrapTemplate from '../../components/common/template/CommonWrapTemplate';
-import { LabelAndTextField } from '../../components/common/molecules';
+import { LabelAndTextField, LabelAndSwitch } from '../../components/common/molecules';
 import {
   BasePageTitle,
   BaseButton,
   BaseErrorMessagesWrapper,
-  BaseSwitch,
   BaseLink,
 } from '../../components/common/uiParts/atoms';
 /* const */
@@ -93,22 +90,14 @@ const Setting = (): JSX.Element => {
             </BaseErrorMessagesWrapper>
           )}
         </LabelAndTextField>
-
-        <div className="base-vertical-item flex items-center">
-          {/* FormControlLabelはコンポーネント化する */}
-          <FormControlLabel
-            control={
-              <BaseSwitch
-                checked={formik.values.isUseLine}
-                color="primary"
-                id={SETTINGFORM.IS_USE_LINE.ID}
-                onChange={() => formik.setFieldValue('isUseLine', !formik.values.isUseLine)}
-              />
-            }
-            label={`${SETTINGFORM.IS_USE_LINE.LABEL}${formik.values.isUseLine ? 'ON' : 'OFF'}`}
-          />
-        </div>
-
+        {/* LINEのデフォルト通知（isUseLine）*/}
+        <LabelAndSwitch
+          className={'base-vertical-item flex items-center'}
+          checked={formik.values.isUseLine}
+          onChange={() => formik.setFieldValue('isUseLine', !formik.values.isUseLine)}
+          id={SETTINGFORM.IS_USE_LINE.ID}
+          label={`${SETTINGFORM.IS_USE_LINE.LABEL}${formik.values.isUseLine ? 'ON' : 'OFF'}`}
+        />
         <div className="base-vertical-item flex justify-center">
           <BaseButton color={'primary'} type={'submit'} variant={'contained'}>
             更新
