@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { BaseLabel, BaseRequired, BaseTextField } from '../uiParts/atoms';
-import { TSize, TVariant } from '../uiParts/atoms/form/BaseTextField';
+import { TSize, TVariant, TType } from '../uiParts/atoms/form/BaseTextField';
 import useIsAfterSsr from '../../../customHook/useIsAfterSsr';
 
 type TProps = {
@@ -14,9 +14,9 @@ type TProps = {
   onBlur: any;
   onChange: any;
   required?: boolean;
-  value: string;
+  value: string | number;
   size?: TSize;
-  type?: 'text' | 'password';
+  type?: TType;
   variant?: TVariant;
   wrapClass?: string;
   labelClass?: string;

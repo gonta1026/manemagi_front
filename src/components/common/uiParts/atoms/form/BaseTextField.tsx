@@ -3,6 +3,7 @@ import TextField from '@material-ui/core/TextField';
 
 export type TSize = 'medium' | 'small';
 export type TVariant = 'filled' | 'outlined' | 'standard';
+export type TType = 'text' | 'password' | 'date' | 'number';
 
 const BaseTextField = ({
   className = '',
@@ -26,9 +27,9 @@ const BaseTextField = ({
   onBlur: any;
   onChange: any;
   required?: boolean;
-  value: string;
+  value: string | number;
   size?: TSize;
-  type?: 'text' | 'password';
+  type?: TType;
   variant?: TVariant;
 }) => {
   const inputEl = useRef<HTMLDivElement | null>(null);

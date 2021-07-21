@@ -5,16 +5,14 @@ const BaseLabel = ({
   className = '',
   children,
   htmlFor,
+  onClick,
 }: {
   className?: string;
   children: ReactNode;
   htmlFor: string;
+  onClick?: VoidFunction;
 }) => {
-  return (
-    <Label className={className} htmlFor={htmlFor}>
-      {children}
-    </Label>
-  );
+  return <Label {...{ className, htmlFor, onClick }}>{children}</Label>;
 };
 
 const Label = styled.label``;
