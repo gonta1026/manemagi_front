@@ -20,18 +20,7 @@ const BaseSwitch = ({
   onChange: any; // 型をvoidやvoidfunctionにすると弾かれる
   size?: 'medium' | 'small';
 }) => {
-  return (
-    <Switch
-      className={className}
-      checked={checked}
-      color={color}
-      onChange={onChange}
-      id={id}
-      size={size}
-      name={name}
-      disabled={disabled}
-    />
-  );
+  return <Switch {...{ className, checked, color, disabled, id, name, onChange, size }} />;
 };
 
 export default BaseSwitch;
