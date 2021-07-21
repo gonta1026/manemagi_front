@@ -21,6 +21,7 @@
     "autoprefixer": "^10.2.6",
     "axios": "^0.21.1",
     "camelcase-keys": "^6.2.2",
+    "dayjs": "^1.10.6",
     "formik": "^2.2.9",
     "next": "11.0.0",
     "postcss": "^8.3.5",
