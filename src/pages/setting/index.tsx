@@ -3,7 +3,11 @@ import { useFormik } from 'formik';
 import { useSelector, useDispatch } from 'react-redux';
 /* components */
 import CommonWrapTemplate from '../../components/common/template/CommonWrapTemplate';
-import { LabelAndTextField, LabelAndSwitch } from '../../components/common/molecules';
+import {
+  LabelAndTextField,
+  LabelAndSwitch,
+  ExecutionAndBackButtons,
+} from '../../components/common/molecules';
 import {
   BasePageTitle,
   BaseButton,
@@ -14,6 +18,8 @@ import {
 import { SETTINGFORM } from '../../const/form/setting';
 /* customHook */
 import useToastAction from '../../customHook/useToastAction';
+/* utils */
+import { isEmpty } from '../../utils/function';
 /* pageMap */
 import { page } from '../../pageMap';
 /* reducks */
@@ -71,22 +77,46 @@ const Setting = (): JSX.Element => {
     },
   });
 
+  const tokenHelperText = (() => {
+    return (
+      <>
+        <a href="https://notify-bot.line.me/ja/" target="_blank" rel="noopener noreferrer">
+          LINE NOTIFY
+        </a>
+        で{SETTINGFORM.LINE_NOTICE_TOKEN.LABEL}を取得してください。
+      </>
+    );
+  })();
+
+  const isUseLineHelperText = (() => {
+    return (
+      <>
+        こちらをONにしておくと買い物登録、請求登録のデフォルトの送信設定がONになります。
+        <br />
+        なお、ONにしていても登録時にLINE送信設定はOFFヘ変更可能です。
+      </>
+    );
+  })();
+
   return (
     <CommonWrapTemplate {...{ toastActions }}>
       <BasePageTitle className={'my-5'}>{page.setting.edit.name()}</BasePageTitle>
       <form className="base-vertical-20" onSubmit={formik.handleSubmit}>
+        {/* LINEトークン（lineNoticeToken）*/}
         <LabelAndTextField
-          wrapClass="base-vertical-item"
+          focus
+          helperText={tokenHelperText}
           id={SETTINGFORM.LINE_NOTICE_TOKEN.ID}
           label={SETTINGFORM.LINE_NOTICE_TOKEN.LABEL}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
+          placeholder={'cyttLYOIg3Z...（100文字まで）'}
           value={formik.values.lineNoticeToken ?? ''}
-          focus
+          wrapClass="base-vertical-item"
         >
           {formik.errors.lineNoticeToken && formik.touched.lineNoticeToken && (
             <BaseErrorMessagesWrapper>
-              <li>{formik.errors.lineNoticeToken}</li>
+              <li className="mt-1">{formik.errors.lineNoticeToken}</li>
             </BaseErrorMessagesWrapper>
           )}
         </LabelAndTextField>
@@ -94,23 +124,18 @@ const Setting = (): JSX.Element => {
         <LabelAndSwitch
           className={'base-vertical-item flex items-center'}
           checked={formik.values.isUseLine}
+          helperText={isUseLineHelperText}
           onChange={() => formik.setFieldValue('isUseLine', !formik.values.isUseLine)}
           id={SETTINGFORM.IS_USE_LINE.ID}
           label={`${SETTINGFORM.IS_USE_LINE.LABEL}${formik.values.isUseLine ? 'ON' : 'OFF'}`}
         />
-        <div className="base-vertical-item flex justify-center">
-          <BaseButton color={'primary'} type={'submit'} variant={'contained'}>
-            更新
-          </BaseButton>
-        </div>
-        <hr className="my-5" />
-        <div className="flex justify-center">
-          <BaseLink pathname={page.shop.register.link()}>
-            <BaseButton color={'secondary'} variant={'contained'}>
-              {page.shop.register.name()}へ戻る
-            </BaseButton>
-          </BaseLink>
-        </div>
+        <ExecutionAndBackButtons
+          disabledExecution={!isEmpty(formik.errors)}
+          className={'base-vertical-item flex justify-center mt-5'}
+          backPathname={page.shop.register.link()}
+          backButtonName={page.shop.register.name()}
+          nextButtonName={'更新'}
+        />
       </form>
     </CommonWrapTemplate>
   );

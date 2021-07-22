@@ -34,6 +34,7 @@ const BaseTextArea = ({
   return (
     <TextField
       multiline
+      placeholder={placeholder ? `例：${placeholder} ` : ''}
       {...{
         className,
         disabled,
@@ -42,11 +43,10 @@ const BaseTextArea = ({
         onBlur,
         onChange,
         required,
-        value,
-        size,
-        variant,
         rows,
-        placeholder,
+        size,
+        value,
+        variant,
       }}
     />
   );
