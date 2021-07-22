@@ -51,16 +51,6 @@ export const page = {
 
 export const drawerLinks = [
   {
-    name: page.shopping.list.name(),
-    link: page.shopping.list.link(),
-    icon: 'shoppingCart',
-  },
-  {
-    name: page.shopping.register.name(),
-    link: page.shopping.register.link(),
-    icon: '',
-  },
-  {
     name: page.shop.list.name(),
     link: page.shop.list.link(),
     icon: 'store',
@@ -68,6 +58,16 @@ export const drawerLinks = [
   {
     name: page.shop.register.name(),
     link: page.shop.register.link(),
+    icon: '',
+  },
+  {
+    name: page.shopping.list.name(),
+    link: page.shopping.list.link(),
+    icon: 'shoppingCart',
+  },
+  {
+    name: page.shopping.register.name(),
+    link: page.shopping.register.link(),
     icon: '',
   },
   {
