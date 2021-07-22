@@ -1,18 +1,21 @@
 import React, { ReactNode } from 'react';
-import { BaseLabel, BaseRequired, BaseTextField } from '../uiParts/atoms';
-import { TSize, TVariant, TType } from '../uiParts/atoms/form/BaseTextField';
-import useIsAfterSsr from '../../../customHook/useIsAfterSsr';
+import { BaseLabel, BaseRequired, BaseTextField, BaseHelperText } from '../../uiParts/atoms';
+import { TSize, TVariant, TType } from '../../uiParts/atoms/form/BaseTextField';
+import useIsAfterSsr from '../../../../customHook/useIsAfterSsr';
 
 type TProps = {
   FieldClass?: string;
   children: ReactNode;
   disabled?: boolean;
   focus?: boolean;
+  helperText?: ReactNode;
+  helperClassName?: string;
   fullWidth?: boolean;
   id: string;
   label: string;
   onBlur: any;
   onChange: any;
+  placeholder?: string;
   required?: boolean;
   value: string | number;
   size?: TSize;
@@ -28,10 +31,13 @@ const LabelAndTextField = ({
   disabled,
   focus = false,
   fullWidth = true,
+  helperText = '',
+  helperClassName = '',
   id,
   label,
   onBlur,
   onChange,
+  placeholder,
   required = false,
   size = 'small',
   type = 'text',
@@ -57,6 +63,8 @@ const LabelAndTextField = ({
               id,
               onBlur,
               onChange,
+              placeholder,
+              required,
               value,
               size,
               type,
@@ -64,6 +72,7 @@ const LabelAndTextField = ({
             }}
             className={FieldClass}
           />
+          {helperText && <BaseHelperText className={helperClassName}>{helperText}</BaseHelperText>}
           {children}
         </div>
       )}

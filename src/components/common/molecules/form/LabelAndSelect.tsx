@@ -1,4 +1,4 @@
-import { BaseLabel, BaseFormControl, BaseSelect } from '../uiParts/atoms';
+import { BaseLabel, BaseFormControl, BaseSelect } from '../../uiParts/atoms';
 
 import React, { useState } from 'react';
 type TProps = {

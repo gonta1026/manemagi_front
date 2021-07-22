@@ -1,7 +1,7 @@
 import React from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
-import { OmitTToastType } from '../../../customHook/useToastAction';
+import { OmitTToastType } from '../../../../customHook/useToastAction';
 
 function Alert(props: any) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
