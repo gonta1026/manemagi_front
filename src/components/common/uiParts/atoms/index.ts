@@ -8,12 +8,13 @@ export { default as BaseErrorMessagesWrapper } from './error/BaseErrorMessageWra
 /* form */
 export { default as BaseFormControl } from './form/BaseFormControl';
 export { default as BaseFormControlLabel } from './form/BaseFormControlLabel';
+export { default as BaseHelperText } from './form/BaseHelperText';
 export { default as BaseLabel } from './form/BaseLabel';
 export { default as BaseTextField } from './form/BaseTextField';
+export { default as BaseTextArea } from './form/BaseTextArea';
 export { default as BaseRequired } from './form/BaseRequired';
 export { default as BaseSwitch } from './form/BaseSwitch';
 export { default as BaseSelect } from './form/BaseSelect';
-export { default as BaseTextArea } from './form/BaseTextArea';
 /* icon */
 export { default as BaseIcon } from './icon/BaseIcon';
 /* loading */
