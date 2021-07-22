@@ -6,6 +6,10 @@ export const settingsValidate = (values: TSetting, errors: TSetting) => {
   /******************
    * LINEトークン
    ******************/
+  const manNum = 100;
+  if (values.lineNoticeToken.length > manNum) {
+    errors.lineNoticeToken = `${LINE_NOTICE_TOKEN.LABEL}は${manNum}字以内で入力してください。`;
+  }
   //   仮で空白NGのバリデージョンを設置
   if (values.isUseLine && values.lineNoticeToken === '') {
     errors.lineNoticeToken =
