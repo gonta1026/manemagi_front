@@ -38,6 +38,14 @@ const theme = createMuiTheme({
         },
       },
     },
+    MuiOutlinedInput: {
+      root: {
+        minWidth: 200,
+      },
+      input: {
+        padding: '10.5px 14px',
+      },
+    },
   },
   palette: {
     primary: {

@@ -1,25 +1,33 @@
-import { BaseLabel, BaseFormControl, BaseSelect } from '../../uiParts/atoms';
+import { BaseLabel, BaseFormControl, BaseSelect, BaseRequired } from '../../uiParts/atoms';
+import { TOptions } from '../../uiParts/atoms/form/BaseSelect';
 
 import React, { useState } from 'react';
 type TProps = {
+  className?: string;
   id: string;
   label: string;
-  options: {
-    name: string;
-    value: string;
-  }[];
-  className?: string;
-  value: string;
   onChange: any;
+  options: TOptions;
+  required: boolean;
+  value: number;
 };
 
-const LabelAndSelect = ({ className = '', id = '', label, onChange, options, value }: TProps) => {
+const LabelAndSelect = ({
+  className = '',
+  id = '',
+  label,
+  onChange,
+  options,
+  required,
+  value,
+}: TProps) => {
   const [open, setOpen] = useState(false);
 
   return (
     <div className={className}>
       <BaseLabel htmlFor={id} onClick={() => setOpen(true)} className={className + ' block'}>
         {label}
+        {required ? <BaseRequired>必須</BaseRequired> : ''}
       </BaseLabel>
       <BaseFormControl {...{ id }}>
         <BaseSelect
