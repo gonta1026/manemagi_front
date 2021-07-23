@@ -1,11 +1,12 @@
 import React, { ReactNode, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchSettingAndUser } from '../../../../reducks/services/Setting';
 import { BaseHeader, Drawer } from '../../../common/organisms';
 import { BaseToast } from '../../../common/molecules';
 import { useRouter } from 'next/router';
 import { ToastType } from '../../../../customHook/useToastAction';
-
+/* types */
+import { settingAndUser } from '../../../../types/Setting';
 const TopPageTemplate = ({
   children,
   toastActions,
@@ -15,6 +16,7 @@ const TopPageTemplate = ({
 }) => {
   const dispatch = useDispatch();
   const router = useRouter();
+  const { settingState } = useSelector((state: { settingState: settingAndUser }) => state);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const toggleDrawer = (open: boolean) => (event: any) => {
@@ -60,7 +62,7 @@ const TopPageTemplate = ({
     <>
       {toastActions && <BaseToast {...toastActions} />}
       <Drawer isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
-      <BaseHeader toggleDrawer={toggleDrawer} />
+      <BaseHeader {...{ toggleDrawer, settingState }} />
       {children}
     </>
   );

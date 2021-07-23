@@ -33,38 +33,50 @@ const BaseHeader = ({
     localStorage.removeItem('uid');
     localStorage.removeItem('client');
     setAnchorEl(null);
-    router.push('/login');
+    router.push(page.login.link());
   };
 
   const handleClose = () => {
     setAnchorEl(null);
   };
 
+  const headPathName = settingState.user.id !== 0 ? page.top.link() : page.login.link();
+
   return (
     <AppBar position="static" className={className}>
       <Toolbar>
         <div className="flex items-center justify-between w-full">
           <div className="left flex items-center">
-            <IconButton edge="start" color="inherit" aria-label="menu" onClick={toggleDrawer(true)}>
-              <MenuIcon />
-            </IconButton>
-            <BaseLink pathname={page.top.link()}>
+            {/* idに0が来ない前提でこのような処理をしているがあまりよくないと思われる */}
+            {settingState.user.id !== 0 && (
+              <IconButton
+                edge="start"
+                color="inherit"
+                aria-label="menu"
+                onClick={toggleDrawer(true)}
+              >
+                <MenuIcon />
+              </IconButton>
+            )}
+            <BaseLink pathname={headPathName}>
               <Typography variant="h6">Manemagi</Typography>
             </BaseLink>
           </div>
-          <div className="flex items-center">
-            {ommisionText(settingState.user.name)}
-            <BaseIcon className={'text-white'} icon="accountCircle" onClick={handleClick} />
-            <Menu
-              id="simple-menu"
-              anchorEl={anchorEl}
-              keepMounted
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
-            >
-              <MenuItem onClick={() => logOut(router)}>ログアウト</MenuItem>
-            </Menu>
-          </div>
+          {settingState.user.id !== 0 && (
+            <div className="flex items-center">
+              {ommisionText(settingState.user.name)}
+              <BaseIcon className={'text-white'} icon="accountCircle" onClick={handleClick} />
+              <Menu
+                id="simple-menu"
+                anchorEl={anchorEl}
+                keepMounted
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+              >
+                <MenuItem onClick={() => logOut(router)}>ログアウト</MenuItem>
+              </Menu>
+            </div>
+          )}
         </div>
       </Toolbar>
     </AppBar>

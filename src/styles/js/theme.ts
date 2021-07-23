@@ -30,6 +30,11 @@ const theme = createMuiTheme({
         },
       },
     },
+    MuiFormControl: {
+      root: {
+        display: 'block',
+      },
+    },
     MuiSnackbar: {
       anchorOriginTopRight: {
         top: 5,

@@ -1,24 +1,36 @@
-type TLoginedNoticeKey = 'loginedNotice';
-type TOtherKey = 'otherType';
-type TStorageKey = TLoginedNoticeKey | TOtherKey; // NOTE ここに使用をするキーを追加する。
-
+type TPageMoveNotice = typeof LocalStorage.pageMoveNotice;
+type TStorageKey = TPageMoveNotice;
+type TSignUpedNotice = typeof LocalStorage.noticeKey.signUpedNotice;
+type TLoginedNotice = typeof LocalStorage.noticeKey.loginedNotice;
+type TShoppingedNotice = typeof LocalStorage.noticeKey.shoppingedNotice;
+// NOTE ここにページ遷移後に使うお知らせに使用をするキーを追加する。
+type TPageMoveNoticeValue = TLoginedNotice | TShoppingedNotice | TSignUpedNotice;
 class LocalStorage {
   private localStorage: Storage = window.localStorage;
+  public static noticeKey = {
+    loginedNotice: 'loginedNotice',
+    signUpedNotice: 'signUpedNotice',
+    shoppingedNotice: 'shoppingedNotice',
+  } as const;
+  public static pageMoveNotice = 'pageMoveNotice' as const;
 
   public getItem = (itemKey: TStorageKey) => this.localStorage.getItem(itemKey);
 
   public removeItem = (itemKey: TStorageKey) => this.localStorage.removeItem(itemKey);
 
-  public setItemAtNotice(keyValue: { key: TStorageKey; noticeMessage: string }) {
-    const { key, noticeMessage } = keyValue;
-    return this.localStorage.setItem(key, noticeMessage);
+  public setItemAtPageMoveNotice(targetNotice: TPageMoveNoticeValue) {
+    return this.localStorage.setItem(LocalStorage.pageMoveNotice, targetNotice);
   }
 
-  public loginedNotice(this: LocalStorage, itemkey: TLoginedNoticeKey, callbackFunc: VoidFunction) {
+  public afterPageMoveNotice(
+    this: LocalStorage,
+    itemkey: TPageMoveNotice,
+    callbackToastExecution: VoidFunction,
+  ) {
     const storageItem = this.localStorage.getItem(itemkey);
     if (storageItem) {
-      callbackFunc();
-      this.removeItem(itemkey);
+      callbackToastExecution();
+      this.removeItem(LocalStorage.pageMoveNotice);
     }
   }
 }

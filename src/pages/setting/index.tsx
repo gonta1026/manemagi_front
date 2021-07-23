@@ -8,12 +8,7 @@ import {
   LabelAndSwitch,
   ExecutionAndBackButtons,
 } from '../../components/common/molecules';
-import {
-  BasePageTitle,
-  BaseButton,
-  BaseErrorMessagesWrapper,
-  BaseLink,
-} from '../../components/common/uiParts/atoms';
+import { BasePageTitle, BaseErrorMessagesWrapper } from '../../components/common/uiParts/atoms';
 /* const */
 import { SETTINGFORM } from '../../const/form/setting';
 /* customHook */
@@ -41,10 +36,8 @@ const Setting = (): JSX.Element => {
 
   useEffect(() => {
     formik.setFieldValue(SETTINGFORM.IS_USE_LINE.ID, settingState.user.setting.isUseLine);
-    formik.setFieldValue(
-      SETTINGFORM.LINE_NOTICE_TOKEN.ID,
-      settingState.user.setting.lineNoticeToken,
-    );
+    const lineNoticeToken = settingState.user.setting.lineNoticeToken || '';
+    formik.setFieldValue(SETTINGFORM.LINE_NOTICE_TOKEN.ID, lineNoticeToken);
   }, [settingState]);
 
   const formik = useFormik<TSetting>({
@@ -122,7 +115,7 @@ const Setting = (): JSX.Element => {
         </LabelAndTextField>
         {/* LINEのデフォルト通知（isUseLine）*/}
         <LabelAndSwitch
-          className={'base-vertical-item flex items-center'}
+          className={'base-vertical-item'}
           checked={formik.values.isUseLine}
           helperText={isUseLineHelperText}
           onChange={() => formik.setFieldValue('isUseLine', !formik.values.isUseLine)}

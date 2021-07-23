@@ -21,19 +21,22 @@ import { page } from '../../pageMap';
 import { createShop, fetchShops } from '../../reducks/services/Shop';
 /* types */
 import { TShop, TShopForm } from '../../types/Shop';
-/* utils */
-import LocalStorage from '../../utils/LocalStorage';
 /* validate */
 import { shopNewValidate } from '../../validate/shop/new';
 
 const NewShop = (): JSX.Element => {
   const [open, setOpen] = useState<boolean>(false);
-  const [shopNames, setShopNames] = useState<string[]>([]);
+  const [shops, setShops] = useState<TShop[]>([]);
   const [isErrorDisplay, setIsErrorDisplay] = useState<boolean>(true);
   const toastActions = useToastAction();
   const dispatch = useDispatch();
   const validate = (values: TShopForm) => {
     let errors = {} as TShopForm;
+
+    const shopNames = [] as string[];
+    shops.forEach((shop) => {
+      shopNames.push(shop.name);
+    });
     errors = shopNewValidate(values, errors, shopNames);
     return errors;
   };
@@ -62,34 +65,21 @@ const NewShop = (): JSX.Element => {
       setTimeout(() => {
         formik.setFieldError(formId, '');
         formik.setFieldTouched(formId, false);
-        setIsErrorDisplay(true);
       }, 10);
+      setIsErrorDisplay(true);
     });
   };
 
   useEffect(() => {
-    const loginedNotice = 'loginedNotice'; // TODO 共通の場所におく？
-    const storage = new LocalStorage();
-    const successLoginMessage = storage.getItem(loginedNotice);
-    if (successLoginMessage) {
-      storage.loginedNotice(loginedNotice, () =>
-        toastActions.handleToastOpen({
-          message: successLoginMessage,
-        }),
-      );
-    }
-    fetchShopsAndSetShopNames();
+    fetchShopsAndSetShops();
   }, []);
 
-  const fetchShopsAndSetShopNames = async () => {
+  const fetchShopsAndSetShops = async () => {
     const response: any = await dispatch(fetchShops());
     const shops: TShop[] = response.payload.data.shops;
-    const shopNames = [] as string[];
-    shops.forEach((shop) => {
-      shopNames.push(shop.name);
-    });
-    setShopNames(shopNames);
+    setShops(shops);
   };
+
   const { name, description } = formik.values;
 
   return (
@@ -98,12 +88,7 @@ const NewShop = (): JSX.Element => {
         open={open}
         handleClose={() => setOpen(false)}
         handleOk={async () => {
-          const response: any = await dispatch(
-            createShop({
-              name,
-              description,
-            }),
-          );
+          const response: any = await dispatch(createShop(formik.values));
           setOpen(false);
           if (response.payload.status === 'SUCCESS') {
             formikFieldInit(formik, setIsErrorDisplay, [SHOPFORM.NAME.ID, SHOPFORM.DESCRIPTION.ID]);
@@ -111,18 +96,15 @@ const NewShop = (): JSX.Element => {
             handleToastOpen({
               message: `お店の${name}を登録しました！`,
             });
-            fetchShopsAndSetShopNames(); // 再取得とstateのセット
+            fetchShopsAndSetShops(); // 再取得とstateのセット
           }
         }}
       >
-        <h4 className={'font-bold text-center'}>入力確認</h4>
         <dl>
-          <dt>
-            {SHOPFORM.NAME.LABEL}：{name}
-          </dt>
-          <dd>
-            {SHOPFORM.DESCRIPTION.LABEL}：{description}
-          </dd>
+          <dt>{SHOPFORM.NAME.LABEL}：</dt>
+          <dd>{name}</dd>
+          <dt>{SHOPFORM.DESCRIPTION.LABEL}：</dt>
+          <dd>{description}</dd>
         </dl>
       </BaseModal>
       <BasePageTitle className={'my-5'}>{page.shop.register.name()}</BasePageTitle>

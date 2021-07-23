@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, ReactNode } from 'react';
+import React, { useRef, useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
 
 export type TSize = 'medium' | 'small';

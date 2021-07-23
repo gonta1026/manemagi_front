@@ -9,9 +9,12 @@ import {
   BasePageTitle,
   BaseButton,
   BaseErrorMessagesWrapper,
+  BaseLink,
 } from '../../components/common/uiParts/atoms';
 /* const */
 import { USERFORM } from '../../const/form/user';
+/* pageMap */
+import { page } from '../../pageMap';
 /* reducks */
 import { signupUser } from '../../reducks/services/User';
 /* types */
@@ -50,11 +53,8 @@ const SignUp = (): JSX.Element => {
       );
       if (response.payload.status === 'success') {
         const storage = new LocalStorage();
-        storage.setItemAtNotice({
-          key: 'loginedNotice',
-          noticeMessage: 'ユーザー登録をしログインしました！',
-        });
-        router.push('/shop/new');
+        storage.setItemAtPageMoveNotice(LocalStorage.noticeKey.signUpedNotice);
+        router.push(page.top.link());
         // TODO トップページ？へリダイレクトをさせる予定。とりあえずはお店の登録画面に遷移させておく
       }
     },
@@ -62,7 +62,7 @@ const SignUp = (): JSX.Element => {
 
   return (
     <CommonWrapTemplate>
-      <BasePageTitle className={'my-5'}>新規登録</BasePageTitle>
+      <BasePageTitle className={'my-5'}>{page.signup.name()}</BasePageTitle>
       <form className="base-vertical-20" onSubmit={formik.handleSubmit}>
         <LabelAndTextField
           wrapClass="base-vertical-item"
@@ -125,14 +125,16 @@ const SignUp = (): JSX.Element => {
           )}
         </LabelAndTextField>
 
+        <BaseLink
+          className="block mt-2 text-right text-blue-500 text-sm"
+          pathname={page.login.link()}
+        >
+          {page.login.name()}はこちら
+        </BaseLink>
+
         <div className="base-vertical-item flex justify-center">
-          <BaseButton
-            color={'primary'}
-            onClick={() => console.log('click')}
-            type={'submit'}
-            variant={'contained'}
-          >
-            登録
+          <BaseButton color={'primary'} type={'submit'} variant={'contained'}>
+            {page.signup.name()}
           </BaseButton>
         </div>
       </form>

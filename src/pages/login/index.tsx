@@ -9,9 +9,12 @@ import {
   BasePageTitle,
   BaseButton,
   BaseErrorMessagesWrapper,
+  BaseLink,
 } from '../../components/common/uiParts/atoms';
 /* const */
 import { USERFORM } from '../../const/form/user';
+/* pageMap */
+import { page } from '../../pageMap';
 /* reducks */
 import { loginUser } from '../../reducks/services/User';
 /* types */
@@ -47,9 +50,8 @@ const Login = (): JSX.Element => {
       );
       if (response.payload.data.id) {
         const storage = new LocalStorage();
-        storage.setItemAtNotice({ key: 'loginedNotice', noticeMessage: 'ログインしました！' });
-        router.push('/shop/new');
-        // TODO トップページ？へリダイレクトをさせる予定。とりあえずはお店の登録画面に遷移させておく
+        storage.setItemAtPageMoveNotice(LocalStorage.noticeKey.loginedNotice);
+        router.push(page.top.link());
       }
       if (response.payload.data.status === 401) {
         formik.setFieldError(USERFORM.PASSWORD.ID, emailOrPassword());
@@ -59,7 +61,7 @@ const Login = (): JSX.Element => {
 
   return (
     <CommonWrapTemplate>
-      <BasePageTitle className={'my-5'}>ログイン</BasePageTitle>
+      <BasePageTitle className={'my-5'}>{page.login.name()}</BasePageTitle>
       <form className="base-vertical-20" onSubmit={formik.handleSubmit}>
         <LabelAndTextField
           wrapClass="base-vertical-item"
@@ -91,6 +93,12 @@ const Login = (): JSX.Element => {
             </BaseErrorMessagesWrapper>
           )}
         </LabelAndTextField>
+        <BaseLink
+          className="block mt-2 text-right text-blue-500 text-sm"
+          pathname={page.signup.link()}
+        >
+          {page.signup.name()}はこちら
+        </BaseLink>
 
         <div className="base-vertical-item flex justify-center">
           <BaseButton
@@ -99,7 +107,7 @@ const Login = (): JSX.Element => {
             type={'submit'}
             variant={'contained'}
           >
-            ログイン
+            {page.login.name()}
           </BaseButton>
         </div>
       </form>

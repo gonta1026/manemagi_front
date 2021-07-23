@@ -1,11 +1,18 @@
 import React, { ReactNode, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { fetchSettingAndUser } from '../../../reducks/services/Setting';
-import { BaseContainer } from '../uiParts/layout';
-import { BaseHeader, Drawer } from '../organisms';
-import { BaseToast } from '../molecules';
 import { useRouter } from 'next/router';
+import { useDispatch, useSelector } from 'react-redux';
+/* BaseContainer */
+import { BaseContainer } from '../uiParts/layout';
+/* organisms */
+import { BaseHeader, Drawer } from '../organisms';
+/* molecules */
+import { BaseToast } from '../molecules';
+/* customHook */
 import { ToastType } from '../../../customHook/useToastAction';
+/* reducks */
+import { fetchSettingAndUser } from '../../../reducks/services/Setting';
+/* types */
+import { settingAndUser } from '../../../types/Setting';
 
 const CommonWrapTemplate = ({
   children,
@@ -17,6 +24,7 @@ const CommonWrapTemplate = ({
   const dispatch = useDispatch();
   const router = useRouter();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const { settingState } = useSelector((state: { settingState: settingAndUser }) => state);
 
   const toggleDrawer = (open: boolean) => (event: any) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -60,7 +68,7 @@ const CommonWrapTemplate = ({
   return (
     <>
       {toastActions && <BaseToast {...toastActions} />}
-      <BaseHeader toggleDrawer={toggleDrawer} />
+      <BaseHeader toggleDrawer={toggleDrawer} settingState={settingState} />
       <Drawer isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
       <BaseContainer>{children}</BaseContainer>
     </>

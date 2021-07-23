@@ -10,7 +10,8 @@ import {
 import { validHankakuEngNum, validEmail } from './regExp';
 
 export const validBlank = {
-  check: (value: string): boolean => isValidCheck(value === ''),
+  // できればnull自体を許容しないようにしたい。
+  check: (value: string | number | null): boolean => isValidCheck(value === ''),
   message: (label: string) => blank(label),
 };
 export const validMaxNum = {
