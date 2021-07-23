@@ -11,19 +11,19 @@ body {
 }
 
 .base-vertical-10 {
-  > .base-vertical-item + .base-vertical-item {
+  > .base-vertical-item {
     margin-top: 20px;
   }
 }
 
 .base-vertical-20 {
-  > .base-vertical-item + .base-vertical-item {
+  > .base-vertical-item {
     margin-top: 20px;
   }
 }
 
 .base-vertical-30 {
-  > .base-vertical-item + .base-vertical-item {
+  > .base-vertical-item {
     margin-top: 20px;
   }
 }
