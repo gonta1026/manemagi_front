@@ -1,71 +1,52 @@
-import { validateMessage, registerdColumn } from './message';
+import {
+  registerdColumn,
+  format,
+  notSame,
+  hankakuEngNum,
+  passwordRangeAndHankakuEngNum,
+  blank,
+} from './message';
 import { validHankakuEngNum, validEmail } from './regExp';
 
-const { END_MESSAGE, FORMAT, MINI_ENG_NUM, PASSWORD_MESSAGE } = validateMessage;
-
 export const validBlank = {
-  check: (value: string): boolean => {
-    let isValid = false;
-    if (!value) {
-      isValid = true;
-    }
-    return isValid;
-  },
-  message: (label: string) => label + END_MESSAGE,
+  check: (value: string): boolean => isValidCheck(value === ''),
+  message: (label: string) => blank(label),
 };
 
 export const validRange = {
-  check: (value: string, minNum: number, maxNum: number): boolean => {
-    let isValid = false;
-    if ((value.length !== 0 && value.length < minNum) || value.length > maxNum) {
-      isValid = true;
-    }
-    return isValid;
-  },
-  message: (label: string) => label + PASSWORD_MESSAGE,
+  check: (value: string, minNum: number, maxNum: number): boolean =>
+    isValidCheck((value.length !== 0 && value.length < minNum) || value.length > maxNum),
+  message: (label: string) => passwordRangeAndHankakuEngNum(label),
 };
 
 export const validhankakuEngNum = {
-  check: (value: string): boolean => {
-    let isValid = false;
-    if (!validHankakuEngNum.test(value) && value.length !== 0) {
-      isValid = true;
-    }
-    return isValid;
-  },
-  message: (label: string) => label + MINI_ENG_NUM + END_MESSAGE,
+  check: (value: string): boolean =>
+    isValidCheck(!validHankakuEngNum.test(value) && value.length !== 0),
+  message: (label: string) => hankakuEngNum(label),
 };
 
-export const validSame = {
-  check: (value01: string, value02: string): boolean => {
-    let isValid = false;
-    if (value01 !== value02) {
-      isValid = true;
-    }
-    return isValid;
-  },
-  message: (label01: string, label02: string) => `${label01}は${label02}と同じにしてください。`,
+export const validNotSame = {
+  check: (value01: string, value02: string): boolean => isValidCheck(value01 !== value02),
+  message: (label01: string, label02: string) => notSame(label01, label02),
 };
 
 export const emailFormat = {
-  check: (email: string): boolean => {
-    let isValid = false;
-    if (email && !validEmail.test(email)) {
-      isValid = true;
-    }
-    return isValid;
-  },
-  message: (label: string) => label + FORMAT,
+  check: (email: string): boolean => isValidCheck(email !== '' && !validEmail.test(email)),
+  message: (label: string) => format(label),
 };
 
 export const validRegisterdName = {
   check: (name: string, shopNames: string[]): boolean => {
-    let isValid = false;
     const shopNameExists = shopNames.some((shopName) => shopName === name);
-    if (shopNameExists) {
-      isValid = true;
-    }
-    return isValid;
+    return isValidCheck(shopNameExists);
   },
   message: (name: string, label: string) => registerdColumn(name, label),
+};
+
+const isValidCheck = (targetFormula: boolean): boolean => {
+  let isValid = false;
+  if (targetFormula) {
+    isValid = true;
+  }
+  return isValid;
 };

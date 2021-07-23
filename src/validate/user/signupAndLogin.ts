@@ -1,6 +1,6 @@
 import { TLoginUser, TUser } from '../../types/User';
 import { USERFORM } from '../../const/form/user';
-import { emailFormat, validRange, validhankakuEngNum, validSame, validBlank } from '../';
+import { emailFormat, validRange, validhankakuEngNum, validNotSame, validBlank } from '../';
 
 type TLoginUserAndUser = TLoginUser | TUser;
 export const signupAndLoginValidate = <T>(
@@ -47,8 +47,11 @@ export const signupAndLoginValidate = <T>(
     if (validRange.check(values.passwordConfirmation, 4, 30)) {
       errors.passwordConfirmation = validRange.message(PASSWORD_CONFIRMATION.LABEL);
     }
-    if (validSame.check(values.passwordConfirmation, values.password)) {
-      errors.passwordConfirmation = validSame.message(PASSWORD_CONFIRMATION.LABEL, PASSWORD.LABEL);
+    if (validNotSame.check(values.passwordConfirmation, values.password)) {
+      errors.passwordConfirmation = validNotSame.message(
+        PASSWORD_CONFIRMATION.LABEL,
+        PASSWORD.LABEL,
+      );
     }
   }
 

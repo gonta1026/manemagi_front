@@ -20,10 +20,9 @@ import { TLoginUser } from '../../types/User';
 import LocalStorage from '../../utils/LocalStorage';
 /* validate */
 import { signupAndLoginValidate } from '../../validate/user/signupAndLogin';
-import { validateMessage } from '../../validate/message';
+import { emailOrPassword } from '../../validate/message';
 
 const Login = (): JSX.Element => {
-  const { EMAIL_OR_PASSWORD } = validateMessage;
   const router = useRouter();
   const dispatch = useDispatch();
   const validate = (values: TLoginUser) => {
@@ -53,7 +52,7 @@ const Login = (): JSX.Element => {
         // TODO トップページ？へリダイレクトをさせる予定。とりあえずはお店の登録画面に遷移させておく
       }
       if (response.payload.data.status === 401) {
-        formik.setFieldError(USERFORM.PASSWORD.ID, EMAIL_OR_PASSWORD);
+        formik.setFieldError(USERFORM.PASSWORD.ID, emailOrPassword());
       }
     },
   });
