@@ -64,7 +64,6 @@ const LabelAndTextField = ({
               onBlur,
               onChange,
               placeholder,
-              required,
               value,
               size,
               type,

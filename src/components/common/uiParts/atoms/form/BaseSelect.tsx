@@ -23,13 +23,10 @@ const BaseSelect = ({
   onOpen: VoidFunction;
   onChange: VoidFunction;
   options: TOptions;
-  value: number;
+  value: number | string;
 }) => {
   return (
     <Select {...{ className, id, onChange, onClose, onOpen, open, value }} variant="outlined">
-      <MenuItem value="">
-        <em>未選択</em>
-      </MenuItem>
       {options.map((option) => {
         return (
           <MenuItem key={option.id} value={option.id}>

@@ -21,6 +21,7 @@ const BaseModal = ({ children, handleClose, handleOk, open }: TProps): JSX.Eleme
     >
       <Wrap className="Wrap">
         <CloseButton className={'right-1 top-1'} handleClose={handleClose} />
+        <h4 className={'font-bold text-center'}>入力確認</h4>
         {children}
         <div className="flex justify-center mt-5">
           <BaseButton

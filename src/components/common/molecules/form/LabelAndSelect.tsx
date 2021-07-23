@@ -9,7 +9,7 @@ type TProps = {
   onChange: any;
   options: TOptions;
   required: boolean;
-  value: number;
+  value: number | string;
 };
 
 const LabelAndSelect = ({
@@ -25,7 +25,7 @@ const LabelAndSelect = ({
 
   return (
     <div className={className}>
-      <BaseLabel htmlFor={id} onClick={() => setOpen(true)} className={className + ' block'}>
+      <BaseLabel htmlFor={id} onClick={() => setOpen(true)} className={className}>
         {label}
         {required ? <BaseRequired>必須</BaseRequired> : ''}
       </BaseLabel>
