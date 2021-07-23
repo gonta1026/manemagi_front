@@ -110,7 +110,6 @@ const NewShop = (): JSX.Element => {
       <BasePageTitle className={'my-5'}>{page.shop.register.name()}</BasePageTitle>
       <form className="base-vertical-20" onSubmit={formik.handleSubmit}>
         <LabelAndTextField
-          focus
           id={SHOPFORM.NAME.ID}
           label={SHOPFORM.NAME.LABEL}
           onChange={formik.handleChange}

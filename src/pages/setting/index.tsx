@@ -97,7 +97,6 @@ const Setting = (): JSX.Element => {
       <form className="base-vertical-20" onSubmit={formik.handleSubmit}>
         {/* LINEトークン（lineNoticeToken）*/}
         <LabelAndTextField
-          focus
           helperText={tokenHelperText}
           id={SETTINGFORM.LINE_NOTICE_TOKEN.ID}
           label={SETTINGFORM.LINE_NOTICE_TOKEN.LABEL}

@@ -126,7 +126,6 @@ const ShoppingNew = (): JSX.Element => {
       <form className="base-vertical-20" onSubmit={formik.handleSubmit}>
         {/* 金額(price) */}
         <LabelAndTextField
-          focus
           id={SHOPPINGFORM.PRICE.ID}
           label={SHOPPINGFORM.PRICE.LABEL}
           onBlur={formik.handleBlur}
