@@ -128,14 +128,15 @@ const NewShop = (): JSX.Element => {
       <BasePageTitle className={'my-5'}>{page.shop.register.name()}</BasePageTitle>
       <form className="base-vertical-20" onSubmit={formik.handleSubmit}>
         <LabelAndTextField
-          wrapClass="base-vertical-item"
+          focus
           id={SHOPFORM.NAME.ID}
           label={SHOPFORM.NAME.LABEL}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
-          value={name}
-          focus={true}
+          placeholder={'九州スーパー（50文字まで）'}
           required
+          value={name}
+          wrapClass="base-vertical-item"
         >
           {isErrorDisplay && formik.errors.name && formik.touched.name && (
             <BaseErrorMessagesWrapper>
@@ -145,12 +146,13 @@ const NewShop = (): JSX.Element => {
         </LabelAndTextField>
 
         <LabelAndTextArea
-          wrapClass="base-vertical-item"
           id={SHOPFORM.DESCRIPTION.ID}
           label={SHOPFORM.DESCRIPTION.LABEL}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
+          placeholder={'生鮮品が安い、家のすぐ近くにある。（300文字まで）'}
           value={description}
+          wrapClass="base-vertical-item"
         />
 
         <div className="base-vertical-item flex justify-center">
