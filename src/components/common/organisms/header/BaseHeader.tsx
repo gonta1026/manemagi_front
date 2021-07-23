@@ -2,15 +2,23 @@ import React from 'react';
 import { useRouter, NextRouter } from 'next/router';
 import { AppBar, IconButton, Toolbar, Typography } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
-import { BaseIcon } from '../../uiParts/atoms';
+import { BaseIcon, BaseLink } from '../../uiParts/atoms';
 import { Menu, MenuItem } from '@material-ui/core';
+/* pageMap */
+import { page } from '../../../../pageMap';
+/* pageMap */
+import { ommisionText } from '../../../../utils/function';
+/* types */
+import { settingAndUser } from '../../../../types/Setting';
 
 const BaseHeader = ({
   className = '',
   toggleDrawer,
+  settingState,
 }: {
   className?: string;
   toggleDrawer: any;
+  settingState: settingAndUser;
 }) => {
   const router = useRouter();
 
@@ -40,18 +48,23 @@ const BaseHeader = ({
             <IconButton edge="start" color="inherit" aria-label="menu" onClick={toggleDrawer(true)}>
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6">Manemagi</Typography>
+            <BaseLink pathname={page.top.link()}>
+              <Typography variant="h6">Manemagi</Typography>
+            </BaseLink>
           </div>
-          <BaseIcon className={'text-white'} icon="accountCircle" onClick={handleClick} />
-          <Menu
-            id="simple-menu"
-            anchorEl={anchorEl}
-            keepMounted
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-          >
-            <MenuItem onClick={() => logOut(router)}>ログアウト</MenuItem>
-          </Menu>
+          <div className="flex items-center">
+            {ommisionText(settingState.user.name)}
+            <BaseIcon className={'text-white'} icon="accountCircle" onClick={handleClick} />
+            <Menu
+              id="simple-menu"
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={() => logOut(router)}>ログアウト</MenuItem>
+            </Menu>
+          </div>
         </div>
       </Toolbar>
     </AppBar>
