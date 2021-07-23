@@ -1,19 +1,19 @@
 import { TSetting } from '../../types/Setting';
 import { SETTINGFORM } from '../../const/form/setting';
-
+import { validMaxNum } from '../';
+import { lineToken } from '../message';
 export const settingsValidate = (values: TSetting, errors: TSetting) => {
   const { LINE_NOTICE_TOKEN, IS_USE_LINE } = SETTINGFORM;
   /******************
    * LINEトークン
    ******************/
-  const manNum = 100;
-  if (values.lineNoticeToken.length > manNum) {
-    errors.lineNoticeToken = `${LINE_NOTICE_TOKEN.LABEL}は${manNum}字以内で入力してください。`;
+  const manNum100 = 100;
+  if (validMaxNum.check(values.lineNoticeToken, manNum100)) {
+    errors.lineNoticeToken = validMaxNum.message(LINE_NOTICE_TOKEN.LABEL, manNum100);
   }
-  //   仮で空白NGのバリデージョンを設置
+  // NOTE 複合的な処理なので現状は当ファイルに記述
   if (values.isUseLine && values.lineNoticeToken === '') {
-    errors.lineNoticeToken =
-      IS_USE_LINE.LABEL + 'をONにしている際は' + LINE_NOTICE_TOKEN.LABEL + 'を入力してください。';
+    errors.lineNoticeToken = lineToken(IS_USE_LINE.LABEL, LINE_NOTICE_TOKEN.LABEL);
   }
   return errors;
 };

@@ -1,5 +1,7 @@
 const endMessage = 'を入力してください。';
 export const blank = (label: string) => label + endMessage;
+export const maxNum = (label: string, maxNum: number) =>
+  `${label}は${maxNum}字以内で入力してください。`;
 export const passwordRangeAndHankakuEngNum = (label: string) =>
   label + 'は4～30桁の半角英数字' + endMessage;
 export const hankakuEngNum = (label: string) => label + 'は半額英数字のみ' + endMessage;
@@ -9,3 +11,5 @@ export const format = (label: string) => `${label}の形式に誤りがありま
 export const emailOrPassword = () => `メールアドレスもしくはパスワードが正しくありません。`;
 export const registerdColumn = (name: string, label: string) =>
   `${name}は既に登録されています。別の${label + endMessage}`;
+export const lineToken = (isUseLine: string, lineNoticeToken: string) =>
+  `${isUseLine}をONにしている際は${lineNoticeToken + endMessage}`;

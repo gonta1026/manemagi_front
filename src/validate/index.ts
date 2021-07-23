@@ -5,12 +5,17 @@ import {
   hankakuEngNum,
   passwordRangeAndHankakuEngNum,
   blank,
+  maxNum,
 } from './message';
 import { validHankakuEngNum, validEmail } from './regExp';
 
 export const validBlank = {
   check: (value: string): boolean => isValidCheck(value === ''),
   message: (label: string) => blank(label),
+};
+export const validMaxNum = {
+  check: (value: string, num: number): boolean => isValidCheck(value.length > num),
+  message: (label: string, num: number) => maxNum(label, num),
 };
 
 export const validRange = {
