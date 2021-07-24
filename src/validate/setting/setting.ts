@@ -1,8 +1,8 @@
-import { TSetting } from '../../types/Setting';
+import { TSetting, TSettingFormError } from '../../types/Setting';
 import { SETTINGFORM } from '../../const/form/setting';
 import { validMaxNum } from '../';
 import { lineToken } from '../message';
-export const settingsValidate = (values: TSetting, errors: TSetting) => {
+export const settingsValidate = (values: TSetting, errors: TSettingFormError) => {
   const { LINE_NOTICE_TOKEN, IS_USE_LINE } = SETTINGFORM;
   /******************
    * LINEトークン
