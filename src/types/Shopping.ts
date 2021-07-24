@@ -1,5 +1,5 @@
 export type TShopping = {
-  id: number;
+  id: number | null;
   price: number | null;
   date: Date | string | null;
   description: string | null;
@@ -8,6 +8,18 @@ export type TShopping = {
   claimId: number | null;
   createdAt: Date;
   updatedAt: Date;
+};
+
+export const shoppingInit = {
+  id: null,
+  price: null,
+  date: null,
+  description: '',
+  isLineNotice: false,
+  shopId: null,
+  claimId: null,
+  createdAt: new Date(),
+  updatedAt: new Date(),
 };
 
 export type TShoppingFormError = Record<
