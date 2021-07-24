@@ -40,7 +40,7 @@ import { shoppingValidate } from '../../validate/shopping/new';
 const ShoppingNew = (): JSX.Element => {
   const router = useRouter();
   const [open, setOpen] = useState<boolean>(false);
-  const [shops, setShopNames] = useState<TShop[]>([]);
+  const [shops, setShops] = useState<TShop[]>([]);
   const dispatch = useDispatch();
   const toastActions = useToastAction();
   const { settingState } = useSelector((state: { settingState: settingAndUser }) => state);
@@ -74,11 +74,8 @@ const ShoppingNew = (): JSX.Element => {
   const fetchShopsAndSetShops = async () => {
     const response: any = await dispatch(fetchShops());
     const shops: TShop[] = response.payload.data.shops;
-    setShopNames(shops);
+    setShops(shops);
   };
-
-  console.log(formik.values);
-  console.log(formik.errors);
 
   return (
     <CommonWrapTemplate>
@@ -111,7 +108,7 @@ const ShoppingNew = (): JSX.Element => {
         </dl>
         <dl>
           <dt>{SHOPPINGFORM.SHOP_ID.LABEL}：</dt>
-          <dd>{formik.values.shopId}</dd>
+          <dd>{shops.find((shop) => shop.id === formik.values.shopId)?.name}</dd>
         </dl>
         <dl>
           <dt>{SHOPPINGFORM.DESCRIPTION.LABEL}：</dt>

@@ -22,7 +22,6 @@ export const signupUser = createAsyncThunk(
       localStorage.setItem('uid', headers['uid']);
       return response.data;
     } catch (error) {
-      console.log(error);
       return thunkAPI.rejectWithValue({ errorMessage: error.message });
     }
   },
@@ -36,7 +35,6 @@ export const loginUser = createAsyncThunk(
         DEVISE_TOKEN_AUTH.REGISTRATIONS.NEW,
         loginForm,
       );
-      console.log({ response });
       const { headers, status, message } = response;
       if (status === 401) {
         return {

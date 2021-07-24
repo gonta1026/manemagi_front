@@ -13,6 +13,9 @@ export const END_POINT = {
   SHOPPINGS: {
     INDEX: '/shoppings', // ショップ一覧
     CREATE: '/shoppings', // 買い物登録
+    SHOW: (id: number | string) => `/shoppings/${id}`, // 買い物詳細
+    EDIT: (id: number | string) => `/shoppings/${id}/edit`, // 買い物編集
+    UPDATE: (id: number | string) => `/shoppings/${id}`, // 買い物編集
   },
   CLAIMS: {
     INDEX: '/claims', // 請求一覧

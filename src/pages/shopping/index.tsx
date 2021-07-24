@@ -6,7 +6,7 @@ import { BasePageTitle, BaseLink, BaseButton } from '../../components/common/uiP
 /* pageMap */
 import { page } from '../../pageMap';
 /* reducks */
-import { fetchShopping } from '../../reducks/services/Shopping';
+import { fetchShoppings } from '../../reducks/services/Shopping';
 /* types */
 import { TShopping } from '../../types/Shopping';
 import { formatDay } from '../../utils/FormatDate';
@@ -20,7 +20,7 @@ const Shopping = (): JSX.Element => {
   }, []);
 
   const fetchShoppingsAndSetShops = async () => {
-    const response: any = await dispatch(fetchShopping());
+    const response: any = await dispatch(fetchShoppings());
     const shoppings: TShopping[] = response.payload.data;
     setShopping(shoppings);
   };
@@ -38,10 +38,15 @@ const Shopping = (): JSX.Element => {
             <div>LINE通知：{shopping.isLineNotice ? '通知済' : '未通知'}</div>
             <div>請求：{shopping.claimId ? '請求済' : '未請求'}</div>
             <div>説明：{shopping.description}</div>
-            <div className={'mt-2 text-right'}>
-              <BaseLink pathname={page.shopping.edit.link(shopping.id)} className={' text-right'}>
+            <div className={'mt-2 text-center'}>
+              <BaseLink pathname={page.shopping.show.link(shopping.id as number)}>
                 <BaseButton color={'primary'} variant={'contained'}>
-                  編集へ
+                  詳細
+                </BaseButton>
+              </BaseLink>
+              <BaseLink pathname={page.shopping.edit.link(shopping.id as number)}>
+                <BaseButton className={'ml-5'} color={'primary'} variant={'contained'}>
+                  編集
                 </BaseButton>
               </BaseLink>
             </div>

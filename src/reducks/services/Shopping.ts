@@ -20,7 +20,7 @@ export const createShopping = createAsyncThunk(
   },
 );
 
-export const fetchShopping = createAsyncThunk('shoppings/index', async (_, thunkAPI) => {
+export const fetchShoppings = createAsyncThunk('shoppings/index', async (_, thunkAPI) => {
   try {
     const response: any = await ApiClient.getRequest(SHOPPINGS.INDEX);
     return response.data;
@@ -28,3 +28,36 @@ export const fetchShopping = createAsyncThunk('shoppings/index', async (_, thunk
     return thunkAPI.rejectWithValue({ errorMessage: error.message });
   }
 });
+
+export const fetchShopping = createAsyncThunk('shoppings/show', async (id: string, thunkAPI) => {
+  try {
+    const response: any = await ApiClient.getRequest(SHOPPINGS.SHOW(id));
+    return response.data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue({ errorMessage: error.message });
+  }
+});
+
+export const fetchEditShopping = createAsyncThunk(
+  'shoppings/edit',
+  async (id: string, thunkAPI) => {
+    try {
+      const response: any = await ApiClient.getRequest(SHOPPINGS.EDIT(id));
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue({ errorMessage: error.message });
+    }
+  },
+);
+
+export const updateShopping = createAsyncThunk(
+  'shoppings/update',
+  async ({ ShoppingForm, id }: { ShoppingForm: TShoppingForm; id: string }, thunkAPI) => {
+    try {
+      const response: any = await ApiClient.patchRequest(SHOPPINGS.UPDATE(id), ShoppingForm);
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue({ errorMessage: error.message });
+    }
+  },
+);

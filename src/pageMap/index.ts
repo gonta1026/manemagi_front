@@ -20,6 +20,10 @@ export const page = {
       name: () => '買い物登録',
       link: () => '/shopping/new',
     },
+    show: {
+      name: () => '買い物詳細',
+      link: (id: number) => `/shopping/${id}`,
+    },
     edit: {
       name: () => '買い物編集',
       link: (id: number) => `/shopping/${id}/edit`,

@@ -16,21 +16,21 @@ const Top = (): JSX.Element => {
     const storage = new LocalStorage();
     const targetNotice = storage.getItem('pageMoveNotice')!;
     const { loginedNotice, signUpedNotice, shoppingedNotice } = LocalStorage.noticeKey;
-    let messege = '';
+    let message = '';
     switch (targetNotice) {
       case loginedNotice:
-        messege = 'ログインしました！';
+        message = 'ログインしました！';
         break;
       case signUpedNotice:
-        messege = '新規登録してログインしました！';
+        message = '新規登録してログインしました！';
         break;
       case shoppingedNotice:
-        messege = '買い物登録しました！';
+        message = '買い物登録しました！';
         break;
     }
     storage.afterPageMoveNotice(pageMoveNotice, () =>
       toastActions.handleToastOpen({
-        message: messege,
+        message,
       }),
     );
   }, []);
