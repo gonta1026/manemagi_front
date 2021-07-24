@@ -40,7 +40,7 @@ const BaseHeader = ({
     setAnchorEl(null);
   };
 
-  const headPathName = settingState.user.id !== 0 ? page.top.link() : page.login.link();
+  const headPathName = settingState.user.id ? page.top.link() : page.login.link();
 
   return (
     <AppBar position="static" className={className}>

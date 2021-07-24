@@ -17,7 +17,7 @@ type TBaseTextField = {
   required?: boolean;
   size?: TSize;
   type?: TType;
-  value: string | number;
+  value: string | number | Date;
   variant?: TVariant;
 };
 

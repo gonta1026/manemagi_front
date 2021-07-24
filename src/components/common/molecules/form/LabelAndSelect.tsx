@@ -1,11 +1,19 @@
-import { BaseLabel, BaseFormControl, BaseSelect, BaseRequired } from '../../uiParts/atoms';
+import React, { useState, ReactNode } from 'react';
+import {
+  BaseLabel,
+  BaseFormControl,
+  BaseSelect,
+  BaseRequired,
+  BaseHelperText,
+} from '../../uiParts/atoms';
 import { TOptions } from '../../uiParts/atoms/form/BaseSelect';
 
-import React, { useState } from 'react';
 type TProps = {
   className?: string;
   id: string;
   label: string;
+  helperText?: ReactNode;
+  helperClassName?: string;
   onChange: any;
   options: TOptions;
   required: boolean;
@@ -16,6 +24,8 @@ const LabelAndSelect = ({
   className = '',
   id = '',
   label,
+  helperText,
+  helperClassName,
   onChange,
   options,
   required,
@@ -40,6 +50,7 @@ const LabelAndSelect = ({
           options={options}
         />
       </BaseFormControl>
+      {helperText && <BaseHelperText className={helperClassName}>{helperText}</BaseHelperText>}
     </div>
   );
 };

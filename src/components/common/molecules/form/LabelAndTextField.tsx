@@ -17,7 +17,7 @@ type TProps = {
   onChange: any;
   placeholder?: string;
   required?: boolean;
-  value: string | number;
+  value: string | number | Date;
   size?: TSize;
   type?: TType;
   variant?: TVariant;

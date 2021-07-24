@@ -68,7 +68,11 @@ const CommonWrapTemplate = ({
   return (
     <>
       {toastActions && <BaseToast {...toastActions} />}
-      <BaseHeader toggleDrawer={toggleDrawer} settingState={settingState} />
+      <BaseHeader
+        toggleDrawer={toggleDrawer}
+        settingState={settingState}
+        className={'sticky z-10 top-0'}
+      />
       <Drawer isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
       <BaseContainer>{children}</BaseContainer>
     </>

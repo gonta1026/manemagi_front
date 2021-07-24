@@ -9,6 +9,7 @@ const Container = styled.div`
   width: 92%;
   max-width: 600px;
   margin: 0 auto;
+  padding-bottom: 40px;
 `;
 
 export default BaseContainer;
