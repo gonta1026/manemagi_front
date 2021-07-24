@@ -9,6 +9,11 @@ const theme = createMuiTheme({
         minWidth: 35,
       },
     },
+    MuiToolbar: {
+      regular: {
+        minHeight: 50,
+      },
+    },
     MuiListItem: {
       root: {
         paddingTop: 6,

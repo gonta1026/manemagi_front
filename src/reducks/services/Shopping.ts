@@ -20,7 +20,7 @@ export const createShopping = createAsyncThunk(
   },
 );
 
-export const fetchTShopping = createAsyncThunk('shoppings/index', async (_, thunkAPI) => {
+export const fetchShopping = createAsyncThunk('shoppings/index', async (_, thunkAPI) => {
   try {
     const response: any = await ApiClient.getRequest(SHOPPINGS.INDEX);
     return response.data;

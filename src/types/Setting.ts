@@ -10,7 +10,7 @@ export type TSettingFormError = {
 
 export type settingAndUser = {
   user: {
-    id: number;
+    id: number | null;
     name: string;
     setting: TSetting;
   };

@@ -31,7 +31,7 @@ import { TShoppingForm, TShoppingFormError } from '../../types/Shopping';
 import { TShop } from '../../types/Shop';
 import { settingAndUser } from '../../types/Setting';
 /* utils */
-import { formatToday } from '../../utils/FormatDate';
+import { formatDay } from '../../utils/FormatDate';
 import { isEmpty } from '../../utils/function';
 import LocalStorage from '../../utils/LocalStorage';
 /* validate */
@@ -54,7 +54,7 @@ const ShoppingNew = (): JSX.Element => {
   const formik = useFormik<TShoppingForm>({
     initialValues: {
       price: null,
-      date: formatToday,
+      date: formatDay(new Date()),
       description: '',
       isLineNotice: false,
       shopId: null,
@@ -161,6 +161,12 @@ const ShoppingNew = (): JSX.Element => {
         {/* お店(shopId)) */}
         <LabelAndSelect
           className="base-vertical-item"
+          helperText={
+            <>
+              {page.shop.register.name()}は
+              <BaseLink pathname={page.shop.register.link()}>こちら</BaseLink>で登録。
+            </>
+          }
           id={SHOPPINGFORM.SHOP_ID.ID}
           label={SHOPPINGFORM.SHOP_ID.LABEL}
           onChange={(e: any) => {

@@ -9,7 +9,7 @@ export type TTUserAndSettingAndError = settingAndUser & TLoadingAndErrorState;
 export const initialState: TTUserAndSettingAndError = {
   // NOTE nullを初期値にしたいが型エラーが出るので0やカラ文字を指定
   user: {
-    id: 0,
+    id: null,
     name: '',
     setting: {
       isUseLine: false,
