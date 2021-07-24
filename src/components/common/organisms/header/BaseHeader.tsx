@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 import { useRouter, NextRouter } from 'next/router';
 import { AppBar, IconButton, Toolbar, Typography } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -47,8 +48,8 @@ const BaseHeader = ({
       <Toolbar>
         <div className="flex items-center justify-between w-full">
           <div className="left flex items-center">
-            {/* idに0が来ない前提でこのような処理をしているがあまりよくないと思われる */}
-            {settingState.user.id !== null && (
+            {/* このaccessTokenがあるかという処理は変更予定。セッションが切れた時にトークンだけ残り続けてしまうのでそのタイミングで破棄をする必要がある。*/}
+            {localStorage.getItem('accessToken') && (
               <IconButton
                 edge="start"
                 color="inherit"
@@ -62,9 +63,12 @@ const BaseHeader = ({
               <Typography variant="h6">Manemagi</Typography>
             </BaseLink>
           </div>
-          {settingState.user.id !== null && (
+          {/* このaccessTokenがあるかという処理は変更予定。セッションが切れた時にトークンだけ残り続けてしまうのでそのタイミングで破棄をする必要がある。*/}
+          {localStorage.getItem('accessToken') && (
             <div className="flex items-center">
-              <div className="mr-2">{ommisionText(settingState.user.name)}</div>
+              {settingState.user.name && (
+                <div className="mr-2">{ommisionText(settingState.user.name)}</div>
+              )}
               <BaseIcon className={'text-white'} icon="accountCircle" onClick={handleClick} />
               <Menu
                 id="simple-menu"
