@@ -18,7 +18,7 @@ import { page } from '../../pageMap';
 /* reducks */
 import { signupUser } from '../../reducks/services/User';
 /* types */
-import { TUser } from '../../types/User';
+import { TUser, TUserFormError } from '../../types/User';
 /* utils */
 import LocalStorage from '../../utils/LocalStorage';
 /* validate */
@@ -28,7 +28,7 @@ const SignUp = (): JSX.Element => {
   const router = useRouter();
   const dispatch = useDispatch();
   const validate = (values: TUser) => {
-    let errors = {} as TUser;
+    let errors = {} as TUserFormError;
     errors = signupAndLoginValidate(values, errors);
     return errors;
   };
@@ -55,7 +55,6 @@ const SignUp = (): JSX.Element => {
         const storage = new LocalStorage();
         storage.setItemAtPageMoveNotice(LocalStorage.noticeKey.signUpedNotice);
         router.push(page.top.link());
-        // TODO トップページ？へリダイレクトをさせる予定。とりあえずはお店の登録画面に遷移させておく
       }
     },
   });

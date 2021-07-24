@@ -20,7 +20,7 @@ import { page } from '../../pageMap';
 /* reducks */
 import { createShop, fetchShops } from '../../reducks/services/Shop';
 /* types */
-import { TShop, TShopForm } from '../../types/Shop';
+import { TShop, TShopForm, TShopFormError } from '../../types/Shop';
 /* validate */
 import { shopNewValidate } from '../../validate/shop/new';
 
@@ -31,7 +31,7 @@ const NewShop = (): JSX.Element => {
   const toastActions = useToastAction();
   const dispatch = useDispatch();
   const validate = (values: TShopForm) => {
-    let errors = {} as TShopForm;
+    let errors = {} as TShopFormError;
 
     const shopNames = [] as string[];
     shops.forEach((shop) => {

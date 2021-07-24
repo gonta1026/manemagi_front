@@ -20,7 +20,7 @@ import { page } from '../../pageMap';
 /* reducks */
 import { updateSetting } from '../../reducks/services/Setting';
 /* types */
-import { TSetting, settingAndUser } from '../../types/Setting';
+import { TSetting, settingAndUser, TSettingFormError } from '../../types/Setting';
 /* validate */
 import { settingsValidate } from '../../validate/setting/setting';
 
@@ -29,7 +29,7 @@ const Setting = (): JSX.Element => {
   const toastActions = useToastAction();
   const { settingState } = useSelector((state: { settingState: settingAndUser }) => state);
   const validate = (values: TSetting) => {
-    let errors = {} as TSetting;
+    let errors = {} as TSettingFormError;
     errors = settingsValidate(values, errors);
     return errors;
   };

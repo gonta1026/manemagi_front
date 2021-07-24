@@ -18,7 +18,7 @@ import { page } from '../../pageMap';
 /* reducks */
 import { loginUser } from '../../reducks/services/User';
 /* types */
-import { TLoginUser } from '../../types/User';
+import { TLoginUser, TLoginUserFormError } from '../../types/User';
 /* utils */
 import LocalStorage from '../../utils/LocalStorage';
 /* validate */
@@ -29,7 +29,7 @@ const Login = (): JSX.Element => {
   const router = useRouter();
   const dispatch = useDispatch();
   const validate = (values: TLoginUser) => {
-    let errors = {} as TLoginUser;
+    let errors = {} as TLoginUserFormError;
     errors = signupAndLoginValidate(values, errors);
     return errors;
   };
