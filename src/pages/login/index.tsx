@@ -62,6 +62,11 @@ const Login = (): JSX.Element => {
   return (
     <CommonWrapTemplate>
       <BasePageTitle className={'my-5'}>{page.login.name()}</BasePageTitle>
+      <p>テストユーザー情報</p>
+      <ul>
+        <li>email：test@example.com</li>
+        <li>password：11111111</li>
+      </ul>
       <form className="base-vertical-20" onSubmit={formik.handleSubmit}>
         <LabelAndTextField
           wrapClass="base-vertical-item"
@@ -92,12 +97,11 @@ const Login = (): JSX.Element => {
             </BaseErrorMessagesWrapper>
           )}
         </LabelAndTextField>
-        <BaseLink
-          className="block mt-2 text-right text-blue-500 text-sm"
-          pathname={page.signup.link()}
-        >
-          {page.signup.name()}はこちら
-        </BaseLink>
+        <p className={'text-right'}>
+          <BaseLink className="mt-2 text-blue-500 text-sm" pathname={page.signup.link()}>
+            {page.signup.name()}はこちら
+          </BaseLink>
+        </p>
 
         <div className="base-vertical-item flex justify-center">
           <BaseButton

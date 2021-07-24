@@ -64,7 +64,7 @@ const BaseHeader = ({
           </div>
           {settingState.user.id !== 0 && (
             <div className="flex items-center">
-              {ommisionText(settingState.user.name)}
+              <div className="mr-2">{ommisionText(settingState.user.name)}</div>
               <BaseIcon className={'text-white'} icon="accountCircle" onClick={handleClick} />
               <Menu
                 id="simple-menu"
