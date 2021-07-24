@@ -48,7 +48,7 @@ const BaseHeader = ({
         <div className="flex items-center justify-between w-full">
           <div className="left flex items-center">
             {/* idに0が来ない前提でこのような処理をしているがあまりよくないと思われる */}
-            {settingState.user.id !== 0 && (
+            {settingState.user.id !== null && (
               <IconButton
                 edge="start"
                 color="inherit"
@@ -62,7 +62,7 @@ const BaseHeader = ({
               <Typography variant="h6">Manemagi</Typography>
             </BaseLink>
           </div>
-          {settingState.user.id !== 0 && (
+          {settingState.user.id !== null && (
             <div className="flex items-center">
               <div className="mr-2">{ommisionText(settingState.user.name)}</div>
               <BaseIcon className={'text-white'} icon="accountCircle" onClick={handleClick} />
