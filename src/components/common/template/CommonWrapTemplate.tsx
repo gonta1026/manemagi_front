@@ -63,7 +63,7 @@ const CommonWrapTemplate = ({
     if (storageExists()) {
       dispatch(fetchSettingAndUser());
     }
-  }, []);
+  }, [router]);
 
   return (
     <>

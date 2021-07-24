@@ -1,6 +1,10 @@
 import React from 'react';
-import { drawerLinks } from '../../../../pageMap';
+import { useRouter } from 'next/router';
+/* styles */
 import { materialStyles } from '../../../../styles/js/material';
+/* pageMap */
+import { drawerLinks } from '../../../../pageMap';
+/* uiParts */
 import {
   BaseIcon,
   BaseLink,
@@ -14,7 +18,9 @@ type TProps = {
   toggleDrawer: any;
   isDrawerOpen: boolean;
 };
+
 const Drawer = ({ className = '', toggleDrawer, isDrawerOpen }: TProps) => {
+  const router = useRouter();
   const classes = materialStyles({
     list: {
       width: 250,
@@ -23,12 +29,17 @@ const Drawer = ({ className = '', toggleDrawer, isDrawerOpen }: TProps) => {
       paddingLeft: 35,
     },
   });
+
   return (
     <BaseDrawer className={className} open={isDrawerOpen} onClose={toggleDrawer}>
       <div className={classes.list} role="presentation">
         <BaseList>
           {drawerLinks.map((page, index) => (
-            <BaseListItem key={index} className={page.icon && index !== 0 ? 'border-t-2' : ''}>
+            <BaseListItem
+              key={index}
+              className={page.icon && index !== 0 ? 'border-t-2' : ''}
+              selected={page.link === router.pathname}
+            >
               <BaseLink pathname={page.link} className={'w-full'}>
                 <div className="flex items-center">
                   {page.icon && <BaseIcon icon={page.icon} />}
