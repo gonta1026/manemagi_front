@@ -15,6 +15,7 @@ const Home: React.FC = () => {
   useEffect(() => {
     (async () => {
       const result = await ApiClient.getRequest('');
+      console.log(result);
     })();
   });
 

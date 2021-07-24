@@ -21,7 +21,6 @@ import LocalStorage from '../../../utils/LocalStorage';
 const ShoppingShow = (): JSX.Element => {
   const [shopping, setShopping] = useState<TShopping>(shoppingInit);
   const [shops, setShops] = useState<TShop[]>([]);
-  const [open, setOpen] = useState<boolean>(false);
   const router = useRouter();
   const dispatch = useDispatch();
   const toastActions = useToastAction();
