@@ -30,6 +30,10 @@ export const page = {
       name: () => 'お店登録',
       link: () => '/shop/new',
     },
+    detail: {
+      name: () => 'お店詳細',
+      link: (id: number) => `/shop/${id}`,
+    },
   },
   claim: {
     list: {
