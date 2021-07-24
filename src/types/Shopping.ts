@@ -1,10 +1,11 @@
 export type TShopping = {
   id: number;
   price: number | null;
-  date: string | null;
+  date: Date | string | null;
   description: string | null;
   isLineNotice: boolean;
   shopId: number | null;
+  claimId: number | null;
   createdAt: Date;
   updatedAt: Date;
 };

@@ -3,6 +3,11 @@ export type TSetting = {
   lineNoticeToken: string;
 };
 
+export type TSettingFormError = {
+  isUseLine: string;
+  lineNoticeToken: string;
+};
+
 export type settingAndUser = {
   user: {
     id: number;
