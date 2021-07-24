@@ -20,6 +20,10 @@ export const page = {
       name: () => '買い物登録',
       link: () => '/shopping/new',
     },
+    edit: {
+      name: () => '買い物編集',
+      link: (id: number) => `/shopping/${id}/edit`,
+    },
   },
   shop: {
     list: {
@@ -29,10 +33,6 @@ export const page = {
     register: {
       name: () => 'お店登録',
       link: () => '/shop/new',
-    },
-    detail: {
-      name: () => 'お店詳細',
-      link: (id: number) => `/shop/${id}`,
     },
   },
   claim: {
