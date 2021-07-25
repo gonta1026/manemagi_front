@@ -54,7 +54,7 @@ const Setting = (): JSX.Element => {
           lineNoticeToken,
         }),
       );
-      if (response.payload.status === 'SUCCESS') {
+      if (response.payload.status === 'success') {
         const { handleToastOpen } = toastActions;
         handleToastOpen({
           message: `LINE設定を更新しました！`,

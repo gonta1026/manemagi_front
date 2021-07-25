@@ -61,7 +61,17 @@ const CommonWrapTemplate = ({
   useEffect(() => {
     isLogindCheck();
     if (storageExists()) {
-      dispatch(fetchSettingAndUser());
+      (async () => {
+        const response: any = await dispatch(fetchSettingAndUser());
+        // 認証に失敗した場合はtokenの破棄
+        // 401はdeviseの指定されている
+        if (response.payload?.statusText === 'Unauthorized') {
+          localStorage.removeItem('accessToken');
+          localStorage.removeItem('uid');
+          localStorage.removeItem('client');
+          router.push('/login');
+        }
+      })();
     }
   }, [router]);
 

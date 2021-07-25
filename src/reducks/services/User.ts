@@ -17,9 +17,11 @@ export const signupUser = createAsyncThunk(
         signupForm,
       );
       const { headers } = response;
-      localStorage.setItem('accessToken', headers['access-token']);
-      localStorage.setItem('client', headers['client']);
-      localStorage.setItem('uid', headers['uid']);
+      if (headers) {
+        localStorage.setItem('accessToken', headers['access-token']);
+        localStorage.setItem('client', headers['client']);
+        localStorage.setItem('uid', headers['uid']);
+      }
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue({ errorMessage: error.message });
@@ -37,6 +39,7 @@ export const loginUser = createAsyncThunk(
       );
       const { headers, status, message } = response;
       if (status === 401) {
+        // 認証エラー
         return {
           data: {
             message: message,
@@ -44,10 +47,11 @@ export const loginUser = createAsyncThunk(
           },
         };
       } else {
+        // 成功
         localStorage.setItem('accessToken', headers['access-token']);
         localStorage.setItem('client', headers['client']);
         localStorage.setItem('uid', headers['uid']);
-        return response.data;
+        return response.data.data;
       }
     } catch (error) {
       return thunkAPI.rejectWithValue({ errorMessage: error.message });

@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import { useRouter, NextRouter } from 'next/router';
 import { AppBar, IconButton, Toolbar, Typography } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -9,6 +8,7 @@ import { Menu, MenuItem } from '@material-ui/core';
 import { page } from '../../../../pageMap';
 /* pageMap */
 import { ommisionText } from '../../../../utils/function';
+import useIsAfterSsr from '../../../../customHook/useIsAfterSsr';
 /* types */
 import { settingAndUser } from '../../../../types/Setting';
 
@@ -22,7 +22,7 @@ const BaseHeader = ({
   settingState: settingAndUser;
 }) => {
   const router = useRouter();
-
+  const isAfterSsr = useIsAfterSsr();
   const [anchorEl, setAnchorEl] = React.useState<(EventTarget & HTMLButtonElement) | null>(null);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     setAnchorEl(event.currentTarget);
@@ -41,7 +41,7 @@ const BaseHeader = ({
     setAnchorEl(null);
   };
 
-  const headPathName = settingState.user.id ? page.top.link() : page.login.link();
+  const headPathName = settingState.user.id ? page.top.link() : page.root.link();
 
   return (
     <AppBar position="static" className={className}>
@@ -49,7 +49,7 @@ const BaseHeader = ({
         <div className="flex items-center justify-between w-full">
           <div className="left flex items-center">
             {/* このaccessTokenがあるかという処理は変更予定。セッションが切れた時にトークンだけ残り続けてしまうのでそのタイミングで破棄をする必要がある。*/}
-            {localStorage.getItem('accessToken') && (
+            {isAfterSsr && localStorage?.getItem('accessToken') && (
               <IconButton
                 edge="start"
                 color="inherit"
@@ -64,9 +64,9 @@ const BaseHeader = ({
             </BaseLink>
           </div>
           {/* このaccessTokenがあるかという処理は変更予定。セッションが切れた時にトークンだけ残り続けてしまうのでそのタイミングで破棄をする必要がある。*/}
-          {localStorage.getItem('accessToken') && (
+          {isAfterSsr && localStorage?.getItem('accessToken') && (
             <div className="flex items-center">
-              {settingState.user.name && (
+              {settingState.user?.name && (
                 <div className="mr-2">{ommisionText(settingState.user.name)}</div>
               )}
               <BaseIcon className={'text-white'} icon="accountCircle" onClick={handleClick} />
