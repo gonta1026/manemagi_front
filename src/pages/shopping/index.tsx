@@ -21,8 +21,10 @@ const Shopping = (): JSX.Element => {
 
   const fetchShoppingsAndSetShops = async () => {
     const response: any = await dispatch(fetchShoppings());
-    const shoppings: TShopping[] = response.payload.data;
-    setShopping(shoppings);
+    if (response.payload.status === 'success') {
+      const shoppings: TShopping[] = response.payload.data;
+      setShopping(shoppings);
+    }
   };
 
   return (

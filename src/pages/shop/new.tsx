@@ -76,8 +76,10 @@ const NewShop = (): JSX.Element => {
 
   const fetchShopsAndSetShops = async () => {
     const response: any = await dispatch(fetchShops());
-    const shops: TShop[] = response.payload.data.shops;
-    setShops(shops);
+    if (response.payload.status === 'success') {
+      const shops: TShop[] = response.payload.data.shops;
+      setShops(shops);
+    }
   };
 
   const { name, description } = formik.values;
@@ -90,7 +92,7 @@ const NewShop = (): JSX.Element => {
         handleOk={async () => {
           const response: any = await dispatch(createShop(formik.values));
           setOpen(false);
-          if (response.payload.status === 'SUCCESS') {
+          if (response.payload.status === 'success') {
             formikFieldInit(formik, setIsErrorDisplay, [SHOPFORM.NAME.ID, SHOPFORM.DESCRIPTION.ID]);
             const { handleToastOpen } = toastActions;
             handleToastOpen({

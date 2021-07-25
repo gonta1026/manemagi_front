@@ -51,6 +51,10 @@ const SignUp = (): JSX.Element => {
           passwordConfirmation,
         }),
       );
+      console.log(response.payload);
+      if (response.payload.status === 422) {
+        formik.setFieldError(USERFORM.EMAIL.ID, 'こちらのメールアドレスは既に登録されています。');
+      }
       if (response.payload.status === 'success') {
         const storage = new LocalStorage();
         storage.setItemAtPageMoveNotice(LocalStorage.noticeKey.signUpedNotice);

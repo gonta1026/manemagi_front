@@ -37,8 +37,10 @@ const ShoppingShow = (): JSX.Element => {
   const fetchShoppingAndSetShopping = async () => {
     if (router.query.id) {
       const response: any = await dispatch(fetchShopping(router.query.id as string));
-      const shopping: TShopping = response.payload.data;
-      setShopping(shopping);
+      if (response.payload.status === 'success') {
+        const shopping: TShopping = response.payload.data;
+        setShopping(shopping);
+      }
     }
   };
 

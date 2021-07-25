@@ -73,8 +73,10 @@ const ShoppingNew = (): JSX.Element => {
 
   const fetchShopsAndSetShops = async () => {
     const response: any = await dispatch(fetchShops());
-    const shops: TShop[] = response.payload.data.shops;
-    setShops(shops);
+    if (response.payload.status === 'success') {
+      const shops: TShop[] = response.payload.data.shops;
+      setShops(shops);
+    }
   };
 
   return (
@@ -85,7 +87,7 @@ const ShoppingNew = (): JSX.Element => {
         handleOk={async () => {
           const response: any = await dispatch(createShopping(formik.values));
           setOpen(false);
-          if (response.payload.status === 'SUCCESS') {
+          if (response.payload.status === 'success') {
             const storage = new LocalStorage();
             storage.setItemAtPageMoveNotice(LocalStorage.noticeKey.shoppingedNotice);
             router.push(page.top.link());

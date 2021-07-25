@@ -48,12 +48,12 @@ const Login = (): JSX.Element => {
           password,
         }),
       );
-      if (response.payload.data.id) {
+      if (response.payload.id) {
         const storage = new LocalStorage();
         storage.setItemAtPageMoveNotice(LocalStorage.noticeKey.loginedNotice);
         router.push(page.top.link());
       }
-      if (response.payload.data.status === 401) {
+      if (response.payload.status === 401) {
         formik.setFieldError(USERFORM.PASSWORD.ID, emailOrPassword());
       }
     },

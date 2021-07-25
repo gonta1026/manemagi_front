@@ -20,8 +20,10 @@ const Shop = (): JSX.Element => {
 
   const fetchShopsAndSetShops = async () => {
     const response: any = await dispatch(fetchShops());
-    const shops: TShop[] = response.payload.data.shops;
-    setShopNames(shops);
+    if (response.payload.status === 'success') {
+      const shops: TShop[] = response.payload.data.shops;
+      setShopNames(shops);
+    }
   };
 
   return (

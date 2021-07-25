@@ -51,12 +51,14 @@ const ShoppingEdit = (): JSX.Element => {
   const fetchShoppingAndSetShopping = async () => {
     if (router.query.id) {
       const response: any = await dispatch(fetchEditShopping(router.query.id as string));
-      const shopping: TShopping = response.payload.data;
-      formik.setFieldValue(SHOPPINGFORM.PRICE.ID, shopping.price);
-      formik.setFieldValue(SHOPPINGFORM.DATE.ID, formatDay(shopping.date as Date));
-      formik.setFieldValue(SHOPPINGFORM.DESCRIPTION.ID, shopping.description);
-      formik.setFieldValue(SHOPPINGFORM.IS_LINE_NOTICE.ID, shopping.isLineNotice);
-      formik.setFieldValue(SHOPPINGFORM.SHOP_ID.ID, shopping.shopId);
+      if (response.payload.status === 'success') {
+        const shopping: TShopping = response.payload.data;
+        formik.setFieldValue(SHOPPINGFORM.PRICE.ID, shopping.price);
+        formik.setFieldValue(SHOPPINGFORM.DATE.ID, formatDay(shopping.date as Date));
+        formik.setFieldValue(SHOPPINGFORM.DESCRIPTION.ID, shopping.description);
+        formik.setFieldValue(SHOPPINGFORM.IS_LINE_NOTICE.ID, shopping.isLineNotice);
+        formik.setFieldValue(SHOPPINGFORM.SHOP_ID.ID, shopping.shopId);
+      }
     }
   };
   const fetchShopsAndSetShops = async () => {
@@ -91,7 +93,7 @@ const ShoppingEdit = (): JSX.Element => {
           const response: any = await dispatch(
             updateShopping({ ShoppingForm: formik.values, id: router.query.id as string }),
           );
-          if (response.payload.status === 'SUCCESS') {
+          if (response.payload.status === 'success') {
             const storage = new LocalStorage();
             storage.setItemAtPageMoveNotice(LocalStorage.noticeKey.shoppingUpdatedNotice);
             router.push(page.shopping.show.link(Number(router.query.id)));
