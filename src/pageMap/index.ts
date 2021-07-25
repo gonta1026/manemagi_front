@@ -1,4 +1,8 @@
 export const page = {
+  root: {
+    name: () => '紹介', // nameの使う予定はなし。
+    link: () => '/',
+  },
   signup: {
     name: () => '新規登録',
     link: () => '/signup',
