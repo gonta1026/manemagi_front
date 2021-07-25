@@ -49,8 +49,8 @@ const ShoppingEdit = (): JSX.Element => {
   }, [router]);
 
   const fetchShoppingAndSetShopping = async () => {
-    if (router.query.id) {
-      const response: any = await dispatch(fetchEditShopping(router.query.id as string));
+    if (router.query.Id) {
+      const response: any = await dispatch(fetchEditShopping(router.query.Id as string));
       if (response.payload.status === 'success') {
         const shopping: TShopping = response.payload.data;
         formik.setFieldValue(SHOPPINGFORM.PRICE.ID, shopping.price);
@@ -91,12 +91,12 @@ const ShoppingEdit = (): JSX.Element => {
         handleClose={() => setOpen(false)}
         handleOk={async () => {
           const response: any = await dispatch(
-            updateShopping({ ShoppingForm: formik.values, id: router.query.id as string }),
+            updateShopping({ ShoppingForm: formik.values, id: router.query.Id as string }),
           );
           if (response.payload.status === 'success') {
             const storage = new LocalStorage();
             storage.setItemAtPageMoveNotice(LocalStorage.noticeKey.shoppingUpdatedNotice);
-            router.push(page.shopping.show.link(Number(router.query.id)));
+            router.push(page.shopping.show.link(Number(router.query.Id)));
           } else {
             const { handleToastOpen } = toastActions;
             handleToastOpen({

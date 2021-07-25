@@ -30,18 +30,13 @@ const ShoppingShow = (): JSX.Element => {
     fetchShopsAndSetShops();
   }, []);
 
-  console.log('これでどうだー');
   useEffect(() => {
-    console.log(router);
     fetchShoppingAndSetShopping();
   }, [router]);
 
   const fetchShoppingAndSetShopping = async () => {
-    console.log(router);
-    if (router.query.id) {
-      console.log(router);
-      const response: any = await dispatch(fetchShopping(router.query.id as string));
-      console.log(response);
+    if (router.query.Id) {
+      const response: any = await dispatch(fetchShopping(router.query.Id as string));
       if (response.payload.status === 'success') {
         const shopping: TShopping = response.payload.data;
         setShopping(shopping);
@@ -87,7 +82,7 @@ const ShoppingShow = (): JSX.Element => {
       </ul>
       <ExecutionAndBackButtons
         backPathname={page.shopping.list.link()}
-        nextPathname={page.shopping.edit.link(Number(router.query.id))}
+        nextPathname={page.shopping.edit.link(Number(router.query.Id))}
         backButtonName={`${page.shopping.list.name()}へ戻る`}
         nextButtonName={'編集'}
       />
