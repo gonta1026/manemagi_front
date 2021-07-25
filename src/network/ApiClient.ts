@@ -3,9 +3,12 @@ import camelcaseKeys from 'camelcase-keys';
 import snakecaseKeys from 'snakecase-keys';
 
 type NormalizeError = {
-  status: number;
-  message: string;
-  raw: any;
+  data: {
+    status: number;
+    message: string;
+    statusText: string;
+    raw: any;
+  };
 };
 
 class APIClient {
@@ -18,9 +21,7 @@ class APIClient {
 
     this.axiosInstance.interceptors.request.use(
       function (config: AxiosRequestConfig) {
-        const accessToken = window.localStorage?.accessToken as string;
-        const client = window.localStorage?.client as string;
-        const uid = window.localStorage?.uid as string;
+        const { accessToken, client, uid } = localStorage;
         if (accessToken && client && uid) {
           config.headers['access-token'] = accessToken;
           config.headers.client = client;
@@ -92,9 +93,13 @@ class APIClient {
 
   private _normalizeError(error: any) {
     const normalizeError: NormalizeError = {
-      status: error.response && error.response.status,
-      message: error.message,
-      raw: error,
+      // axiosの『data』でのアクセスに合わせてdataで囲む
+      data: {
+        status: error.response && error.response.status,
+        statusText: error.response.statusText,
+        message: error.message,
+        raw: error,
+      },
     };
     return normalizeError;
   }
