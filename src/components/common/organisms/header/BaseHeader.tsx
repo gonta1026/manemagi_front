@@ -60,7 +60,7 @@ const BaseHeader = ({
               </IconButton>
             )}
             <BaseLink pathname={headPathName}>
-              <Typography variant="h6">Manemagi</Typography>
+              <Typography variant="h6">TATEKAE</Typography>
             </BaseLink>
           </div>
           {/* このaccessTokenがあるかという処理は変更予定。セッションが切れた時にトークンだけ残り続けてしまうのでそのタイミングで破棄をする必要がある。*/}
