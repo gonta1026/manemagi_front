@@ -29,6 +29,7 @@ const BaseHeader = ({
   };
 
   // TODO ログアウトは Authクラス等を作成して管理する。localStorageのkeyもClientStorageクラス等を作成して管理させる。
+  // もしくはとりあえずLocalStorageのクラスに全部移動させてもいいかも
   const logOut = (router: NextRouter) => {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('uid');
