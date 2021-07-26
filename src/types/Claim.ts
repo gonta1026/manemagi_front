@@ -1,8 +1,9 @@
 export type TClaim = {
   id: number;
   isLineNotice: boolean;
-  userId: number;
+  isGetClaim: boolean;
   totalPrice: number; // NOTE DBのschemaには存在しない。
+  userId: number;
   createdAt: Date;
   updatedAt: Date;
 };
