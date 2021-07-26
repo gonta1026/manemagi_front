@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
@@ -58,6 +58,11 @@ const Login = (): JSX.Element => {
       }
     },
   });
+
+  useEffect(() => {
+    formik.setFieldValue(USERFORM.EMAIL.ID, process.env.LOGIN_EMAIL || '');
+    formik.setFieldValue(USERFORM.PASSWORD.ID, process.env.LOGIN_PASSWORD || '');
+  }, []);
 
   return (
     <CommonWrapTemplate>

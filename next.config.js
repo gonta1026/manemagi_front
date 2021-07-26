@@ -10,5 +10,7 @@ module.exports = {
   },
   env: {
     API_URL: process.env.API_URL,
+    LOGIN_EMAIL: process.env.LOGIN_EMAIL,
+    LOGIN_PASSWORD: process.env.LOGIN_PASSWORD,
   },
 };
