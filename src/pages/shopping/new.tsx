@@ -190,6 +190,7 @@ const ShoppingNew = (): JSX.Element => {
           wrapClass="base-vertical-item"
         />
 
+        {/* TODO 設定画面の設定によりスイッチを表示させるかの制御が必要。 */}
         {/* LINE通知(isLineNotice) */}
         <LabelAndSwitch
           className={'base-vertical-item'}
