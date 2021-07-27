@@ -10,6 +10,7 @@ type TPageMoveNoticeValue =
   | TShoppingedNotice
   | TSignUpedNotice
   | TShoppingUpdatedNotice;
+
 class LocalStorage {
   private localStorage: Storage = window.localStorage;
   public static noticeKey = {

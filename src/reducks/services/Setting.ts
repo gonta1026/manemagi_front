@@ -10,7 +10,7 @@ import { TSetting } from '../../types/Setting';
 const { SETTINGS } = END_POINT;
 
 // ここで認証がされているかのチェックを行っている。
-export const fetchSettingAndUser = createAsyncThunk('setting/fetchSetting', async (_, thunkAPI) => {
+export const fetchSettingAndUser = createAsyncThunk('setting/index', async (_, thunkAPI) => {
   try {
     const response: any = await ApiClient.getRequest(SETTINGS.INDEX);
     return response.data;
