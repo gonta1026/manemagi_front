@@ -19,6 +19,7 @@ import {
 import BaseModal from '../../components/common/modal/BaseModal';
 /* const */
 import { SHOPPINGFORM } from '../../const/form/shopping';
+import { SETTINGFORM } from '../../const/form/setting';
 /* customHook */
 import useToastAction from '../../customHook/useToastAction';
 /* pageMap */
@@ -73,6 +74,7 @@ const ShoppingNew = (): JSX.Element => {
 
   const fetchShopsAndSetShops = async () => {
     const response: any = await dispatch(fetchShops());
+    console.log(response);
     if (response.payload.status === 'success') {
       const shops: TShop[] = response.payload.data.shops;
       setShops(shops);
@@ -118,7 +120,7 @@ const ShoppingNew = (): JSX.Element => {
         </dl>
         <dl>
           <dt>{SHOPPINGFORM.IS_LINE_NOTICE.LABEL}：</dt>
-          <dd>{formik.values.isLineNotice}</dd>
+          <dd>{formik.values.isLineNotice ? '通知する' : '通知しない'}</dd>
         </dl>
       </BaseModal>
       <BasePageTitle className={'my-5'}>{page.shopping.register.name()}</BasePageTitle>
@@ -190,11 +192,25 @@ const ShoppingNew = (): JSX.Element => {
           wrapClass="base-vertical-item"
         />
 
-        {/* TODO 設定画面の設定によりスイッチを表示させるかの制御が必要。 */}
         {/* LINE通知(isLineNotice) */}
         <LabelAndSwitch
           className={'base-vertical-item'}
           checked={formik.values.isLineNotice}
+          disabled={!settingState.user.setting.isUseLine}
+          helperText={
+            <>
+              {!settingState.user.setting.isUseLine ? (
+                <>
+                  <BaseLink
+                    pathname={page.setting.edit.link()}
+                  >{`『${page.setting.edit.name()}』`}</BaseLink>
+                  画面の{SETTINGFORM.IS_USE_LINE.LABEL}がOFFになっています。
+                </>
+              ) : (
+                ''
+              )}
+            </>
+          }
           onChange={() =>
             formik.setFieldValue(SHOPPINGFORM.IS_LINE_NOTICE.ID, !formik.values.isLineNotice)
           }

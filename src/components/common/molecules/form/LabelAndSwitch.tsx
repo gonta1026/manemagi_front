@@ -4,6 +4,7 @@ import React, { ReactNode } from 'react';
 
 type TProps = {
   checked: boolean;
+  disabled?: boolean;
   helperText?: ReactNode;
   id: string;
   label: string;
@@ -14,6 +15,7 @@ type TProps = {
 
 const LabelAndSwitch = ({
   checked,
+  disabled,
   helperText = '',
   className = '',
   id = '',
@@ -24,7 +26,7 @@ const LabelAndSwitch = ({
     <>
       <BaseFormControlLabel
         {...{ className, id, label }}
-        control={<BaseSwitch {...{ checked, id, onChange }} color="primary" />}
+        control={<BaseSwitch {...{ checked, id, onChange, disabled }} color="primary" />}
       />
       {helperText && <BaseHelperText>{helperText}</BaseHelperText>}
     </>
