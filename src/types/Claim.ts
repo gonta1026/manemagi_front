@@ -7,3 +7,8 @@ export type TClaim = {
   createdAt: Date;
   updatedAt: Date;
 };
+
+export type TClaimForm = {
+  isLineNotice: boolean;
+  shoppingIds: number[];
+};
