@@ -60,7 +60,7 @@ const ShoppingShow = (): JSX.Element => {
         message = '買い物の編集をしました！';
         break;
     }
-    storage.afterPageMoveNotice(LocalStorage.pageMoveNotice, () =>
+    storage.afterPageMoveNotice(() =>
       toastActions.handleToastOpen({
         message,
       }),

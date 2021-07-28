@@ -12,10 +12,11 @@ const Top = (): JSX.Element => {
   const toastActions = useToastAction();
 
   useEffect(() => {
-    const pageMoveNotice = 'pageMoveNotice'; // TODO 共通の場所におく？
     const storage = new LocalStorage();
     const targetNotice = storage.getItem('pageMoveNotice')!;
-    const { loginedNotice, signUpedNotice, shoppingedNotice } = LocalStorage.noticeKey;
+    const { loginedNotice, signUpedNotice, shoppingedNotice, claimedNotice } =
+      LocalStorage.noticeKey;
+
     let message = '';
     switch (targetNotice) {
       case loginedNotice:
@@ -27,8 +28,11 @@ const Top = (): JSX.Element => {
       case shoppingedNotice:
         message = '買い物登録しました！';
         break;
+      case claimedNotice:
+        message = '請求登録をしました！';
+        break;
     }
-    storage.afterPageMoveNotice(pageMoveNotice, () =>
+    storage.afterPageMoveNotice(() =>
       toastActions.handleToastOpen({
         message,
       }),

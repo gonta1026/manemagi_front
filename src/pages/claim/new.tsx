@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 /* components */
 import CommonWrapTemplate from '../../components/common/template/CommonWrapTemplate';
@@ -6,6 +7,8 @@ import { BasePageTitle, BaseButton } from '../../components/common/uiParts/atoms
 import BaseModal from '../../components/common/modal/BaseModal';
 /* const */
 import { SHOPPINGFORM } from '../../const/form/shopping';
+/* customHook */
+import useToastAction from '../../customHook/useToastAction';
 /* pageMap */
 import { page } from '../../pageMap';
 /* reducks */
@@ -13,12 +16,16 @@ import { fetchNoClaimShoppings, createClaim } from '../../reducks/services/Claim
 /* types */
 import { TShopping } from '../../types/Shopping';
 import { formatDay } from '../../utils/FormatDate';
+/* utils */
+import LocalStorage from '../../utils/LocalStorage';
 
 const ClaimNew = (): JSX.Element => {
+  const router = useRouter();
   const [open, setOpen] = useState<boolean>(false);
   const [shoppings, setShoppings] = useState<TShopping[]>([]);
   const [cheackShoppings, setCheackShoppings] = useState<TShopping[]>([]);
   const dispatch = useDispatch();
+  const toastActions = useToastAction();
 
   useEffect(() => {
     fetchShoppingsAndSetShops();
@@ -48,37 +55,31 @@ const ClaimNew = (): JSX.Element => {
   };
 
   const totalClaimPrice = (() => {
-    // shoppings.reduce()
     return cheackShoppings.reduce((accumulator, shopping) => {
       return shopping.price! + accumulator;
     }, 0);
   })();
 
-  console.log(totalClaimPrice);
   return (
-    <CommonWrapTemplate>
+    <CommonWrapTemplate {...{ toastActions }}>
       <BaseModal
         open={open}
         handleClose={() => setOpen(false)}
         handleOk={async () => {
-          // const shoppingIds = [];
           const shoppingIds = cheackShoppings.map((shopping) => shopping.id!);
-          // TODO SWOTCHを設置する。isLineNoticeをフォームの値でセット
           const response: any = await dispatch(
             createClaim({ shoppingIds: shoppingIds, isLineNotice: true }),
           );
-          console.log(response);
-          fetchShoppingsAndSetShops();
           if (response.payload.status === 'success') {
-            // const storage = new LocalStorage();
-            // storage.setItemAtPageMoveNotice(LocalStorage.noticeKey.shoppingUpdatedNotice);
-            // router.push(page.shopping.show.link(Number(router.query.Id)));
+            const storage = new LocalStorage();
+            storage.setItemAtPageMoveNotice(LocalStorage.noticeKey.claimedNotice);
+            router.push(page.top.link());
           } else {
-            // const { handleToastOpen } = toastActions;
-            // handleToastOpen({
-            //   message: `買い物の更新に失敗しました。`,
-            //   severity: 'error',
-            // });
+            const { handleToastOpen } = toastActions;
+            handleToastOpen({
+              message: `買い物の更新に失敗しました。`,
+              severity: 'error',
+            });
           }
         }}
       >

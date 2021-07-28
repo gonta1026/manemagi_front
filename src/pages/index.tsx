@@ -23,23 +23,29 @@ const Home: React.FC = () => {
     <TopPageTemplate>
       <MainVisual>
         <h3 className={'title'}>
-          買い物で使った <br />
+          買い物で立て替えた
+          <br />
           お金を管理しよう
         </h3>
       </MainVisual>
       <BaseContainer>
+        <div className="flex justify-center mt-5">
+          <BaseLink pathname={page.signup.link()}>
+            <BaseButton color="primary" variant="contained">
+              使ってみる
+            </BaseButton>
+          </BaseLink>
+        </div>
         <section className={'mt-5'}>
-          <h3 className={'font-bold'}>日頃に感じる問題点</h3>
+          <h3 className={'font-bold'}>アプリの特徴</h3>
           <ul>
-            <li className={'list-disc'}>妻から買い物を依頼されてお金を建て替えることが多い。。</li>
+            <li className={'list-disc'}>買い物で立て替えたお金を記録</li>
             <li className={'list-disc'}>
-              クレジットカードを扱っていない店が多く現金を使うケースがとても多い。
+              買い物をしたあとの財布に溜まるレシートを残さなくても良い
             </li>
+            <li className={'list-disc'}>買い物時、建て替え時の詳細に関する記録</li>
             <li className={'list-disc'}>
-              場所によってはレシートも出してくれないところもあるのであとでお金を請求できていなくて損をしてしまうケースもある。
-            </li>
-            <li className={'list-disc'}>
-              立て替えたお金を手元においておくとレシートが溜まってうんざり。
+              {`${page.setting.edit.name()}をすることによりLINEメッセージで買い物や請求の詳細を通知`}
             </li>
           </ul>
         </section>
@@ -47,18 +53,7 @@ const Home: React.FC = () => {
         <hr className="my-5 bg-black" />
 
         <section>
-          <h3 className={'font-bold'}>上記の問題の解決</h3>
-          <ul>
-            <li className={'list-disc'}>
-              ライングループを作ってアプリから買い物をした場所、金額を送ることができる。
-            </li>
-            <li className={'list-disc'}>立て替えたお金をお好きなタイミングで請求をできる。</li>
-            <li className={'list-disc'}>買い物、請求の詳細の履歴を確認することができる。</li>
-          </ul>
-        </section>
-
-        <section>
-          <h3 className={'font-bold'}>注意事項</h3>
+          <h3 className={'font-bold'}>使ってみる</h3>
           <ul>
             <li className={'list-disc'}>
               ライン通知を行う場合は
@@ -90,8 +85,6 @@ const Home: React.FC = () => {
               {page.login.name()}
             </BaseButton>
           </BaseLink>
-
-          <hr className="my-5" />
         </div>
       </BaseContainer>
     </TopPageTemplate>
@@ -109,7 +102,7 @@ const MainVisual = styled.div`
   .title {
     color: #fff;
     width: 92%;
-    font-size: 30px;
+    font-size: 25px;
     position: absolute;
     top: 50%;
     left: 50%;
