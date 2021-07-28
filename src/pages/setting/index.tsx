@@ -57,7 +57,7 @@ const Setting = (): JSX.Element => {
       if (response.payload.status === 'success') {
         const { handleToastOpen } = toastActions;
         handleToastOpen({
-          message: `LINE設定を更新しました！`,
+          message: `${page.setting.edit.name()}を更新しました！`,
           autoHideDuration: 3000,
         });
       }
