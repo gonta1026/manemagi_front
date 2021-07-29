@@ -19,8 +19,6 @@ export { default as BaseSwitch } from './form/BaseSwitch';
 export { default as BaseSelect } from './form/BaseSelect';
 /* icon */
 export { default as BaseIcon } from './icon/BaseIcon';
-/* loading */
-export { default as BaseLoading } from './loading/BaseLoading';
 /* link */
 export { default as BaseLink } from './link/BaseLink';
 /* list */
