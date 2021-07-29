@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
@@ -25,6 +25,7 @@ import LocalStorage from '../../utils/LocalStorage';
 import { signupAndLoginValidate } from '../../validate/user/signupAndLogin';
 
 const SignUp = (): JSX.Element => {
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
   const validate = (values: TUser) => {
@@ -43,6 +44,7 @@ const SignUp = (): JSX.Element => {
     validate,
     onSubmit: async (values) => {
       const { name, email, password, passwordConfirmation } = values;
+      setIsLoading(true);
       const response: any = await dispatch(
         signupUser({
           name,
@@ -51,7 +53,6 @@ const SignUp = (): JSX.Element => {
           passwordConfirmation,
         }),
       );
-      console.log(response.payload);
       if (response.payload.status === 422) {
         formik.setFieldError(USERFORM.EMAIL.ID, 'こちらのメールアドレスは既に登録されています。');
       }
@@ -60,11 +61,12 @@ const SignUp = (): JSX.Element => {
         storage.setItemAtPageMoveNotice(LocalStorage.noticeKey.signUpedNotice);
         router.push(page.top.link());
       }
+      setIsLoading(false);
     },
   });
 
   return (
-    <CommonWrapTemplate>
+    <CommonWrapTemplate {...{ isLoading }}>
       <BasePageTitle className={'my-5'}>{page.signup.name()}</BasePageTitle>
       <form className="base-vertical-20" onSubmit={formik.handleSubmit}>
         <LabelAndTextField

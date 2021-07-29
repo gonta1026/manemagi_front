@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
@@ -26,6 +26,7 @@ import { signupAndLoginValidate } from '../../validate/user/signupAndLogin';
 import { emailOrPassword } from '../../validate/message';
 
 const Login = (): JSX.Element => {
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
   const validate = (values: TLoginUser) => {
@@ -42,6 +43,7 @@ const Login = (): JSX.Element => {
     validate,
     onSubmit: async (values) => {
       const { email, password } = values;
+      setIsLoading(true);
       const response: any = await dispatch(
         loginUser({
           email,
@@ -56,6 +58,7 @@ const Login = (): JSX.Element => {
       if (response.payload.status === 401) {
         formik.setFieldError(USERFORM.PASSWORD.ID, emailOrPassword());
       }
+      setIsLoading(false);
     },
   });
 
@@ -65,7 +68,7 @@ const Login = (): JSX.Element => {
   }, []);
 
   return (
-    <CommonWrapTemplate>
+    <CommonWrapTemplate {...{ isLoading }}>
       <BasePageTitle className={'my-5'}>{page.login.name()}</BasePageTitle>
       <p>テストユーザー情報</p>
       <ul>

@@ -6,7 +6,7 @@ import { BaseContainer } from '../uiParts/layout';
 /* organisms */
 import { BaseHeader, Drawer } from '../organisms';
 /* molecules */
-import { BaseToast } from '../molecules';
+import { BaseToast, BaseLoading } from '../molecules';
 /* customHook */
 import { ToastType } from '../../../customHook/useToastAction';
 /* reducks */
@@ -17,9 +17,11 @@ import { settingAndUser } from '../../../types/Setting';
 const CommonWrapTemplate = ({
   children,
   toastActions,
+  isLoading = false,
 }: {
   children: ReactNode;
   toastActions?: ToastType;
+  isLoading?: boolean;
 }) => {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -77,6 +79,7 @@ const CommonWrapTemplate = ({
 
   return (
     <>
+      <BaseLoading open={isLoading} />
       {toastActions && <BaseToast {...toastActions} />}
       <BaseHeader
         toggleDrawer={toggleDrawer}

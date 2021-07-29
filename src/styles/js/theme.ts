@@ -56,6 +56,12 @@ const theme = createMuiTheme({
         padding: '10.5px 14px',
       },
     },
+    /* NOTE ローディングアイコン */
+    MuiBackdrop: {
+      root: {
+        zIndex: 11, // NOTE ヘッダーの10より多く指定
+      },
+    },
   },
   palette: {
     primary: {
