@@ -42,7 +42,9 @@ const Top = (): JSX.Element => {
     <CommonWrapTemplate toastActions={toastActions}>
       <section className={'mt-10'}>
         <p>トップページを作ってここをルートのページにしようと考えているが内容が決まっていない。</p>
-        <ul>
+        <p>買い物登録画面をにしてもいいかもしれない。。</p>
+        <p>フッターバーがあるなら独自のトップページはいらないかも？</p>
+        <ul className={'mt-5 space-y-2'}>
           {drawerLinks.map((page, index) => {
             return (
               <li key={index}>
