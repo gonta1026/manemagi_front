@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 /* components */
 import TopPageTemplate from '../components/pages/index/template/TopPageTemplate';
-import { BaseButton, BaseLink } from '../components/common/uiParts/atoms';
+import { BaseButton, BaseLink, BaseCard } from '../components/common/uiParts/atoms';
 import { BaseContainer } from '../components/common/uiParts/layout';
 /* const */
 import { mediaSize } from '../const/media';
@@ -29,30 +29,36 @@ const Home: React.FC = () => {
         </h3>
       </MainVisual>
       <BaseContainer>
-        <div className="flex justify-center mt-5">
+        {/* <div className="flex justify-center mt-5">
           <BaseLink pathname={page.signup.link()}>
             <BaseButton color="primary" variant="contained">
               使ってみる
             </BaseButton>
           </BaseLink>
         </div>
-        <section className={'mt-5'}>
-          <h3 className={'font-bold'}>アプリの特徴</h3>
-          <ul>
-            <li className={'list-disc'}>買い物で立て替えたお金を記録</li>
-            <li className={'list-disc'}>
+        <hr className="my-8 bg-black" /> */}
+
+        <CardsSection className={'mt-8 space-y-2'}>
+          {/* <BaseListItemText primary="Single-line item" /> */}
+          <BaseCard>
+            <p className="p-3 font-bold">買い物で立て替えたお金を記録</p>
+          </BaseCard>
+          <BaseCard>
+            <p className="p-3 font-bold">
               買い物をしたあとの財布に溜まるレシートを残さなくても良い
-            </li>
-            <li className={'list-disc'}>買い物時、建て替え時の詳細に関する記録</li>
-            <li className={'list-disc'}>
-              {`${page.setting.edit.name()}をすることによりLINEメッセージで買い物や請求の詳細を通知`}
-            </li>
-          </ul>
-        </section>
+            </p>
+          </BaseCard>
+          <BaseCard>
+            <p className="p-3 font-bold">買い物時、建て替え時の詳細に関する記録</p>
+          </BaseCard>
+          <BaseCard>
+            <p className="p-3 font-bold">{`${page.setting.edit.name()}をすることによりLINEメッセージで買い物や請求の詳細を通知`}</p>
+          </BaseCard>
+        </CardsSection>
 
-        <hr className="my-5 bg-black" />
+        {/* <hr className="my-8 bg-black" /> */}
 
-        <section>
+        {/* <section>
           <h3 className={'font-bold'}>使ってみる</h3>
           <ul>
             <li className={'list-disc'}>
@@ -68,11 +74,11 @@ const Home: React.FC = () => {
               でアクセストークンを取得し後に専用のLINEグループを作成する必要があります。こちらのトークンがなくてもアプリで記録を残すことは使用はできますが、ラインを使った通知ができません。。
             </li>
           </ul>
-        </section>
+        </section> */}
 
-        <hr className="my-5" />
+        {/* <hr className="my-5" /> */}
 
-        <div className="text-center">
+        <div className="mt-10 text-center">
           <BaseLink pathname={page.signup.link()}>
             <BaseButton color="primary" variant="contained">
               {page.signup.name()}
@@ -109,5 +115,7 @@ const MainVisual = styled.div`
     transform: translate(-50%, -50%);
   }
 `;
+
+const CardsSection = styled.section``;
 
 export default Home;

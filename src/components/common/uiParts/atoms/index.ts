@@ -1,6 +1,8 @@
 /* button */
 export { default as BaseButton } from './button/BaseButton';
 export { default as CloseButton } from './button/CloseButton';
+/* card */
+export { default as BaseCard } from './card/BaseCard';
 /* drawer */
 export { default as BaseDrawer } from './drawer/BaseDrawer';
 /* error */
