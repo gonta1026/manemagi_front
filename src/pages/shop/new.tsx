@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
 /* const */
@@ -13,22 +14,21 @@ import {
   BaseErrorMessagesWrapper,
   BaseLink,
 } from '../../components/common/uiParts/atoms';
-/* customHook */
-import useToastAction from '../../customHook/useToastAction';
 /* page */
 import { page } from '../../pageMap';
 /* reducks */
 import { createShop, fetchShops } from '../../reducks/services/Shop';
 /* types */
 import { TShop, TShopForm, TShopFormError } from '../../types/Shop';
+/* utils */
+import LocalStorage from '../../utils/LocalStorage';
 /* validate */
 import { shopNewValidate } from '../../validate/shop/new';
 
 const NewShop = (): JSX.Element => {
+  const router = useRouter();
   const [open, setOpen] = useState<boolean>(false);
   const [shops, setShops] = useState<TShop[]>([]);
-  const [isErrorDisplay, setIsErrorDisplay] = useState<boolean>(true);
-  const toastActions = useToastAction();
   const dispatch = useDispatch();
   const validate = (values: TShopForm) => {
     let errors = {} as TShopFormError;
@@ -48,27 +48,9 @@ const NewShop = (): JSX.Element => {
     },
     validate,
     onSubmit: async () => {
-      setIsErrorDisplay(false);
       setOpen(true);
     },
   });
-  // formik用のクラス等に移動をさせる可能性あり。
-  type TFormik = typeof formik;
-  const formikFieldInit = (
-    formik: TFormik,
-    setIsErrorDisplay: React.Dispatch<React.SetStateAction<boolean>>,
-    formIds: string[],
-  ) => {
-    formIds.forEach((formId) => {
-      formik.setFieldValue(formId, '');
-      // NOTE 時間差にしないとエラーが消えなかったため。setTimeoutを使用
-      setTimeout(() => {
-        formik.setFieldError(formId, '');
-        formik.setFieldTouched(formId, false);
-      }, 10);
-      setIsErrorDisplay(true);
-    });
-  };
 
   useEffect(() => {
     fetchShopsAndSetShops();
@@ -85,7 +67,7 @@ const NewShop = (): JSX.Element => {
   const { name, description } = formik.values;
 
   return (
-    <CommonWrapTemplate toastActions={toastActions}>
+    <CommonWrapTemplate>
       <BaseModal
         open={open}
         handleClose={() => setOpen(false)}
@@ -93,12 +75,9 @@ const NewShop = (): JSX.Element => {
           const response: any = await dispatch(createShop(formik.values));
           setOpen(false);
           if (response.payload.status === 'success') {
-            formikFieldInit(formik, setIsErrorDisplay, [SHOPFORM.NAME.ID, SHOPFORM.DESCRIPTION.ID]);
-            const { handleToastOpen } = toastActions;
-            handleToastOpen({
-              message: `お店の${name}を登録しました！`,
-            });
-            fetchShopsAndSetShops(); // 再取得とstateのセット
+            const storage = new LocalStorage();
+            storage.setItemAtPageMoveNotice(LocalStorage.noticeKey.createdShopNotice);
+            router.push(page.top.link());
           }
         }}
       >
@@ -121,7 +100,7 @@ const NewShop = (): JSX.Element => {
           value={name}
           wrapClass="base-vertical-item"
         >
-          {isErrorDisplay && formik.errors.name && formik.touched.name && (
+          {formik.errors.name && formik.touched.name && (
             <BaseErrorMessagesWrapper>
               <li>{formik.errors.name}</li>
             </BaseErrorMessagesWrapper>

@@ -14,7 +14,7 @@ const Top = (): JSX.Element => {
   useEffect(() => {
     const storage = new LocalStorage();
     const targetNotice = storage.getItem('pageMoveNotice')!;
-    const { loginedNotice, signUpedNotice, shoppingedNotice, claimedNotice } =
+    const { loginedNotice, signUpedNotice, shoppingedNotice, claimedNotice, createdShopNotice } =
       LocalStorage.noticeKey;
 
     let message = '';
@@ -31,6 +31,9 @@ const Top = (): JSX.Element => {
       case claimedNotice:
         message = '請求登録をしました！';
         break;
+      case createdShopNotice:
+        message = 'お店登録をしました！';
+        break;
     }
     storage.afterPageMoveNotice(() =>
       toastActions.handleToastOpen({
@@ -38,6 +41,7 @@ const Top = (): JSX.Element => {
       }),
     );
   }, []);
+
   return (
     <CommonWrapTemplate toastActions={toastActions}>
       <section className={'mt-10'}>
