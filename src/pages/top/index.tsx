@@ -1,20 +1,46 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+/* components */
 import CommonWrapTemplate from '../../components/common/template/CommonWrapTemplate';
-import { BaseLink } from '../../components/common/uiParts/atoms';
+import { BasePageTitle, BaseLink, BaseButton } from '../../components/common/uiParts/atoms';
 /* pageMap */
 import { drawerLinks } from '../../pageMap';
+/* pageMap */
+import { page } from '../../pageMap';
+/* reducks */
+import { fetchShoppings } from '../../reducks/services/Shopping';
+/* types */
+import { shoppingInit, TShopping } from '../../types/Shopping';
+import { formatDay } from '../../utils/FormatDate';
 /* pageMap */
 import LocalStorage from '../../utils/LocalStorage';
 /* customHook */
 import useToastAction from '../../customHook/useToastAction';
+import { current } from '@reduxjs/toolkit';
 
-const Top = (): JSX.Element => {
+const Shopping = (): JSX.Element => {
+  const [shoppings, setShopping] = useState<TShopping[]>([]);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    fetchShoppingsAndSetShops();
+  }, []);
+
+  const fetchShoppingsAndSetShops = async () => {
+    const response: any = await dispatch(fetchShoppings());
+    if (response.payload.status === 'success') {
+      const shoppings: TShopping[] = response.payload.data;
+      const noClaimShoppings = shoppings.filter((shopping) => shopping.claimId === null);
+      setShopping(noClaimShoppings);
+    }
+  };
+
   const toastActions = useToastAction();
 
   useEffect(() => {
     const storage = new LocalStorage();
     const targetNotice = storage.getItem('pageMoveNotice')!;
-    const { loginedNotice, signUpedNotice, shoppingedNotice, claimedNotice, createdShopNotice } =
+    const { loginedNotice, signUpedNotice, shoppingedNotice, claimedNotice } =
       LocalStorage.noticeKey;
 
     let message = '';
@@ -31,9 +57,6 @@ const Top = (): JSX.Element => {
       case claimedNotice:
         message = '請求登録をしました！';
         break;
-      case createdShopNotice:
-        message = 'お店登録をしました！';
-        break;
     }
     storage.afterPageMoveNotice(() =>
       toastActions.handleToastOpen({
@@ -42,24 +65,43 @@ const Top = (): JSX.Element => {
     );
   }, []);
 
+  const totalClaimPrice = (() => {
+    return shoppings.reduce((accumulator, shopping) => {
+      return shopping.price! + accumulator;
+    }, 0);
+  })();
+
   return (
-    <CommonWrapTemplate toastActions={toastActions}>
-      <section className={'mt-10'}>
-        <p>トップページを作ってここをルートのページにしようと考えているが内容が決まっていない。</p>
-        <p>買い物登録画面をにしてもいいかもしれない。。</p>
-        <p>フッターバーがあるなら独自のトップページはいらないかも？</p>
-        <ul className={'mt-5 space-y-2'}>
-          {drawerLinks.map((page, index) => {
-            return (
-              <li key={index}>
-                <BaseLink pathname={page.link}>{page.name}</BaseLink>
-              </li>
-            );
-          })}
-        </ul>
-      </section>
+    <CommonWrapTemplate {...{ toastActions }}>
+      <BasePageTitle className={'my-5'}>トップ</BasePageTitle>
+      <p className={'mt-3'}>未請求金額：{totalClaimPrice}</p>
+      <p className={'mt-3'}>未請求一覧</p>
+
+      <ul className="mt-1">
+        {shoppings.map((shopping, index) => (
+          <li key={index} className={'border-t-2 p-3'}>
+            <div>買い物日：{formatDay(shopping.date!)}</div>
+            <div>金額：{shopping.price}</div>
+            <div>LINE通知：{shopping.isLineNotice ? '通知済' : '未通知'}</div>
+            <div>請求：{shopping.claimId ? '請求済' : '未請求'}</div>
+            <div>説明：{shopping.description}</div>
+            <div className={'mt-2 text-center'}>
+              <BaseLink pathname={page.shopping.show.link(shopping.id!.toLocaleString())}>
+                <BaseButton color={'primary'} variant={'contained'}>
+                  詳細
+                </BaseButton>
+              </BaseLink>
+              <BaseLink pathname={page.shopping.edit.link(shopping.id!.toLocaleString())}>
+                <BaseButton className={'ml-5'} color={'primary'} variant={'contained'}>
+                  編集
+                </BaseButton>
+              </BaseLink>
+            </div>
+          </li>
+        ))}
+      </ul>
     </CommonWrapTemplate>
   );
 };
 
-export default Top;
+export default Shopping;
