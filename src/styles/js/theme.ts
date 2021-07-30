@@ -1,7 +1,6 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 import { red } from '@material-ui/core/colors';
 
-// Create a theme instance.
 const theme = createMuiTheme({
   overrides: {
     MuiListItemIcon: {
@@ -54,12 +53,6 @@ const theme = createMuiTheme({
       },
       input: {
         padding: '10.5px 14px',
-      },
-    },
-    /* NOTE ローディングアイコン */
-    MuiBackdrop: {
-      root: {
-        zIndex: 11, // NOTE ヘッダーの10より多く指定
       },
     },
   },
