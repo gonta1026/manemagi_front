@@ -1,3 +1,5 @@
+import { TShopping } from './Shopping';
+
 export type TClaim = {
   id: number;
   isLineNotice: boolean;
@@ -11,4 +13,8 @@ export type TClaim = {
 export type TClaimForm = {
   isLineNotice: boolean;
   shoppingIds: number[];
+};
+
+export type TClaimFormikForm = Omit<TClaimForm, 'shoppingIds'> & {
+  shoppings: TShopping[];
 };

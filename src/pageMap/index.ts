@@ -26,11 +26,11 @@ export const page = {
     },
     show: {
       name: () => '買い物詳細',
-      link: (id: number) => `/shopping/${id}`,
+      link: (id: string) => `/shopping/${id}`,
     },
     edit: {
       name: () => '買い物編集',
-      link: (id: number) => `/shopping/${id}/edit`,
+      link: (id: string) => `/shopping/${id}/edit`,
     },
   },
   shop: {
@@ -47,6 +47,10 @@ export const page = {
     list: {
       name: () => '請求一覧',
       link: () => '/claim',
+    },
+    show: {
+      name: () => '請求詳細',
+      link: (id: string) => `/claim/${id}/edit`,
     },
     register: {
       name: () => '請求登録',

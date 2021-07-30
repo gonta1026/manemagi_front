@@ -82,7 +82,7 @@ const ShoppingShow = (): JSX.Element => {
       </ul>
       <ExecutionAndBackButtons
         backPathname={page.shopping.list.link()}
-        nextPathname={page.shopping.edit.link(Number(router.query.Id))}
+        nextPathname={page.shopping.edit.link(router.query.Id as string)}
         backButtonName={`${page.shopping.list.name()}へ戻る`}
         nextButtonName={'編集'}
       />

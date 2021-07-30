@@ -41,12 +41,12 @@ const Shopping = (): JSX.Element => {
             <div>請求：{shopping.claimId ? '請求済' : '未請求'}</div>
             <div>説明：{shopping.description}</div>
             <div className={'mt-2 text-center'}>
-              <BaseLink pathname={page.shopping.show.link(shopping.id as number)}>
+              <BaseLink pathname={page.shopping.show.link(shopping.id!.toLocaleString())}>
                 <BaseButton color={'primary'} variant={'contained'}>
                   詳細
                 </BaseButton>
               </BaseLink>
-              <BaseLink pathname={page.shopping.edit.link(shopping.id as number)}>
+              <BaseLink pathname={page.shopping.edit.link(shopping.id!.toLocaleString())}>
                 <BaseButton className={'ml-5'} color={'primary'} variant={'contained'}>
                   編集
                 </BaseButton>

@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { useDispatch } from 'react-redux';
+import { useFormik } from 'formik';
+import { useSelector, useDispatch } from 'react-redux';
 /* components */
 import CommonWrapTemplate from '../../components/common/template/CommonWrapTemplate';
-import { BasePageTitle, BaseButton } from '../../components/common/uiParts/atoms';
+import { BasePageTitle, BaseButton, BaseLink } from '../../components/common/uiParts/atoms';
+import { LabelAndSwitch } from '../../components/common/molecules/';
 import BaseModal from '../../components/common/modal/BaseModal';
 /* const */
 import { SHOPPINGFORM } from '../../const/form/shopping';
+import { CLAIM_FORM } from '../../const/form/claim';
+import { SETTINGFORM } from '../../const/form/setting';
 /* customHook */
 import useToastAction from '../../customHook/useToastAction';
 /* pageMap */
@@ -15,29 +19,43 @@ import { page } from '../../pageMap';
 import { fetchNoClaimShoppings, createClaim } from '../../reducks/services/Claim';
 /* types */
 import { TShopping } from '../../types/Shopping';
-import { formatDay } from '../../utils/FormatDate';
+import { TClaimFormikForm } from '../../types/Claim';
+import { settingAndUser } from '../../types/Setting';
 /* utils */
+import { formatDay } from '../../utils/FormatDate';
 import LocalStorage from '../../utils/LocalStorage';
 
 const ClaimNew = (): JSX.Element => {
   const router = useRouter();
   const [open, setOpen] = useState<boolean>(false);
-  const [shoppings, setShoppings] = useState<TShopping[]>([]);
   const [cheackShoppings, setCheackShoppings] = useState<TShopping[]>([]);
   const dispatch = useDispatch();
   const toastActions = useToastAction();
+  const { settingState } = useSelector((state: { settingState: settingAndUser }) => state);
 
   useEffect(() => {
     fetchShoppingsAndSetShops();
   }, []);
 
+  useEffect(() => {
+    formik.setFieldValue(SHOPPINGFORM.IS_LINE_NOTICE.ID, settingState.user.setting.isUseLine);
+  }, [settingState]);
+
   const fetchShoppingsAndSetShops = async () => {
     const response: any = await dispatch(fetchNoClaimShoppings());
     if (response.payload.status === 'success') {
       const shoppings: TShopping[] = response.payload.data;
-      setShoppings(shoppings);
+      formik.setFieldValue('shoppings', shoppings);
     }
   };
+
+  const formik = useFormik<TClaimFormikForm>({
+    initialValues: {
+      isLineNotice: false,
+      shoppings: [],
+    },
+    onSubmit: () => setOpen(true),
+  });
 
   const handleChecks = (shopping: TShopping) => {
     // NOTE JSON.stringifyでオブジェクトの比較をしている。
@@ -110,27 +128,55 @@ const ClaimNew = (): JSX.Element => {
       <BasePageTitle className={'my-5'}>{page.claim.register.name()}</BasePageTitle>
       <p>一旦一覧画面を作成、これからどのようにカスタマイズするか等を検討。</p>
       <p>ソート機能、絞り込み機能、ページネーション、表示件数の制御をできたら入れたい。</p>
+      <div className="mt-5">請求予定金額：{totalClaimPrice}</div>
       <BaseButton
         className={'mt-5'}
         color={'primary'}
+        type={'submit'}
         disabled={cheackShoppings.length === 0}
         onClick={() => setOpen(true)}
         variant={'contained'}
       >
         請求確認
       </BaseButton>
-      請求予定金額：{totalClaimPrice}
-      <ul className="py-4">
-        {shoppings.map((shopping, index) => (
-          <li key={index} className={'border-t-2 p-3'}>
-            <input type="checkbox" name="" id="" onChange={() => handleChecks(shopping)} />
-            <div>買い物日：{formatDay(shopping.date!)}</div>
-            <div>金額：{shopping.price}</div>
-            <div>LINE通知：{shopping.isLineNotice ? '通知済' : '未通知'}</div>
-            <div>説明：{shopping.description}</div>
-          </li>
-        ))}
-      </ul>
+      <form className="base-vertical-20" onSubmit={formik.handleSubmit}>
+        {/* LINE通知(isLineNotice) */}
+        <LabelAndSwitch
+          className={'base-vertical-item'}
+          checked={formik.values.isLineNotice}
+          disabled={!settingState.user.setting.isUseLine}
+          helperText={
+            <>
+              {!settingState.user.setting.isUseLine ? (
+                <>
+                  <BaseLink
+                    pathname={page.setting.edit.link()}
+                  >{`『${page.setting.edit.name()}』`}</BaseLink>
+                  画面の{SETTINGFORM.IS_USE_LINE.LABEL}がOFFになっています。
+                </>
+              ) : (
+                ''
+              )}
+            </>
+          }
+          onChange={() =>
+            formik.setFieldValue(SHOPPINGFORM.IS_LINE_NOTICE.ID, !formik.values.isLineNotice)
+          }
+          id={CLAIM_FORM.IS_LINE_NOTICE.ID}
+          label={`${CLAIM_FORM.IS_LINE_NOTICE.LABEL}${formik.values.isLineNotice ? 'ON' : 'OFF'}`}
+        />
+        <ul className="py-4">
+          {formik.values.shoppings.map((shopping, index) => (
+            <li key={index} className={'border-t-2 p-3'}>
+              <input type="checkbox" name="" id="" onChange={() => handleChecks(shopping)} />
+              <div>買い物日：{formatDay(shopping.date!)}</div>
+              <div>金額：{shopping.price}</div>
+              <div>LINE通知：{shopping.isLineNotice ? '通知済' : '未通知'}</div>
+              <div>説明：{shopping.description}</div>
+            </li>
+          ))}
+        </ul>
+      </form>
     </CommonWrapTemplate>
   );
 };
