@@ -55,6 +55,11 @@ const theme = createMuiTheme({
         padding: '10.5px 14px',
       },
     },
+    MuiMenuItem: {
+      root: {
+        minHeight: 40,
+      },
+    },
   },
   palette: {
     primary: {
