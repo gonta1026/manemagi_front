@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 /* components */
 import TopPageTemplate from '../components/pages/index/template/TopPageTemplate';
@@ -7,19 +7,10 @@ import { BaseContainer } from '../components/common/uiParts/layout';
 /* const */
 import { mediaSize } from '../const/media';
 import { COLORS } from '../const/color';
-/* network */
-import ApiClient from '../network/ApiClient';
 /* pageMap */
 import { page } from '../pageMap/';
 
 const Home: React.FC = () => {
-  useEffect(() => {
-    (async () => {
-      const result = await ApiClient.getRequest('');
-      console.log(result);
-    })();
-  });
-
   return (
     <TopPageTemplate>
       <MainVisual>
@@ -28,7 +19,7 @@ const Home: React.FC = () => {
         <h3 className={'title font-bold'}>
           買い物で立て替えた
           <br />
-          お金を管理しよう
+          お金を管理
         </h3>
       </MainVisual>
       <BaseContainer>
@@ -104,6 +95,7 @@ const MainVisual = styled.div`
   text-align: center;
   height: 150px;
   position: relative;
+  border-bottom: 5px solid ${COLORS.TEXT_GREEN};
   @media (min-width: ${mediaSize.MD}px) {
     height: 300px;
   }
@@ -117,7 +109,7 @@ const MainVisual = styled.div`
   }
   .triangle {
     position: absolute;
-    bottom: 0;
+    bottom: -1px;
   }
   .left-bottom {
     /*1色パターン：border-leftだけに色指定*/
