@@ -95,7 +95,7 @@ const MainVisual = styled.div`
   text-align: center;
   height: 150px;
   position: relative;
-  border-bottom: 5px solid ${COLORS.TEXT_GREEN};
+  /* border-bottom: 5px solid ${COLORS.TEXT_GREEN}; */
   @media (min-width: ${mediaSize.MD}px) {
     height: 300px;
   }
@@ -113,22 +113,22 @@ const MainVisual = styled.div`
   }
   .left-bottom {
     /*1色パターン：border-leftだけに色指定*/
-    border-top: 40px solid transparent;
-    border-left: 90px solid ${COLORS.TEXT_GREEN};
+    border-top: 30px solid transparent;
+    border-left: 60vw solid ${COLORS.TEXT_GREEN};
     left: 0;
     @media (min-width: ${mediaSize.MD}px) {
       border-top: 60px solid transparent;
-      border-left: 150px solid ${COLORS.TEXT_GREEN};
+      /* border-left: 150vw solid ${COLORS.TEXT_GREEN}; */
     }
   }
   .right-bottom {
     /*1色パターン：border-leftだけに色指定*/
-    border-top: 40px solid transparent;
-    border-right: 90px solid ${COLORS.TEXT_GREEN};
+    border-top: 30px solid transparent;
+    border-right: 60vw solid ${COLORS.TEXT_GREEN};
     right: 0;
     @media (min-width: ${mediaSize.MD}px) {
       border-top: 60px solid transparent;
-      border-right: 150px solid ${COLORS.TEXT_GREEN};
+      /* border-right: 150vw solid ${COLORS.TEXT_GREEN}; */
     }
   }
 `;
