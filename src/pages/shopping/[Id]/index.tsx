@@ -57,7 +57,7 @@ const ShoppingShow = (): JSX.Element => {
     let message = '';
     switch (targetNotice) {
       case shoppingUpdatedNotice:
-        message = '買い物の編集をしました！';
+        message = '買い物の更新をしました！';
         break;
     }
     storage.afterPageMoveNotice(() =>
@@ -68,7 +68,7 @@ const ShoppingShow = (): JSX.Element => {
   };
 
   return (
-    <CommonWrapTemplate>
+    <CommonWrapTemplate {...{ toastActions }}>
       <BasePageTitle className={'my-5'}>{page.shopping.show.name()}</BasePageTitle>
       <p>一旦一覧画面を作成、これからどのようにカスタマイズするか等を検討している。</p>
       <ul className="py-4">
