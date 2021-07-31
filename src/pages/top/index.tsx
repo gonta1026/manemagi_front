@@ -5,7 +5,7 @@ import CommonWrapTemplate from '../../components/common/template/CommonWrapTempl
 import { BaseCard } from '../../components/common/uiParts/atoms';
 /* customHook */
 import useToastAction from '../../customHook/useToastAction';
-import { BaseLink, BaseButton } from '../../components/common/uiParts/atoms';
+import { BaseLink, BaseButton, BasePageTitle } from '../../components/common/uiParts/atoms';
 import { LineNotice } from '../../components/pages/common';
 /* pageMap */
 import LocalStorage from '../../utils/LocalStorage';
@@ -73,8 +73,7 @@ const Shopping = (): JSX.Element => {
 
   return (
     <CommonWrapTemplate {...{ toastActions }}>
-      <p>※下のフッターにつく各リンクから他のページにもいける想定</p>
-      {/* <BasePageTitle className={'my-5'}>トップ</BasePageTitle> */}
+      <BasePageTitle className={'my-5'}>トップページ</BasePageTitle>
       <p className={'mt-3'}>未請求金額：{formatPriceYen(totalClaimPrice)}</p>
       <p className={'mt-3'}>未請求一覧</p>
 
