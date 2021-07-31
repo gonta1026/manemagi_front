@@ -74,7 +74,6 @@ const ShoppingNew = (): JSX.Element => {
 
   const fetchShopsAndSetShops = async () => {
     const response: any = await dispatch(fetchShops());
-    console.log(response);
     if (response.payload.status === 'success') {
       const shops: TShop[] = response.payload.data.shops;
       setShops(shops);

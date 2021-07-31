@@ -4,6 +4,8 @@ import { AppBar, IconButton, Toolbar, Typography } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import { BaseIcon, BaseLink } from '../../uiParts/atoms';
 import { Menu, MenuItem } from '@material-ui/core';
+/* const */
+import { COLORS } from '../../../../const/color';
 /* pageMap */
 import { page } from '../../../../pageMap';
 /* pageMap */
@@ -11,6 +13,8 @@ import { ommisionText } from '../../../../utils/function';
 import useIsAfterSsr from '../../../../customHook/useIsAfterSsr';
 /* types */
 import { settingAndUser } from '../../../../types/Setting';
+/* styles */
+import { materialStyles } from '../../../../styles/js/material';
 
 const BaseHeader = ({
   className = '',
@@ -21,6 +25,12 @@ const BaseHeader = ({
   toggleDrawer: any;
   settingState: settingAndUser;
 }) => {
+  const classes = materialStyles({
+    headerTitle: {
+      color: COLORS.TEXT_GREEN,
+    },
+  });
+
   const router = useRouter();
   const isAfterSsr = useIsAfterSsr();
   const [anchorEl, setAnchorEl] = React.useState<(EventTarget & HTMLButtonElement) | null>(null);
@@ -45,7 +55,7 @@ const BaseHeader = ({
   const headPathName = settingState.user.id ? page.top.link() : page.root.link();
 
   return (
-    <AppBar position="static" className={className}>
+    <AppBar position="static" className={className + ' sticky z-10 top-0'} color={'inherit'}>
       <Toolbar>
         <div className="flex items-center justify-between w-full">
           <div className="left flex items-center">
@@ -61,7 +71,9 @@ const BaseHeader = ({
               </IconButton>
             )}
             <BaseLink pathname={headPathName}>
-              <Typography variant="h6">TATEKAE</Typography>
+              <Typography variant="h6" className={classes.headerTitle}>
+                TATEKAE
+              </Typography>
             </BaseLink>
           </div>
           {/* このaccessTokenがあるかという処理は変更予定。セッションが切れた時にトークンだけ残り続けてしまうのでそのタイミングで破棄をする必要がある。*/}
@@ -70,7 +82,7 @@ const BaseHeader = ({
               {settingState.user?.name && (
                 <div className="mr-2">{ommisionText(settingState.user.name)}</div>
               )}
-              <BaseIcon className={'text-white'} icon="accountCircle" onClick={handleClick} />
+              <BaseIcon icon="accountCircle" onClick={handleClick} />
               <Menu
                 id="simple-menu"
                 anchorEl={anchorEl}
