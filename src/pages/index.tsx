@@ -23,7 +23,7 @@ const Home: React.FC = () => {
         </h3>
       </MainVisual>
       <BaseContainer>
-        <CardsSection className={'mt-8 space-y-2'}>
+        <div className={'mt-8 space-y-3'}>
           {/* <BaseListItemText primary="Single-line item" /> */}
           <BaseCard className={'shadow-lg'}>
             <p className="p-3 font-bold">買い物で立て替えたお金を記録</p>
@@ -39,7 +39,7 @@ const Home: React.FC = () => {
           <BaseCard className={'shadow-lg'}>
             <p className="p-3 font-bold">{`${page.setting.edit.name()}をすることによりLINEメッセージで買い物や請求の詳細を通知`}</p>
           </BaseCard>
-        </CardsSection>
+        </div>
 
         {/* <hr className="my-8 bg-black" /> */}
 
@@ -119,7 +119,5 @@ const MainVisual = styled.div`
     }
   }
 `;
-
-const CardsSection = styled.section``;
 
 export default Home;

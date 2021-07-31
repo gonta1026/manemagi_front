@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 /* components */
 import CommonWrapTemplate from '../../components/common/template/CommonWrapTemplate';
+import { BaseCard } from '../../components/common/uiParts/atoms';
 /* customHook */
 import useToastAction from '../../customHook/useToastAction';
 import { BaseLink, BaseButton } from '../../components/common/uiParts/atoms';
+import { LineNotice } from '../../components/pages/common';
 /* pageMap */
 import LocalStorage from '../../utils/LocalStorage';
 import { page } from '../../pageMap';
@@ -76,23 +78,35 @@ const Shopping = (): JSX.Element => {
       <p className={'mt-3'}>未請求金額：{formatPriceYen(totalClaimPrice)}</p>
       <p className={'mt-3'}>未請求一覧</p>
 
-      <ul className="mt-1">
+      <ul className="mt-1 space-y-3">
         {shoppings.map((shopping, index) => (
-          <li key={index} className={'border-t-2 p-3'}>
-            <div>買い物日：{formatDay(shopping.date!)}</div>
-            <div>金額：{formatPriceYen(shopping.price)}</div>
-            <div>LINE通知：{shopping.isLineNotice ? '通知済' : '未通知'}</div>
-            <div>請求：{shopping.claimId ? '請求済' : '未請求'}</div>
-            <div>説明：{shopping.description}</div>
-            <div className={'mt-2 text-center'}>
+          <BaseCard key={index} className={'border-t-2 p-3 relative'}>
+            <div className="flex justify-between">
+              <div className="left">
+                <div>買い物日：{formatDay(shopping.date!)}</div>
+                <div>金額：{formatPriceYen(shopping.price)}</div>
+                <div>説明：{shopping.description}</div>
+              </div>
+              <div className="right">
+                <LineNotice isLineNotice={shopping.isLineNotice} />
+              </div>
+            </div>
+            <div className={'mt-2 text-right'}>
               <BaseLink pathname={page.shopping.show.link(shopping.id!.toString())}>
-                <BaseButton>詳細</BaseButton>
+                <BaseButton className={'mr-3'} variant={'outlined'} customType={'description'}>
+                  詳細
+                </BaseButton>
               </BaseLink>
               <BaseLink pathname={page.shopping.edit.link(shopping.id!.toString())}>
-                <BaseButton className={'ml-5'}>編集</BaseButton>
+                <BaseButton className={'mr-3'} variant={'outlined'} customType={'edit'}>
+                  編集
+                </BaseButton>
               </BaseLink>
+              <BaseButton variant={'outlined'} customType={'delete'}>
+                削除
+              </BaseButton>
             </div>
-          </li>
+          </BaseCard>
         ))}
       </ul>
     </CommonWrapTemplate>

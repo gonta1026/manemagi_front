@@ -1,27 +1,43 @@
+import {
+  AddCircleOutline,
+  Delete,
+  Description,
+  Update,
+  ArrowBack,
+  Search,
+  Edit,
+} from '@material-ui/icons';
 import React from 'react';
 export type TIconType =
   | 'addCircleOutline'
-  | 'update'
-  | 'delete'
   | 'arrowBack'
-  | 'search'
+  | 'delete'
+  | 'description'
+  | 'edit'
   | 'normal'
+  | 'update'
+  | 'search'
   | '';
-import { AddCircleOutline, Delete, Update, ArrowBack, Search } from '@material-ui/icons';
 
 const BaseSwitchIcon = ({ icon = '' }: { icon: TIconType }): JSX.Element => {
   const switchIcon = (icon: string) => {
     switch (icon) {
       case 'addCircleOutline':
         return <AddCircleOutline />;
-      case 'update':
-        return <Update />;
-      case 'delete':
-        return <Delete />;
       case 'arrowBack':
         return <ArrowBack />;
+      case 'delete':
+        return <Delete />;
+      case 'description':
+        return <Description />;
+      case 'edit':
+        return <Edit />;
+      case 'update':
+        return <Update />;
       case 'search':
         return <Search />;
+      case 'normal':
+        return <></>;
       default:
         return;
     }

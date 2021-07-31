@@ -28,7 +28,7 @@ const BaseButton = ({
   variant = 'contained',
 }: TProps) => {
   const CustomButton = withStyles((theme) => ({
-    root: buttonStyle(theme, customType),
+    root: buttonStyle(theme, customType, variant),
   }))(Button);
 
   const inputEl = useRef<HTMLButtonElement | null>(null);
