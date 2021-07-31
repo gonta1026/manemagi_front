@@ -213,21 +213,14 @@ const ShoppingEdit = (): JSX.Element => {
           label={`${SHOPPINGFORM.IS_LINE_NOTICE.LABEL}${formik.values.isLineNotice ? 'ON' : 'OFF'}`}
         />
         <div className="base-vertical-item flex justify-center">
-          <BaseButton
-            disabled={!isEmpty(formik.errors)}
-            color={'primary'}
-            type={'submit'}
-            variant={'contained'}
-          >
+          <BaseButton disabled={!isEmpty(formik.errors)} type={'submit'}>
             登録
           </BaseButton>
         </div>
         <hr className="my-5" />
         <div className="flex justify-center">
           <BaseLink pathname={page.shopping.list.link()}>
-            <BaseButton color={'secondary'} variant={'contained'}>
-              {page.shopping.list.name()}へ戻る
-            </BaseButton>
+            <BaseButton>{page.shopping.list.name()}へ戻る</BaseButton>
           </BaseLink>
         </div>
       </form>

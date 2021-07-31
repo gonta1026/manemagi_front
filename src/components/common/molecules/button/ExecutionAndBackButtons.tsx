@@ -23,17 +23,10 @@ const ExecutionAndBackButtons = ({
       <div className={className + ' flex justify-center'}>
         {nextPathname ? (
           <BaseLink pathname={nextPathname}>
-            <BaseButton color={'primary'} variant={'contained'}>
-              {nextButtonName}
-            </BaseButton>
+            <BaseButton>{nextButtonName}</BaseButton>
           </BaseLink>
         ) : (
-          <BaseButton
-            color={'primary'}
-            disabled={disabledExecution}
-            type={'submit'}
-            variant={'contained'}
-          >
+          <BaseButton disabled={disabledExecution} type={'submit'}>
             {nextButtonName}
           </BaseButton>
         )}
@@ -41,9 +34,7 @@ const ExecutionAndBackButtons = ({
       <hr className="my-5" />
       <div className="flex justify-center">
         <BaseLink pathname={backPathname}>
-          <BaseButton color={'secondary'} variant={'contained'}>
-            {backButtonName}
-          </BaseButton>
+          <BaseButton>{backButtonName}</BaseButton>
         </BaseLink>
       </div>
     </>

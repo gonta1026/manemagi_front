@@ -1,48 +1,38 @@
 import React, { ReactNode, useRef, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
-import { AddCircleOutline, Delete, Update, ArrowBack, Search } from '@material-ui/icons';
+import { withStyles } from '@material-ui/core/styles';
+import { buttonStyle } from './buttonStyle';
+import BaseSwitchIcon, { TIconType } from './BaseSwitchIcon';
 
-const BaseButton = ({
-  className = '',
-  children,
-  color = 'default',
-  disabled,
-  focus = false,
-  onClick,
-  size = 'medium',
-  startIcon = '',
-  type = 'button',
-  variant,
-}: {
+type TProps = {
   className?: string;
   children: ReactNode;
-  color?: 'default' | 'inherit' | 'primary' | 'secondary';
+  customType?: TIconType;
   disabled?: boolean;
   focus?: boolean;
   onClick?: VoidFunction;
   type?: 'button' | 'submit' | 'reset';
   size?: 'large' | 'medium' | 'small';
-  startIcon?: 'addCircleOutline' | 'update' | 'delete' | 'arrowBack' | 'search' | '';
-  variant: 'contained' | 'outlined' | 'text';
-}) => {
-  const switchIcon = (startIcon: string) => {
-    switch (startIcon) {
-      case 'addCircleOutline':
-        return <AddCircleOutline />;
-      case 'update':
-        return <Update />;
-      case 'delete':
-        return <Delete />;
-      case 'arrowBack':
-        return <ArrowBack />;
-      case 'search':
-        return <Search />;
-      default:
-        return;
-    }
-  };
+  variant?: 'contained' | 'outlined' | 'text';
+};
+
+const BaseButton = ({
+  className = '',
+  children,
+  customType = 'normal',
+  disabled,
+  focus = false,
+  onClick,
+  size = 'medium',
+  type = 'button',
+  variant = 'contained',
+}: TProps) => {
+  const CustomButton = withStyles((theme) => ({
+    root: buttonStyle(theme, customType),
+  }))(Button);
 
   const inputEl = useRef<HTMLButtonElement | null>(null);
+
   useEffect(() => {
     if (focus) {
       inputEl.current?.focus();
@@ -50,19 +40,18 @@ const BaseButton = ({
   }, []);
 
   return (
-    <Button
+    <CustomButton
       ref={inputEl}
       className={className}
-      color={color}
       disabled={disabled}
       onClick={onClick}
       size={size}
-      startIcon={switchIcon(startIcon)}
+      startIcon={<BaseSwitchIcon icon={customType} />}
       type={type}
       variant={variant}
     >
       {children}
-    </Button>
+    </CustomButton>
   );
 };
 

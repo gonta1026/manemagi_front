@@ -44,12 +44,10 @@ const Shopping = (): JSX.Element => {
             <div>説明：{shopping.description}</div>
             <div className={'mt-2 text-center'}>
               <BaseLink pathname={page.shopping.show.link(shopping.id!.toString())}>
-                <BaseButton color={'primary'} variant={'contained'}>
-                  詳細
-                </BaseButton>
+                <BaseButton variant={'contained'}>詳細</BaseButton>
               </BaseLink>
               <BaseLink pathname={page.shopping.edit.link(shopping.id!.toString())}>
-                <BaseButton className={'ml-5'} color={'primary'} variant={'contained'}>
+                <BaseButton className={'ml-5'} variant={'contained'}>
                   編集
                 </BaseButton>
               </BaseLink>

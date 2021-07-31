@@ -21,45 +21,14 @@ const Sample: React.FC = () => {
     <CommonWrapTemplate>
       <hr className="my-10" />
       <h3>ボタンサンプル</h3>
-      <BaseButton
-        color="primary"
-        onClick={() => console.log('click')}
-        startIcon="addCircleOutline"
-        variant="contained"
-      >
+      <BaseButton onClick={() => console.log('click')} variant="contained">
         登録
       </BaseButton>
-      <BaseButton
-        color="primary"
-        onClick={() => console.log('click')}
-        startIcon="arrowBack"
-        variant="contained"
-      >
+      <BaseButton onClick={() => console.log('click')} customType={'arrowBack'}>
         戻る
       </BaseButton>
-      <BaseButton
-        color="primary"
-        onClick={() => console.log('click')}
-        startIcon="search"
-        variant="contained"
-      >
+      <BaseButton onClick={() => console.log('click')} customType={'search'}>
         検索
-      </BaseButton>
-      <BaseButton
-        color="inherit"
-        onClick={() => console.log('click')}
-        startIcon="update"
-        variant="contained"
-      >
-        更新
-      </BaseButton>
-      <BaseButton
-        color="secondary"
-        onClick={() => console.log('click')}
-        startIcon="delete"
-        variant="contained"
-      >
-        削除
       </BaseButton>
       <hr className="my-10" />
       <h3>Reduxのサンプル実装</h3>

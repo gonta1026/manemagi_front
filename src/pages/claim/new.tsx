@@ -132,11 +132,9 @@ const ClaimNew = (): JSX.Element => {
       <div className="mt-5">請求予定金額：{formatPriceYen(totalClaimPrice)}</div>
       <BaseButton
         className={'mt-5'}
-        color={'primary'}
         type={'submit'}
         disabled={cheackShoppings.length === 0}
         onClick={() => setOpen(true)}
-        variant={'contained'}
       >
         請求確認
       </BaseButton>

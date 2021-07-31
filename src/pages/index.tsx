@@ -23,15 +23,6 @@ const Home: React.FC = () => {
         </h3>
       </MainVisual>
       <BaseContainer>
-        {/* <div className="flex justify-center mt-5">
-          <BaseLink pathname={page.signup.link()}>
-            <BaseButton color="primary" variant="contained">
-              使ってみる
-            </BaseButton>
-          </BaseLink>
-        </div>
-        <hr className="my-8 bg-black" /> */}
-
         <CardsSection className={'mt-8 space-y-2'}>
           {/* <BaseListItemText primary="Single-line item" /> */}
           <BaseCard className={'shadow-lg'}>
@@ -74,16 +65,12 @@ const Home: React.FC = () => {
 
         <div className="mt-10 text-center">
           <BaseLink pathname={page.signup.link()}>
-            <BaseButton color="primary" variant="contained">
-              {page.signup.name()}
-            </BaseButton>
+            <BaseButton>{page.signup.name()}</BaseButton>
           </BaseLink>
 
           <hr className="my-5" />
           <BaseLink pathname={page.login.link()}>
-            <BaseButton color="primary" variant="contained">
-              {page.login.name()}
-            </BaseButton>
+            <BaseButton>{page.login.name()}</BaseButton>
           </BaseLink>
         </div>
       </BaseContainer>

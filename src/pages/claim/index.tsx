@@ -42,9 +42,7 @@ const Claim = (): JSX.Element => {
             <div>合計金額：{formatPriceYen(claim.totalPrice)}</div>
             <div className={'mt-2 text-center'}>
               <BaseLink pathname={page.claim.show.link(claim.id.toString())}>
-                <BaseButton color={'primary'} variant={'contained'}>
-                  詳細
-                </BaseButton>
+                <BaseButton>詳細</BaseButton>
               </BaseLink>
             </div>
           </li>

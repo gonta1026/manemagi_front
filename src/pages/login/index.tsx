@@ -112,9 +112,7 @@ const Login = (): JSX.Element => {
         </p>
 
         <div className="base-vertical-item flex justify-center">
-          <BaseButton color={'primary'} type={'submit'} variant={'contained'}>
-            {page.login.name()}
-          </BaseButton>
+          <BaseButton type={'submit'}>{page.login.name()}</BaseButton>
         </div>
       </form>
     </CommonWrapTemplate>

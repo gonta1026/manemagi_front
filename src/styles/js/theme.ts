@@ -20,9 +20,9 @@ const theme = createMuiTheme({
       },
     },
     MuiButton: {
-      contained: {
-        backgroundColor: '#ffee58',
-      },
+      // contained: {
+      //   backgroundColor: '#ffee58',
+      // },
     },
     MuiDialog: {
       paper: {

@@ -118,16 +118,14 @@ const NewShop = (): JSX.Element => {
         />
 
         <div className="base-vertical-item flex justify-center">
-          <BaseButton color={'primary'} type={'submit'} variant={'contained'}>
+          <BaseButton type={'submit'} variant={'contained'}>
             登録
           </BaseButton>
         </div>
         <hr className="my-5" />
         <div className="base-vertical-item flex justify-center">
           <BaseLink pathname={page.top.link()}>
-            <BaseButton color={'secondary'} variant={'contained'}>
-              {page.top.name()}へ戻る
-            </BaseButton>
+            <BaseButton variant={'contained'}>{page.top.name()}へ戻る</BaseButton>
           </BaseLink>
         </div>
       </form>
