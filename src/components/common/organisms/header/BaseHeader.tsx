@@ -52,7 +52,7 @@ const BaseHeader = ({
     setAnchorEl(null);
   };
 
-  const headPathName = settingState.user.id ? page.top.link() : page.root.link();
+  const headPathName = settingState.user.id ? page.top.link() : page.home.link();
 
   return (
     <AppBar position="static" className={className + ' sticky z-10 top-0'} color={'inherit'}>
