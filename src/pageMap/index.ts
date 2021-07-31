@@ -1,5 +1,5 @@
 export const page = {
-  root: {
+  home: {
     name: () => '紹介', // nameの使う予定はなし。
     link: () => '/',
   },
