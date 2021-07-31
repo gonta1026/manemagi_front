@@ -2,21 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 /* components */
 import CommonWrapTemplate from '../../components/common/template/CommonWrapTemplate';
-import { BasePageTitle, BaseLink, BaseButton } from '../../components/common/uiParts/atoms';
+import { BaseLink, BaseButton } from '../../components/common/uiParts/atoms';
 /* pageMap */
-import { drawerLinks } from '../../pageMap';
 /* pageMap */
 import { page } from '../../pageMap';
 /* reducks */
 import { fetchShoppings } from '../../reducks/services/Shopping';
 /* types */
-import { shoppingInit, TShopping } from '../../types/Shopping';
+import { TShopping } from '../../types/Shopping';
 import { formatDay } from '../../utils/FormatDate';
 /* pageMap */
 import LocalStorage from '../../utils/LocalStorage';
 /* customHook */
 import useToastAction from '../../customHook/useToastAction';
-import { current } from '@reduxjs/toolkit';
 
 const Shopping = (): JSX.Element => {
   const [shoppings, setShopping] = useState<TShopping[]>([]);
@@ -73,7 +71,8 @@ const Shopping = (): JSX.Element => {
 
   return (
     <CommonWrapTemplate {...{ toastActions }}>
-      <BasePageTitle className={'my-5'}>トップ</BasePageTitle>
+      <p>※下のフッターにつく各リンクから他のページにもいける想定</p>
+      {/* <BasePageTitle className={'my-5'}>トップ</BasePageTitle> */}
       <p className={'mt-3'}>未請求金額：{totalClaimPrice}</p>
       <p className={'mt-3'}>未請求一覧</p>
 
