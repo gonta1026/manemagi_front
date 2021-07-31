@@ -13,8 +13,13 @@ const preloadedState = () => {
   return { postState: postInitialState, settingState: settingInitialState };
 };
 
+// NOTE ログを本番環境には出ないようにする。
+const middlewareList = [...getDefaultMiddleware()];
+if (process.env.NODE_ENV !== 'production') {
+  middlewareList.push(logger);
+}
+
 const store = () => {
-  const middlewareList = [...getDefaultMiddleware(), logger];
   return configureStore({
     reducer: rootReducer,
     middleware: middlewareList,
