@@ -4,13 +4,13 @@ import { useFormik } from 'formik';
 import { useSelector, useDispatch } from 'react-redux';
 /* components */
 import CommonWrapTemplate from '../../components/common/template/CommonWrapTemplate';
-import { BasePageTitle, BaseButton, BaseLink } from '../../components/common/uiParts/atoms';
+import { BasePageTitle, BaseButton } from '../../components/common/uiParts/atoms';
 import { LabelAndSwitch } from '../../components/common/molecules/';
 import BaseModal from '../../components/common/modal/BaseModal';
+import { IsUseLineHelper } from '../../components/pages/common';
 /* const */
 import { SHOPPINGFORM } from '../../const/form/shopping';
 import { CLAIM_FORM } from '../../const/form/claim';
-import { SETTINGFORM } from '../../const/form/setting';
 /* customHook */
 import useToastAction from '../../customHook/useToastAction';
 /* pageMap */
@@ -145,20 +145,7 @@ const ClaimNew = (): JSX.Element => {
           className={'base-vertical-item'}
           checked={formik.values.isLineNotice}
           disabled={!settingState.user.setting.isUseLine}
-          helperText={
-            <>
-              {!settingState.user.setting.isUseLine ? (
-                <>
-                  <BaseLink
-                    pathname={page.setting.edit.link()}
-                  >{`『${page.setting.edit.name()}』`}</BaseLink>
-                  画面の{SETTINGFORM.IS_USE_LINE.LABEL}がOFFになっています。
-                </>
-              ) : (
-                ''
-              )}
-            </>
-          }
+          helperText={!settingState.user.setting.isUseLine && <IsUseLineHelper />}
           onChange={() =>
             formik.setFieldValue(SHOPPINGFORM.IS_LINE_NOTICE.ID, !formik.values.isLineNotice)
           }

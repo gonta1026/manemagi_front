@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 /* components */
 import CommonWrapTemplate from '../../../components/common/template/CommonWrapTemplate';
 import {
@@ -17,6 +17,7 @@ import {
   LabelAndSwitch,
 } from '../../../components/common/molecules';
 import BaseModal from '../../../components/common/modal/BaseModal';
+import { IsUseLineHelper } from '../../../components/pages/common';
 /* const */
 import { SHOPPINGFORM } from '../../../const/form/shopping';
 /* customHook */
@@ -29,6 +30,8 @@ import { fetchEditShopping, updateShopping } from '../../../reducks/services/Sho
 /* types */
 import { TShopping, TShoppingForm, TShoppingFormError } from '../../../types/Shopping';
 import { TShop } from '../../../types/Shop';
+import { settingAndUser } from '../../../types/Setting';
+
 /* utils */
 import { formatDay } from '../../../utils/FormatDate';
 import LocalStorage from '../../../utils/LocalStorage';
@@ -41,6 +44,7 @@ const ShoppingEdit = (): JSX.Element => {
   const [shops, setShops] = useState<TShop[]>([]);
   const [open, setOpen] = useState<boolean>(false);
   const toastActions = useToastAction();
+  const { settingState } = useSelector((state: { settingState: settingAndUser }) => state);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -124,7 +128,7 @@ const ShoppingEdit = (): JSX.Element => {
         </dl>
         <dl>
           <dt>{SHOPPINGFORM.IS_LINE_NOTICE.LABEL}：</dt>
-          <dd>{formik.values.isLineNotice}</dd>
+          <dd>{formik.values.isLineNotice ? '通知する' : '通知しない'}</dd>
         </dl>
       </BaseModal>
       <BasePageTitle className={'my-5'}>{page.shopping.edit.name()}</BasePageTitle>
@@ -200,6 +204,8 @@ const ShoppingEdit = (): JSX.Element => {
         <LabelAndSwitch
           className={'base-vertical-item'}
           checked={formik.values.isLineNotice}
+          disabled={!settingState.user.setting.isUseLine}
+          helperText={!settingState.user.setting.isUseLine && <IsUseLineHelper />}
           onChange={() =>
             formik.setFieldValue(SHOPPINGFORM.IS_LINE_NOTICE.ID, !formik.values.isLineNotice)
           }
