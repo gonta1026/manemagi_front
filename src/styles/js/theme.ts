@@ -41,7 +41,7 @@ const theme = createMuiTheme({
     },
     MuiSnackbar: {
       anchorOriginTopRight: {
-        top: 5,
+        top: 1,
         '@media (min-width: 600px)': {
           top: 8,
         },
