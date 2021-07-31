@@ -23,6 +23,7 @@ import { TClaimFormikForm } from '../../types/Claim';
 import { settingAndUser } from '../../types/Setting';
 /* utils */
 import { formatDay } from '../../utils/FormatDate';
+import { formatPriceYen } from '../../utils/function';
 import LocalStorage from '../../utils/LocalStorage';
 
 const ClaimNew = (): JSX.Element => {
@@ -101,13 +102,13 @@ const ClaimNew = (): JSX.Element => {
           }
         }}
       >
-        請求予定金額：{totalClaimPrice}
+        請求予定金額：{formatPriceYen(totalClaimPrice)}
         <ul className={'space-y-2'}>
           {cheackShoppings.map((shopping, index) => (
             <li key={index}>
               <dl>
                 <dt>{SHOPPINGFORM.PRICE.LABEL}：</dt>
-                <dd>{shopping.price}</dd>
+                <dd>{formatPriceYen(shopping.price)}</dd>
               </dl>
               <dl>
                 <dt>{SHOPPINGFORM.DATE.LABEL}：</dt>
@@ -128,7 +129,7 @@ const ClaimNew = (): JSX.Element => {
       <BasePageTitle className={'my-5'}>{page.claim.register.name()}</BasePageTitle>
       <p>一旦一覧画面を作成、これからどのようにカスタマイズするか等を検討。</p>
       <p>ソート機能、絞り込み機能、ページネーション、表示件数の制御をできたら入れたい。</p>
-      <div className="mt-5">請求予定金額：{totalClaimPrice}</div>
+      <div className="mt-5">請求予定金額：{formatPriceYen(totalClaimPrice)}</div>
       <BaseButton
         className={'mt-5'}
         color={'primary'}
@@ -157,7 +158,7 @@ const ClaimNew = (): JSX.Element => {
             <li key={index} className={'border-t-2 p-3'}>
               <input type="checkbox" name="" id="" onChange={() => handleChecks(shopping)} />
               <div>買い物日：{formatDay(shopping.date!)}</div>
-              <div>金額：{shopping.price}</div>
+              <div>金額：{formatPriceYen(shopping.price)})</div>
               <div>LINE通知：{shopping.isLineNotice ? '通知済' : '未通知'}</div>
               <div>説明：{shopping.description}</div>
             </li>

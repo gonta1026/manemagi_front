@@ -2,19 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 /* components */
 import CommonWrapTemplate from '../../components/common/template/CommonWrapTemplate';
+/* customHook */
+import useToastAction from '../../customHook/useToastAction';
 import { BaseLink, BaseButton } from '../../components/common/uiParts/atoms';
 /* pageMap */
-/* pageMap */
+import LocalStorage from '../../utils/LocalStorage';
 import { page } from '../../pageMap';
 /* reducks */
 import { fetchShoppings } from '../../reducks/services/Shopping';
 /* types */
 import { TShopping } from '../../types/Shopping';
+/* utils */
+import { formatPriceYen } from '../../utils/function';
 import { formatDay } from '../../utils/FormatDate';
-/* pageMap */
-import LocalStorage from '../../utils/LocalStorage';
-/* customHook */
-import useToastAction from '../../customHook/useToastAction';
 
 const Shopping = (): JSX.Element => {
   const [shoppings, setShopping] = useState<TShopping[]>([]);
@@ -73,29 +73,30 @@ const Shopping = (): JSX.Element => {
     <CommonWrapTemplate {...{ toastActions }}>
       <p>※下のフッターにつく各リンクから他のページにもいける想定</p>
       {/* <BasePageTitle className={'my-5'}>トップ</BasePageTitle> */}
-      <p className={'mt-3'}>未請求金額：{totalClaimPrice}</p>
+      <p className={'mt-3'}>未請求金額：{formatPriceYen(totalClaimPrice)}</p>
       <p className={'mt-3'}>未請求一覧</p>
 
       <ul className="mt-1">
         {shoppings.map((shopping, index) => (
           <li key={index} className={'border-t-2 p-3'}>
             <div>買い物日：{formatDay(shopping.date!)}</div>
-            <div>金額：{shopping.price}</div>
+            <div>金額：{formatPriceYen(shopping.price)}</div>
             <div>LINE通知：{shopping.isLineNotice ? '通知済' : '未通知'}</div>
             <div>請求：{shopping.claimId ? '請求済' : '未請求'}</div>
             <div>説明：{shopping.description}</div>
             <div className={'mt-2 text-center'}>
-              <BaseLink pathname={page.shopping.show.link(shopping.id!.toLocaleString())}>
+              <BaseLink pathname={page.shopping.show.link(shopping.id!.toString())}>
                 <BaseButton color={'primary'} variant={'contained'}>
                   詳細
                 </BaseButton>
               </BaseLink>
-              <BaseLink pathname={page.shopping.edit.link(shopping.id!.toLocaleString())}>
+              <BaseLink pathname={page.shopping.edit.link(shopping.id!.toString())}>
                 <BaseButton className={'ml-5'} color={'primary'} variant={'contained'}>
                   編集
                 </BaseButton>
               </BaseLink>
             </div>
+            /shopping/new
           </li>
         ))}
       </ul>

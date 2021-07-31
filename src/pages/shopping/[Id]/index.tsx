@@ -17,6 +17,7 @@ import { TShopping, shoppingInit } from '../../../types/Shopping';
 import { TShop } from '../../../types/Shop';
 /* utils */
 import LocalStorage from '../../../utils/LocalStorage';
+import { formatPriceYen } from '../../../utils/function';
 
 const ShoppingShow = (): JSX.Element => {
   const [shopping, setShopping] = useState<TShopping>(shoppingInit);
@@ -73,7 +74,7 @@ const ShoppingShow = (): JSX.Element => {
       <p>一旦一覧画面を作成、これからどのようにカスタマイズするか等を検討している。</p>
       <ul className="py-4">
         <li className={'p-3'}>
-          <div>金額：{shopping.price}</div>
+          <div>金額：{formatPriceYen(shopping.price)}</div>
           <div>日付：{shopping.date}</div>
           <div>お店：{shops.find((shop) => shop.id === shopping.shopId)?.name}</div>
           <div>説明：{shopping.description}</div>

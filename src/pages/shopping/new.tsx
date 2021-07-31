@@ -33,10 +33,11 @@ import { TShop } from '../../types/Shop';
 import { settingAndUser } from '../../types/Setting';
 /* utils */
 import { formatDay } from '../../utils/FormatDate';
-import { isEmpty } from '../../utils/function';
+import { isEmpty, formatPriceYen } from '../../utils/function';
 import LocalStorage from '../../utils/LocalStorage';
 /* validate */
 import { shoppingValidate } from '../../validate/shopping/new';
+/* utils */
 
 const ShoppingNew = (): JSX.Element => {
   const router = useRouter();
@@ -103,7 +104,7 @@ const ShoppingNew = (): JSX.Element => {
       >
         <dl>
           <dt>{SHOPPINGFORM.PRICE.LABEL}：</dt>
-          <dd>{formik.values.price}</dd>
+          <dd>{formatPriceYen(formik.values.price)}</dd>
         </dl>
         <dl>
           <dt>{SHOPPINGFORM.DATE.LABEL}：</dt>

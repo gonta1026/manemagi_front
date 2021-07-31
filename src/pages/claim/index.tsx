@@ -9,6 +9,8 @@ import { page } from '../../pageMap';
 import { fetchClaims } from '../../reducks/services/Claim';
 /* types */
 import { TClaim } from '../../types/Claim';
+/* utils */
+import { formatPriceYen } from '../../utils/function';
 import { formatDay } from '../../utils/FormatDate';
 
 const Claim = (): JSX.Element => {
@@ -37,9 +39,9 @@ const Claim = (): JSX.Element => {
           <li key={index} className={'border-t-2 p-3'}>
             <div>請求日：{formatDay(claim.createdAt)}</div>
             <div>LINE通知：{claim.isLineNotice ? '通知済' : '未通知'}</div>
-            <div>合計金額：{claim.totalPrice}</div>
+            <div>合計金額：{formatPriceYen(claim.totalPrice)}</div>
             <div className={'mt-2 text-center'}>
-              <BaseLink pathname={page.claim.show.link(claim.id.toLocaleString())}>
+              <BaseLink pathname={page.claim.show.link(claim.id.toString())}>
                 <BaseButton color={'primary'} variant={'contained'}>
                   詳細
                 </BaseButton>

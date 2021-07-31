@@ -35,7 +35,7 @@ import { settingAndUser } from '../../../types/Setting';
 /* utils */
 import { formatDay } from '../../../utils/FormatDate';
 import LocalStorage from '../../../utils/LocalStorage';
-import { isEmpty } from '../../../utils/function';
+import { isEmpty, formatPriceYen } from '../../../utils/function';
 /* validate */
 import { shoppingValidate } from '../../../validate/shopping/new';
 
@@ -112,7 +112,7 @@ const ShoppingEdit = (): JSX.Element => {
       >
         <dl>
           <dt>{SHOPPINGFORM.PRICE.LABEL}：</dt>
-          <dd>{formik.values.price}</dd>
+          <dd>{formatPriceYen(formik.values.price)}</dd>
         </dl>
         <dl>
           <dt>{SHOPPINGFORM.DATE.LABEL}：</dt>
