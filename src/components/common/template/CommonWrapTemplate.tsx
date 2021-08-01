@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 /* BaseContainer */
 import { BaseContainer } from '../uiParts/layout';
 /* organisms */
-import { BaseHeader, Drawer } from '../organisms';
+import { BaseHeader, Drawer, FooterNavigation } from '../organisms';
 /* molecules */
 import { BaseToast, BaseLoading } from '../molecules';
 /* customHook */
@@ -84,6 +84,7 @@ const CommonWrapTemplate = ({
       <BaseHeader toggleDrawer={toggleDrawer} settingState={settingState} />
       <Drawer isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
       <BaseContainer>{children}</BaseContainer>
+      <FooterNavigation />
     </>
   );
 };
