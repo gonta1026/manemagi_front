@@ -65,16 +65,18 @@ const Top = (): JSX.Element => {
     );
   }, []);
 
-  const totalClaimPrice = (() => {
+  const totalClaimPrice = () => {
     return shoppings.reduce((accumulator, shopping) => {
       return shopping.price! + accumulator;
     }, 0);
-  })();
+  };
 
   return (
     <CommonWrapTemplate {...{ toastActions }}>
       <BasePageTitle className={'my-5'}>未請求一覧</BasePageTitle>
-      <p className={'mt-3'}>未請求金額：{formatPriceYen(totalClaimPrice)}</p>
+      <p className={'mt-3'}>
+        未請求金額：{formatPriceYen ? formatPriceYen(totalClaimPrice()) : ''}
+      </p>
 
       <div className="mt-1 space-y-3">
         {shoppings.map((shopping, index) => (

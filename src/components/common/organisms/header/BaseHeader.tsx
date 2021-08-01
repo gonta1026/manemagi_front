@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter, NextRouter } from 'next/router';
 import { AppBar, IconButton, Toolbar, Typography } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -33,7 +33,8 @@ const BaseHeader = ({
 
   const router = useRouter();
   const isAfterSsr = useIsAfterSsr();
-  const [anchorEl, setAnchorEl] = React.useState<(EventTarget & HTMLButtonElement) | null>(null);
+  const [anchorEl, setAnchorEl] = useState<(EventTarget & HTMLButtonElement) | null>(null);
+  const [headPathName, setHeadPathName] = useState<string>('/');
   const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -52,7 +53,12 @@ const BaseHeader = ({
     setAnchorEl(null);
   };
 
-  const headPathName = settingState.user.id ? page.top.link() : page.home.link();
+  useEffect(() => {
+    const pathName = settingState.user.id ? page.top.link() : page.home.link();
+    if (pathName) {
+      setHeadPathName(pathName);
+    }
+  }, [settingState]);
 
   return (
     <AppBar position="static" className={className + ' sticky z-10 top-0'} color={'inherit'}>
