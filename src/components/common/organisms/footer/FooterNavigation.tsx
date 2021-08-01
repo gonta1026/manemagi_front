@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { BottomNavigationAction, BottomNavigation } from '@material-ui/core';
 import { Settings, ShoppingCart, Store, Money } from '@material-ui/icons';
@@ -6,18 +6,42 @@ import { Settings, ShoppingCart, Store, Money } from '@material-ui/icons';
 import { page } from '../../../../pageMap/index';
 
 const FooterNavigation = () => {
-  const router = useRouter();
-  const [pageNum, setPageNum] = React.useState(0);
+  const navagationPage = {
+    shop: {
+      label: 'お店',
+      num: 0,
+    },
+    shopping: {
+      label: '買い物',
+      num: 1,
+    },
+    claim: {
+      label: '請求',
+      num: 2,
+    },
+    setting: {
+      label: '設定',
+      num: 3,
+    },
+  } as const;
 
-  useEffect(() => {
-    if (~router.pathname.indexOf(page.shopping.list.link())) {
-      setPageNum(1);
-    } else if (~router.pathname.indexOf(page.claim.list.link())) {
-      setPageNum(2);
-    } else if (~router.pathname.indexOf(page.setting.edit.link())) {
-      setPageNum(3);
+  const router = useRouter();
+  const [pageNum, setPageNum] = useState<() => 0 | 1 | 2 | 3 | undefined>(() => {
+    switch (true) {
+      case /shop/.test(router.pathname) && !/shopping/.test(router.pathname):
+        return navagationPage.shop.num;
+        break;
+      case /shopping/.test(router.pathname):
+        return navagationPage.shopping.num;
+        break;
+      case /claim/.test(router.pathname):
+        return navagationPage.claim.num;
+        break;
+      case /setting/.test(router.pathname):
+        return navagationPage.setting.num;
+        break;
     }
-  }, []);
+  });
 
   return (
     <BottomNavigation
@@ -26,26 +50,26 @@ const FooterNavigation = () => {
       onChange={(_, newPageNum) => {
         setPageNum(newPageNum);
         switch (newPageNum) {
-          case 0:
+          case navagationPage.shop.num:
             router.push(page.shop.list.link());
             break;
-          case 1:
+          case navagationPage.shopping.num:
             router.push(page.shopping.list.link());
             break;
-          case 2:
+          case navagationPage.claim.num:
             router.push(page.claim.list.link());
             break;
-          case 3:
+          case navagationPage.setting.num:
             router.push(page.setting.edit.link());
             break;
         }
       }}
       showLabels
     >
-      <BottomNavigationAction label="お店" icon={<Store />} />
-      <BottomNavigationAction label="買い物" icon={<ShoppingCart />} />
-      <BottomNavigationAction label="請求" icon={<Money />} />
-      <BottomNavigationAction label="設定" icon={<Settings />} />
+      <BottomNavigationAction label={navagationPage.shop.label} icon={<Store />} />
+      <BottomNavigationAction label={navagationPage.shopping.label} icon={<ShoppingCart />} />
+      <BottomNavigationAction label={navagationPage.claim.label} icon={<Money />} />
+      <BottomNavigationAction label={navagationPage.setting.label} icon={<Settings />} />
     </BottomNavigation>
   );
 };
