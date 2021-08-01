@@ -9,6 +9,8 @@ import { page } from '../../pageMap';
 import { fetchShops } from '../../reducks/services/Shop';
 /* types */
 import { TShop } from '../../types/Shop';
+/* utils */
+import { ommisionText } from '../../utils/function';
 
 const Shop = (): JSX.Element => {
   const [shops, setShopNames] = useState<TShop[]>([]);
@@ -36,7 +38,7 @@ const Shop = (): JSX.Element => {
         {shops.map((shop, index) => (
           <li key={index} className={'border-t-2 p-3'}>
             <div>店名：{shop.name}</div>
-            <div>説明：{shop.description}</div>
+            <div>説明：{ommisionText(shop.description, 30)}</div>
           </li>
         ))}
       </ul>

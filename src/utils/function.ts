@@ -2,7 +2,10 @@
 export const isEmpty = (obj: any) => !Object.keys(obj).length;
 
 /* 三点リード */
-export const ommisionText = (text: string, length = 10): string => {
+export const ommisionText = (text: string | null, length = 10): string => {
+  if (text === null) {
+    return '';
+  }
   if (text.length <= length) {
     return text;
   }

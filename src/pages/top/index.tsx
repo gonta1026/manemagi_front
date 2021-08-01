@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 /* components */
 import CommonWrapTemplate from '../../components/common/template/CommonWrapTemplate';
-import { BaseCard } from '../../components/common/uiParts/atoms';
 /* customHook */
 import useToastAction from '../../customHook/useToastAction';
 import { BasePageTitle } from '../../components/common/uiParts/atoms';
-import { LineNotice, CardLinkGroup } from '../../components/pages/common';
+import { LineNotice } from '../../components/pages/common';
+import { CardWrapper } from '../../components/common/organisms';
 /* pageMap */
 import LocalStorage from '../../utils/LocalStorage';
 import { page } from '../../pageMap';
@@ -15,10 +15,10 @@ import { fetchShoppings } from '../../reducks/services/Shopping';
 /* types */
 import { TShopping } from '../../types/Shopping';
 /* utils */
-import { formatPriceYen } from '../../utils/function';
+import { formatPriceYen, ommisionText } from '../../utils/function';
 import { formatDay } from '../../utils/FormatDate';
 
-const Shopping = (): JSX.Element => {
+const Top = (): JSX.Element => {
   const [shoppings, setShopping] = useState<TShopping[]>([]);
   const dispatch = useDispatch();
 
@@ -76,30 +76,33 @@ const Shopping = (): JSX.Element => {
       <BasePageTitle className={'my-5'}>未請求一覧</BasePageTitle>
       <p className={'mt-3'}>未請求金額：{formatPriceYen(totalClaimPrice)}</p>
 
-      <ul className="mt-1 space-y-3">
+      <div className="mt-1 space-y-3">
         {shoppings.map((shopping, index) => (
-          <BaseCard key={index} className={'border-t-2 p-3 relative'}>
+          <CardWrapper
+            className={'border-t-2 p-3 relative'}
+            detailPathName={page.shopping.show.link(shopping.id!.toString())}
+            editPathName={page.shopping.edit.link(shopping.id!.toString())}
+            isEditShow={shopping.claimId === null}
+            isDeleteShow={shopping.claimId === null}
+            key={index}
+          >
             <div className="flex justify-between">
               <div className="left">
                 <div>買い物日：{formatDay(shopping.date!)}</div>
                 <div>金額：{formatPriceYen(shopping.price)}</div>
-                <div>説明：{shopping.description}</div>
+                <div>
+                  説明：{shopping.description ? ommisionText(shopping.description, 20) : 'なし'}
+                </div>
               </div>
               <div className="right">
                 <LineNotice isLineNotice={shopping.isLineNotice} />
               </div>
             </div>
-            <CardLinkGroup
-              className={'mt-2 text-right'}
-              detailPathName={page.shopping.show.link(shopping.id!.toString())}
-              editPathName={page.shopping.edit.link(shopping.id!.toString())}
-              isEditAndDeleteShow={shopping.claimId === null}
-            />
-          </BaseCard>
+          </CardWrapper>
         ))}
-      </ul>
+      </div>
     </CommonWrapTemplate>
   );
 };
 
-export default Shopping;
+export default Top;

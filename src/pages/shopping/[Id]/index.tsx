@@ -17,7 +17,7 @@ import { TShopping, shoppingInit } from '../../../types/Shopping';
 import { TShop } from '../../../types/Shop';
 /* utils */
 import LocalStorage from '../../../utils/LocalStorage';
-import { formatPriceYen } from '../../../utils/function';
+import { formatPriceYen, ommisionText } from '../../../utils/function';
 
 const ShoppingShow = (): JSX.Element => {
   const [shopping, setShopping] = useState<TShopping>(shoppingInit);
@@ -77,7 +77,7 @@ const ShoppingShow = (): JSX.Element => {
           <div>金額：{formatPriceYen(shopping.price)}</div>
           <div>日付：{shopping.date}</div>
           <div>お店：{shops.find((shop) => shop.id === shopping.shopId)?.name}</div>
-          <div>説明：{shopping.description}</div>
+          <div>説明：{shopping.description ? ommisionText(shopping.description, 20) : 'なし'}</div>
           <div>ライン通知：{shopping.isLineNotice ? '通知済み' : '未通知'}</div>
         </li>
       </ul>

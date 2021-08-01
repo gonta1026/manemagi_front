@@ -3,7 +3,8 @@ import { useDispatch } from 'react-redux';
 /* components */
 import CommonWrapTemplate from '../../components/common/template/CommonWrapTemplate';
 import { BasePageTitle } from '../../components/common/uiParts/atoms';
-import { CardLinkGroup } from '../../components/pages/common/';
+import { CardWrapper } from '../../components/common/organisms';
+import { LineNotice } from '../../components/pages/common';
 /* pageMap */
 import { page } from '../../pageMap';
 /* reducks */
@@ -11,7 +12,7 @@ import { fetchShoppings } from '../../reducks/services/Shopping';
 /* types */
 import { TShopping } from '../../types/Shopping';
 /* utils */
-import { formatPriceYen } from '../../utils/function';
+import { formatPriceYen, ommisionText } from '../../utils/function';
 import { formatDay } from '../../utils/FormatDate';
 
 const Shopping = (): JSX.Element => {
@@ -35,23 +36,29 @@ const Shopping = (): JSX.Element => {
       <BasePageTitle className={'my-5'}>{page.shopping.list.name()}</BasePageTitle>
       <p>一旦一覧画面を作成、これからどのようにカスタマイズするか等を検討。</p>
       <p>ソート機能、絞り込み機能、ページネーション、表示件数の制御をできたら入れたい。</p>
-      <ul className="py-4">
+      <div className="space-y-3">
         {shoppings.map((shopping, index) => (
-          <li key={index} className={'border-t-2 p-3'}>
-            <div>買い物日：{formatDay(shopping.date!)}</div>
-            <div>金額：{formatPriceYen(shopping.price)}</div>
-            <div>LINE通知：{shopping.isLineNotice ? '通知済' : '未通知'}</div>
-            <div>請求：{shopping.claimId ? '請求済' : '未請求'}</div>
-            <div>説明：{shopping.description}</div>
-            <CardLinkGroup
-              className={'mt-2 text-right'}
-              detailPathName={page.shopping.show.link(shopping.id!.toString())}
-              editPathName={page.shopping.edit.link(shopping.id!.toString())}
-              isEditAndDeleteShow={shopping.claimId !== null}
-            />
-          </li>
+          <CardWrapper
+            key={index}
+            className={'border-t-2 p-3 relative'}
+            detailPathName={page.shopping.show.link(shopping.id!.toString())}
+            editPathName={page.shopping.edit.link(shopping.id!.toString())}
+            isEditShow={shopping.claimId === null}
+            isDeleteShow={shopping.claimId === null}
+          >
+            <div className="flex justify-between">
+              <div className="left">
+                <div>買い物日：{formatDay(shopping.date!)}</div>
+                <div>金額：{formatPriceYen(shopping.price)}</div>
+                <div>説明：{ommisionText(shopping.description, 20)}</div>
+              </div>
+              <div className="right">
+                <LineNotice isLineNotice={shopping.isLineNotice} />
+              </div>
+            </div>
+          </CardWrapper>
         ))}
-      </ul>
+      </div>
     </CommonWrapTemplate>
   );
 };

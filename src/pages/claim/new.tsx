@@ -23,7 +23,7 @@ import { TClaimFormikForm } from '../../types/Claim';
 import { settingAndUser } from '../../types/Setting';
 /* utils */
 import { formatDay } from '../../utils/FormatDate';
-import { formatPriceYen } from '../../utils/function';
+import { formatPriceYen, ommisionText } from '../../utils/function';
 import LocalStorage from '../../utils/LocalStorage';
 
 const ClaimNew = (): JSX.Element => {
@@ -158,7 +158,9 @@ const ClaimNew = (): JSX.Element => {
               <div>買い物日：{formatDay(shopping.date!)}</div>
               <div>金額：{formatPriceYen(shopping.price)})</div>
               <div>LINE通知：{shopping.isLineNotice ? '通知済' : '未通知'}</div>
-              <div>説明：{shopping.description}</div>
+              <div>
+                説明：{shopping.description ? ommisionText(shopping.description, 20) : 'なし'}
+              </div>
             </li>
           ))}
         </ul>
