@@ -73,9 +73,9 @@ const Shopping = (): JSX.Element => {
 
   return (
     <CommonWrapTemplate {...{ toastActions }}>
-      <BasePageTitle className={'my-5'}>トップページ</BasePageTitle>
+      <BasePageTitle className={'my-5'}>未請求一覧</BasePageTitle>
       <p className={'mt-3'}>未請求金額：{formatPriceYen(totalClaimPrice)}</p>
-      <p className={'mt-3'}>未請求一覧</p>
+      {/* <p className={'mt-3'}>未請求一覧</p> */}
 
       <ul className="mt-1 space-y-3">
         {shoppings.map((shopping, index) => (
