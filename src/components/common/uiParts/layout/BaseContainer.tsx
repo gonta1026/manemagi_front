@@ -9,7 +9,10 @@ const Container = styled.div`
   width: 92%;
   max-width: 600px;
   margin: 0 auto;
-  padding-bottom: 40px;
+  padding-bottom: 70px;
+  @media (min-width: 640px) {
+    padding-bottom: 40px;
+  }
 `;
 
 export default BaseContainer;
