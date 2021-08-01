@@ -125,8 +125,8 @@ const Setting = (): JSX.Element => {
           disabledExecution={!isEmpty(formik.errors)}
           className={'base-vertical-item flex justify-center mt-5'}
           backPathname={page.shop.register.link()}
-          backButtonName={`${page.shop.register.name()}へ戻る`}
-          nextButtonName={'更新'}
+          backName={`${page.shop.register.name()}へ戻る`}
+          nextName={'更新'}
         />
       </form>
     </CommonWrapTemplate>

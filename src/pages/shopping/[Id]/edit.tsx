@@ -8,13 +8,13 @@ import {
   BaseErrorMessagesWrapper,
   BasePageTitle,
   BaseLink,
-  BaseButton,
 } from '../../../components/common/uiParts/atoms';
 import {
   LabelAndSelect,
   LabelAndTextField,
   LabelAndTextArea,
   LabelAndSwitch,
+  ExecutionAndBackButtons,
 } from '../../../components/common/molecules';
 import BaseModal from '../../../components/common/modal/BaseModal';
 import { IsUseLineHelper } from '../../../components/pages/common';
@@ -212,17 +212,14 @@ const ShoppingEdit = (): JSX.Element => {
           id={SHOPPINGFORM.IS_LINE_NOTICE.ID}
           label={`${SHOPPINGFORM.IS_LINE_NOTICE.LABEL}${formik.values.isLineNotice ? 'ON' : 'OFF'}`}
         />
-        <div className="base-vertical-item flex justify-center">
-          <BaseButton disabled={!isEmpty(formik.errors)} type={'submit'}>
-            登録
-          </BaseButton>
-        </div>
-        <hr className="my-5" />
-        <div className="flex justify-center">
-          <BaseLink pathname={page.shopping.list.link()}>
-            <BaseButton>{page.shopping.list.name()}へ戻る</BaseButton>
-          </BaseLink>
-        </div>
+        <ExecutionAndBackButtons
+          backPathname={page.shopping.list.link()}
+          backName={`${page.shopping.list.name()}へ戻る`}
+          className={'base-vertical-item'}
+          nextName={'登録'}
+          nextCustomType={'addCircleOutline'}
+          disabledExecution={!isEmpty(formik.errors)}
+        />
       </form>
     </CommonWrapTemplate>
   );

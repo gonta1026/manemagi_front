@@ -10,6 +10,8 @@ export const buttonStyle = (
   let styles = {};
   switch (buttonType) {
     case 'normal':
+    case 'arrowBack':
+    case 'addCircleOutline':
       if (variant === 'outlined') {
         styles = {
           color: blue[500],
@@ -21,10 +23,10 @@ export const buttonStyle = (
         };
       } else if (variant === 'contained') {
         styles = {
-          color: theme.palette.getContrastText(blue[500]),
-          backgroundColor: blue[500],
+          color: theme.palette.getContrastText(blue[700]),
+          backgroundColor: blue[700],
           '&:hover': {
-            backgroundColor: blue[500],
+            backgroundColor: blue[700],
           },
         };
       }

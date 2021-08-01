@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 /* components */
 import CommonWrapTemplate from '../../components/common/template/CommonWrapTemplate';
-import { BasePageTitle, BaseLink, BaseButton } from '../../components/common/uiParts/atoms';
+import { BasePageTitle } from '../../components/common/uiParts/atoms';
+import { CardLinkGroup } from '../../components/pages/common/';
 /* pageMap */
 import { page } from '../../pageMap';
 /* reducks */
@@ -42,16 +43,12 @@ const Shopping = (): JSX.Element => {
             <div>LINE通知：{shopping.isLineNotice ? '通知済' : '未通知'}</div>
             <div>請求：{shopping.claimId ? '請求済' : '未請求'}</div>
             <div>説明：{shopping.description}</div>
-            <div className={'mt-2 text-center'}>
-              <BaseLink pathname={page.shopping.show.link(shopping.id!.toString())}>
-                <BaseButton variant={'contained'}>詳細</BaseButton>
-              </BaseLink>
-              <BaseLink pathname={page.shopping.edit.link(shopping.id!.toString())}>
-                <BaseButton className={'ml-5'} variant={'contained'}>
-                  編集
-                </BaseButton>
-              </BaseLink>
-            </div>
+            <CardLinkGroup
+              className={'mt-2 text-right'}
+              detailPathName={page.shopping.show.link(shopping.id!.toString())}
+              editPathName={page.shopping.edit.link(shopping.id!.toString())}
+              isEditAndDeleteShow={shopping.claimId !== null}
+            />
           </li>
         ))}
       </ul>

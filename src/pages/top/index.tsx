@@ -5,8 +5,8 @@ import CommonWrapTemplate from '../../components/common/template/CommonWrapTempl
 import { BaseCard } from '../../components/common/uiParts/atoms';
 /* customHook */
 import useToastAction from '../../customHook/useToastAction';
-import { BaseLink, BaseButton, BasePageTitle } from '../../components/common/uiParts/atoms';
-import { LineNotice } from '../../components/pages/common';
+import { BasePageTitle } from '../../components/common/uiParts/atoms';
+import { LineNotice, CardLinkGroup } from '../../components/pages/common';
 /* pageMap */
 import LocalStorage from '../../utils/LocalStorage';
 import { page } from '../../pageMap';
@@ -75,7 +75,6 @@ const Shopping = (): JSX.Element => {
     <CommonWrapTemplate {...{ toastActions }}>
       <BasePageTitle className={'my-5'}>未請求一覧</BasePageTitle>
       <p className={'mt-3'}>未請求金額：{formatPriceYen(totalClaimPrice)}</p>
-      {/* <p className={'mt-3'}>未請求一覧</p> */}
 
       <ul className="mt-1 space-y-3">
         {shoppings.map((shopping, index) => (
@@ -90,21 +89,12 @@ const Shopping = (): JSX.Element => {
                 <LineNotice isLineNotice={shopping.isLineNotice} />
               </div>
             </div>
-            <div className={'mt-2 text-right'}>
-              <BaseLink pathname={page.shopping.show.link(shopping.id!.toString())}>
-                <BaseButton className={'mr-3'} variant={'outlined'} customType={'description'}>
-                  詳細
-                </BaseButton>
-              </BaseLink>
-              <BaseLink pathname={page.shopping.edit.link(shopping.id!.toString())}>
-                <BaseButton className={'mr-3'} variant={'outlined'} customType={'edit'}>
-                  編集
-                </BaseButton>
-              </BaseLink>
-              <BaseButton variant={'outlined'} customType={'delete'}>
-                削除
-              </BaseButton>
-            </div>
+            <CardLinkGroup
+              className={'mt-2 text-right'}
+              detailPathName={page.shopping.show.link(shopping.id!.toString())}
+              editPathName={page.shopping.edit.link(shopping.id!.toString())}
+              isEditAndDeleteShow={shopping.claimId === null}
+            />
           </BaseCard>
         ))}
       </ul>

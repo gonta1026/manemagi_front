@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 /* components */
 import CommonWrapTemplate from '../../components/common/template/CommonWrapTemplate';
-import { BasePageTitle, BaseLink, BaseButton } from '../../components/common/uiParts/atoms';
+import { BasePageTitle } from '../../components/common/uiParts/atoms';
+import { BaseLinkButton } from '../../components/common/molecules';
 /* pageMap */
 import { page } from '../../pageMap';
 /* reducks */
@@ -31,7 +32,7 @@ const Claim = (): JSX.Element => {
 
   return (
     <CommonWrapTemplate>
-      <BasePageTitle className={'my-5'}>{page.shopping.list.name()}</BasePageTitle>
+      <BasePageTitle className={'my-5'}>{page.claim.list.name()}</BasePageTitle>
       <p>一旦一覧画面を作成、これからどのようにカスタマイズするか等を検討。</p>
       <p>ソート機能、絞り込み機能、ページネーション、表示件数の制御をできたら入れたい。</p>
       <ul className="py-4">
@@ -40,10 +41,13 @@ const Claim = (): JSX.Element => {
             <div>請求日：{formatDay(claim.createdAt)}</div>
             <div>LINE通知：{claim.isLineNotice ? '通知済' : '未通知'}</div>
             <div>合計金額：{formatPriceYen(claim.totalPrice)}</div>
-            <div className={'mt-2 text-center'}>
-              <BaseLink pathname={page.claim.show.link(claim.id.toString())}>
-                <BaseButton>詳細</BaseButton>
-              </BaseLink>
+            <div className={'mt-2 text-right'}>
+              <BaseLinkButton
+                customType={'description'}
+                pathname={page.claim.show.link(claim.id.toString())}
+              >
+                詳細
+              </BaseLinkButton>
             </div>
           </li>
         ))}

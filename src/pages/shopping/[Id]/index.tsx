@@ -83,9 +83,10 @@ const ShoppingShow = (): JSX.Element => {
       </ul>
       <ExecutionAndBackButtons
         backPathname={page.shopping.list.link()}
+        backName={`${page.shopping.list.name()}へ戻る`}
         nextPathname={page.shopping.edit.link(router.query.Id as string)}
-        backButtonName={`${page.shopping.list.name()}へ戻る`}
-        nextButtonName={'編集'}
+        nextName={'編集'}
+        nextCustomType={'edit'}
       />
     </CommonWrapTemplate>
   );

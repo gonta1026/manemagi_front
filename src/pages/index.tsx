@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 /* components */
 import TopPageTemplate from '../components/pages/index/template/TopPageTemplate';
-import { BaseButton, BaseLink, BaseCard } from '../components/common/uiParts/atoms';
+import { BaseCard } from '../components/common/uiParts/atoms';
+import { BaseLinkButton } from '../components/common/molecules';
 import { BaseContainer } from '../components/common/uiParts/layout';
 /* const */
 import { mediaSize } from '../const/media';
@@ -64,14 +65,15 @@ const Home: React.FC = () => {
         {/* <hr className="my-5" /> */}
 
         <div className="mt-10 text-center">
-          <BaseLink pathname={page.signup.link()}>
-            <BaseButton>{page.signup.name()}</BaseButton>
-          </BaseLink>
+          <BaseLinkButton pathname={page.signup.link()} size={'large'} variant={'contained'}>
+            {page.signup.name()}
+          </BaseLinkButton>
 
           <hr className="my-5" />
-          <BaseLink pathname={page.login.link()}>
-            <BaseButton>{page.login.name()}</BaseButton>
-          </BaseLink>
+
+          <BaseLinkButton pathname={page.login.link()} size={'large'} variant={'contained'}>
+            {page.login.name()}
+          </BaseLinkButton>
         </div>
       </BaseContainer>
     </TopPageTemplate>

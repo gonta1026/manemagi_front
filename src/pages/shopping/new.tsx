@@ -9,10 +9,10 @@ import {
   LabelAndTextArea,
   LabelAndSelect,
   LabelAndSwitch,
+  ExecutionAndBackButtons,
 } from '../../components/common/molecules';
 import {
   BasePageTitle,
-  BaseButton,
   BaseErrorMessagesWrapper,
   BaseLink,
 } from '../../components/common/uiParts/atoms';
@@ -204,17 +204,14 @@ const ShoppingNew = (): JSX.Element => {
           id={SHOPPINGFORM.IS_LINE_NOTICE.ID}
           label={`${SHOPPINGFORM.IS_LINE_NOTICE.LABEL}${formik.values.isLineNotice ? 'ON' : 'OFF'}`}
         />
-        <div className="base-vertical-item flex justify-center">
-          <BaseButton disabled={!isEmpty(formik.errors)} type={'submit'}>
-            登録
-          </BaseButton>
-        </div>
-        <hr className="my-5" />
-        <div className="flex justify-center">
-          <BaseLink pathname={page.shop.register.link()}>
-            <BaseButton>{page.top.name()}へ戻る</BaseButton>
-          </BaseLink>
-        </div>
+        <ExecutionAndBackButtons
+          backPathname={page.top.name()}
+          backName={`${page.top.name()}へ戻る`}
+          className={'base-vertical-item'}
+          nextName={'登録'}
+          nextCustomType={'addCircleOutline'}
+          disabledExecution={!isEmpty(formik.errors)}
+        />
       </form>
     </CommonWrapTemplate>
   );

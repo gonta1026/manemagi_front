@@ -25,7 +25,7 @@ const BaseButton = ({
   onClick,
   size = 'medium',
   type = 'button',
-  variant = 'contained',
+  variant = 'outlined',
 }: TProps) => {
   const CustomButton = withStyles((theme) => ({
     root: buttonStyle(theme, customType, variant),

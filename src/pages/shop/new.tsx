@@ -6,14 +6,13 @@ import { useDispatch } from 'react-redux';
 import { SHOPFORM } from '../../const/form/shop';
 /* components */
 import CommonWrapTemplate from '../../components/common/template/CommonWrapTemplate';
-import { LabelAndTextField, LabelAndTextArea } from '../../components/common/molecules';
-import BaseModal from '../../components/common/modal/BaseModal';
 import {
-  BasePageTitle,
-  BaseButton,
-  BaseErrorMessagesWrapper,
-  BaseLink,
-} from '../../components/common/uiParts/atoms';
+  LabelAndTextField,
+  LabelAndTextArea,
+  ExecutionAndBackButtons,
+} from '../../components/common/molecules';
+import BaseModal from '../../components/common/modal/BaseModal';
+import { BasePageTitle, BaseErrorMessagesWrapper } from '../../components/common/uiParts/atoms';
 /* page */
 import { page } from '../../pageMap';
 /* reducks */
@@ -117,17 +116,13 @@ const NewShop = (): JSX.Element => {
           wrapClass="base-vertical-item"
         />
 
-        <div className="base-vertical-item flex justify-center">
-          <BaseButton type={'submit'} variant={'contained'}>
-            登録
-          </BaseButton>
-        </div>
-        <hr className="my-5" />
-        <div className="base-vertical-item flex justify-center">
-          <BaseLink pathname={page.top.link()}>
-            <BaseButton variant={'contained'}>{page.top.name()}へ戻る</BaseButton>
-          </BaseLink>
-        </div>
+        <ExecutionAndBackButtons
+          backPathname={page.top.link()}
+          backName={`${page.top.name()}へ戻る`}
+          className={'base-vertical-item'}
+          nextName={'登録'}
+          nextCustomType={'addCircleOutline'}
+        />
       </form>
     </CommonWrapTemplate>
   );

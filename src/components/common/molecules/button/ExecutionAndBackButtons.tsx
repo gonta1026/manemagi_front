@@ -1,41 +1,47 @@
-import { BaseButton, BaseLink } from '../../uiParts/atoms';
+import { BaseButton } from '../../uiParts/atoms';
+import { BaseLinkButton } from '../../molecules';
+import { TIconType } from '../../uiParts/atoms/button/BaseSwitchIcon';
 
 import React from 'react';
 type TProps = {
   className?: string;
   backPathname: string;
-  backButtonName: string;
+  backName: string;
   disabledExecution?: boolean;
   nextPathname?: string;
-  nextButtonName: string;
+  nextName: string;
+  nextCustomType?: TIconType;
+  backCustomType?: TIconType;
 };
 
 const ExecutionAndBackButtons = ({
   className = '',
   backPathname,
-  backButtonName,
+  backName,
   disabledExecution,
   nextPathname,
-  nextButtonName,
+  nextName,
+  nextCustomType = 'normal',
+  backCustomType = 'arrowBack',
 }: TProps) => {
   return (
     <>
       <div className={className + ' flex justify-center'}>
         {nextPathname ? (
-          <BaseLink pathname={nextPathname}>
-            <BaseButton>{nextButtonName}</BaseButton>
-          </BaseLink>
+          <BaseLinkButton customType={nextCustomType} pathname={nextPathname}>
+            {nextName}
+          </BaseLinkButton>
         ) : (
-          <BaseButton disabled={disabledExecution} type={'submit'}>
-            {nextButtonName}
+          <BaseButton disabled={disabledExecution} type={'submit'} customType={nextCustomType}>
+            {nextName}
           </BaseButton>
         )}
       </div>
       <hr className="my-5" />
       <div className="flex justify-center">
-        <BaseLink pathname={backPathname}>
-          <BaseButton>{backButtonName}</BaseButton>
-        </BaseLink>
+        <BaseLinkButton customType={backCustomType} pathname={backPathname}>
+          {backName}
+        </BaseLinkButton>
       </div>
     </>
   );

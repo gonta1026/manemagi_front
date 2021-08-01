@@ -137,7 +137,9 @@ const SignUp = (): JSX.Element => {
         </BaseLink>
 
         <div className="base-vertical-item flex justify-center">
-          <BaseButton type={'submit'}>{page.signup.name()}</BaseButton>
+          <BaseButton variant={'contained'} type={'submit'}>
+            {page.signup.name()}
+          </BaseButton>
         </div>
       </form>
     </CommonWrapTemplate>
