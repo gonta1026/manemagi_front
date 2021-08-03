@@ -101,35 +101,41 @@ const ClaimNew = (): JSX.Element => {
             });
           }
         }}
+        modaltitle={'請求'}
       >
-        請求予定金額：{formatPriceYen(totalClaimPrice)}
         <ul className={'space-y-2'}>
           {cheackShoppings.map((shopping, index) => (
             <li key={index}>
-              <dl>
-                <dt>{SHOPPINGFORM.PRICE.LABEL}：</dt>
-                <dd>{formatPriceYen(shopping.price)}</dd>
+              <h3 className={'font-bold mt-4 text-center'}>{index + 1}件目</h3>
+              <dl className={'list'}>
+                <dt>{SHOPPINGFORM.PRICE.LABEL}</dt>
+                <dd>{formatPriceYen ? formatPriceYen(shopping.price) : ''}</dd>
               </dl>
-              <dl>
-                <dt>{SHOPPINGFORM.DATE.LABEL}：</dt>
+              <dl className={'list'}>
+                <dt>{SHOPPINGFORM.DATE.LABEL}</dt>
                 <dd>{shopping.date}</dd>
               </dl>
-              <dl>
-                <dt>{SHOPPINGFORM.DESCRIPTION.LABEL}：</dt>
+              <dl className={'list'}>
+                <dt>{SHOPPINGFORM.DESCRIPTION.LABEL}</dt>
                 <dd>{shopping.description}</dd>
               </dl>
-              <dl>
-                <dt>{SHOPPINGFORM.IS_LINE_NOTICE.LABEL}：</dt>
+              <dl className={'list'}>
+                <dt>{SHOPPINGFORM.IS_LINE_NOTICE.LABEL}</dt>
                 <dd>{shopping.isLineNotice ? '通知済み' : '未通知'}</dd>
               </dl>
             </li>
           ))}
         </ul>
+        <p className={'text-right mt-2'}>
+          合計金額：{formatPriceYen ? formatPriceYen(totalClaimPrice) : ''}
+        </p>
       </ConfirmModal>
       <BasePageTitle className={'my-5'}>{page.claim.register.name()}</BasePageTitle>
       <p>一旦一覧画面を作成、これからどのようにカスタマイズするか等を検討。</p>
       <p>ソート機能、絞り込み機能、ページネーション、表示件数の制御をできたら入れたい。</p>
-      <div className="mt-5">請求予定金額：{formatPriceYen(totalClaimPrice)}</div>
+      <div className="mt-5">
+        請求予定金額：{formatPriceYen ? formatPriceYen(totalClaimPrice) : ''}
+      </div>
       <BaseButton
         className={'mt-5'}
         type={'submit'}

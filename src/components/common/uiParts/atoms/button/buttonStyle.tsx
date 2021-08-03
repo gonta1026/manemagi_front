@@ -72,6 +72,7 @@ export const buttonStyle = (
       }
       break;
     case 'edit':
+    case 'update':
       if (variant === 'outlined') {
         styles = {
           color: green[500],
@@ -90,15 +91,6 @@ export const buttonStyle = (
           },
         };
       }
-      break;
-    case 'update':
-      styles = {
-        color: '#fff',
-        backgroundColor: yellow[500],
-        '&:hover': {
-          backgroundColor: yellow[500],
-        },
-      };
       break;
     case 'delete':
       if (variant === 'outlined') {

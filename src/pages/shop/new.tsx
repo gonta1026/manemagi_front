@@ -80,12 +80,12 @@ const NewShop = (): JSX.Element => {
           }
         }}
       >
-        <dl>
+        <dl className={'list'}>
           <dt>{SHOPFORM.NAME.LABEL}</dt>
           <dd>{name}</dd>
         </dl>
-        <dl>
-          <dt>{SHOPFORM.DESCRIPTION.LABEL}：</dt>
+        <dl className={'list'}>
+          <dt>{SHOPFORM.DESCRIPTION.LABEL}</dt>
           <dd>{description}</dd>
         </dl>
       </ConfirmModal>
@@ -122,8 +122,7 @@ const NewShop = (): JSX.Element => {
           backPathname={page.top.link()}
           backName={`${page.top.name()}へ戻る`}
           className={'base-vertical-item'}
-          nextName={'登録'}
-          nextCustomType={'addCircleOutline'}
+          nextName={'確認'}
         />
       </form>
     </CommonWrapTemplate>

@@ -4,7 +4,7 @@ import BaseModal from './BaseModal';
 import { CloseButton, BaseButton } from '../uiParts/atoms';
 import { TIconType } from '../uiParts/atoms/button/BaseSwitchIcon';
 
-type TModalTitle = '入力' | '変更' | '削除' | '請求受領';
+type TModalTitle = '入力' | '変更' | '削除' | '請求' | '請求受領';
 interface TProps {
   open: boolean;
   handleClose: VoidFunction;
@@ -24,6 +24,7 @@ const ConfirmModal = ({
   let customType: TIconType = 'normal';
   switch (modaltitle) {
     case '入力':
+    case '請求':
     case '請求受領':
       buttonName = '登録';
       customType = 'addCircleOutline';
@@ -42,7 +43,7 @@ const ConfirmModal = ({
     <BaseModal {...{ handleClose, open }}>
       <CloseButton className={'right-2 top-3 absolute'} handleClose={handleClose} />
       <Wrap className="Wrap">
-        <h4 className={'font-bold text-center text-lg my-3'}>{modaltitle}確認</h4>
+        <h4 className={'font-bold text-center text-lg mb-3'}>{modaltitle}確認</h4>
         {children}
         <div className="flex justify-center mb-3 mt-5">
           <BaseButton focus onClick={handleOk} type={'submit'} customType={customType}>
@@ -60,7 +61,7 @@ const ConfirmModal = ({
 const Wrap = styled.div`
   padding: 25px 30px 10px;
   width: 100%;
-  > dl {
+  .list {
     padding: 8px 0;
     border-bottom: solid 1px lightgrey;
     > dt {

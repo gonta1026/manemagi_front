@@ -102,23 +102,23 @@ const ShoppingNew = (): JSX.Element => {
           }
         }}
       >
-        <dl>
+        <dl className={'list'}>
           <dt>{SHOPPINGFORM.PRICE.LABEL}</dt>
-          <dd>{formatPriceYen(formik.values.price)}</dd>
+          <dd>{formatPriceYen ? formatPriceYen(formik.values.price) : ''}</dd>
         </dl>
-        <dl>
+        <dl className={'list'}>
           <dt>{SHOPPINGFORM.DATE.LABEL}</dt>
           <dd>{formik.values.date}</dd>
         </dl>
-        <dl>
+        <dl className={'list'}>
           <dt>{SHOPPINGFORM.SHOP_ID.LABEL}</dt>
           <dd>{shops.find((shop) => shop.id === formik.values.shopId)?.name}</dd>
         </dl>
-        <dl>
+        <dl className={'list'}>
           <dt>{SHOPPINGFORM.DESCRIPTION.LABEL}</dt>
           <dd>{formik.values.description}</dd>
         </dl>
-        <dl>
+        <dl className={'list'}>
           <dt>{SHOPPINGFORM.IS_LINE_NOTICE.LABEL}</dt>
           <dd>{formik.values.isLineNotice ? '通知する' : '通知しない'}</dd>
         </dl>
@@ -208,8 +208,7 @@ const ShoppingNew = (): JSX.Element => {
           backPathname={page.top.name()}
           backName={`${page.top.name()}へ戻る`}
           className={'base-vertical-item'}
-          nextName={'登録'}
-          nextCustomType={'addCircleOutline'}
+          nextName={'確認'}
           disabledExecution={!isEmpty(formik.errors)}
         />
       </form>

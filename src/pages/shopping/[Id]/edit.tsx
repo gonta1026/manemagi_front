@@ -109,25 +109,26 @@ const ShoppingEdit = (): JSX.Element => {
             });
           }
         }}
+        modaltitle={'変更'}
       >
-        <dl>
-          <dt>{SHOPPINGFORM.PRICE.LABEL}：</dt>
+        <dl className={'list'}>
+          <dt>{SHOPPINGFORM.PRICE.LABEL}</dt>
           <dd>{formatPriceYen(formik.values.price)}</dd>
         </dl>
-        <dl>
-          <dt>{SHOPPINGFORM.DATE.LABEL}：</dt>
+        <dl className={'list'}>
+          <dt>{SHOPPINGFORM.DATE.LABEL}</dt>
           <dd>{formik.values.date}</dd>
         </dl>
-        <dl>
-          <dt>{SHOPPINGFORM.SHOP_ID.LABEL}：</dt>
+        <dl className={'list'}>
+          <dt>{SHOPPINGFORM.SHOP_ID.LABEL}</dt>
           <dd>{shops.find((shop) => shop.id === formik.values.shopId)?.name}</dd>
         </dl>
-        <dl>
-          <dt>{SHOPPINGFORM.DESCRIPTION.LABEL}：</dt>
+        <dl className={'list'}>
+          <dt>{SHOPPINGFORM.DESCRIPTION.LABEL}</dt>
           <dd>{formik.values.description}</dd>
         </dl>
-        <dl>
-          <dt>{SHOPPINGFORM.IS_LINE_NOTICE.LABEL}：</dt>
+        <dl className={'list'}>
+          <dt>{SHOPPINGFORM.IS_LINE_NOTICE.LABEL}</dt>
           <dd>{formik.values.isLineNotice ? '通知する' : '通知しない'}</dd>
         </dl>
       </ConfirmModal>
@@ -216,8 +217,7 @@ const ShoppingEdit = (): JSX.Element => {
           backPathname={page.shopping.list.link()}
           backName={`${page.shopping.list.name()}へ戻る`}
           className={'base-vertical-item'}
-          nextName={'登録'}
-          nextCustomType={'addCircleOutline'}
+          nextName={'確認'}
           disabledExecution={!isEmpty(formik.errors)}
         />
       </form>
