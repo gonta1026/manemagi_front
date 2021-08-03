@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import styled from 'styled-components';
-import { Dialog } from '@material-ui/core';
+import BaseModal from './BaseModal';
 import { CloseButton, BaseButton } from '../uiParts/atoms';
 
 interface TProps {
@@ -12,27 +12,21 @@ interface TProps {
 
 const ConfirmModal = ({ children, handleClose, handleOk, open }: TProps): JSX.Element => {
   return (
-    <Dialog
-      open={open}
-      onClose={handleClose}
-      aria-labelledby="alert-dialog-title"
-      aria-describedby="alert-dialog-description"
-      fullWidth={true}
-    >
+    <BaseModal {...{ handleClose, open }}>
       <Wrap className="Wrap">
         <CloseButton className={'right-1 top-1'} handleClose={handleClose} />
         <h4 className={'font-bold text-center text-lg my-3'}>入力確認</h4>
         {children}
         <div className="flex justify-center mb-3 mt-5">
-          <BaseButton focus onClick={handleOk} type={'submit'}>
+          <BaseButton focus onClick={handleOk} type={'submit'} customType={'addCircleOutline'}>
             登録
           </BaseButton>
-          <BaseButton className={'ml-5'} onClick={handleClose} type={'submit'}>
+          <BaseButton className={'ml-5'} onClick={handleClose} customType={'arrowBack'}>
             戻る
           </BaseButton>
         </div>
       </Wrap>
-    </Dialog>
+    </BaseModal>
   );
 };
 
