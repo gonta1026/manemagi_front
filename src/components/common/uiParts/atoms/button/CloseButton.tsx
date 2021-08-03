@@ -13,7 +13,6 @@ const CloseButton = ({ className, handleClose }: TProps): JSX.Element => (
 );
 
 const Button = styled.div`
-  position: absolute;
   content: '';
   cursor: pointer;
   padding: 2px 6px;
@@ -23,8 +22,8 @@ const Button = styled.div`
   color: #000;
   > span {
     position: absolute;
-    top: 70%;
-    left: 30%;
+    top: 50%;
+    left: 50%;
     transform: translate(-50%, -50%);
   }
 `;
