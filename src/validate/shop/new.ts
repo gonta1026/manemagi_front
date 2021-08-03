@@ -13,6 +13,5 @@ export const shopNewValidate = (values: TShopForm, errors: TShopForm, shopNames:
   if (validRegisterdName.check(values.name, shopNames)) {
     errors.name = validRegisterdName.message(values.name, NAME.LABEL);
   }
-
   return errors;
 };

@@ -6,13 +6,13 @@ export const shoppingValidate = (values: TShoppingForm, errors: TShoppingFormErr
   const { PRICE, DATE, SHOP_ID } = SHOPPINGFORM;
 
   /******************
-   * 金額
+   * 買い物金額
    ******************/
   if (validBlank.check(values.price)) {
     errors.price = validBlank.message(PRICE.LABEL);
   }
   /******************
-   * 金額
+   * 買い物日
    ******************/
   if (validBlank.check(values.date)) {
     errors.date = validBlank.message(DATE.LABEL);

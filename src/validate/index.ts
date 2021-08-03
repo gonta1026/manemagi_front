@@ -11,7 +11,8 @@ import { validHankakuEngNum, validEmail } from './regExp';
 
 export const validBlank = {
   // できればnull自体を許容しないようにしたい。
-  check: (value: string | number | Date | null): boolean => isValidCheck(value === ''),
+  check: (value: string | number | Date | null): boolean =>
+    isValidCheck(value === '' || value === null),
   message: (label: string) => blank(label),
 };
 export const validMaxNum = {

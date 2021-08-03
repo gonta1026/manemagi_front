@@ -21,6 +21,8 @@ import { createShop, fetchShops } from '../../reducks/services/Shop';
 import { TShop, TShopForm, TShopFormError } from '../../types/Shop';
 /* utils */
 import LocalStorage from '../../utils/LocalStorage';
+import { isEmpty } from '../../utils/function';
+
 /* validate */
 import { shopNewValidate } from '../../validate/shop/new';
 
@@ -123,6 +125,7 @@ const NewShop = (): JSX.Element => {
           backName={`${page.top.name()}へ戻る`}
           className={'base-vertical-item'}
           nextName={'確認'}
+          disabledExecution={!isEmpty(formik.errors)}
         />
       </form>
     </CommonWrapTemplate>

@@ -71,6 +71,12 @@ const ShoppingNew = (): JSX.Element => {
 
   useEffect(() => {
     formik.setFieldValue(SHOPPINGFORM.IS_LINE_NOTICE.ID, settingState.user.setting.isUseLine);
+    // NOTE setFieldValueでIS_LINE_NOTICEをセットしたことによってエラーがセットされてしまうため、下記で無理やりエラーを削除
+    setTimeout(() => {
+      formik.setFieldError(SHOPPINGFORM.PRICE.ID, '');
+      formik.setFieldError(SHOPPINGFORM.SHOP_ID.ID, '');
+      formik.setFieldError;
+    }, 100);
   }, [settingState]);
 
   const fetchShopsAndSetShops = async () => {
@@ -205,11 +211,11 @@ const ShoppingNew = (): JSX.Element => {
           label={`${SHOPPINGFORM.IS_LINE_NOTICE.LABEL}${formik.values.isLineNotice ? 'ON' : 'OFF'}`}
         />
         <ExecutionAndBackButtons
-          backPathname={page.top.name()}
+          backPathname={page.top.link()}
           backName={`${page.top.name()}へ戻る`}
           className={'base-vertical-item'}
           nextName={'確認'}
-          disabledExecution={!isEmpty(formik.errors)}
+          disabledExecution={!isEmpty(formik.errors) && formik.submitCount > 0}
         />
       </form>
     </CommonWrapTemplate>
