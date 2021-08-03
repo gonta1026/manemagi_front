@@ -1,4 +1,4 @@
-import { blue, yellow, red, green, orange } from '@material-ui/core/colors';
+import { blue, red, green, orange } from '@material-ui/core/colors';
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import { TIconType } from './BaseSwitchIcon';
 
