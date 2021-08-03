@@ -4,22 +4,25 @@ import { useDispatch } from 'react-redux';
 import CommonWrapTemplate from '../../components/common/template/CommonWrapTemplate';
 /* customHook */
 import useToastAction from '../../customHook/useToastAction';
-import { BasePageTitle } from '../../components/common/uiParts/atoms';
+// import { BasePageTitle } from '../../components/common/uiParts/atoms';
 import { LineNotice } from '../../components/pages/common';
-import { CardWrapper } from '../../components/common/organisms';
+import { ShoppingCardWrapper, ClaimCardWrapper } from '../../components/common/organisms';
 /* pageMap */
 import LocalStorage from '../../utils/LocalStorage';
 import { page } from '../../pageMap';
 /* reducks */
 import { fetchShoppings } from '../../reducks/services/Shopping';
+import { fetchClaims } from '../../reducks/services/Claim';
 /* types */
 import { TShopping } from '../../types/Shopping';
+import { TClaim } from '../../types/Claim';
 /* utils */
 import { formatPriceYen, ommisionText } from '../../utils/function';
 import { formatDay } from '../../utils/FormatDate';
 
 const Top = (): JSX.Element => {
   const [shoppings, setShopping] = useState<TShopping[]>([]);
+  const [claims, setClaims] = useState<TClaim[]>([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -35,6 +38,17 @@ const Top = (): JSX.Element => {
     }
   };
 
+  const fetchClaimsAndSetClaims = async () => {
+    const response: any = await dispatch(fetchClaims());
+    if (response.payload.status === 'success') {
+      const claims: TClaim[] = response.payload.data;
+      setClaims(claims);
+    }
+  };
+
+  useEffect(() => {
+    fetchClaimsAndSetClaims();
+  }, []);
   const toastActions = useToastAction();
 
   useEffect(() => {
@@ -73,19 +87,21 @@ const Top = (): JSX.Element => {
 
   return (
     <CommonWrapTemplate {...{ toastActions }}>
-      <BasePageTitle className={'my-5'}>未請求一覧</BasePageTitle>
+      {/* <BasePageTitle className={'my-5'}>トップ画面（タイトル検討中）</BasePageTitle> */}
+      <h3 className={'font-bold text-2xl mt-10'}>未請求買い物一覧</h3>
       <p className={'mt-3'}>
         未請求金額：{formatPriceYen ? formatPriceYen(totalClaimPrice()) : ''}
       </p>
 
       <div className="mt-1 space-y-3">
         {shoppings.map((shopping, index) => (
-          <CardWrapper
+          <ShoppingCardWrapper
             className={'border-t-2 p-3 relative'}
             detailPathName={page.shopping.show.link(shopping.id!.toString())}
             editPathName={page.shopping.edit.link(shopping.id!.toString())}
             isEditShow={shopping.claimId === null}
             isDeleteShow={shopping.claimId === null}
+            onClick={() => console.log('click!')}
             key={index}
           >
             <div className="flex justify-between">
@@ -100,7 +116,35 @@ const Top = (): JSX.Element => {
                 <LineNotice isLineNotice={shopping.isLineNotice} />
               </div>
             </div>
-          </CardWrapper>
+          </ShoppingCardWrapper>
+        ))}
+      </div>
+
+      <hr className={'my-5'} />
+
+      <h3 className={'font-bold text-2xl'}>未受領請求一覧</h3>
+      <p className={'mt-3'}>未受領請求合計金額：</p>
+
+      <div className="mt-1 space-y-3">
+        {claims.map((claim, index) => (
+          <ClaimCardWrapper
+            className={'border-t-2 p-3 relative'}
+            detailPathName={page.claim.show.link(claim.id!.toString())}
+            isDeleteShow={false}
+            ReceiptOnClick={() => console.log('click!')}
+            deleteOnClick={() => console.log('click!')}
+            key={index}
+          >
+            <div className="flex justify-between">
+              <div className="left">
+                <div>請求日：{formatDay(claim.createdAt)}</div>
+                <div>金額：{formatPriceYen(claim.totalPrice)}</div>
+              </div>
+              <div className="right">
+                <LineNotice isLineNotice={claim.isLineNotice} />
+              </div>
+            </div>
+          </ClaimCardWrapper>
         ))}
       </div>
     </CommonWrapTemplate>
