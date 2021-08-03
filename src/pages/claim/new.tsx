@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import CommonWrapTemplate from '../../components/common/template/CommonWrapTemplate';
 import { BasePageTitle, BaseButton } from '../../components/common/uiParts/atoms';
 import { LabelAndSwitch } from '../../components/common/molecules/';
-import BaseModal from '../../components/common/modal/BaseModal';
+import ConfirmModal from '../../components/common/modal/ConfirmModal';
 import { IsUseLineHelper } from '../../components/pages/common';
 /* const */
 import { SHOPPINGFORM } from '../../const/form/shopping';
@@ -81,7 +81,7 @@ const ClaimNew = (): JSX.Element => {
 
   return (
     <CommonWrapTemplate {...{ toastActions }}>
-      <BaseModal
+      <ConfirmModal
         open={open}
         handleClose={() => setOpen(false)}
         handleOk={async () => {
@@ -125,7 +125,7 @@ const ClaimNew = (): JSX.Element => {
             </li>
           ))}
         </ul>
-      </BaseModal>
+      </ConfirmModal>
       <BasePageTitle className={'my-5'}>{page.claim.register.name()}</BasePageTitle>
       <p>一旦一覧画面を作成、これからどのようにカスタマイズするか等を検討。</p>
       <p>ソート機能、絞り込み機能、ページネーション、表示件数の制御をできたら入れたい。</p>

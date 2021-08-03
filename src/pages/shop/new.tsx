@@ -11,7 +11,7 @@ import {
   LabelAndTextArea,
   ExecutionAndBackButtons,
 } from '../../components/common/molecules';
-import BaseModal from '../../components/common/modal/BaseModal';
+import ConfirmModal from '../../components/common/modal/ConfirmModal';
 import { BasePageTitle, BaseErrorMessagesWrapper } from '../../components/common/uiParts/atoms';
 /* page */
 import { page } from '../../pageMap';
@@ -67,7 +67,7 @@ const NewShop = (): JSX.Element => {
 
   return (
     <CommonWrapTemplate>
-      <BaseModal
+      <ConfirmModal
         open={open}
         handleClose={() => setOpen(false)}
         handleOk={async () => {
@@ -86,7 +86,7 @@ const NewShop = (): JSX.Element => {
           <dt>{SHOPFORM.DESCRIPTION.LABEL}：</dt>
           <dd>{description}</dd>
         </dl>
-      </BaseModal>
+      </ConfirmModal>
       <BasePageTitle className={'my-5'}>{page.shop.register.name()}</BasePageTitle>
       <form className="base-vertical-20" onSubmit={formik.handleSubmit}>
         <LabelAndTextField

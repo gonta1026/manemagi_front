@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import styled from 'styled-components';
 import { Dialog } from '@material-ui/core';
-import { CloseButton, BaseButton } from '../../common/uiParts/atoms';
+import { CloseButton, BaseButton } from '../uiParts/atoms';
 
 interface TProps {
   open: boolean;
@@ -10,7 +10,7 @@ interface TProps {
   children: ReactNode;
 }
 
-const BaseModal = ({ children, handleClose, handleOk, open }: TProps): JSX.Element => {
+const ConfirmModal = ({ children, handleClose, handleOk, open }: TProps): JSX.Element => {
   return (
     <Dialog
       open={open}
@@ -51,4 +51,4 @@ const Wrap = styled.div`
   }
 `;
 
-export default BaseModal;
+export default ConfirmModal;

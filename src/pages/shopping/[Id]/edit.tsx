@@ -16,7 +16,7 @@ import {
   LabelAndSwitch,
   ExecutionAndBackButtons,
 } from '../../../components/common/molecules';
-import BaseModal from '../../../components/common/modal/BaseModal';
+import ConfirmModal from '../../../components/common/modal/ConfirmModal';
 import { IsUseLineHelper } from '../../../components/pages/common';
 /* const */
 import { SHOPPINGFORM } from '../../../const/form/shopping';
@@ -90,7 +90,7 @@ const ShoppingEdit = (): JSX.Element => {
 
   return (
     <CommonWrapTemplate>
-      <BaseModal
+      <ConfirmModal
         open={open}
         handleClose={() => setOpen(false)}
         handleOk={async () => {
@@ -130,7 +130,7 @@ const ShoppingEdit = (): JSX.Element => {
           <dt>{SHOPPINGFORM.IS_LINE_NOTICE.LABEL}：</dt>
           <dd>{formik.values.isLineNotice ? '通知する' : '通知しない'}</dd>
         </dl>
-      </BaseModal>
+      </ConfirmModal>
       <BasePageTitle className={'my-5'}>{page.shopping.edit.name()}</BasePageTitle>
       <form className="base-vertical-20" onSubmit={formik.handleSubmit}>
         {/* 金額(price) */}
