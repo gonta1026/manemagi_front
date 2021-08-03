@@ -50,7 +50,7 @@ export const page = {
     },
     show: {
       name: () => '請求詳細',
-      link: (id: string) => `/claim/${id}/edit`,
+      link: (id: string) => `/claim/${id}/shopping`,
     },
     register: {
       name: () => '請求登録',

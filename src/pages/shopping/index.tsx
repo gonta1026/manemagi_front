@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 /* components */
 import CommonWrapTemplate from '../../components/common/template/CommonWrapTemplate';
 import { BasePageTitle } from '../../components/common/uiParts/atoms';
-import { CardWrapper } from '../../components/common/organisms';
+import { ShoppingCardWrapper } from '../../components/common/organisms';
 import { LineNotice } from '../../components/pages/common';
 /* pageMap */
 import { page } from '../../pageMap';
@@ -38,13 +38,14 @@ const Shopping = (): JSX.Element => {
       <p>ソート機能、絞り込み機能、ページネーション、表示件数の制御をできたら入れたい。</p>
       <div className="space-y-3">
         {shoppings.map((shopping, index) => (
-          <CardWrapper
+          <ShoppingCardWrapper
             key={index}
             className={'border-t-2 p-3 relative'}
             detailPathName={page.shopping.show.link(shopping.id!.toString())}
             editPathName={page.shopping.edit.link(shopping.id!.toString())}
             isEditShow={shopping.claimId === null}
             isDeleteShow={shopping.claimId === null}
+            onClick={() => console.log('click!')}
           >
             <div className="flex justify-between">
               <div className="left">
@@ -56,7 +57,7 @@ const Shopping = (): JSX.Element => {
                 <LineNotice isLineNotice={shopping.isLineNotice} />
               </div>
             </div>
-          </CardWrapper>
+          </ShoppingCardWrapper>
         ))}
       </div>
     </CommonWrapTemplate>
