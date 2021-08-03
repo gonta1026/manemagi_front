@@ -1,4 +1,4 @@
-import { blue, yellow, red, green } from '@material-ui/core/colors';
+import { blue, yellow, red, green, orange } from '@material-ui/core/colors';
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import { TIconType } from './BaseSwitchIcon';
 
@@ -47,6 +47,26 @@ export const buttonStyle = (
           backgroundColor: blue[500],
           '&:hover': {
             backgroundColor: blue[500],
+          },
+        };
+      }
+      break;
+    case 'receipt':
+      if (variant === 'outlined') {
+        styles = {
+          color: orange[500],
+          backgroundColor: 'transparent',
+          border: `1px solid ${orange[500]}`,
+          '&:hover': {
+            backgroundColor: 'transparent',
+          },
+        };
+      } else if (variant === 'contained') {
+        styles = {
+          color: theme.palette.getContrastText(orange[500]),
+          backgroundColor: orange[500],
+          '&:hover': {
+            backgroundColor: orange[500],
           },
         };
       }

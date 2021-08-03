@@ -1,9 +1,10 @@
 import {
   AddCircleOutline,
+  ArrowBack,
   Delete,
   Description,
+  Receipt,
   Update,
-  ArrowBack,
   Search,
   Edit,
 } from '@material-ui/icons';
@@ -14,13 +15,14 @@ export type TIconType =
   | 'delete'
   | 'description'
   | 'edit'
+  | 'receipt'
   | 'normal'
   | 'update'
   | 'search'
   | '';
 
 const BaseSwitchIcon = ({ icon = '' }: { icon: TIconType }): JSX.Element => {
-  const switchIcon = (icon: string) => {
+  const switchIcon = (icon: TIconType) => {
     switch (icon) {
       case 'addCircleOutline':
         return <AddCircleOutline />;
@@ -32,6 +34,8 @@ const BaseSwitchIcon = ({ icon = '' }: { icon: TIconType }): JSX.Element => {
         return <Description />;
       case 'edit':
         return <Edit />;
+      case 'receipt':
+        return <Receipt />;
       case 'update':
         return <Update />;
       case 'search':

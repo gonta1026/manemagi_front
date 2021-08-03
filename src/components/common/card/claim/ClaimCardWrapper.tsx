@@ -1,35 +1,37 @@
 import React, { ReactNode } from 'react';
 import { BaseCard } from '../../uiParts/atoms';
-import CardLinkGroup from './CardLinkGroup';
+import ClaimCardLinkGroup from './ClaimCardLinkGroup';
 
-const CardWrapper = ({
-  children,
+const ClaimCardWrapper = ({
   className,
-  isDeleteShow,
-  isEditShow,
-  editPathName,
+  children,
+  deleteOnClick,
   detailPathName,
+  isDetailShow,
+  isDeleteShow,
+  ReceiptOnClick,
 }: {
   className?: string;
   children: ReactNode;
   detailPathName: string;
-  editPathName: string;
+  deleteOnClick: any;
   isDetailShow?: boolean;
-  isEditShow?: boolean;
   isDeleteShow?: boolean;
+  ReceiptOnClick: any;
 }): JSX.Element => {
   return (
     <BaseCard className={className}>
       {children}
-      <CardLinkGroup
+      <ClaimCardLinkGroup
         className={'mt-2 text-right'}
         detailPathName={detailPathName}
-        editPathName={editPathName}
-        isEditShow={isEditShow}
+        isDetailShow={isDetailShow}
         isDeleteShow={isDeleteShow}
+        ReceiptOnClick={ReceiptOnClick}
+        deleteOnClick={deleteOnClick}
       />
     </BaseCard>
   );
 };
 
-export default CardWrapper;
+export default ClaimCardWrapper;

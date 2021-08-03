@@ -5,17 +5,17 @@ import { BaseLink, BaseButton } from '../../uiParts/atoms';
 const CardLinkGroup = ({
   className,
   detailPathName,
-  editPathName,
+  deleteOnClick,
   isDetailShow = true,
-  isEditShow = true,
   isDeleteShow = true,
+  ReceiptOnClick,
 }: {
   className?: string;
   detailPathName: string;
-  editPathName: string;
+  deleteOnClick: any;
   isDetailShow?: boolean;
-  isEditShow?: boolean;
   isDeleteShow?: boolean;
+  ReceiptOnClick: any;
 }): JSX.Element => {
   return (
     <LinkGroup className={className}>
@@ -24,14 +24,14 @@ const CardLinkGroup = ({
           <BaseButton customType={'description'}>詳細</BaseButton>
         </BaseLink>
       )}
-      {isEditShow && (
-        <>
-          <BaseLink pathname={editPathName}>
-            <BaseButton customType={'edit'}>編集</BaseButton>
-          </BaseLink>
-        </>
+      <BaseButton customType={'receipt'} onClick={ReceiptOnClick}>
+        受領
+      </BaseButton>
+      {isDeleteShow && (
+        <BaseButton customType={'delete'} onClick={deleteOnClick}>
+          削除
+        </BaseButton>
       )}
-      {isDeleteShow && <BaseButton customType={'delete'}>削除</BaseButton>}
     </LinkGroup>
   );
 };
