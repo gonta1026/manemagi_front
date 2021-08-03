@@ -21,9 +21,9 @@ const BaseModal = ({ children, handleClose, handleOk, open }: TProps): JSX.Eleme
     >
       <Wrap className="Wrap">
         <CloseButton className={'right-1 top-1'} handleClose={handleClose} />
-        <h4 className={'font-bold text-center'}>入力確認</h4>
+        <h4 className={'font-bold text-center text-lg my-3'}>入力確認</h4>
         {children}
-        <div className="flex justify-center mt-5">
+        <div className="flex justify-center mb-3 mt-5">
           <BaseButton focus onClick={handleOk} type={'submit'}>
             登録
           </BaseButton>
@@ -37,8 +37,18 @@ const BaseModal = ({ children, handleClose, handleOk, open }: TProps): JSX.Eleme
 };
 
 const Wrap = styled.div`
-  padding: 25px 10px 10px;
+  padding: 25px 30px 10px;
   width: 100%;
+  > dl {
+    padding: 8px 0;
+    border-bottom: solid 1px lightgrey;
+    > dt {
+      font-weight: bold;
+    }
+  }
+  > dl:first-of-type {
+    border-top: solid 1px lightgrey;
+  }
 `;
 
 export default BaseModal;

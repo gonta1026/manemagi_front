@@ -103,23 +103,23 @@ const ShoppingNew = (): JSX.Element => {
         }}
       >
         <dl>
-          <dt>{SHOPPINGFORM.PRICE.LABEL}：</dt>
+          <dt>{SHOPPINGFORM.PRICE.LABEL}</dt>
           <dd>{formatPriceYen(formik.values.price)}</dd>
         </dl>
         <dl>
-          <dt>{SHOPPINGFORM.DATE.LABEL}：</dt>
+          <dt>{SHOPPINGFORM.DATE.LABEL}</dt>
           <dd>{formik.values.date}</dd>
         </dl>
         <dl>
-          <dt>{SHOPPINGFORM.SHOP_ID.LABEL}：</dt>
+          <dt>{SHOPPINGFORM.SHOP_ID.LABEL}</dt>
           <dd>{shops.find((shop) => shop.id === formik.values.shopId)?.name}</dd>
         </dl>
         <dl>
-          <dt>{SHOPPINGFORM.DESCRIPTION.LABEL}：</dt>
+          <dt>{SHOPPINGFORM.DESCRIPTION.LABEL}</dt>
           <dd>{formik.values.description}</dd>
         </dl>
         <dl>
-          <dt>{SHOPPINGFORM.IS_LINE_NOTICE.LABEL}：</dt>
+          <dt>{SHOPPINGFORM.IS_LINE_NOTICE.LABEL}</dt>
           <dd>{formik.values.isLineNotice ? '通知する' : '通知しない'}</dd>
         </dl>
       </BaseModal>
