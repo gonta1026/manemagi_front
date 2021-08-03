@@ -81,8 +81,10 @@ const NewShop = (): JSX.Element => {
         }}
       >
         <dl>
-          <dt>{SHOPFORM.NAME.LABEL}：</dt>
+          <dt>{SHOPFORM.NAME.LABEL}</dt>
           <dd>{name}</dd>
+        </dl>
+        <dl>
           <dt>{SHOPFORM.DESCRIPTION.LABEL}：</dt>
           <dd>{description}</dd>
         </dl>

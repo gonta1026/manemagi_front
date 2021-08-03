@@ -54,22 +54,25 @@ const Top = (): JSX.Element => {
   useEffect(() => {
     const storage = new LocalStorage();
     const targetNotice = storage.getItem('pageMoveNotice')!;
-    const { loginedNotice, signUpedNotice, shoppingedNotice, claimedNotice } =
+    const { loginedNotice, signUpedNotice, shoppingedNotice, claimedNotice, createdShopNotice } =
       LocalStorage.noticeKey;
 
     let message = '';
     switch (targetNotice) {
       case loginedNotice:
-        message = 'ログインしました！';
+        message = 'ログインをしました！';
         break;
       case signUpedNotice:
-        message = '新規登録してログインしました！';
+        message = '新規登録をしてログインしました！';
         break;
       case shoppingedNotice:
-        message = '買い物登録しました！';
+        message = '買い物を登録しました！';
         break;
       case claimedNotice:
-        message = '請求登録をしました！';
+        message = '請求を登録しました！';
+        break;
+      case createdShopNotice:
+        message = 'お店を登録しました！';
         break;
     }
     storage.afterPageMoveNotice(() =>
