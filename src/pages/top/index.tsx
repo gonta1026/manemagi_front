@@ -126,26 +126,29 @@ const Top = (): JSX.Element => {
       </p>
 
       <div className="mt-1 space-y-3">
-        {claims.map((claim, index) => (
-          <ClaimCardWrapper
-            className={'border-t-2 p-3 relative'}
-            detailPathName={page.claim.show.link(claim.id!.toString())}
-            isDeleteShow={false}
-            ReceiptOnClick={() => console.log('click!')}
-            deleteOnClick={() => console.log('click!')}
-            key={index}
-          >
-            <div className="flex justify-between">
-              <div className="left">
-                <div>請求日：{formatDay(claim.createdAt)}</div>
-                <div>金額：{formatPriceYen(claim.totalPrice)}</div>
-              </div>
-              <div className="right">
-                <LineNotice isLineNotice={claim.isLineNotice} />
-              </div>
-            </div>
-          </ClaimCardWrapper>
-        ))}
+        {claims.map(
+          (claim, index) =>
+            !claim.isGetClaim && (
+              <ClaimCardWrapper
+                className={'border-t-2 p-3 relative'}
+                detailPathName={page.claim.show.link(claim.id!.toString())}
+                isDeleteShow={false}
+                ReceiptOnClick={() => console.log('click!')}
+                deleteOnClick={() => console.log('click!')}
+                key={index}
+              >
+                <div className="flex justify-between">
+                  <div className="left">
+                    <div>請求日：{formatDay(claim.createdAt)}</div>
+                    <div>金額：{formatPriceYen(claim.totalPrice)}</div>
+                  </div>
+                  <div className="right">
+                    <LineNotice isLineNotice={claim.isLineNotice} />
+                  </div>
+                </div>
+              </ClaimCardWrapper>
+            ),
+        )}
       </div>
     </CommonWrapTemplate>
   );
