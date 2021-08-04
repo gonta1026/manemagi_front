@@ -17,7 +17,7 @@ import { fetchClaims } from '../../reducks/services/Claim';
 import { TShopping } from '../../types/Shopping';
 import { TClaim } from '../../types/Claim';
 /* utils */
-import { formatPriceYen, ommisionText } from '../../utils/function';
+import { formatPriceYen, ommisionText, totalSumPrice } from '../../utils/function';
 import { formatDay } from '../../utils/FormatDate';
 
 const Top = (): JSX.Element => {
@@ -82,18 +82,12 @@ const Top = (): JSX.Element => {
     );
   }, []);
 
-  const totalClaimPrice = () => {
-    return shoppings.reduce((accumulator, shopping) => {
-      return shopping.price! + accumulator;
-    }, 0);
-  };
-
   return (
     <CommonWrapTemplate {...{ toastActions }}>
       {/* <BasePageTitle className={'my-5'}>トップ画面（タイトル検討中）</BasePageTitle> */}
       <h3 className={'font-bold text-2xl mt-10'}>未請求買い物一覧</h3>
       <p className={'mt-3'}>
-        未請求金額：{formatPriceYen ? formatPriceYen(totalClaimPrice()) : ''}
+        未請求金額：{formatPriceYen ? formatPriceYen(totalSumPrice(shoppings, 'price')) : ''}
       </p>
 
       <div className="mt-1 space-y-3">
@@ -126,7 +120,10 @@ const Top = (): JSX.Element => {
       <hr className={'my-5'} />
 
       <h3 className={'font-bold text-2xl'}>未受領請求一覧</h3>
-      <p className={'mt-3'}>未受領請求合計金額：</p>
+      <p className={'mt-3'}>
+        未受領請求合計金額：
+        {formatPriceYen ? formatPriceYen(totalSumPrice(claims, 'totalPrice')) : ''}
+      </p>
 
       <div className="mt-1 space-y-3">
         {claims.map((claim, index) => (

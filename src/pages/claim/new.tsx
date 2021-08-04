@@ -23,7 +23,7 @@ import { TClaimFormikForm } from '../../types/Claim';
 import { settingAndUser } from '../../types/Setting';
 /* utils */
 import { formatDay } from '../../utils/FormatDate';
-import { formatPriceYen, ommisionText } from '../../utils/function';
+import { formatPriceYen, ommisionText, totalSumPrice } from '../../utils/function';
 import LocalStorage from '../../utils/LocalStorage';
 
 const ClaimNew = (): JSX.Element => {
@@ -127,14 +127,16 @@ const ClaimNew = (): JSX.Element => {
           ))}
         </ul>
         <p className={'text-right mt-2'}>
-          合計金額：{formatPriceYen ? formatPriceYen(totalClaimPrice) : ''}
+          合計金額：
+          {formatPriceYen ? formatPriceYen(totalSumPrice(cheackShoppings, 'totalPrice')) : ''}
         </p>
       </ConfirmModal>
       <BasePageTitle className={'my-5'}>{page.claim.register.name()}</BasePageTitle>
       <p>一旦一覧画面を作成、これからどのようにカスタマイズするか等を検討。</p>
       <p>ソート機能、絞り込み機能、ページネーション、表示件数の制御をできたら入れたい。</p>
       <div className="mt-5">
-        請求予定金額：{formatPriceYen ? formatPriceYen(totalClaimPrice) : ''}
+        請求予定金額：
+        {formatPriceYen ? formatPriceYen(totalSumPrice(cheackShoppings, 'totalPrice')) : ''}
       </div>
       <BaseButton
         className={'mt-5'}
