@@ -4,8 +4,8 @@ import { useFormik } from 'formik';
 import { useSelector, useDispatch } from 'react-redux';
 /* components */
 import CommonWrapTemplate from '../../components/common/template/CommonWrapTemplate';
-import { BasePageTitle, BaseButton } from '../../components/common/uiParts/atoms';
-import { LabelAndSwitch } from '../../components/common/molecules/';
+import { BasePageTitle, BaseButton, BaseCheckBox } from '../../components/common/uiParts/atoms';
+import { LabelAndSwitch, LabelAndCheckBox } from '../../components/common/molecules/';
 import ConfirmModal from '../../components/common/modal/ConfirmModal';
 import { IsUseLineHelper } from '../../components/pages/common';
 /* const */
@@ -29,7 +29,7 @@ import LocalStorage from '../../utils/LocalStorage';
 const ClaimNew = (): JSX.Element => {
   const router = useRouter();
   const [open, setOpen] = useState<boolean>(false);
-  const [cheackShoppings, setCheackShoppings] = useState<TShopping[]>([]);
+  const [checkShoppings, setCheckShoppings] = useState<TShopping[]>([]);
   const dispatch = useDispatch();
   const toastActions = useToastAction();
   const { settingState } = useSelector((state: { settingState: settingAndUser }) => state);
@@ -60,24 +60,28 @@ const ClaimNew = (): JSX.Element => {
 
   const handleChecks = (shopping: TShopping) => {
     // NOTE JSON.stringifyでオブジェクトの比較をしている。
-    const exitShopping = cheackShoppings.find(
+    const exitShopping = checkShoppings.find(
       (cheack) => JSON.stringify(cheack) === JSON.stringify(shopping),
     );
     if (exitShopping) {
-      const newChecks = cheackShoppings.filter(
+      const newChecks = checkShoppings.filter(
         (cheack) => JSON.stringify(cheack) !== JSON.stringify(shopping),
       );
-      setCheackShoppings(newChecks);
+      setCheckShoppings(newChecks);
     } else {
-      setCheackShoppings([...cheackShoppings, shopping]);
+      setCheckShoppings([...checkShoppings, shopping]);
     }
   };
 
-  const totalClaimPrice = (() => {
-    return cheackShoppings.reduce((accumulator, shopping) => {
-      return shopping.price! + accumulator;
-    }, 0);
-  })();
+  const isAllChecked = () => checkShoppings.length === formik.values.shoppings.length;
+
+  const handleAllCheck = () => {
+    if (isAllChecked()) {
+      setCheckShoppings([]);
+    } else {
+      setCheckShoppings(formik.values.shoppings);
+    }
+  };
 
   return (
     <CommonWrapTemplate {...{ toastActions }}>
@@ -85,7 +89,7 @@ const ClaimNew = (): JSX.Element => {
         open={open}
         handleClose={() => setOpen(false)}
         handleOk={async () => {
-          const shoppingIds = cheackShoppings.map((shopping) => shopping.id!);
+          const shoppingIds = checkShoppings.map((shopping) => shopping.id!);
           const response: any = await dispatch(
             createClaim({ shoppingIds: shoppingIds, isLineNotice: true }),
           );
@@ -104,7 +108,7 @@ const ClaimNew = (): JSX.Element => {
         modaltitle={'請求'}
       >
         <ul className={'space-y-2'}>
-          {cheackShoppings.map((shopping, index) => (
+          {checkShoppings.map((shopping, index) => (
             <li key={index}>
               <h3 className={'font-bold mt-4 text-center'}>{index + 1}件目</h3>
               <dl className={'list'}>
@@ -128,7 +132,7 @@ const ClaimNew = (): JSX.Element => {
         </ul>
         <p className={'text-right mt-2'}>
           合計金額：
-          {formatPriceYen ? formatPriceYen(totalSumPrice(cheackShoppings, 'totalPrice')) : ''}
+          {formatPriceYen ? formatPriceYen(totalSumPrice(checkShoppings, 'price')) : ''}
         </p>
       </ConfirmModal>
       <BasePageTitle className={'my-5'}>{page.claim.register.name()}</BasePageTitle>
@@ -136,12 +140,16 @@ const ClaimNew = (): JSX.Element => {
       <p>ソート機能、絞り込み機能、ページネーション、表示件数の制御をできたら入れたい。</p>
       <div className="mt-5">
         請求予定金額：
-        {formatPriceYen ? formatPriceYen(totalSumPrice(cheackShoppings, 'totalPrice')) : ''}
+        {formatPriceYen ? formatPriceYen(totalSumPrice(checkShoppings, 'price')) : ''}
       </div>
+      <LabelAndCheckBox
+        control={<BaseCheckBox checked={isAllChecked()} onChange={handleAllCheck} />}
+        label="まとめてチェック"
+      />
       <BaseButton
         className={'mt-5'}
         type={'submit'}
-        disabled={cheackShoppings.length === 0}
+        disabled={checkShoppings.length === 0}
         onClick={() => setOpen(true)}
       >
         請求確認
@@ -162,13 +170,25 @@ const ClaimNew = (): JSX.Element => {
         <ul className="py-4">
           {formik.values.shoppings.map((shopping, index) => (
             <li key={index} className={'border-t-2 p-3'}>
-              <input type="checkbox" name="" id="" onChange={() => handleChecks(shopping)} />
-              <div>買い物日：{formatDay(shopping.date!)}</div>
-              <div>金額：{formatPriceYen(shopping.price)})</div>
-              <div>LINE通知：{shopping.isLineNotice ? '通知済' : '未通知'}</div>
-              <div>
-                説明：{shopping.description ? ommisionText(shopping.description, 20) : 'なし'}
-              </div>
+              <label className="flex items-center" htmlFor={`check-${index}`}>
+                <div>
+                  <BaseCheckBox
+                    checked={checkShoppings.some(
+                      (cheackShopping) => cheackShopping.id === shopping.id,
+                    )}
+                    onChange={() => handleChecks(shopping)}
+                    id={`check-${index}`}
+                  />
+                </div>
+                <div>
+                  <div>買い物日：{formatDay(shopping.date!)}</div>
+                  <div>金額：{formatPriceYen(shopping.price)})</div>
+                  <div>LINE通知：{shopping.isLineNotice ? '通知済' : '未通知'}</div>
+                  <div>
+                    説明：{shopping.description ? ommisionText(shopping.description, 20) : 'なし'}
+                  </div>
+                </div>
+              </label>
             </li>
           ))}
         </ul>
