@@ -6,13 +6,15 @@ const BaseFormControlLabel = ({
   control,
   label,
   id,
+  labelPlacement = 'end',
 }: {
   className?: string;
   control: JSX.Element;
   label: string;
-  id: string;
+  id?: string;
+  labelPlacement?: 'start' | 'end' | 'top' | 'bottom';
 }) => {
-  return <FormControlLabel {...{ className, control, label, id }} />;
+  return <FormControlLabel {...{ className, control, id, label, labelPlacement }} />;
 };
 
 export default BaseFormControlLabel;
