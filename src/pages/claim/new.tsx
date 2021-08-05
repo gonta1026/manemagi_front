@@ -22,8 +22,8 @@ import { TShopping } from '../../types/Shopping';
 import { TClaimFormikForm } from '../../types/Claim';
 import { settingAndUser } from '../../types/Setting';
 /* utils */
-import { formatDay } from '../../utils/FormatDate';
 import { formatPriceYen, ommisionText, totalSumPrice } from '../../utils/function';
+import { formatDay } from '../../utils/FormatDate';
 import LocalStorage from '../../utils/LocalStorage';
 
 const ClaimNew = (): JSX.Element => {
@@ -117,7 +117,7 @@ const ClaimNew = (): JSX.Element => {
               </dl>
               <dl className={'list'}>
                 <dt>{SHOPPINGFORM.DATE.LABEL}</dt>
-                <dd>{shopping.date}</dd>
+                <dd>{formatDay(shopping.date!)}</dd>
               </dl>
               <dl className={'list'}>
                 <dt>{SHOPPINGFORM.DESCRIPTION.LABEL}</dt>
