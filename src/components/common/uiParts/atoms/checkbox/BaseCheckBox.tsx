@@ -5,16 +5,18 @@ const CheckBox = ({
   checked,
   className,
   color = 'primary',
+  id,
   onChange,
 }: {
   checked: boolean;
   color?: 'primary' | 'default' | 'secondary';
   className?: string;
+  id?: string;
   onChange: any;
 }) => {
   return (
     <Checkbox
-      {...{ checked, className, color, onChange }}
+      {...{ checked, className, color, id, onChange }}
       inputProps={{ 'aria-label': 'primary checkbox' }}
     />
   );
