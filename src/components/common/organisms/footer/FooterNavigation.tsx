@@ -1,11 +1,28 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
+/* material-ui */
 import { BottomNavigationAction, BottomNavigation } from '@material-ui/core';
 import { Settings, ShoppingCart, Store, Money } from '@material-ui/icons';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import createStyles from '@material-ui/core/styles/createStyles';
 /* pageMap */
 import { page } from '../../../../pageMap/index';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const useStyles = makeStyles((_) =>
+  createStyles({
+    root: {
+      backgroundColor: 'inherited',
+      '&$selected': {
+        color: '#13bd7b',
+      },
+    },
+    selected: {},
+  }),
+);
+
 const FooterNavigation = () => {
+  const classes = useStyles();
   const navagationPage = {
     shop: {
       label: 'お店',
@@ -66,10 +83,26 @@ const FooterNavigation = () => {
       }}
       showLabels
     >
-      <BottomNavigationAction label={navagationPage.shop.label} icon={<Store />} />
-      <BottomNavigationAction label={navagationPage.shopping.label} icon={<ShoppingCart />} />
-      <BottomNavigationAction label={navagationPage.claim.label} icon={<Money />} />
-      <BottomNavigationAction label={navagationPage.setting.label} icon={<Settings />} />
+      <BottomNavigationAction
+        classes={classes}
+        label={navagationPage.shop.label}
+        icon={<Store />}
+      />
+      <BottomNavigationAction
+        classes={classes}
+        label={navagationPage.shopping.label}
+        icon={<ShoppingCart />}
+      />
+      <BottomNavigationAction
+        classes={classes}
+        label={navagationPage.claim.label}
+        icon={<Money />}
+      />
+      <BottomNavigationAction
+        classes={classes}
+        label={navagationPage.setting.label}
+        icon={<Settings />}
+      />
     </BottomNavigation>
   );
 };
