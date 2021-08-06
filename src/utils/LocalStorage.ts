@@ -26,6 +26,7 @@ class LocalStorage {
     claimedNotice: 'claimedNotice',
     createdShopNotice: 'createdShopNotice',
   } as const;
+
   public static pageMoveNotice = 'pageMoveNotice' as const;
 
   public getItem = (itemKey: TStorageKey) => this.localStorage.getItem(itemKey);
