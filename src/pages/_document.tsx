@@ -12,7 +12,7 @@ export default class MyDocument extends Document {
         <Head>
           <meta name="theme-color" content={theme.palette.primary.main} />
           <meta
-            content="家族内でのお金の立て替えを管理するアプリです。こちらを利用していただくことによって買い物や、請求、立て替えた金額の把握や受領したのかも記録することができます(　´･‿･｀)"
+            content="家族内でのお金の立て替えを管理するアプリです。こちらを利用していただくことによって買い物や、請求、立て替えた金額の把握や受領の有無を記録することができます(　´･‿･｀)"
             name="description"
           />
           <meta property="og:image" content="/tatekae.png" />
