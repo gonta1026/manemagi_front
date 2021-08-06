@@ -10,8 +10,13 @@ export default class MyDocument extends Document {
     return (
       <Html lang="ja-JP">
         <Head>
-          {/* PWA primary color */}
           <meta name="theme-color" content={theme.palette.primary.main} />
+          <meta
+            content="家族内でのお金の立て替えを管理するアプリです。こちらを利用していただくことによって買い物や、請求、立て替えた金額の把握や受領したのかも記録することができます(　´･‿･｀)"
+            name="description"
+          />
+          <meta property="og:image" content="/tatekae.png" />
+          <meta property="og:site_name" content="TATEKAE" />
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
