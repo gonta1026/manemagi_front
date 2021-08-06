@@ -17,7 +17,7 @@ export default class MyDocument extends Document {
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
           />
           <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-          <link rel="apple-touch-icon" sizes="180x180" href="/tatekae.png" />
+          <link rel="apple-touch-icon" sizes="180x180" href="tatekae.png" />
         </Head>
         <body>
           <Main />
