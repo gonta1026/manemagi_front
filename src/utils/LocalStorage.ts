@@ -27,6 +27,11 @@ class LocalStorage {
     createdShopNotice: 'createdShopNotice',
   } as const;
 
+  public getLoginedStorageKeys() {
+    const { accessToken, client, uid } = localStorage;
+    return { accessToken, client, uid };
+  }
+
   public static pageMoveNotice = 'pageMoveNotice' as const;
 
   public getItem = (itemKey: TStorageKey) => this.localStorage.getItem(itemKey);
