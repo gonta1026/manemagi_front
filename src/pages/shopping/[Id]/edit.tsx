@@ -99,7 +99,7 @@ const ShoppingEdit = (): JSX.Element => {
           );
           if (response.payload.status === 'success') {
             const storage = new LocalStorage();
-            storage.setItemAtPageMoveNotice(LocalStorage.noticeKey.shoppingUpdatedNotice);
+            storage.setItemAtPageMoveNotice('shoppingUpdatedNotice');
             router.push(page.shopping.show.link(router.query.Id as string));
           } else {
             const { handleToastOpen } = toastActions;

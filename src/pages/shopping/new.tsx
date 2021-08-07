@@ -97,7 +97,7 @@ const ShoppingNew = (): JSX.Element => {
           setOpen(false);
           if (response.payload.status === 'success') {
             const storage = new LocalStorage();
-            storage.setItemAtPageMoveNotice(LocalStorage.noticeKey.shoppingedNotice);
+            storage.setItemAtPageMoveNotice('shoppingedNotice');
             router.push(page.top.link());
           } else {
             const { handleToastOpen } = toastActions;

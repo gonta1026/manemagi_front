@@ -77,7 +77,7 @@ const NewShop = (): JSX.Element => {
           setOpen(false);
           if (response.payload.status === 'success') {
             const storage = new LocalStorage();
-            storage.setItemAtPageMoveNotice(LocalStorage.noticeKey.createdShopNotice);
+            storage.setItemAtPageMoveNotice('createdShopNotice');
             router.push(page.top.link());
           }
         }}

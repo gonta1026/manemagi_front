@@ -55,7 +55,7 @@ const ShoppingShow = (): JSX.Element => {
   const shoppingedUpdateNotice = () => {
     const storage = new LocalStorage();
     const targetNotice = storage.getItem('pageMoveNotice')!;
-    const { shoppingUpdatedNotice } = LocalStorage.noticeKey;
+    const { shoppingUpdatedNotice } = LocalStorage.noticeKeys;
     let message = '';
     switch (targetNotice) {
       case shoppingUpdatedNotice:

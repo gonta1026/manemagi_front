@@ -1,11 +1,11 @@
 type TPageMoveNotice = typeof LocalStorage.pageMoveNotice;
 type TStorageKey = TPageMoveNotice;
-type TSignUpedNotice = typeof LocalStorage.noticeKey.signUpedNotice;
-type TLoginedNotice = typeof LocalStorage.noticeKey.loginedNotice;
-type TShoppingedNotice = typeof LocalStorage.noticeKey.shoppingedNotice;
-type TShoppingUpdatedNotice = typeof LocalStorage.noticeKey.shoppingUpdatedNotice;
-type TClaimedNotice = typeof LocalStorage.noticeKey.claimedNotice;
-type TCreatedShop = typeof LocalStorage.noticeKey.createdShopNotice;
+type TSignUpedNotice = typeof LocalStorage.noticeKeys.signUpedNotice;
+type TLoginedNotice = typeof LocalStorage.noticeKeys.loginedNotice;
+type TShoppingedNotice = typeof LocalStorage.noticeKeys.shoppingedNotice;
+type TShoppingUpdatedNotice = typeof LocalStorage.noticeKeys.shoppingUpdatedNotice;
+type TClaimedNotice = typeof LocalStorage.noticeKeys.claimedNotice;
+type TCreatedShop = typeof LocalStorage.noticeKeys.createdShopNotice;
 
 // NOTE ここにページ遷移後に使うお知らせに使用をするキーを追加する。
 type TPageMoveNoticeValue =
@@ -18,7 +18,17 @@ type TPageMoveNoticeValue =
 
 class LocalStorage {
   private localStorage: Storage = window.localStorage;
-  public static noticeKey = {
+
+  public static noticeKeys = {
+    loginedNotice: 'loginedNotice',
+    signUpedNotice: 'signUpedNotice',
+    shoppingedNotice: 'shoppingedNotice',
+    shoppingUpdatedNotice: 'shoppingUpdatedNotice',
+    claimedNotice: 'claimedNotice',
+    createdShopNotice: 'createdShopNotice',
+  } as const;
+
+  public static loginedKeys = {
     loginedNotice: 'loginedNotice',
     signUpedNotice: 'signUpedNotice',
     shoppingedNotice: 'shoppingedNotice',

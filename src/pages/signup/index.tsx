@@ -58,7 +58,7 @@ const SignUp = (): JSX.Element => {
       }
       if (response.payload.status === 'success') {
         const storage = new LocalStorage();
-        storage.setItemAtPageMoveNotice(LocalStorage.noticeKey.signUpedNotice);
+        storage.setItemAtPageMoveNotice('signUpedNotice');
         router.push(page.top.link());
       }
       setIsLoading(false);

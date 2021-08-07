@@ -55,7 +55,7 @@ const Top = (): JSX.Element => {
     const storage = new LocalStorage();
     const targetNotice = storage.getItem('pageMoveNotice')!;
     const { loginedNotice, signUpedNotice, shoppingedNotice, claimedNotice, createdShopNotice } =
-      LocalStorage.noticeKey;
+      LocalStorage.noticeKeys;
 
     let message = '';
     switch (targetNotice) {

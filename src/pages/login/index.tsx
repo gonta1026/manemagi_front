@@ -52,7 +52,7 @@ const Login = (): JSX.Element => {
       );
       if (response.payload.id) {
         const storage = new LocalStorage();
-        storage.setItemAtPageMoveNotice(LocalStorage.noticeKey.loginedNotice);
+        storage.setItemAtPageMoveNotice('loginedNotice');
         router.push(page.top.link());
       }
       if (response.payload.status === 401) {

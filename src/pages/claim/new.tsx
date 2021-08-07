@@ -95,7 +95,7 @@ const ClaimNew = (): JSX.Element => {
           );
           if (response.payload.status === 'success') {
             const storage = new LocalStorage();
-            storage.setItemAtPageMoveNotice(LocalStorage.noticeKey.claimedNotice);
+            storage.setItemAtPageMoveNotice('claimedNotice');
             router.push(page.top.link());
           } else {
             const { handleToastOpen } = toastActions;
