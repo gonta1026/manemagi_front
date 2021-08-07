@@ -30,3 +30,12 @@ export const totalSumPrice = (targets: any[], key: 'price' | 'totalPrice'): numb
     return shopping[key] + accumulator;
   }, 0);
 };
+// typeScriptでうまく、shoppingとclaimでうまく型を制御したかったがうまくできなかったので一旦any[]で対応
+/* 合計金額の算出 */
+export const isBooleanCheck = (targetFormula: boolean): boolean => {
+  let isValid = false;
+  if (targetFormula) {
+    isValid = true;
+  }
+  return isValid;
+};
