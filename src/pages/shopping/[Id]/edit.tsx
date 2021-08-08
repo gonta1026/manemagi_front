@@ -34,7 +34,7 @@ import { settingAndUser } from '../../../types/Setting';
 
 /* utils */
 import { formatDay } from '../../../utils/FormatDate';
-import LocalStorage from '../../../utils/LocalStorage';
+import LocalStorage from '../../../modules/LocalStorage';
 import { isEmpty, formatPriceYen } from '../../../utils/function';
 /* validate */
 import { shoppingValidate } from '../../../validate/shopping/new';

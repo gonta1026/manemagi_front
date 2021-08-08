@@ -16,7 +16,7 @@ import { fetchShopping } from '../../../reducks/services/Shopping';
 import { TShopping, shoppingInit } from '../../../types/Shopping';
 import { TShop } from '../../../types/Shop';
 /* utils */
-import LocalStorage from '../../../utils/LocalStorage';
+import LocalStorage, { noticeStorageValues, storageKeys } from '../../../modules/LocalStorage';
 import { formatPriceYen, ommisionText } from '../../../utils/function';
 import { formatDay } from '../../../utils/FormatDate';
 
@@ -54,8 +54,8 @@ const ShoppingShow = (): JSX.Element => {
 
   const shoppingedUpdateNotice = () => {
     const storage = new LocalStorage();
-    const targetNotice = storage.getItem('pageMoveNotice')!;
-    const { shoppingUpdatedNotice } = LocalStorage.noticeKeys;
+    const targetNotice = storage.getStorageItem(storageKeys.pageMoveNotice)!;
+    const { shoppingUpdatedNotice } = noticeStorageValues;
     let message = '';
     switch (targetNotice) {
       case shoppingUpdatedNotice:

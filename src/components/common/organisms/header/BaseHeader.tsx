@@ -15,7 +15,7 @@ import useIsAfterSsr from '../../../../customHook/useIsAfterSsr';
 import { settingAndUser } from '../../../../types/Setting';
 /* styles */
 import { materialStyles } from '../../../../styles/js/material';
-import LocalStorage from '../../../../utils/LocalStorage';
+import Auth from '../../../../modules/Auth';
 
 const BaseHeader = ({
   className = '',
@@ -32,7 +32,7 @@ const BaseHeader = ({
     },
   });
 
-  const localStorage = new LocalStorage();
+  const auth = new Auth();
   const router = useRouter();
   const isAfterSsr = useIsAfterSsr();
   const [anchorEl, setAnchorEl] = useState<(EventTarget & HTMLButtonElement) | null>(null);
@@ -43,7 +43,7 @@ const BaseHeader = ({
 
   // TODO ログアウトは Authクラス等を作成して管理する。localStorageのkeyもClientStorageクラス等を作成して管理させる。
   const logOut = (router: NextRouter) => {
-    localStorage.removeLoginedStorage();
+    auth.removeLoginedStorage();
     setAnchorEl(null);
     router.push(page.login.link());
   };
@@ -65,7 +65,7 @@ const BaseHeader = ({
         <div className="flex items-center justify-between w-full">
           <div className="left flex items-center">
             {/* このaccessTokenがあるかという処理は変更予定。セッションが切れた時にトークンだけ残り続けてしまうのでそのタイミングで破棄をする必要がある。*/}
-            {isAfterSsr && localStorage.loginedStorageExists() && (
+            {isAfterSsr && auth.loginedStorageExists() && (
               <IconButton
                 edge="start"
                 color="inherit"
@@ -82,7 +82,7 @@ const BaseHeader = ({
             </BaseLink>
           </div>
           {/* このaccessTokenがあるかという処理は変更予定。セッションが切れた時にトークンだけ残り続けてしまうのでそのタイミングで破棄をする必要がある。*/}
-          {isAfterSsr && localStorage.loginedStorageExists() && (
+          {isAfterSsr && auth.loginedStorageExists() && (
             <div className="flex items-center">
               {settingState.user?.name && (
                 <div className="mr-2">{ommisionText(settingState.user?.name)}</div>

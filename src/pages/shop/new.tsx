@@ -20,7 +20,7 @@ import { createShop, fetchShops } from '../../reducks/services/Shop';
 /* types */
 import { TShop, TShopForm, TShopFormError } from '../../types/Shop';
 /* utils */
-import LocalStorage from '../../utils/LocalStorage';
+import LocalStorage from '../../modules/LocalStorage';
 import { isEmpty } from '../../utils/function';
 
 /* validate */

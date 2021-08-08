@@ -24,7 +24,7 @@ import { settingAndUser } from '../../types/Setting';
 /* utils */
 import { formatPriceYen, ommisionText, totalSumPrice } from '../../utils/function';
 import { formatDay } from '../../utils/FormatDate';
-import LocalStorage from '../../utils/LocalStorage';
+import LocalStorage from '../../modules/LocalStorage';
 
 const ClaimNew = (): JSX.Element => {
   const router = useRouter();
