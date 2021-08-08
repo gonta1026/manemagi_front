@@ -35,8 +35,8 @@ const Setting = (): JSX.Element => {
   };
 
   useEffect(() => {
-    formik.setFieldValue(SETTINGFORM.IS_USE_LINE.ID, settingState.user.setting.isUseLine);
-    const lineNoticeToken = settingState.user.setting.lineNoticeToken || '';
+    formik.setFieldValue(SETTINGFORM.IS_USE_LINE.ID, settingState.user?.setting.isUseLine);
+    const lineNoticeToken = settingState.user?.setting.lineNoticeToken || '';
     formik.setFieldValue(SETTINGFORM.LINE_NOTICE_TOKEN.ID, lineNoticeToken);
   }, [settingState]);
 

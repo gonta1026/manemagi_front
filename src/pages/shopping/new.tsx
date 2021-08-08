@@ -70,7 +70,7 @@ const ShoppingNew = (): JSX.Element => {
   }, []);
 
   useEffect(() => {
-    formik.setFieldValue(SHOPPINGFORM.IS_LINE_NOTICE.ID, settingState.user.setting.isUseLine);
+    formik.setFieldValue(SHOPPINGFORM.IS_LINE_NOTICE.ID, settingState.user?.setting.isUseLine);
     // NOTE setFieldValueでIS_LINE_NOTICEをセットしたことによってエラーがセットされてしまうため、下記で無理やりエラーを削除
     setTimeout(() => {
       formik.setFieldError(SHOPPINGFORM.PRICE.ID, '');
@@ -202,8 +202,8 @@ const ShoppingNew = (): JSX.Element => {
         <LabelAndSwitch
           className={'base-vertical-item'}
           checked={formik.values.isLineNotice}
-          disabled={!settingState.user.setting.isUseLine}
-          helperText={!settingState.user.setting.isUseLine && <IsUseLineHelper />}
+          disabled={!settingState.user?.setting.isUseLine}
+          helperText={!settingState.user?.setting.isUseLine && <IsUseLineHelper />}
           onChange={() =>
             formik.setFieldValue(SHOPPINGFORM.IS_LINE_NOTICE.ID, !formik.values.isLineNotice)
           }
