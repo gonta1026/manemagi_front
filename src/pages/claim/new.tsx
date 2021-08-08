@@ -22,8 +22,8 @@ import { TShopping } from '../../types/Shopping';
 import { TClaimFormikForm } from '../../types/Claim';
 import { settingAndUser } from '../../types/Setting';
 /* utils */
-import { formatDay } from '../../utils/FormatDate';
 import { formatPriceYen, ommisionText, totalSumPrice } from '../../utils/function';
+import { formatDay } from '../../utils/FormatDate';
 import LocalStorage from '../../utils/LocalStorage';
 
 const ClaimNew = (): JSX.Element => {
@@ -39,7 +39,7 @@ const ClaimNew = (): JSX.Element => {
   }, []);
 
   useEffect(() => {
-    formik.setFieldValue(SHOPPINGFORM.IS_LINE_NOTICE.ID, settingState.user.setting.isUseLine);
+    formik.setFieldValue(SHOPPINGFORM.IS_LINE_NOTICE.ID, settingState.user?.setting.isUseLine);
   }, [settingState]);
 
   const fetchShoppingsAndSetShops = async () => {
@@ -95,7 +95,7 @@ const ClaimNew = (): JSX.Element => {
           );
           if (response.payload.status === 'success') {
             const storage = new LocalStorage();
-            storage.setItemAtPageMoveNotice(LocalStorage.noticeKey.claimedNotice);
+            storage.setItemAtPageMoveNotice('claimedNotice');
             router.push(page.top.link());
           } else {
             const { handleToastOpen } = toastActions;
@@ -117,7 +117,7 @@ const ClaimNew = (): JSX.Element => {
               </dl>
               <dl className={'list'}>
                 <dt>{SHOPPINGFORM.DATE.LABEL}</dt>
-                <dd>{shopping.date}</dd>
+                <dd>{formatDay(shopping.date!)}</dd>
               </dl>
               <dl className={'list'}>
                 <dt>{SHOPPINGFORM.DESCRIPTION.LABEL}</dt>
@@ -159,8 +159,8 @@ const ClaimNew = (): JSX.Element => {
         <LabelAndSwitch
           className={'base-vertical-item'}
           checked={formik.values.isLineNotice}
-          disabled={!settingState.user.setting.isUseLine}
-          helperText={!settingState.user.setting.isUseLine && <IsUseLineHelper />}
+          disabled={!settingState.user?.setting.isUseLine}
+          helperText={!settingState.user?.setting.isUseLine && <IsUseLineHelper />}
           onChange={() =>
             formik.setFieldValue(SHOPPINGFORM.IS_LINE_NOTICE.ID, !formik.values.isLineNotice)
           }

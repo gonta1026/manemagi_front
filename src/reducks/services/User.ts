@@ -5,6 +5,7 @@ import { END_POINT } from '../../const/endPoint';
 import ApiClient from '../../network/ApiClient';
 /* types */
 import { TUser, TLoginUser } from '../../types/User';
+import LocalStorage from '../../utils/LocalStorage';
 
 const { DEVISE_TOKEN_AUTH } = END_POINT;
 
@@ -18,9 +19,9 @@ export const signupUser = createAsyncThunk(
       );
       const { headers } = response;
       if (headers) {
-        localStorage.setItem('accessToken', headers['access-token']);
-        localStorage.setItem('client', headers['client']);
-        localStorage.setItem('uid', headers['uid']);
+        const storage = new LocalStorage();
+        // 成功
+        storage.setLoginedStorage(headers['access-token'], headers['client'], headers['uid']);
       }
       return response.data;
     } catch (error) {
@@ -47,10 +48,10 @@ export const loginUser = createAsyncThunk(
           },
         };
       } else {
+        // // 成功
+        const storage = new LocalStorage();
         // 成功
-        localStorage.setItem('accessToken', headers['access-token']);
-        localStorage.setItem('client', headers['client']);
-        localStorage.setItem('uid', headers['uid']);
+        storage.setLoginedStorage(headers['access-token'], headers['client'], headers['uid']);
         return response.data.data;
       }
     } catch (error) {

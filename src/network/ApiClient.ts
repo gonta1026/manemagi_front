@@ -1,6 +1,7 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import camelcaseKeys from 'camelcase-keys';
 import snakecaseKeys from 'snakecase-keys';
+import LocalStorage from '../utils/LocalStorage';
 
 type NormalizeError = {
   data: {
@@ -21,11 +22,12 @@ class APIClient {
 
     this.axiosInstance.interceptors.request.use(
       function (config: AxiosRequestConfig) {
-        const { accessToken, client, uid } = localStorage;
-        if (accessToken && client && uid) {
-          config.headers['access-token'] = accessToken;
-          config.headers.client = client;
-          config.headers.uid = uid;
+        const localStorage = new LocalStorage();
+        const loginedKeys = localStorage.getLoginedStorageKeys();
+        if (loginedKeys?.accessToken && loginedKeys?.client && loginedKeys?.uid) {
+          config.headers['access-token'] = loginedKeys?.accessToken;
+          config.headers['client'] = loginedKeys?.client;
+          config.headers['uid'] = loginedKeys?.uid;
         }
         return config;
       },

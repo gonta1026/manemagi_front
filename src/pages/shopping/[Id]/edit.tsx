@@ -99,7 +99,7 @@ const ShoppingEdit = (): JSX.Element => {
           );
           if (response.payload.status === 'success') {
             const storage = new LocalStorage();
-            storage.setItemAtPageMoveNotice(LocalStorage.noticeKey.shoppingUpdatedNotice);
+            storage.setItemAtPageMoveNotice('shoppingUpdatedNotice');
             router.push(page.shopping.show.link(router.query.Id as string));
           } else {
             const { handleToastOpen } = toastActions;
@@ -205,8 +205,8 @@ const ShoppingEdit = (): JSX.Element => {
         <LabelAndSwitch
           className={'base-vertical-item'}
           checked={formik.values.isLineNotice}
-          disabled={!settingState.user.setting.isUseLine}
-          helperText={!settingState.user.setting.isUseLine && <IsUseLineHelper />}
+          disabled={!settingState.user?.setting.isUseLine}
+          helperText={!settingState.user?.setting.isUseLine && <IsUseLineHelper />}
           onChange={() =>
             formik.setFieldValue(SHOPPINGFORM.IS_LINE_NOTICE.ID, !formik.values.isLineNotice)
           }
