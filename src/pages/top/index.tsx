@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 /* components */
 import CommonWrapTemplate from '../../components/common/template/CommonWrapTemplate';
+import ConfirmModal from '../../components/common/modal/ConfirmModal';
 /* customHook */
 import useToastAction from '../../customHook/useToastAction';
 // import { BasePageTitle } from '../../components/common/uiParts/atoms';
@@ -11,22 +12,30 @@ import { ShoppingCardWrapper, ClaimCardWrapper } from '../../components/common/o
 import LocalStorage from '../../utils/LocalStorage';
 import { page } from '../../pageMap';
 /* reducks */
-import { fetchShoppings } from '../../reducks/services/Shopping';
+import { fetchShoppings, deleteShopping } from '../../reducks/services/Shopping';
 import { fetchClaims } from '../../reducks/services/Claim';
+import { fetchShops } from '../../reducks/services/Shop';
 /* types */
 import { TShopping } from '../../types/Shopping';
 import { TClaim } from '../../types/Claim';
+import { TShop } from '../../types/Shop';
 /* utils */
 import { formatPriceYen, ommisionText, totalSumPrice } from '../../utils/function';
 import { formatDay } from '../../utils/FormatDate';
+/* const */
+import { SHOPPINGFORM } from '../../const/form/shopping';
 
 const Top = (): JSX.Element => {
   const [shoppings, setShopping] = useState<TShopping[]>([]);
+  const [shops, setShops] = useState<TShop[]>([]);
   const [claims, setClaims] = useState<TClaim[]>([]);
+  const [modalShopping, setModalShopping] = useState<TShopping>();
+  const [open, setOpen] = useState<boolean>(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
     fetchShoppingsAndSetShops();
+    fetchShopsAndSetShops();
   }, []);
 
   const fetchShoppingsAndSetShops = async () => {
@@ -43,6 +52,28 @@ const Top = (): JSX.Element => {
     if (response.payload.status === 'success') {
       const claims: TClaim[] = response.payload.data;
       setClaims(claims);
+    }
+  };
+
+  const fetchShopsAndSetShops = async () => {
+    const response: any = await dispatch(fetchShops());
+    if (response.payload.status === 'success') {
+      const shops: TShop[] = response.payload.data.shops;
+      setShops(shops);
+    }
+  };
+
+  const deleteShoppingAndSetShopping = async () => {
+    if (modalShopping?.id) {
+      const shoppingId = String(modalShopping.id);
+      const response: any = await dispatch(deleteShopping(shoppingId));
+      if (response.payload.status === 'success') {
+        setOpen(false);
+        const newShoppings: TShopping[] = shoppings.filter(
+          ({ id }) => id !== response.payload.data.id,
+        );
+        setShopping(newShoppings);
+      }
     }
   };
 
@@ -84,6 +115,35 @@ const Top = (): JSX.Element => {
 
   return (
     <CommonWrapTemplate {...{ toastActions }}>
+      <ConfirmModal
+        open={open}
+        handleClose={() => setOpen(false)}
+        handleOk={() => deleteShoppingAndSetShopping()}
+        modaltitle="削除"
+      >
+        <dl className={'list'}>
+          <dt>{SHOPPINGFORM.PRICE.LABEL}</dt>
+          <dd>{modalShopping?.price ? formatPriceYen(modalShopping.price) : ''}</dd>
+        </dl>
+        <dl className={'list'}>
+          <dt>{SHOPPINGFORM.DATE.LABEL}</dt>
+          <dd>{modalShopping?.date ? formatDay(modalShopping.date) : ''}</dd>
+        </dl>
+        <dl className={'list'}>
+          <dt>{SHOPPINGFORM.SHOP_ID.LABEL}</dt>
+          <dd>
+            {modalShopping?.shopId ? shops.find(({ id }) => id === modalShopping.shopId)?.name : ''}
+          </dd>
+        </dl>
+        <dl className={'list'}>
+          <dt>{SHOPPINGFORM.DESCRIPTION.LABEL}</dt>
+          <dd>{modalShopping?.description ? modalShopping.description : 'なし'}</dd>
+        </dl>
+        <dl className={'list'}>
+          <dt>{SHOPPINGFORM.IS_LINE_NOTICE.LABEL}</dt>
+          <dd>{modalShopping?.isLineNotice ? '通知する' : '通知しない'}</dd>
+        </dl>
+      </ConfirmModal>
       {/* <BasePageTitle className={'my-5'}>トップ画面（タイトル検討中）</BasePageTitle> */}
       <h3 className={'font-bold text-2xl mt-10'}>未請求買い物一覧</h3>
       <p className={'mt-3'}>
@@ -98,7 +158,10 @@ const Top = (): JSX.Element => {
             editPathName={page.shopping.edit.link(shopping.id!.toString())}
             isEditShow={shopping.claimId === null}
             isDeleteShow={shopping.claimId === null}
-            onClick={() => console.log('click!')}
+            onClick={() => {
+              setModalShopping(shopping);
+              setOpen(true);
+            }}
             key={index}
           >
             <div className="flex justify-between">
