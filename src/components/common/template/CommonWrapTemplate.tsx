@@ -13,8 +13,8 @@ import { ToastType } from '../../../customHook/useToastAction';
 import { fetchSettingAndUser } from '../../../reducks/services/Setting';
 /* types */
 import { settingAndUser } from '../../../types/Setting';
-/*  */
-import LocalStorage from '../../../modules/LocalStorage';
+/* modules */
+import Auth from '../../../modules/Auth';
 
 const CommonWrapTemplate = ({
   children,
@@ -29,7 +29,7 @@ const CommonWrapTemplate = ({
   const router = useRouter();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const { settingState } = useSelector((state: { settingState: settingAndUser }) => state);
-  const localStorage = new LocalStorage();
+  const auth = new Auth();
   const toggleDrawer = (open: boolean) => (event: any) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
@@ -43,7 +43,7 @@ const CommonWrapTemplate = ({
     const perimitPageExists = perimitPages.find((pageName) => pageName === router.pathname);
     if (
       // pages以外のところでトークンがない、かつ許可されたページではない時にリダイレクト
-      !localStorage.loginedStorageExists() &&
+      !auth.loginedStorageExists() &&
       !perimitPageExists
     ) {
       router.push('/login');
@@ -52,18 +52,18 @@ const CommonWrapTemplate = ({
 
   useEffect(() => {
     isLogindCheck();
-    if (localStorage.loginedStorageExists()) {
+    if (auth.loginedStorageExists()) {
       (async () => {
         const response: any = await dispatch(fetchSettingAndUser());
         // 認証に失敗した場合はtokenの破棄
         // 401はdeviseの指定されている
         if (response.payload?.statusText === 'Unauthorized') {
-          localStorage.removeLoginedStorage();
+          auth.removeLoginedStorage();
           router.push('/login');
         }
       })();
     }
-  }, []);
+  }, [router]);
 
   return (
     <>

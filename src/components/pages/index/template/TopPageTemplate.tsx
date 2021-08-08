@@ -7,6 +7,8 @@ import { useRouter } from 'next/router';
 import { ToastType } from '../../../../customHook/useToastAction';
 /* types */
 import { settingAndUser } from '../../../../types/Setting';
+/* modules */
+import Auth from '../../../../modules/Auth';
 const TopPageTemplate = ({
   children,
   toastActions,
@@ -14,6 +16,7 @@ const TopPageTemplate = ({
   children: ReactNode;
   toastActions?: ToastType;
 }) => {
+  const auth = new Auth();
   const dispatch = useDispatch();
   const router = useRouter();
   const { settingState } = useSelector((state: { settingState: settingAndUser }) => state);
@@ -26,34 +29,22 @@ const TopPageTemplate = ({
     setIsDrawerOpen(open);
   };
 
-  const storageExists = (): boolean => {
-    let flag = false;
-    if (
-      localStorage.getItem('uid') &&
-      localStorage.getItem('accessToken') &&
-      localStorage.getItem('client')
-    ) {
-      flag = true;
-    }
-    return flag;
-  };
-
   // Auth系のclassのところに処理を持ってくる。
-  const isLogindCheck = () => {
+  const isLogindPerimitCheck = () => {
     const perimitPages = ['/signup', '/login', '/'];
     const perimitPageExists = perimitPages.find((pageName) => pageName === router.pathname);
     if (
       // pages以外のところでトークンがなかったらログインページに飛ばす。
       !perimitPageExists &&
-      !storageExists()
+      !auth.loginedStorageExists()
     ) {
       router.push('/login');
     }
   };
 
   useEffect(() => {
-    isLogindCheck();
-    if (storageExists()) {
+    isLogindPerimitCheck();
+    if (auth.loginedStorageExists()) {
       dispatch(fetchSettingAndUser());
     }
   }, []);

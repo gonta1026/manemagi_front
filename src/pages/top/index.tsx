@@ -53,7 +53,7 @@ const Top = (): JSX.Element => {
 
   useEffect(() => {
     const storage = new LocalStorage();
-    const targetNotice = storage.getItem(storageKeys.pageMoveNotice)!;
+    const targetNotice = storage.getStorageItem(storageKeys.pageMoveNotice)!;
     const { loginedNotice, signUpedNotice, shoppingedNotice, claimedNotice, createdShopNotice } =
       noticeStorageValues;
     let message = '';
