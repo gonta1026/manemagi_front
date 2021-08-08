@@ -45,7 +45,7 @@ class Auth {
   }
   // TODO localstorageを扱っているのでこちらを作成しているが、Auth系のクラスを作成して対応した方が良さそう？
   public removeLoginedStorage() {
-    return localStorage.removeItem(authStorageKeys.logined);
+    return localStorage.removeStorageItem(authStorageKeys.logined);
   }
 }
 

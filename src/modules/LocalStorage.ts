@@ -13,6 +13,7 @@ export const noticeStorageValues = {
   claimedNotice: 'claimedNotice',
   createdShopNotice: 'createdShopNotice',
 } as const;
+
 export type TLoginedStorageValue = {
   accessToken?: string;
   uid?: string;
@@ -55,7 +56,7 @@ class LocalStorage {
     }
   };
 
-  public removeItem = (itemKey: TStorageKey) => {
+  public removeStorageItem = (itemKey: TStorageKey) => {
     if (this.localStorage !== undefined) {
       return this.localStorage.removeItem(itemKey);
     }
@@ -74,7 +75,7 @@ class LocalStorage {
       const storageItem = this.getStorageItem(storageKeys.pageMoveNotice);
       if (storageItem) {
         callbackToastExecution();
-        this.removeItem(storageKeys.pageMoveNotice);
+        this.removeStorageItem(storageKeys.pageMoveNotice);
       }
     }
   }
