@@ -15,7 +15,7 @@ import useIsAfterSsr from '../../../../customHook/useIsAfterSsr';
 import { settingAndUser } from '../../../../types/Setting';
 /* styles */
 import { materialStyles } from '../../../../styles/js/material';
-import LocalStorage from '../../../../utils/LocalStorage';
+import LocalStorage from '../../../../modules/LocalStorage';
 
 const BaseHeader = ({
   className = '',

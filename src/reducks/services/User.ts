@@ -5,7 +5,7 @@ import { END_POINT } from '../../const/endPoint';
 import ApiClient from '../../network/ApiClient';
 /* types */
 import { TUser, TLoginUser } from '../../types/User';
-import LocalStorage from '../../utils/LocalStorage';
+import LocalStorage from '../../modules/LocalStorage';
 
 const { DEVISE_TOKEN_AUTH } = END_POINT;
 

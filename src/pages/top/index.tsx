@@ -8,7 +8,7 @@ import useToastAction from '../../customHook/useToastAction';
 import { LineNotice } from '../../components/pages/common';
 import { ShoppingCardWrapper, ClaimCardWrapper } from '../../components/common/organisms';
 /* pageMap */
-import LocalStorage from '../../utils/LocalStorage';
+import LocalStorage, { noticeStorageValues, storageKeys } from '../../modules/LocalStorage';
 import { page } from '../../pageMap';
 /* reducks */
 import { fetchShoppings } from '../../reducks/services/Shopping';
@@ -53,10 +53,9 @@ const Top = (): JSX.Element => {
 
   useEffect(() => {
     const storage = new LocalStorage();
-    const targetNotice = storage.getItem('pageMoveNotice')!;
+    const targetNotice = storage.getItem(storageKeys.pageMoveNotice)!;
     const { loginedNotice, signUpedNotice, shoppingedNotice, claimedNotice, createdShopNotice } =
-      LocalStorage.noticeKeys;
-
+      noticeStorageValues;
     let message = '';
     switch (targetNotice) {
       case loginedNotice:

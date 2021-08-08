@@ -20,7 +20,7 @@ import { loginUser } from '../../reducks/services/User';
 /* types */
 import { TLoginUser, TLoginUserFormError } from '../../types/User';
 /* utils */
-import LocalStorage from '../../utils/LocalStorage';
+import LocalStorage from '../../modules/LocalStorage';
 /* validate */
 import { signupAndLoginValidate } from '../../validate/user/signupAndLogin';
 import { emailOrPassword } from '../../validate/message';

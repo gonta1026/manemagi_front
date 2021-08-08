@@ -14,7 +14,7 @@ import { fetchSettingAndUser } from '../../../reducks/services/Setting';
 /* types */
 import { settingAndUser } from '../../../types/Setting';
 /*  */
-import LocalStorage from '../../../utils/LocalStorage';
+import LocalStorage from '../../../modules/LocalStorage';
 
 const CommonWrapTemplate = ({
   children,
