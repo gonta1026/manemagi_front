@@ -1,9 +1,9 @@
 import { TShopForm } from '../../types/Shop';
-import { SHOPFORM } from '../../const/form/shop';
+import { SHOP_FORM } from '../../const/form/shop';
 import { validBlank, validRegisterdName } from '..';
 
 export const shopNewValidate = (values: TShopForm, errors: TShopForm, shopNames: string[]) => {
-  const { NAME } = SHOPFORM;
+  const { NAME } = SHOP_FORM;
   /******************
    * 店名
    ******************/

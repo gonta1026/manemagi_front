@@ -1,9 +1,9 @@
 import { TShoppingForm, TShoppingFormError } from '../../types/Shopping';
-import { SHOPPINGFORM } from '../../const/form/shopping';
+import { SHOPPING_FORM } from '../../const/form/shopping';
 import { validBlank } from '../';
 
 export const shoppingValidate = (values: TShoppingForm, errors: TShoppingFormError) => {
-  const { PRICE, DATE, SHOP_ID } = SHOPPINGFORM;
+  const { PRICE, DATE, SHOP_ID } = SHOPPING_FORM;
 
   /******************
    * 買い物金額

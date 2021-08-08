@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
 /* const */
-import { SHOPFORM } from '../../const/form/shop';
+import { SHOP_FORM } from '../../const/form/shop';
 /* components */
 import CommonWrapTemplate from '../../components/common/template/CommonWrapTemplate';
 import {
@@ -83,19 +83,19 @@ const NewShop = (): JSX.Element => {
         }}
       >
         <dl className={'list'}>
-          <dt>{SHOPFORM.NAME.LABEL}</dt>
+          <dt>{SHOP_FORM.NAME.LABEL}</dt>
           <dd>{name}</dd>
         </dl>
         <dl className={'list'}>
-          <dt>{SHOPFORM.DESCRIPTION.LABEL}</dt>
+          <dt>{SHOP_FORM.DESCRIPTION.LABEL}</dt>
           <dd>{description}</dd>
         </dl>
       </ConfirmModal>
       <BasePageTitle className={'my-5'}>{page.shop.register.name()}</BasePageTitle>
       <form className="base-vertical-20" onSubmit={formik.handleSubmit}>
         <LabelAndTextField
-          id={SHOPFORM.NAME.ID}
-          label={SHOPFORM.NAME.LABEL}
+          id={SHOP_FORM.NAME.ID}
+          label={SHOP_FORM.NAME.LABEL}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           placeholder={'九州スーパー（50文字まで）'}
@@ -111,8 +111,8 @@ const NewShop = (): JSX.Element => {
         </LabelAndTextField>
 
         <LabelAndTextArea
-          id={SHOPFORM.DESCRIPTION.ID}
-          label={SHOPFORM.DESCRIPTION.LABEL}
+          id={SHOP_FORM.DESCRIPTION.ID}
+          label={SHOP_FORM.DESCRIPTION.LABEL}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           placeholder={'生鮮品が安い、家のすぐ近くにある。（300文字まで）'}

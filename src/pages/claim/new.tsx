@@ -9,7 +9,7 @@ import { LabelAndSwitch, LabelAndCheckBox } from '../../components/common/molecu
 import ConfirmModal from '../../components/common/modal/ConfirmModal';
 import { IsUseLineHelper } from '../../components/pages/common';
 /* const */
-import { SHOPPINGFORM } from '../../const/form/shopping';
+import { SHOPPING_FORM } from '../../const/form/shopping';
 import { CLAIM_FORM } from '../../const/form/claim';
 /* customHook */
 import useToastAction from '../../customHook/useToastAction';
@@ -39,7 +39,7 @@ const ClaimNew = (): JSX.Element => {
   }, []);
 
   useEffect(() => {
-    formik.setFieldValue(SHOPPINGFORM.IS_LINE_NOTICE.ID, settingState.user?.setting.isUseLine);
+    formik.setFieldValue(SHOPPING_FORM.IS_LINE_NOTICE.ID, settingState.user?.setting.isUseLine);
   }, [settingState]);
 
   const fetchShoppingsAndSetShops = async () => {
@@ -112,19 +112,19 @@ const ClaimNew = (): JSX.Element => {
             <li key={index}>
               <h3 className={'font-bold mt-4 text-center'}>{index + 1}件目</h3>
               <dl className={'list'}>
-                <dt>{SHOPPINGFORM.PRICE.LABEL}</dt>
+                <dt>{SHOPPING_FORM.PRICE.LABEL}</dt>
                 <dd>{formatPriceYen ? formatPriceYen(shopping.price) : ''}</dd>
               </dl>
               <dl className={'list'}>
-                <dt>{SHOPPINGFORM.DATE.LABEL}</dt>
+                <dt>{SHOPPING_FORM.DATE.LABEL}</dt>
                 <dd>{formatDay(shopping.date!)}</dd>
               </dl>
               <dl className={'list'}>
-                <dt>{SHOPPINGFORM.DESCRIPTION.LABEL}</dt>
+                <dt>{SHOPPING_FORM.DESCRIPTION.LABEL}</dt>
                 <dd>{shopping.description}</dd>
               </dl>
               <dl className={'list'}>
-                <dt>{SHOPPINGFORM.IS_LINE_NOTICE.LABEL}</dt>
+                <dt>{SHOPPING_FORM.IS_LINE_NOTICE.LABEL}</dt>
                 <dd>{shopping.isLineNotice ? '通知済み' : '未通知'}</dd>
               </dl>
             </li>
@@ -162,7 +162,7 @@ const ClaimNew = (): JSX.Element => {
           disabled={!settingState.user?.setting.isUseLine}
           helperText={!settingState.user?.setting.isUseLine && <IsUseLineHelper />}
           onChange={() =>
-            formik.setFieldValue(SHOPPINGFORM.IS_LINE_NOTICE.ID, !formik.values.isLineNotice)
+            formik.setFieldValue(SHOPPING_FORM.IS_LINE_NOTICE.ID, !formik.values.isLineNotice)
           }
           id={CLAIM_FORM.IS_LINE_NOTICE.ID}
           label={`${CLAIM_FORM.IS_LINE_NOTICE.LABEL}${formik.values.isLineNotice ? 'ON' : 'OFF'}`}

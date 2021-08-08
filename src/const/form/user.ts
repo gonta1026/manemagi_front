@@ -5,7 +5,7 @@ export const LABEL_NAMES = {
   PASSWORD_CONFIRMATION: 'パスワードの再確認',
 } as const;
 
-export const USERFORM = {
+export const USER_FORM = {
   NAME: {
     LABEL: LABEL_NAMES.NAME,
     ID: 'name',

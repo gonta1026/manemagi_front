@@ -19,7 +19,7 @@ import {
 import ConfirmModal from '../../../components/common/modal/ConfirmModal';
 import { IsUseLineHelper } from '../../../components/pages/common';
 /* const */
-import { SHOPPINGFORM } from '../../../const/form/shopping';
+import { SHOPPING_FORM } from '../../../const/form/shopping';
 /* customHook */
 import useToastAction from '../../../customHook/useToastAction';
 /* pageMap */
@@ -57,11 +57,11 @@ const ShoppingEdit = (): JSX.Element => {
       const response: any = await dispatch(fetchEditShopping(router.query.Id as string));
       if (response.payload.status === 'success') {
         const shopping: TShopping = response.payload.data;
-        formik.setFieldValue(SHOPPINGFORM.PRICE.ID, shopping.price);
-        formik.setFieldValue(SHOPPINGFORM.DATE.ID, formatDay(shopping.date as Date));
-        formik.setFieldValue(SHOPPINGFORM.DESCRIPTION.ID, shopping.description);
-        formik.setFieldValue(SHOPPINGFORM.IS_LINE_NOTICE.ID, shopping.isLineNotice);
-        formik.setFieldValue(SHOPPINGFORM.SHOP_ID.ID, shopping.shopId);
+        formik.setFieldValue(SHOPPING_FORM.PRICE.ID, shopping.price);
+        formik.setFieldValue(SHOPPING_FORM.DATE.ID, formatDay(shopping.date as Date));
+        formik.setFieldValue(SHOPPING_FORM.DESCRIPTION.ID, shopping.description);
+        formik.setFieldValue(SHOPPING_FORM.IS_LINE_NOTICE.ID, shopping.isLineNotice);
+        formik.setFieldValue(SHOPPING_FORM.SHOP_ID.ID, shopping.shopId);
       }
     }
   };
@@ -112,23 +112,23 @@ const ShoppingEdit = (): JSX.Element => {
         modaltitle={'変更'}
       >
         <dl className={'list'}>
-          <dt>{SHOPPINGFORM.PRICE.LABEL}</dt>
+          <dt>{SHOPPING_FORM.PRICE.LABEL}</dt>
           <dd>{formatPriceYen(formik.values.price)}</dd>
         </dl>
         <dl className={'list'}>
-          <dt>{SHOPPINGFORM.DATE.LABEL}</dt>
+          <dt>{SHOPPING_FORM.DATE.LABEL}</dt>
           <dd>{formik.values.date}</dd>
         </dl>
         <dl className={'list'}>
-          <dt>{SHOPPINGFORM.SHOP_ID.LABEL}</dt>
+          <dt>{SHOPPING_FORM.SHOP_ID.LABEL}</dt>
           <dd>{shops.find((shop) => shop.id === formik.values.shopId)?.name}</dd>
         </dl>
         <dl className={'list'}>
-          <dt>{SHOPPINGFORM.DESCRIPTION.LABEL}</dt>
+          <dt>{SHOPPING_FORM.DESCRIPTION.LABEL}</dt>
           <dd>{formik.values.description}</dd>
         </dl>
         <dl className={'list'}>
-          <dt>{SHOPPINGFORM.IS_LINE_NOTICE.LABEL}</dt>
+          <dt>{SHOPPING_FORM.IS_LINE_NOTICE.LABEL}</dt>
           <dd>{formik.values.isLineNotice ? '通知する' : '通知しない'}</dd>
         </dl>
       </ConfirmModal>
@@ -136,8 +136,8 @@ const ShoppingEdit = (): JSX.Element => {
       <form className="base-vertical-20" onSubmit={formik.handleSubmit}>
         {/* 金額(price) */}
         <LabelAndTextField
-          id={SHOPPINGFORM.PRICE.ID}
-          label={SHOPPINGFORM.PRICE.LABEL}
+          id={SHOPPING_FORM.PRICE.ID}
+          label={SHOPPING_FORM.PRICE.LABEL}
           onBlur={formik.handleBlur}
           onChange={formik.handleChange}
           required
@@ -153,8 +153,8 @@ const ShoppingEdit = (): JSX.Element => {
         </LabelAndTextField>
         {/* 買い物日(date) */}
         <LabelAndTextField
-          id={SHOPPINGFORM.DATE.ID}
-          label={SHOPPINGFORM.DATE.LABEL}
+          id={SHOPPING_FORM.DATE.ID}
+          label={SHOPPING_FORM.DATE.LABEL}
           onBlur={formik.handleBlur}
           onChange={formik.handleChange}
           required
@@ -177,10 +177,10 @@ const ShoppingEdit = (): JSX.Element => {
               <BaseLink pathname={page.shop.register.link()}>こちら</BaseLink>で登録。
             </>
           }
-          id={SHOPPINGFORM.SHOP_ID.ID}
-          label={SHOPPINGFORM.SHOP_ID.LABEL}
+          id={SHOPPING_FORM.SHOP_ID.ID}
+          label={SHOPPING_FORM.SHOP_ID.LABEL}
           onChange={(e: any) => {
-            formik.setFieldValue(SHOPPINGFORM.SHOP_ID.ID, e.target.value);
+            formik.setFieldValue(SHOPPING_FORM.SHOP_ID.ID, e.target.value);
           }}
           options={shops}
           required
@@ -193,8 +193,8 @@ const ShoppingEdit = (): JSX.Element => {
         )}
         {/* 説明(description)) */}
         <LabelAndTextArea
-          id={SHOPPINGFORM.DESCRIPTION.ID}
-          label={SHOPPINGFORM.DESCRIPTION.LABEL}
+          id={SHOPPING_FORM.DESCRIPTION.ID}
+          label={SHOPPING_FORM.DESCRIPTION.LABEL}
           onBlur={formik.handleBlur}
           onChange={formik.handleChange}
           value={formik.values.description ?? ''}
@@ -208,10 +208,12 @@ const ShoppingEdit = (): JSX.Element => {
           disabled={!settingState.user?.setting.isUseLine}
           helperText={!settingState.user?.setting.isUseLine && <IsUseLineHelper />}
           onChange={() =>
-            formik.setFieldValue(SHOPPINGFORM.IS_LINE_NOTICE.ID, !formik.values.isLineNotice)
+            formik.setFieldValue(SHOPPING_FORM.IS_LINE_NOTICE.ID, !formik.values.isLineNotice)
           }
-          id={SHOPPINGFORM.IS_LINE_NOTICE.ID}
-          label={`${SHOPPINGFORM.IS_LINE_NOTICE.LABEL}${formik.values.isLineNotice ? 'ON' : 'OFF'}`}
+          id={SHOPPING_FORM.IS_LINE_NOTICE.ID}
+          label={`${SHOPPING_FORM.IS_LINE_NOTICE.LABEL}${
+            formik.values.isLineNotice ? 'ON' : 'OFF'
+          }`}
         />
         <ExecutionAndBackButtons
           backPathname={page.shopping.list.link()}

@@ -10,7 +10,7 @@ import {
 } from '../../components/common/molecules';
 import { BasePageTitle, BaseErrorMessagesWrapper } from '../../components/common/uiParts/atoms';
 /* const */
-import { SETTINGFORM } from '../../const/form/setting';
+import { SETTING_FORM } from '../../const/form/setting';
 /* customHook */
 import useToastAction from '../../customHook/useToastAction';
 /* utils */
@@ -35,9 +35,9 @@ const Setting = (): JSX.Element => {
   };
 
   useEffect(() => {
-    formik.setFieldValue(SETTINGFORM.IS_USE_LINE.ID, settingState.user?.setting.isUseLine);
+    formik.setFieldValue(SETTING_FORM.IS_USE_LINE.ID, settingState.user?.setting.isUseLine);
     const lineNoticeToken = settingState.user?.setting.lineNoticeToken || '';
-    formik.setFieldValue(SETTINGFORM.LINE_NOTICE_TOKEN.ID, lineNoticeToken);
+    formik.setFieldValue(SETTING_FORM.LINE_NOTICE_TOKEN.ID, lineNoticeToken);
   }, [settingState]);
 
   const formik = useFormik<TSetting>({
@@ -63,7 +63,7 @@ const Setting = (): JSX.Element => {
       }
       if (response.payload.data.status === 401) {
         formik.setFieldError(
-          SETTINGFORM.LINE_NOTICE_TOKEN.ID,
+          SETTING_FORM.LINE_NOTICE_TOKEN.ID,
           'LINEトークンを再確認してください。',
         );
       }
@@ -76,7 +76,7 @@ const Setting = (): JSX.Element => {
         <a href="https://notify-bot.line.me/ja/" target="_blank" rel="noopener noreferrer">
           LINE NOTIFY
         </a>
-        で{SETTINGFORM.LINE_NOTICE_TOKEN.LABEL}を取得してください。
+        で{SETTING_FORM.LINE_NOTICE_TOKEN.LABEL}を取得してください。
       </>
     );
   })();
@@ -98,8 +98,8 @@ const Setting = (): JSX.Element => {
         {/* LINEトークン（lineNoticeToken）*/}
         <LabelAndTextField
           helperText={tokenHelperText}
-          id={SETTINGFORM.LINE_NOTICE_TOKEN.ID}
-          label={SETTINGFORM.LINE_NOTICE_TOKEN.LABEL}
+          id={SETTING_FORM.LINE_NOTICE_TOKEN.ID}
+          label={SETTING_FORM.LINE_NOTICE_TOKEN.LABEL}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           placeholder={'cyttLYOIg3Z...（100文字まで）'}
@@ -118,8 +118,8 @@ const Setting = (): JSX.Element => {
           checked={formik.values.isUseLine}
           helperText={isUseLineHelperText}
           onChange={() => formik.setFieldValue('isUseLine', !formik.values.isUseLine)}
-          id={SETTINGFORM.IS_USE_LINE.ID}
-          label={`${SETTINGFORM.IS_USE_LINE.LABEL}${formik.values.isUseLine ? 'ON' : 'OFF'}`}
+          id={SETTING_FORM.IS_USE_LINE.ID}
+          label={`${SETTING_FORM.IS_USE_LINE.LABEL}${formik.values.isUseLine ? 'ON' : 'OFF'}`}
         />
         <ExecutionAndBackButtons
           disabledExecution={!isEmpty(formik.errors)}
