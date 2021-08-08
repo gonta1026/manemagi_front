@@ -36,6 +36,36 @@ const Top = (): JSX.Element => {
   useEffect(() => {
     fetchShoppingsAndSetShops();
     fetchShopsAndSetShops();
+    fetchClaimsAndSetClaims();
+
+    const storage = new LocalStorage();
+    const targetNotice = storage.getItem('pageMoveNotice')!;
+    const { loginedNotice, signUpedNotice, shoppingedNotice, claimedNotice, createdShopNotice } =
+      LocalStorage.noticeKeys;
+
+    let message = '';
+    switch (targetNotice) {
+      case loginedNotice:
+        message = 'ログインをしました！';
+        break;
+      case signUpedNotice:
+        message = '新規登録をしてログインしました！';
+        break;
+      case shoppingedNotice:
+        message = '買い物を登録しました！';
+        break;
+      case claimedNotice:
+        message = '請求を登録しました！';
+        break;
+      case createdShopNotice:
+        message = 'お店を登録しました！';
+        break;
+    }
+    storage.afterPageMoveNotice(() =>
+      toastActions.handleToastOpen({
+        message,
+      }),
+    );
   }, []);
 
   const fetchShoppingsAndSetShops = async () => {
@@ -67,51 +97,28 @@ const Top = (): JSX.Element => {
     if (modalShopping?.id) {
       const shoppingId = String(modalShopping.id);
       const response: any = await dispatch(deleteShopping(shoppingId));
+      const { handleToastOpen } = toastActions;
       if (response.payload.status === 'success') {
         setOpen(false);
         const newShoppings: TShopping[] = shoppings.filter(
           ({ id }) => id !== response.payload.data.id,
         );
         setShopping(newShoppings);
+
+        handleToastOpen({
+          message: `買い物を削除しました。`,
+          severity: 'success',
+        });
+      } else {
+        handleToastOpen({
+          message: `削除に失敗しました。`,
+          severity: 'error',
+        });
       }
     }
   };
 
-  useEffect(() => {
-    fetchClaimsAndSetClaims();
-  }, []);
   const toastActions = useToastAction();
-
-  useEffect(() => {
-    const storage = new LocalStorage();
-    const targetNotice = storage.getItem('pageMoveNotice')!;
-    const { loginedNotice, signUpedNotice, shoppingedNotice, claimedNotice, createdShopNotice } =
-      LocalStorage.noticeKeys;
-
-    let message = '';
-    switch (targetNotice) {
-      case loginedNotice:
-        message = 'ログインをしました！';
-        break;
-      case signUpedNotice:
-        message = '新規登録をしてログインしました！';
-        break;
-      case shoppingedNotice:
-        message = '買い物を登録しました！';
-        break;
-      case claimedNotice:
-        message = '請求を登録しました！';
-        break;
-      case createdShopNotice:
-        message = 'お店を登録しました！';
-        break;
-    }
-    storage.afterPageMoveNotice(() =>
-      toastActions.handleToastOpen({
-        message,
-      }),
-    );
-  }, []);
 
   return (
     <CommonWrapTemplate {...{ toastActions }}>

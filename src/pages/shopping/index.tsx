@@ -19,6 +19,8 @@ import { formatPriceYen, ommisionText } from '../../utils/function';
 import { formatDay } from '../../utils/FormatDate';
 /* const */
 import { SHOPPINGFORM } from '../../const/form/shopping';
+/* customHook */
+import useToastAction from '../../customHook/useToastAction';
 
 const Shopping = (): JSX.Element => {
   const [shoppings, setShopping] = useState<TShopping[]>([]);
@@ -26,6 +28,7 @@ const Shopping = (): JSX.Element => {
   const [modalShopping, setModalShopping] = useState<TShopping>();
   const [open, setOpen] = useState<boolean>(false);
   const dispatch = useDispatch();
+  const toastActions = useToastAction();
 
   useEffect(() => {
     fetchShoppingsAndSetShops();
@@ -52,12 +55,23 @@ const Shopping = (): JSX.Element => {
     if (modalShopping?.id) {
       const shoppingId = String(modalShopping.id);
       const response: any = await dispatch(deleteShopping(shoppingId));
+      const { handleToastOpen } = toastActions;
       if (response.payload.status === 'success') {
         setOpen(false);
         const newShoppings: TShopping[] = shoppings.filter(
           ({ id }) => id !== response.payload.data.id,
         );
         setShopping(newShoppings);
+
+        handleToastOpen({
+          message: `買い物を削除しました。`,
+          severity: 'success',
+        });
+      } else {
+        handleToastOpen({
+          message: `削除に失敗しました。`,
+          severity: 'error',
+        });
       }
     }
   };
