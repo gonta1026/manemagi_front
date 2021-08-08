@@ -1,23 +1,34 @@
-type TPageMoveNotice = typeof LocalStorage.pageMoveNotice;
-type TStorageKey = TPageMoveNotice;
-type TSignUpedNotice = typeof LocalStorage.noticeKeys.signUpedNotice;
-type TLoginedNotice = typeof LocalStorage.noticeKeys.loginedNotice;
-type TShoppingedNotice = typeof LocalStorage.noticeKeys.shoppingedNotice;
-type TShoppingUpdatedNotice = typeof LocalStorage.noticeKeys.shoppingUpdatedNotice;
-type TClaimedNotice = typeof LocalStorage.noticeKeys.claimedNotice;
-type TCreatedShop = typeof LocalStorage.noticeKeys.createdShopNotice;
+import { isBooleanCheck } from '../utils/function';
 
-// NOTE ここにページ遷移後に使うお知らせに使用をするキーを追加する。
+type TLoginedStorageKey = 'loginedKeys';
+
+export type TLoginedStorageValue = {
+  accessToken?: string;
+  uid?: string;
+  client?: string;
+};
+
+type TPageMoveNotice = 'pageMoveNotice';
+/* ！！重要！！ ここにローカルストレージで使うkeyを定義する事。何がローカルストレージで使われているかを管理するため */
+type TStorageKey = TPageMoveNotice | TLoginedStorageKey;
+// NOTE ここにページ遷移後に使うお知らせに使用をする型をを追加する事。
 type TPageMoveNoticeValue =
-  | TLoginedNotice
-  | TShoppingedNotice
-  | TSignUpedNotice
-  | TShoppingUpdatedNotice
-  | TClaimedNotice
-  | TCreatedShop;
+  | typeof LocalStorage.noticeKeys.loginedNotice
+  | typeof LocalStorage.noticeKeys.shoppingedNotice
+  | typeof LocalStorage.noticeKeys.signUpedNotice
+  | typeof LocalStorage.noticeKeys.shoppingUpdatedNotice
+  | typeof LocalStorage.noticeKeys.claimedNotice
+  | typeof LocalStorage.noticeKeys.createdShopNotice;
 
+export type TLocalStorage = typeof LocalStorage;
 class LocalStorage {
-  private localStorage: Storage = window.localStorage;
+  private localStorage;
+
+  constructor() {
+    if (process.browser && window.localStorage) {
+      this.localStorage = window.localStorage;
+    }
+  }
 
   public static noticeKeys = {
     loginedNotice: 'loginedNotice',
@@ -28,35 +39,66 @@ class LocalStorage {
     createdShopNotice: 'createdShopNotice',
   } as const;
 
-  public static loginedKeys = {
-    loginedNotice: 'loginedNotice',
-    signUpedNotice: 'signUpedNotice',
-    shoppingedNotice: 'shoppingedNotice',
-    shoppingUpdatedNotice: 'shoppingUpdatedNotice',
-    claimedNotice: 'claimedNotice',
-    createdShopNotice: 'createdShopNotice',
-  } as const;
-
   public getLoginedStorageKeys() {
-    const { accessToken, client, uid } = localStorage;
-    return { accessToken, client, uid };
+    if (this.localStorage !== undefined) {
+      const loginedKeys = JSON.parse(
+        this.localStorage.getItem('loginedKeys')!,
+      ) as TLoginedStorageValue;
+      return loginedKeys;
+    }
   }
 
-  public static pageMoveNotice = 'pageMoveNotice' as const;
+  public getItem = (itemKey: TStorageKey) => {
+    if (this.localStorage !== undefined) {
+      return this.localStorage.getItem(itemKey);
+    }
+  };
 
-  public getItem = (itemKey: TStorageKey) => this.localStorage.getItem(itemKey);
+  public removeItem = (itemKey: TStorageKey) => {
+    if (this.localStorage !== undefined) {
+      return this.localStorage.removeItem(itemKey);
+    }
+  };
 
-  public removeItem = (itemKey: TStorageKey) => this.localStorage.removeItem(itemKey);
+  // TODO localstorageを扱っているのでこちらを作成しているが、Auth系のクラスを作成して対応した方が良さそう？
+  public loginedStorageExists(): boolean {
+    const loginedKeys = this.getLoginedStorageKeys();
+    return isBooleanCheck(!!(loginedKeys?.uid && loginedKeys?.accessToken && loginedKeys?.client)); // !!で真偽値にして返す
+  }
+
+  // TODO localstorageを扱っているのでこちらを作成しているが、Auth系のクラスを作成して対応した方が良さそう？
+  public removeLoginedStorage() {
+    return this.removeItem('loginedKeys');
+  }
+
+  /* NOTE ログイン時のstorageをセット */
+  public setLoginedStorage(accessToken: string, client: string, uid: string) {
+    if (this.localStorage !== undefined) {
+      this.localStorage.setItem(
+        'loginedKeys',
+        JSON.stringify({
+          accessToken,
+          client,
+          uid,
+        }),
+      );
+    }
+  }
 
   public setItemAtPageMoveNotice(targetNotice: TPageMoveNoticeValue) {
-    return this.localStorage.setItem(LocalStorage.pageMoveNotice, targetNotice);
+    if (this.localStorage !== undefined) {
+      return this.localStorage.setItem('pageMoveNotice', targetNotice);
+    }
   }
 
+  //NOTE ページ遷移後のtoastのお知らせで使用している。
   public afterPageMoveNotice(this: LocalStorage, callbackToastExecution: VoidFunction) {
-    const storageItem = this.localStorage.getItem(LocalStorage.pageMoveNotice);
-    if (storageItem) {
-      callbackToastExecution();
-      this.removeItem(LocalStorage.pageMoveNotice);
+    if (this.localStorage !== undefined) {
+      const storageItem = this.localStorage.getItem('pageMoveNotice');
+      if (storageItem) {
+        callbackToastExecution();
+        this.removeItem('pageMoveNotice');
+      }
     }
   }
 }

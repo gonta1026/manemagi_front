@@ -13,6 +13,8 @@ import { ToastType } from '../../../customHook/useToastAction';
 import { fetchSettingAndUser } from '../../../reducks/services/Setting';
 /* types */
 import { settingAndUser } from '../../../types/Setting';
+/*  */
+import LocalStorage from '../../../utils/LocalStorage';
 
 const CommonWrapTemplate = ({
   children,
@@ -27,7 +29,7 @@ const CommonWrapTemplate = ({
   const router = useRouter();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const { settingState } = useSelector((state: { settingState: settingAndUser }) => state);
-
+  const localStorage = new LocalStorage();
   const toggleDrawer = (open: boolean) => (event: any) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
@@ -35,26 +37,14 @@ const CommonWrapTemplate = ({
     setIsDrawerOpen(open);
   };
 
-  const storageExists = (): boolean => {
-    let flag = false;
-    if (
-      localStorage.getItem('uid') &&
-      localStorage.getItem('accessToken') &&
-      localStorage.getItem('client')
-    ) {
-      flag = true;
-    }
-    return flag;
-  };
-
-  // Auth系のclassのところに処理を持ってくる。
+  /* TODO Authクラスを作成して認証周辺の管理をさせる。 */
   const isLogindCheck = () => {
-    const perimitPages = ['/signup', '/login', '/'];
+    const perimitPages = ['/signup', '/login', '/']; //ログインしても許可されているページ
     const perimitPageExists = perimitPages.find((pageName) => pageName === router.pathname);
     if (
-      // pages以外のところでトークンがなかったらログインページに飛ばす。
-      !perimitPageExists &&
-      !storageExists()
+      // pages以外のところでトークンがない、かつ許可されたページではない時にリダイレクト
+      !localStorage.loginedStorageExists() &&
+      !perimitPageExists
     ) {
       router.push('/login');
     }
@@ -62,26 +52,24 @@ const CommonWrapTemplate = ({
 
   useEffect(() => {
     isLogindCheck();
-    if (storageExists()) {
+    if (localStorage.loginedStorageExists()) {
       (async () => {
         const response: any = await dispatch(fetchSettingAndUser());
         // 認証に失敗した場合はtokenの破棄
         // 401はdeviseの指定されている
         if (response.payload?.statusText === 'Unauthorized') {
-          localStorage.removeItem('accessToken');
-          localStorage.removeItem('uid');
-          localStorage.removeItem('client');
+          localStorage.removeLoginedStorage();
           router.push('/login');
         }
       })();
     }
-  }, [router]);
+  }, []);
 
   return (
     <>
       <BaseLoading open={isLoading} />
       {toastActions && <BaseToast {...toastActions} />}
-      <BaseHeader toggleDrawer={toggleDrawer} settingState={settingState} />
+      <BaseHeader {...{ toggleDrawer, settingState }} />
       <Drawer isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
       <BaseContainer>{children}</BaseContainer>
       <FooterNavigation />

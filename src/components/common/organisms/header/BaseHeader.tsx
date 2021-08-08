@@ -15,6 +15,7 @@ import useIsAfterSsr from '../../../../customHook/useIsAfterSsr';
 import { settingAndUser } from '../../../../types/Setting';
 /* styles */
 import { materialStyles } from '../../../../styles/js/material';
+import LocalStorage from '../../../../utils/LocalStorage';
 
 const BaseHeader = ({
   className = '',
@@ -31,6 +32,7 @@ const BaseHeader = ({
     },
   });
 
+  const localStorage = new LocalStorage();
   const router = useRouter();
   const isAfterSsr = useIsAfterSsr();
   const [anchorEl, setAnchorEl] = useState<(EventTarget & HTMLButtonElement) | null>(null);
@@ -40,11 +42,8 @@ const BaseHeader = ({
   };
 
   // TODO ログアウトは Authクラス等を作成して管理する。localStorageのkeyもClientStorageクラス等を作成して管理させる。
-  // もしくはとりあえずLocalStorageのクラスに全部移動させてもいいかも
   const logOut = (router: NextRouter) => {
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('uid');
-    localStorage.removeItem('client');
+    localStorage.removeLoginedStorage();
     setAnchorEl(null);
     router.push(page.login.link());
   };
@@ -54,7 +53,7 @@ const BaseHeader = ({
   };
 
   useEffect(() => {
-    const pathName = settingState.user.id ? page.top.link() : page.home.link();
+    const pathName = settingState.user?.id ? page.top.link() : page.home.link();
     if (pathName) {
       setHeadPathName(pathName);
     }
@@ -66,7 +65,7 @@ const BaseHeader = ({
         <div className="flex items-center justify-between w-full">
           <div className="left flex items-center">
             {/* このaccessTokenがあるかという処理は変更予定。セッションが切れた時にトークンだけ残り続けてしまうのでそのタイミングで破棄をする必要がある。*/}
-            {isAfterSsr && localStorage?.getItem('accessToken') && (
+            {isAfterSsr && localStorage.loginedStorageExists() && (
               <IconButton
                 edge="start"
                 color="inherit"
@@ -83,10 +82,10 @@ const BaseHeader = ({
             </BaseLink>
           </div>
           {/* このaccessTokenがあるかという処理は変更予定。セッションが切れた時にトークンだけ残り続けてしまうのでそのタイミングで破棄をする必要がある。*/}
-          {isAfterSsr && localStorage?.getItem('accessToken') && (
+          {isAfterSsr && localStorage.loginedStorageExists() && (
             <div className="flex items-center">
               {settingState.user?.name && (
-                <div className="mr-2">{ommisionText(settingState.user.name)}</div>
+                <div className="mr-2">{ommisionText(settingState.user?.name)}</div>
               )}
               <BaseIcon icon="accountCircle" onClick={handleClick} />
               <Menu

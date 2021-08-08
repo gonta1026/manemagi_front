@@ -23,11 +23,11 @@ class APIClient {
     this.axiosInstance.interceptors.request.use(
       function (config: AxiosRequestConfig) {
         const localStorage = new LocalStorage();
-        const { accessToken, client, uid } = localStorage.getLoginedStorageKeys();
-        if (accessToken && client && uid) {
-          config.headers['access-token'] = accessToken;
-          config.headers['client'] = client;
-          config.headers['uid'] = uid;
+        const loginedKeys = localStorage.getLoginedStorageKeys();
+        if (loginedKeys?.accessToken && loginedKeys?.client && loginedKeys?.uid) {
+          config.headers['access-token'] = loginedKeys?.accessToken;
+          config.headers['client'] = loginedKeys?.client;
+          config.headers['uid'] = loginedKeys?.uid;
         }
         return config;
       },
