@@ -16,6 +16,7 @@ export const END_POINT = {
     SHOW: (id: number | string) => `/shoppings/${id}`, // 買い物詳細
     EDIT: (id: number | string) => `/shoppings/${id}/edit`, // 買い物編集
     UPDATE: (id: number | string) => `/shoppings/${id}`, // 買い物編集
+    DELETE: (id: number | string) => `/shoppings/${id}`, // 買い物削除
   },
   CLAIMS: {
     INDEX: '/claims', // 請求一覧

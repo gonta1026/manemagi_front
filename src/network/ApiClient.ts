@@ -75,10 +75,11 @@ class APIClient {
     }
   }
 
-  public async deleteRequest(this: APIClient, url: string, params: any) {
+  public async deleteRequest(this: APIClient, url: string, config?: AxiosRequestConfig) {
     try {
-      const response = await this.axiosInstance.delete(url, params);
-      return response;
+      const response = await this.axiosInstance.delete(url, config);
+      const normalizeResponse = this.toCamelcaseKeys(response);
+      return normalizeResponse;
     } catch (e) {
       const error = this._normalizeError(e);
       return error;
