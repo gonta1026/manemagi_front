@@ -1,7 +1,7 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import camelcaseKeys from 'camelcase-keys';
 import snakecaseKeys from 'snakecase-keys';
-import LocalStorage from '../modules/LocalStorage';
+import LocalStorage from './LocalStorage';
 
 type NormalizeError = {
   data: {

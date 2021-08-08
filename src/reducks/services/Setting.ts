@@ -3,7 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 /* const */
 import { END_POINT } from '../../const/endPoint';
 /* network */
-import ApiClient from '../../network/ApiClient';
+import ApiClient from '../../modules/ApiClient';
 /* types */
 import { TSetting } from '../../types/Setting';
 
