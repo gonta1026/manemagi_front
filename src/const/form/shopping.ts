@@ -6,7 +6,7 @@ export const LABEL_SHOPPING = {
   SHOP_ID: 'お店',
 } as const;
 
-export const SHOPPINGFORM = {
+export const SHOPPING_FORM = {
   PRICE: {
     LABEL: LABEL_SHOPPING.PRICE,
     ID: 'price',

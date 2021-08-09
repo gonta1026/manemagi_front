@@ -19,7 +19,7 @@ import {
 import ConfirmModal from '../../components/common/modal/ConfirmModal';
 import { IsUseLineHelper } from '../../components/pages/common';
 /* const */
-import { SHOPPINGFORM } from '../../const/form/shopping';
+import { SHOPPING_FORM } from '../../const/form/shopping';
 /* customHook */
 import useToastAction from '../../customHook/useToastAction';
 /* pageMap */
@@ -70,11 +70,11 @@ const ShoppingNew = (): JSX.Element => {
   }, []);
 
   useEffect(() => {
-    formik.setFieldValue(SHOPPINGFORM.IS_LINE_NOTICE.ID, settingState.user?.setting.isUseLine);
+    formik.setFieldValue(SHOPPING_FORM.IS_LINE_NOTICE.ID, settingState.user?.setting.isUseLine);
     // NOTE setFieldValueでIS_LINE_NOTICEをセットしたことによってエラーがセットされてしまうため、下記で無理やりエラーを削除
     setTimeout(() => {
-      formik.setFieldError(SHOPPINGFORM.PRICE.ID, '');
-      formik.setFieldError(SHOPPINGFORM.SHOP_ID.ID, '');
+      formik.setFieldError(SHOPPING_FORM.PRICE.ID, '');
+      formik.setFieldError(SHOPPING_FORM.SHOP_ID.ID, '');
       formik.setFieldError;
     }, 100);
   }, [settingState]);
@@ -109,23 +109,23 @@ const ShoppingNew = (): JSX.Element => {
         }}
       >
         <dl className={'list'}>
-          <dt>{SHOPPINGFORM.PRICE.LABEL}</dt>
+          <dt>{SHOPPING_FORM.PRICE.LABEL}</dt>
           <dd>{formatPriceYen ? formatPriceYen(formik.values.price) : ''}</dd>
         </dl>
         <dl className={'list'}>
-          <dt>{SHOPPINGFORM.DATE.LABEL}</dt>
+          <dt>{SHOPPING_FORM.DATE.LABEL}</dt>
           <dd>{formik.values.date}</dd>
         </dl>
         <dl className={'list'}>
-          <dt>{SHOPPINGFORM.SHOP_ID.LABEL}</dt>
+          <dt>{SHOPPING_FORM.SHOP_ID.LABEL}</dt>
           <dd>{shops.find((shop) => shop.id === formik.values.shopId)?.name}</dd>
         </dl>
         <dl className={'list'}>
-          <dt>{SHOPPINGFORM.DESCRIPTION.LABEL}</dt>
+          <dt>{SHOPPING_FORM.DESCRIPTION.LABEL}</dt>
           <dd>{formik.values.description}</dd>
         </dl>
         <dl className={'list'}>
-          <dt>{SHOPPINGFORM.IS_LINE_NOTICE.LABEL}</dt>
+          <dt>{SHOPPING_FORM.IS_LINE_NOTICE.LABEL}</dt>
           <dd>{formik.values.isLineNotice ? '通知する' : '通知しない'}</dd>
         </dl>
       </ConfirmModal>
@@ -133,8 +133,8 @@ const ShoppingNew = (): JSX.Element => {
       <form className="base-vertical-20" onSubmit={formik.handleSubmit}>
         {/* 金額(price) */}
         <LabelAndTextField
-          id={SHOPPINGFORM.PRICE.ID}
-          label={SHOPPINGFORM.PRICE.LABEL}
+          id={SHOPPING_FORM.PRICE.ID}
+          label={SHOPPING_FORM.PRICE.LABEL}
           onBlur={formik.handleBlur}
           onChange={formik.handleChange}
           required
@@ -150,8 +150,8 @@ const ShoppingNew = (): JSX.Element => {
         </LabelAndTextField>
         {/* 買い物日(date) */}
         <LabelAndTextField
-          id={SHOPPINGFORM.DATE.ID}
-          label={SHOPPINGFORM.DATE.LABEL}
+          id={SHOPPING_FORM.DATE.ID}
+          label={SHOPPING_FORM.DATE.LABEL}
           onBlur={formik.handleBlur}
           onChange={formik.handleChange}
           required
@@ -174,10 +174,10 @@ const ShoppingNew = (): JSX.Element => {
               <BaseLink pathname={page.shop.register.link()}>こちら</BaseLink>で登録。
             </>
           }
-          id={SHOPPINGFORM.SHOP_ID.ID}
-          label={SHOPPINGFORM.SHOP_ID.LABEL}
+          id={SHOPPING_FORM.SHOP_ID.ID}
+          label={SHOPPING_FORM.SHOP_ID.LABEL}
           onChange={(e: any) => {
-            formik.setFieldValue(SHOPPINGFORM.SHOP_ID.ID, e.target.value);
+            formik.setFieldValue(SHOPPING_FORM.SHOP_ID.ID, e.target.value);
           }}
           options={shops}
           required
@@ -190,8 +190,8 @@ const ShoppingNew = (): JSX.Element => {
         )}
         {/* 説明(description)) */}
         <LabelAndTextArea
-          id={SHOPPINGFORM.DESCRIPTION.ID}
-          label={SHOPPINGFORM.DESCRIPTION.LABEL}
+          id={SHOPPING_FORM.DESCRIPTION.ID}
+          label={SHOPPING_FORM.DESCRIPTION.LABEL}
           onBlur={formik.handleBlur}
           onChange={formik.handleChange}
           value={formik.values.description ?? ''}
@@ -205,10 +205,12 @@ const ShoppingNew = (): JSX.Element => {
           disabled={!settingState.user?.setting.isUseLine}
           helperText={!settingState.user?.setting.isUseLine && <IsUseLineHelper />}
           onChange={() =>
-            formik.setFieldValue(SHOPPINGFORM.IS_LINE_NOTICE.ID, !formik.values.isLineNotice)
+            formik.setFieldValue(SHOPPING_FORM.IS_LINE_NOTICE.ID, !formik.values.isLineNotice)
           }
-          id={SHOPPINGFORM.IS_LINE_NOTICE.ID}
-          label={`${SHOPPINGFORM.IS_LINE_NOTICE.LABEL}${formik.values.isLineNotice ? 'ON' : 'OFF'}`}
+          id={SHOPPING_FORM.IS_LINE_NOTICE.ID}
+          label={`${SHOPPING_FORM.IS_LINE_NOTICE.LABEL}${
+            formik.values.isLineNotice ? 'ON' : 'OFF'
+          }`}
         />
         <ExecutionAndBackButtons
           backPathname={page.top.link()}

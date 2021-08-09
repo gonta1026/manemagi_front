@@ -1,12 +1,12 @@
 import { TLoginUserOrUser, TUserOrLoginUserFormError } from '../../types/User';
-import { USERFORM } from '../../const/form/user';
+import { USER_FORM } from '../../const/form/user';
 import { emailFormat, validRange, validhankakuEngNum, validNotSame, validBlank } from '../';
 
 export const signupAndLoginValidate = <T>(
   values: TLoginUserOrUser,
   errors: TUserOrLoginUserFormError,
 ): T => {
-  const { NAME, EMAIL, PASSWORD, PASSWORD_CONFIRMATION } = USERFORM;
+  const { NAME, EMAIL, PASSWORD, PASSWORD_CONFIRMATION } = USER_FORM;
   /******************
    *      名前
    ******************/

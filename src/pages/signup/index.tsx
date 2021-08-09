@@ -12,7 +12,7 @@ import {
   BaseLink,
 } from '../../components/common/uiParts/atoms';
 /* const */
-import { USERFORM } from '../../const/form/user';
+import { USER_FORM } from '../../const/form/user';
 /* pageMap */
 import { page } from '../../pageMap';
 /* reducks */
@@ -54,7 +54,7 @@ const SignUp = (): JSX.Element => {
         }),
       );
       if (response.payload.status === 422) {
-        formik.setFieldError(USERFORM.EMAIL.ID, 'こちらのメールアドレスは既に登録されています。');
+        formik.setFieldError(USER_FORM.EMAIL.ID, 'こちらのメールアドレスは既に登録されています。');
       }
       if (response.payload.status === 'success') {
         const storage = new LocalStorage();
@@ -71,8 +71,8 @@ const SignUp = (): JSX.Element => {
       <form className="base-vertical-20" onSubmit={formik.handleSubmit}>
         <LabelAndTextField
           wrapClass="base-vertical-item"
-          id={USERFORM.NAME.ID}
-          label={USERFORM.NAME.LABEL}
+          id={USER_FORM.NAME.ID}
+          label={USER_FORM.NAME.LABEL}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.name}
@@ -86,8 +86,8 @@ const SignUp = (): JSX.Element => {
 
         <LabelAndTextField
           wrapClass="base-vertical-item"
-          id={USERFORM.EMAIL.ID}
-          label={USERFORM.EMAIL.LABEL}
+          id={USER_FORM.EMAIL.ID}
+          label={USER_FORM.EMAIL.LABEL}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.email}
@@ -101,8 +101,8 @@ const SignUp = (): JSX.Element => {
 
         <LabelAndTextField
           wrapClass="base-vertical-item"
-          id={USERFORM.PASSWORD.ID}
-          label={USERFORM.PASSWORD.LABEL}
+          id={USER_FORM.PASSWORD.ID}
+          label={USER_FORM.PASSWORD.LABEL}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.password}
@@ -116,8 +116,8 @@ const SignUp = (): JSX.Element => {
 
         <LabelAndTextField
           wrapClass="base-vertical-item"
-          id={USERFORM.PASSWORD_CONFIRMATION.ID}
-          label={USERFORM.PASSWORD_CONFIRMATION.LABEL}
+          id={USER_FORM.PASSWORD_CONFIRMATION.ID}
+          label={USER_FORM.PASSWORD_CONFIRMATION.LABEL}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.passwordConfirmation}

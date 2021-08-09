@@ -13,6 +13,7 @@ export const noticeStorageValues = {
   claimedNotice: 'claimedNotice',
   createdShopNotice: 'createdShopNotice',
 } as const;
+
 export type TLoginedStorageValue = {
   accessToken?: string;
   uid?: string;
@@ -31,9 +32,13 @@ type TPageMoveNoticeValue =
   | typeof noticeStorageValues.claimedNotice
   | typeof noticeStorageValues.createdShopNotice;
 
-export type TLocalStorage = typeof LocalStorage;
+export type TLocalStorage = {
+  getStorageItem: (itemKey: TStorageKey) => string | null | undefined;
+  setStorageItem: (itemKey: TStorageKey, value: any) => void;
+  removeStorageItem: (itemKey: TStorageKey) => void;
+};
 
-class LocalStorage {
+class LocalStorage implements TLocalStorage {
   private localStorage;
 
   constructor() {
@@ -55,7 +60,7 @@ class LocalStorage {
     }
   };
 
-  public removeItem = (itemKey: TStorageKey) => {
+  public removeStorageItem = (itemKey: TStorageKey) => {
     if (this.localStorage !== undefined) {
       return this.localStorage.removeItem(itemKey);
     }
@@ -74,7 +79,7 @@ class LocalStorage {
       const storageItem = this.getStorageItem(storageKeys.pageMoveNotice);
       if (storageItem) {
         callbackToastExecution();
-        this.removeItem(storageKeys.pageMoveNotice);
+        this.removeStorageItem(storageKeys.pageMoveNotice);
       }
     }
   }

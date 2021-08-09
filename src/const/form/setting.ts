@@ -3,7 +3,7 @@ export const LABEL_SETTING = {
   IS_USE_LINE: 'LINEのデフォルト通知',
 } as const;
 
-export const SETTINGFORM = {
+export const SETTING_FORM = {
   LINE_NOTICE_TOKEN: {
     LABEL: LABEL_SETTING.LINE_NOTICE_TOKEN,
     ID: 'lineNoticeToken',

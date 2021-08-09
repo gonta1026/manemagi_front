@@ -12,7 +12,7 @@ import {
   BaseLink,
 } from '../../components/common/uiParts/atoms';
 /* const */
-import { USERFORM } from '../../const/form/user';
+import { USER_FORM } from '../../const/form/user';
 /* pageMap */
 import { page } from '../../pageMap';
 /* reducks */
@@ -57,15 +57,15 @@ const Login = (): JSX.Element => {
         router.push(page.top.link());
       }
       if (response.payload.status === 401) {
-        formik.setFieldError(USERFORM.PASSWORD.ID, emailOrPassword());
+        formik.setFieldError(USER_FORM.PASSWORD.ID, emailOrPassword());
       }
       setIsLoading(false);
     },
   });
 
   useEffect(() => {
-    formik.setFieldValue(USERFORM.EMAIL.ID, process.env.LOGIN_EMAIL || '');
-    formik.setFieldValue(USERFORM.PASSWORD.ID, process.env.LOGIN_PASSWORD || '');
+    formik.setFieldValue(USER_FORM.EMAIL.ID, process.env.LOGIN_EMAIL || '');
+    formik.setFieldValue(USER_FORM.PASSWORD.ID, process.env.LOGIN_PASSWORD || '');
   }, []);
 
   return (
@@ -79,8 +79,8 @@ const Login = (): JSX.Element => {
       <form className="base-vertical-20" onSubmit={formik.handleSubmit}>
         <LabelAndTextField
           wrapClass="base-vertical-item"
-          id={USERFORM.EMAIL.ID}
-          label={USERFORM.EMAIL.LABEL}
+          id={USER_FORM.EMAIL.ID}
+          label={USER_FORM.EMAIL.LABEL}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.email}
@@ -94,8 +94,8 @@ const Login = (): JSX.Element => {
 
         <LabelAndTextField
           wrapClass="base-vertical-item"
-          id={USERFORM.PASSWORD.ID}
-          label={USERFORM.PASSWORD.LABEL}
+          id={USER_FORM.PASSWORD.ID}
+          label={USER_FORM.PASSWORD.LABEL}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.password}

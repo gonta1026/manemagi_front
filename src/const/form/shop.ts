@@ -8,7 +8,7 @@ export const SHOP_ID = {
   DESCRIPTION: 'description',
 } as const;
 
-export const SHOPFORM = {
+export const SHOP_FORM = {
   NAME: {
     LABEL: SHOP_LABEL.NAME,
     ID: SHOP_ID.NAME,
