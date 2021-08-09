@@ -18,7 +18,7 @@ import { TShop } from '../../types/Shop';
 import { formatPriceYen, ommisionText } from '../../utils/function';
 import { formatDay } from '../../utils/FormatDate';
 /* const */
-import { SHOPPINGFORM } from '../../const/form/shopping';
+import { LABEL_SHOPPING } from '../../const/form/shopping';
 /* customHook */
 import useToastAction from '../../customHook/useToastAction';
 
@@ -57,11 +57,8 @@ const Shopping = (): JSX.Element => {
       const response: any = await dispatch(deleteShopping(shoppingId));
       const { handleToastOpen } = toastActions;
       if (response.payload.status === 'success') {
+        fetchShoppingsAndSetShops();
         setOpen(false);
-        const newShoppings: TShopping[] = shoppings.filter(
-          ({ id }) => id !== response.payload.data.id,
-        );
-        setShopping(newShoppings);
 
         handleToastOpen({
           message: `買い物を削除しました。`,
@@ -77,7 +74,7 @@ const Shopping = (): JSX.Element => {
   };
 
   return (
-    <CommonWrapTemplate>
+    <CommonWrapTemplate {...{ toastActions }}>
       <ConfirmModal
         open={open}
         handleClose={() => setOpen(false)}
@@ -85,25 +82,25 @@ const Shopping = (): JSX.Element => {
         modaltitle="削除"
       >
         <dl className={'list'}>
-          <dt>{SHOPPINGFORM.PRICE.LABEL}</dt>
+          <dt>{LABEL_SHOPPING.PRICE}</dt>
           <dd>{modalShopping?.price ? formatPriceYen(modalShopping.price) : ''}</dd>
         </dl>
         <dl className={'list'}>
-          <dt>{SHOPPINGFORM.DATE.LABEL}</dt>
+          <dt>{LABEL_SHOPPING.DATE}</dt>
           <dd>{modalShopping?.date ? formatDay(modalShopping.date) : ''}</dd>
         </dl>
         <dl className={'list'}>
-          <dt>{SHOPPINGFORM.SHOP_ID.LABEL}</dt>
+          <dt>{LABEL_SHOPPING.SHOP_ID}</dt>
           <dd>
             {modalShopping?.shopId ? shops.find(({ id }) => id === modalShopping.shopId)?.name : ''}
           </dd>
         </dl>
         <dl className={'list'}>
-          <dt>{SHOPPINGFORM.DESCRIPTION.LABEL}</dt>
+          <dt>{LABEL_SHOPPING.DESCRIPTION}</dt>
           <dd>{modalShopping?.description ? modalShopping.description : 'なし'}</dd>
         </dl>
         <dl className={'list'}>
-          <dt>{SHOPPINGFORM.IS_LINE_NOTICE.LABEL}</dt>
+          <dt>{LABEL_SHOPPING.IS_LINE_NOTICE}</dt>
           <dd>{modalShopping?.isLineNotice ? '通知する' : '通知しない'}</dd>
         </dl>
       </ConfirmModal>
