@@ -1,21 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
-import { BaseLink, BaseButton } from '../../uiParts/atoms';
+import { BaseLink, BaseButton } from '../../../../common/uiParts';
 
-const CardLinkGroup = ({
+const ShoppingCardLinkGroup = ({
   className,
   detailPathName,
-  deleteOnClick,
+  editPathName,
+  onClick,
   isDetailShow = true,
+  isEditShow = true,
   isDeleteShow = true,
-  ReceiptOnClick,
 }: {
   className?: string;
   detailPathName: string;
-  deleteOnClick: any;
+  editPathName?: string;
+  onClick: any;
   isDetailShow?: boolean;
+  isEditShow?: boolean;
   isDeleteShow?: boolean;
-  ReceiptOnClick: any;
 }): JSX.Element => {
   return (
     <LinkGroup className={className}>
@@ -24,11 +26,15 @@ const CardLinkGroup = ({
           <BaseButton customType={'description'}>詳細</BaseButton>
         </BaseLink>
       )}
-      <BaseButton customType={'receipt'} onClick={ReceiptOnClick}>
-        受領
-      </BaseButton>
+      {isEditShow && (
+        <>
+          <BaseLink pathname={editPathName!}>
+            <BaseButton customType={'edit'}>編集</BaseButton>
+          </BaseLink>
+        </>
+      )}
       {isDeleteShow && (
-        <BaseButton customType={'delete'} onClick={deleteOnClick}>
+        <BaseButton customType={'delete'} onClick={onClick}>
           削除
         </BaseButton>
       )}
@@ -45,4 +51,4 @@ const LinkGroup = styled.div`
   }
 `;
 
-export default CardLinkGroup;
+export default ShoppingCardLinkGroup;

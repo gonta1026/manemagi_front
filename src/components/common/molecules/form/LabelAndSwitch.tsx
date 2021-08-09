@@ -1,4 +1,4 @@
-import { BaseSwitch, BaseFormControlLabel, BaseHelperText } from '../../uiParts/atoms';
+import { BaseSwitch, BaseFormControlLabel, BaseHelperText } from '../../uiParts';
 
 import React, { ReactNode } from 'react';
 

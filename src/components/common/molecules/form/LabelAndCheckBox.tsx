@@ -1,5 +1,5 @@
 import React from 'react';
-import { BaseFormControlLabel } from '../../uiParts/atoms';
+import { BaseFormControlLabel } from '../../uiParts';
 
 type TProps = {
   control: JSX.Element;

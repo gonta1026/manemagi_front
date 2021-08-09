@@ -4,9 +4,13 @@ import { useFormik } from 'formik';
 import { useSelector, useDispatch } from 'react-redux';
 /* components */
 import CommonWrapTemplate from '../../components/common/layout/CommonWrapTemplate';
-import { BasePageTitle, BaseButton, BaseCheckBox } from '../../components/common/uiParts/atoms';
+import {
+  BasePageTitle,
+  BaseButton,
+  BaseCheckBox,
+  ConfirmModal,
+} from '../../components/common/uiParts';
 import { LabelAndSwitch, LabelAndCheckBox } from '../../components/common/molecules/';
-import ConfirmModal from '../../components/common/modal/ConfirmModal';
 import { IsUseLineHelper } from '../../components/pages/common';
 /* const */
 import { SHOPPING_FORM } from '../../const/form/shopping';

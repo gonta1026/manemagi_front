@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 /* components */
 import CommonWrapTemplate from '../../../components/common/layout/CommonWrapTemplate';
-import { BasePageTitle } from '../../../components/common/uiParts/atoms';
+import { BasePageTitle } from '../../../components/common/uiParts';
 import { ExecutionAndBackButtons } from '../../../components/common/molecules';
 /* customHook */
 import useToastAction from '../../../customHook/useToastAction';

@@ -2,18 +2,17 @@ import React from 'react';
 import styled from 'styled-components';
 /* components */
 import TopPageTemplate from '../components/pages/index/layout/TopPageTemplate';
-import { BaseCard } from '../components/common/uiParts/atoms';
-import { BaseLinkButton } from '../components/common/molecules';
-import { BaseContainer } from '../components/common/uiParts/layout';
 /* const */
 import { mediaSize } from '../styles/js';
 import { COLORS } from '../const/color';
-/* pageMap */
-import { page } from '../pageMap/';
 /* modules */
 import Auth from '../modules/Auth';
 /* modules */
 import useIsAfterSsr from '../customHook/useIsAfterSsr';
+/* uiParts */
+import { BaseContainer, BaseLinkButton, BaseCard } from '../components/common/uiParts';
+/* pageMap */
+import { page } from '../pageMap/';
 
 const Home: React.FC = () => {
   const isAfterSsr = useIsAfterSsr();

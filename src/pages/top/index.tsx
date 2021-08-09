@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 /* components */
 import CommonWrapTemplate from '../../components/common/layout/CommonWrapTemplate';
-import ConfirmModal from '../../components/common/modal/ConfirmModal';
+import { ConfirmModal } from '../../components/common/uiParts';
 /* customHook */
 import useToastAction from '../../customHook/useToastAction';
 // import { BasePageTitle } from '../../components/common/uiParts/atoms';
 import { LineNotice } from '../../components/pages/common';
-import { ShoppingCardWrapper, ClaimCardWrapper } from '../../components/common/organisms';
+import { ShoppingCardWrapper, ClaimCardWrapper } from '../../components/pages/common';
 /* pageMap */
 import LocalStorage, { noticeStorageValues, storageKeys } from '../../modules/LocalStorage';
 import { page } from '../../pageMap';

@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
-import { BaseLabel, BaseRequired, BaseTextField, BaseHelperText } from '../../uiParts/atoms';
-import { TSize, TVariant, TType } from '../../uiParts/atoms/form/BaseTextField';
+import { BaseLabel, BaseRequired, BaseTextField, BaseHelperText } from '../../uiParts';
+import { TSize, TVariant, TType } from '../../uiParts/form/textfield/BaseTextField';
 import useIsAfterSsr from '../../../../customHook/useIsAfterSsr';
 
 type TProps = {

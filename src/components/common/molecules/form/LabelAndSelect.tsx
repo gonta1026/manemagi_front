@@ -5,8 +5,8 @@ import {
   BaseSelect,
   BaseRequired,
   BaseHelperText,
-} from '../../uiParts/atoms';
-import { TOptions } from '../../uiParts/atoms/form/BaseSelect';
+} from '../../uiParts';
+import { TOptions } from '../../uiParts/form/select/BaseSelect';
 
 type TProps = {
   className?: string;

@@ -2,10 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { useRouter, NextRouter } from 'next/router';
 import { AppBar, IconButton, Toolbar, Typography } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
-import { BaseIcon, BaseLink } from '../../uiParts/atoms';
-import { Menu, MenuItem } from '@material-ui/core';
 /* const */
 import { COLORS } from '../../../../const/color';
+/* uiParts */
+import { BaseIcon, BaseLink } from '../../uiParts';
+/* material */
+import { Menu, MenuItem } from '@material-ui/core';
+/* modules */
+import Auth from '../../../../modules/Auth';
 /* pageMap */
 import { page } from '../../../../pageMap';
 /* pageMap */
@@ -15,7 +19,6 @@ import useIsAfterSsr from '../../../../customHook/useIsAfterSsr';
 import { settingAndUser } from '../../../../types/Setting';
 /* styles */
 import { materialStyles } from '../../../../styles/js/material';
-import Auth from '../../../../modules/Auth';
 
 const BaseHeader = ({
   className = '',

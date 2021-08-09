@@ -12,7 +12,7 @@ import {
   BaseListItem,
   BaseListItemText,
   BaseDrawer,
-} from '../../uiParts/atoms';
+} from '../../uiParts';
 type TProps = {
   className?: string;
   toggleDrawer: any;

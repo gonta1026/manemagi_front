@@ -8,7 +8,8 @@ import {
   BaseErrorMessagesWrapper,
   BasePageTitle,
   BaseLink,
-} from '../../../components/common/uiParts/atoms';
+  ConfirmModal,
+} from '../../../components/common/uiParts';
 import {
   LabelAndSelect,
   LabelAndTextField,
@@ -16,7 +17,6 @@ import {
   LabelAndSwitch,
   ExecutionAndBackButtons,
 } from '../../../components/common/molecules';
-import ConfirmModal from '../../../components/common/modal/ConfirmModal';
 import { IsUseLineHelper } from '../../../components/pages/common';
 /* const */
 import { SHOPPING_FORM } from '../../../const/form/shopping';

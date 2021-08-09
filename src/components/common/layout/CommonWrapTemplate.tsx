@@ -2,11 +2,11 @@ import React, { ReactNode, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 /* BaseContainer */
-import { BaseContainer } from '../uiParts/layout';
+import { BaseContainer } from '../uiParts';
 /* organisms */
-import { BaseHeader, Drawer, FooterNavigation } from '../organisms';
+import { BaseHeader, BaseSidebar, BaseFooterNavigation } from '../organisms';
 /* molecules */
-import { BaseToast, BaseLoading } from '../molecules';
+import { BaseToast, BaseLoading } from '../uiParts';
 /* customHook */
 import { ToastType } from '../../../customHook/useToastAction';
 /* reducks */
@@ -70,9 +70,9 @@ const CommonWrapTemplate = ({
       <BaseLoading open={isLoading} />
       {toastActions && <BaseToast {...toastActions} />}
       <BaseHeader {...{ toggleDrawer, settingState }} />
-      <Drawer isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
+      <BaseSidebar isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
       <BaseContainer>{children}</BaseContainer>
-      <FooterNavigation />
+      <BaseFooterNavigation />
     </>
   );
 };

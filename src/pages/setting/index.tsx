@@ -8,7 +8,7 @@ import {
   LabelAndSwitch,
   ExecutionAndBackButtons,
 } from '../../components/common/molecules';
-import { BasePageTitle, BaseErrorMessagesWrapper } from '../../components/common/uiParts/atoms';
+import { BasePageTitle, BaseErrorMessagesWrapper } from '../../components/common/uiParts';
 /* const */
 import { SETTING_FORM } from '../../const/form/setting';
 /* customHook */

@@ -1,5 +1,5 @@
 import React from 'react';
-import { BaseLink } from '../../../common/uiParts/atoms';
+import { BaseLink } from '../../../common/uiParts';
 import { SETTING_FORM } from '../../../../const/form/setting';
 import { page } from '../../../../pageMap';
 

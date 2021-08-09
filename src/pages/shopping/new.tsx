@@ -15,8 +15,8 @@ import {
   BasePageTitle,
   BaseErrorMessagesWrapper,
   BaseLink,
-} from '../../components/common/uiParts/atoms';
-import ConfirmModal from '../../components/common/modal/ConfirmModal';
+  ConfirmModal,
+} from '../../components/common/uiParts';
 import { IsUseLineHelper } from '../../components/pages/common';
 /* const */
 import { SHOPPING_FORM } from '../../const/form/shopping';

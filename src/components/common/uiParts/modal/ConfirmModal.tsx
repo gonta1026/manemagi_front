@@ -1,8 +1,7 @@
 import React, { ReactNode } from 'react';
 import styled from 'styled-components';
-import BaseModal from './BaseModal';
-import { CloseButton, BaseButton } from '../uiParts/atoms';
-import { TIconType } from '../uiParts/atoms/button/BaseSwitchIcon';
+import { BaseModal, CloseButton, BaseButton } from '../../uiParts';
+import { TIconType } from '../button/BaseSwitchIcon';
 
 type TModalTitle = '入力' | '変更' | '削除' | '請求' | '請求受領';
 interface TProps {

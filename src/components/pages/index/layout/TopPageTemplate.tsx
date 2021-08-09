@@ -1,8 +1,8 @@
 import React, { ReactNode, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSettingAndUser } from '../../../../reducks/services/Setting';
-import { BaseHeader, Drawer } from '../../../common/organisms';
-import { BaseToast } from '../../../common/molecules';
+import { BaseHeader, BaseSidebar } from '../../../common/organisms';
+import { BaseToast } from '../../../common/uiParts';
 import { useRouter } from 'next/router';
 import { ToastType } from '../../../../customHook/useToastAction';
 /* types */
@@ -52,7 +52,7 @@ const TopPageTemplate = ({
   return (
     <>
       {toastActions && <BaseToast {...toastActions} />}
-      <Drawer isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
+      <BaseSidebar isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
       <BaseHeader {...{ toggleDrawer, settingState }} />
       {children}
     </>

@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { BaseCard } from '../../uiParts/atoms';
+import { BaseCard } from '../../../../common/uiParts';
 import ShoppingCardLinkGroup from './ShoppingCardLinkGroup';
 
 const ShoppingCardWrapper = ({

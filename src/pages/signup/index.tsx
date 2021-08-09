@@ -10,7 +10,7 @@ import {
   BaseButton,
   BaseErrorMessagesWrapper,
   BaseLink,
-} from '../../components/common/uiParts/atoms';
+} from '../../components/common/uiParts';
 /* const */
 import { USER_FORM } from '../../const/form/user';
 /* pageMap */

@@ -11,8 +11,11 @@ import {
   LabelAndTextArea,
   ExecutionAndBackButtons,
 } from '../../components/common/molecules';
-import ConfirmModal from '../../components/common/modal/ConfirmModal';
-import { BasePageTitle, BaseErrorMessagesWrapper } from '../../components/common/uiParts/atoms';
+import {
+  BasePageTitle,
+  BaseErrorMessagesWrapper,
+  ConfirmModal,
+} from '../../components/common/uiParts';
 /* page */
 import { page } from '../../pageMap';
 /* reducks */

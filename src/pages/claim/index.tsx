@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 /* components */
 import CommonWrapTemplate from '../../components/common/layout/CommonWrapTemplate';
-import { BasePageTitle } from '../../components/common/uiParts/atoms';
-import { BaseLinkButton } from '../../components/common/molecules';
+import { BasePageTitle, BaseLinkButton } from '../../components/common/uiParts';
 /* pageMap */
 import { page } from '../../pageMap';
 /* reducks */

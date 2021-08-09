@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
-import { BaseLink, BaseButton } from '../../uiParts/atoms';
-import { TIconType } from '../../uiParts/atoms/button/BaseSwitchIcon';
+import { BaseLink, BaseButton } from '..';
+import { TIconType } from '../button/BaseSwitchIcon';
 
 const BaseLinkButton = ({
   className,

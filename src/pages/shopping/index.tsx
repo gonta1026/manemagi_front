@@ -2,10 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 /* components */
 import CommonWrapTemplate from '../../components/common/layout/CommonWrapTemplate';
-import { BasePageTitle } from '../../components/common/uiParts/atoms';
-import { ShoppingCardWrapper } from '../../components/common/organisms';
-import { LineNotice } from '../../components/pages/common';
-import ConfirmModal from '../../components/common/modal/ConfirmModal';
+import { BasePageTitle, ConfirmModal } from '../../components/common/uiParts';
+import { LineNotice, ShoppingCardWrapper } from '../../components/pages/common';
 /* pageMap */
 import { page } from '../../pageMap';
 /* reducks */

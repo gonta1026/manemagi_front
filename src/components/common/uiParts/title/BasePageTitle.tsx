@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import styled from 'styled-components';
-import { mediaSize } from '../../../../../styles/js';
-import { COLORS } from '../../../../../const/color';
+import { mediaSize } from '../../../../styles/js';
+import { COLORS } from '../../../../const/color';
 
 const BasePageTitle = ({
   children,

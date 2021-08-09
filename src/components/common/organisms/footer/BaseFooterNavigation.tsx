@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
+/* customHook */
+import useIsAfterSsr from '../../../../customHook/useIsAfterSsr';
 /* material-ui */
 import { BottomNavigationAction, BottomNavigation } from '@material-ui/core';
 import { Settings, ShoppingCart, Store, Money } from '@material-ui/icons';
+/* modules */
+import Auth from '../../../../modules/Auth';
 /* pageMap */
 import { page } from '../../../../pageMap/index';
 /* styles */
 import { materialStyles } from '../../../../styles/js/material';
-import Auth from '../../../../modules/Auth';
-import useIsAfterSsr from '../../../../customHook/useIsAfterSsr';
 
 const FooterNavigation = () => {
   const classes = materialStyles({
