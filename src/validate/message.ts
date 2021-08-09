@@ -2,6 +2,10 @@ const endMessage = 'を入力してください。';
 export const blank = (label: string) => label + endMessage;
 export const maxNum = (label: string, maxNum: number) =>
   `${label}は${maxNum}字以内で入力してください。`;
+export const minNum = (label: string, minNum: number) =>
+  `${label}は${minNum}以上を入力してください。`;
+export const minNumPrice = (label: string, minNum: number) =>
+  `${label}は${minNum}円以上を入力してください。`;
 export const passwordRangeAndHankakuEngNum = (label: string) =>
   label + 'は4～30桁の半角英数字' + endMessage;
 export const hankakuEngNum = (label: string) => label + 'は半額英数字のみ' + endMessage;
