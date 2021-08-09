@@ -91,6 +91,7 @@ const ShoppingEdit = (): JSX.Element => {
   return (
     <CommonWrapTemplate>
       <ConfirmModal
+        focus
         open={open}
         handleClose={() => setOpen(false)}
         handleOk={async () => {

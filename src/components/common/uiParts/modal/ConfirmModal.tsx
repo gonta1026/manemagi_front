@@ -6,6 +6,7 @@ import { TIconType } from '../button/BaseSwitchIcon';
 type TModalTitle = '入力' | '変更' | '削除' | '請求' | '請求受領';
 interface TProps {
   open: boolean;
+  focus?: boolean;
   handleClose: VoidFunction;
   handleOk: VoidFunction;
   children: ReactNode;
@@ -14,6 +15,7 @@ interface TProps {
 
 const ConfirmModal = ({
   children,
+  focus,
   handleClose,
   handleOk,
   open,
@@ -45,7 +47,7 @@ const ConfirmModal = ({
         <h4 className={'font-bold text-center text-lg mb-3'}>{modaltitle}確認</h4>
         {children}
         <div className="flex justify-center mb-3 mt-5">
-          <BaseButton focus onClick={handleOk} type={'submit'} customType={customType}>
+          <BaseButton customType={customType} focus={focus} onClick={handleOk} type={'submit'}>
             {buttonName}
           </BaseButton>
           <BaseButton className={'ml-5'} onClick={handleClose} customType={'arrowBack'}>

@@ -34,9 +34,11 @@ const BaseButton = ({
   const inputEl = useRef<HTMLButtonElement | null>(null);
 
   useEffect(() => {
-    if (focus) {
-      inputEl.current?.focus();
-    }
+    setTimeout(() => {
+      if (focus) {
+        inputEl.current?.focus();
+      }
+    }, 100);
   }, []);
 
   return (

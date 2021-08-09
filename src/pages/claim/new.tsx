@@ -90,6 +90,7 @@ const ClaimNew = (): JSX.Element => {
   return (
     <CommonWrapTemplate {...{ toastActions }}>
       <ConfirmModal
+        focus
         open={open}
         handleClose={() => setOpen(false)}
         handleOk={async () => {
