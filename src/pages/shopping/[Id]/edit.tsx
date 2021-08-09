@@ -199,7 +199,13 @@ const ShoppingEdit = (): JSX.Element => {
           onChange={formik.handleChange}
           value={formik.values.description ?? ''}
           wrapClass="base-vertical-item"
-        />
+        >
+          {formik.errors.description && formik.touched.description && (
+            <BaseErrorMessagesWrapper>
+              <li>{formik.errors.description}</li>
+            </BaseErrorMessagesWrapper>
+          )}
+        </LabelAndTextArea>
 
         {/* LINE通知(isLineNotice) */}
         <LabelAndSwitch

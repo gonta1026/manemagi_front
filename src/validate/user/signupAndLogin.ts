@@ -1,25 +1,41 @@
 import { TLoginUserOrUser, TUserOrLoginUserFormError } from '../../types/User';
 import { USER_FORM } from '../../const/form/user';
-import { emailFormat, validRange, validhankakuEngNum, validNotSame, validBlank } from '../';
+import {
+  emailFormat,
+  validRange,
+  validhankakuEngNum,
+  validNotSame,
+  validBlank,
+  validMaxNum,
+  validNum,
+} from '../';
 
 export const signupAndLoginValidate = <T>(
   values: TLoginUserOrUser,
   errors: TUserOrLoginUserFormError,
 ): T => {
   const { NAME, EMAIL, PASSWORD, PASSWORD_CONFIRMATION } = USER_FORM;
+  const { MAX_50, MAX_255 } = validNum;
   /******************
    *      名前
    ******************/
-  if ('name' in values && 'name' in errors) {
+  if ('name' in values) {
     if (validBlank.check(values.name)) {
       errors.name = validBlank.message(NAME.LABEL);
+    }
+    if (validMaxNum.check(values.name, MAX_50)) {
+      errors.name = validMaxNum.message(NAME.LABEL, MAX_50);
     }
   }
   /******************
    *  メールアドレス
    ******************/
+
   if (validBlank.check(values.email)) {
     errors.email = validBlank.message(EMAIL.LABEL);
+  }
+  if (validMaxNum.check(values.email, MAX_255)) {
+    errors.email = validMaxNum.message(EMAIL.LABEL, MAX_255);
   }
   if (emailFormat.check(values.email)) {
     errors.email = emailFormat.message(EMAIL.LABEL);
@@ -39,7 +55,7 @@ export const signupAndLoginValidate = <T>(
   /******************
    * パスワードの再確認
    ******************/
-  if ('passwordConfirmation' in values && 'passwordConfirmation' in errors) {
+  if ('passwordConfirmation' in values) {
     if (validBlank.check(values.passwordConfirmation)) {
       errors.passwordConfirmation = validBlank.message(PASSWORD_CONFIRMATION.LABEL);
     }

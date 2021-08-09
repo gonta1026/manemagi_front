@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { BaseLabel, BaseTextArea } from '../../uiParts/atoms';
 import { TSize, TVariant } from '../../uiParts/atoms/form/BaseTextField';
 import useIsAfterSsr from '../../../../customHook/useIsAfterSsr';
 
 type TProps = {
   AreaClass?: string;
+  children?: ReactNode;
   disabled?: boolean;
   fullWidth?: boolean;
   id: string;
@@ -22,6 +23,7 @@ type TProps = {
 
 const LabelAndTextArea = ({
   AreaClass = '',
+  children,
   disabled,
   fullWidth = true,
   id,
@@ -59,6 +61,7 @@ const LabelAndTextArea = ({
             }}
             className={AreaClass}
           />
+          {children}
         </div>
       )}
     </>

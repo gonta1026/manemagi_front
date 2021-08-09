@@ -118,7 +118,13 @@ const NewShop = (): JSX.Element => {
           placeholder={'生鮮品が安い、家のすぐ近くにある。（300文字まで）'}
           value={description}
           wrapClass="base-vertical-item"
-        />
+        >
+          {formik.errors.description && formik.touched.description && (
+            <BaseErrorMessagesWrapper>
+              <li>{formik.errors.description}</li>
+            </BaseErrorMessagesWrapper>
+          )}
+        </LabelAndTextArea>
 
         <ExecutionAndBackButtons
           backPathname={page.top.link()}

@@ -10,6 +10,20 @@ import {
 import { validHankakuEngNum, validEmail } from './regExp';
 import { isBooleanCheck } from '../utils/function';
 
+/*********
+ * maxNum
+ * *******/
+export const validNum = {
+  MAX_50: 50,
+  MAX_100: 100,
+  MAX_150: 150,
+  MAX_255: 255,
+  MAX_300: 300,
+} as const;
+
+/*********
+ * validation
+ * *******/
 export const validBlank = {
   // できればnull自体を許容しないようにしたい。
   check: (value: string | number | Date | null): boolean =>
@@ -17,7 +31,10 @@ export const validBlank = {
   message: (label: string) => blank(label),
 };
 export const validMaxNum = {
-  check: (value: string, num: number): boolean => isBooleanCheck(value.length > num),
+  check: (value: string | null, num: number): boolean => {
+    if (value === null) return false;
+    return isBooleanCheck(value.length > num);
+  },
   message: (label: string, num: number) => maxNum(label, num),
 };
 

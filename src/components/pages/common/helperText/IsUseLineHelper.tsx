@@ -6,7 +6,8 @@ import { page } from '../../../../pageMap';
 const IsUseLineHelper = (): JSX.Element => {
   return (
     <>
-      <BaseLink pathname={page.setting.edit.link()}>{`『${page.setting.edit.name()}』`}</BaseLink>の
+      <BaseLink pathname={page.setting.edit.link()}>{`『${page.setting.edit.name()}』`}</BaseLink>
+      画面の
       {SETTING_FORM.IS_USE_LINE.LABEL}がOFFになっています。
     </>
   );
