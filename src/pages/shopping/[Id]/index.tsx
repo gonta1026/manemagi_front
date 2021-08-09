@@ -82,7 +82,6 @@ const ShoppingShow = (): JSX.Element => {
   return (
     <CommonWrapTemplate {...{ toastActions }}>
       <BasePageTitle className={'my-5'}>{page.shopping.show.name()}</BasePageTitle>
-      <p>一旦一覧画面を作成、これからどのようにカスタマイズするか等を検討している。</p>
       <ul className="py-4">
         <li className={'p-3'}>
           <div>金額：{formatPriceYen ? formatPriceYen(shopping.price) : ''}</div>

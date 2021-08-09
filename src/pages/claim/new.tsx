@@ -136,8 +136,6 @@ const ClaimNew = (): JSX.Element => {
         </p>
       </ConfirmModal>
       <BasePageTitle className={'my-5'}>{page.claim.register.name()}</BasePageTitle>
-      <p>一旦一覧画面を作成、これからどのようにカスタマイズするか等を検討。</p>
-      <p>ソート機能、絞り込み機能、ページネーション、表示件数の制御をできたら入れたい。</p>
       <div className="mt-5">
         請求予定金額：
         {formatPriceYen ? formatPriceYen(totalSumPrice(checkShoppings, 'price')) : ''}

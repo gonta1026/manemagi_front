@@ -33,8 +33,6 @@ const Claim = (): JSX.Element => {
   return (
     <CommonWrapTemplate>
       <BasePageTitle className={'my-5'}>{page.claim.list.name()}</BasePageTitle>
-      <p>一旦一覧画面を作成、これからどのようにカスタマイズするか等を検討。</p>
-      <p>ソート機能、絞り込み機能、ページネーション、表示件数の制御をできたら入れたい。</p>
       <ul className="py-4">
         {claims.map((claim, index) => (
           <li key={index} className={'border-t-2 p-3'}>

@@ -105,8 +105,6 @@ const Shopping = (): JSX.Element => {
         </dl>
       </ConfirmModal>
       <BasePageTitle className={'my-5'}>{page.shopping.list.name()}</BasePageTitle>
-      <p>一旦一覧画面を作成、これからどのようにカスタマイズするか等を検討。</p>
-      <p>ソート機能、絞り込み機能、ページネーション、表示件数の制御をできたら入れたい。</p>
       <div className="space-y-3">
         {shoppings.map((shopping, index) => (
           <ShoppingCardWrapper
