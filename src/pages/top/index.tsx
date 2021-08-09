@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 /* components */
 import CommonWrapTemplate from '../../components/common/template/CommonWrapTemplate';
@@ -32,7 +33,7 @@ const Top = (): JSX.Element => {
   const [modalShopping, setModalShopping] = useState<TShopping>();
   const [open, setOpen] = useState<boolean>(false);
   const dispatch = useDispatch();
-
+  const router = useRouter();
   useEffect(() => {
     fetchShoppingsAndSetShops();
     fetchShopsAndSetShops();
@@ -60,12 +61,15 @@ const Top = (): JSX.Element => {
         message = 'お店を登録しました！';
         break;
     }
+    // 実機で確認をすると2重で絵画をするように見えるので対処
+    // setTimeout(() => {
     storage.afterPageMoveNotice(() =>
       toastActions.handleToastOpen({
         message,
       }),
     );
-  }, []);
+    // }, 500);
+  }, [router]);
 
   const fetchShoppingsAndSetShops = async () => {
     const response: any = await dispatch(fetchShoppings());
