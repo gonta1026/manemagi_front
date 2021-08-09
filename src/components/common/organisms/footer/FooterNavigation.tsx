@@ -7,6 +7,8 @@ import { Settings, ShoppingCart, Store, Money } from '@material-ui/icons';
 import { page } from '../../../../pageMap/index';
 /* styles */
 import { materialStyles } from '../../../../styles/js/material';
+import Auth from '../../../../modules/Auth';
+import useIsAfterSsr from '../../../../customHook/useIsAfterSsr';
 
 const FooterNavigation = () => {
   const classes = materialStyles({
@@ -18,6 +20,7 @@ const FooterNavigation = () => {
     },
     selected: {},
   });
+
   const navagationPage = {
     shop: {
       label: 'お店',
@@ -37,6 +40,27 @@ const FooterNavigation = () => {
     },
   } as const;
 
+  const navigationProps = [
+    {
+      label: navagationPage.shop.label,
+      icon: <Store />,
+    },
+    {
+      label: navagationPage.shopping.label,
+      icon: <ShoppingCart />,
+    },
+    {
+      label: navagationPage.claim.label,
+      icon: <Money />,
+    },
+    {
+      label: navagationPage.setting.label,
+      icon: <Settings />,
+    },
+  ];
+
+  const auth = new Auth();
+  const isAfterSsr = useIsAfterSsr();
   const router = useRouter();
   const [pageNum, setPageNum] = useState<() => 0 | 1 | 2 | 3 | undefined>(() => {
     switch (true) {
@@ -56,49 +80,43 @@ const FooterNavigation = () => {
   });
 
   return (
-    <BottomNavigation
-      className="container fixed z-10 bottom-0 left-0 sm:hidden"
-      value={pageNum}
-      onChange={(_, newPageNum) => {
-        setPageNum(newPageNum);
-        switch (newPageNum) {
-          case navagationPage.shop.num:
-            router.push(page.shop.list.link());
-            break;
-          case navagationPage.shopping.num:
-            router.push(page.shopping.list.link());
-            break;
-          case navagationPage.claim.num:
-            router.push(page.claim.list.link());
-            break;
-          case navagationPage.setting.num:
-            router.push(page.setting.edit.link());
-            break;
-        }
-      }}
-      showLabels
-    >
-      <BottomNavigationAction
-        classes={classes}
-        label={navagationPage.shop.label}
-        icon={<Store />}
-      />
-      <BottomNavigationAction
-        classes={classes}
-        label={navagationPage.shopping.label}
-        icon={<ShoppingCart />}
-      />
-      <BottomNavigationAction
-        classes={classes}
-        label={navagationPage.claim.label}
-        icon={<Money />}
-      />
-      <BottomNavigationAction
-        classes={classes}
-        label={navagationPage.setting.label}
-        icon={<Settings />}
-      />
-    </BottomNavigation>
+    <>
+      {isAfterSsr && auth.loginedStorageExists() ? (
+        <BottomNavigation
+          className="container fixed z-10 bottom-0 left-0 sm:hidden"
+          value={pageNum}
+          onChange={(_, newPageNum) => {
+            setPageNum(newPageNum);
+            switch (newPageNum) {
+              case navagationPage.shop.num:
+                router.push(page.shop.list.link());
+                break;
+              case navagationPage.shopping.num:
+                router.push(page.shopping.list.link());
+                break;
+              case navagationPage.claim.num:
+                router.push(page.claim.list.link());
+                break;
+              case navagationPage.setting.num:
+                router.push(page.setting.edit.link());
+                break;
+            }
+          }}
+          showLabels
+        >
+          {navigationProps.map((navigation, index) => (
+            <BottomNavigationAction
+              key={index}
+              classes={classes}
+              label={navigation.label}
+              icon={navigation.icon}
+            />
+          ))}
+        </BottomNavigation>
+      ) : (
+        <></>
+      )}
+    </>
   );
 };
 
