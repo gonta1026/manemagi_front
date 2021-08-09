@@ -10,7 +10,6 @@ export { default as BaseDrawer } from './drawer/BaseDrawer';
 /* error */
 export { default as BaseErrorMessagesWrapper } from './error/BaseErrorMessageWrapper';
 /* form */
-/* form */
 export { default as BaseCheckBox } from './form/checkbox/BaseCheckBox';
 export { default as BaseFormControl } from './form/control/BaseFormControl';
 export { default as BaseFormControlLabel } from './form/control/BaseFormControlLabel';
@@ -33,6 +32,7 @@ export { default as BaseLoading } from './loading/BaseLoading';
 /* list */
 export { default as BaseList } from './list/BaseList';
 export { default as BaseListItem } from './list/BaseListItem';
+/* modal */
 export { default as BaseModal } from './modal/BaseModal';
 export { default as ConfirmModal } from './modal/ConfirmModal';
 /* text */
