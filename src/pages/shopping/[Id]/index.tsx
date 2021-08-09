@@ -13,7 +13,7 @@ import { page } from '../../../pageMap';
 import { fetchShops } from '../../../reducks/services/Shop';
 import { fetchShopping } from '../../../reducks/services/Shopping';
 /* types */
-import { TShopping, shoppingInit } from '../../../types/Shopping';
+import { TShopping } from '../../../types/Shopping';
 import { TShop } from '../../../types/Shop';
 /* utils */
 import LocalStorage, { noticeStorageValues, storageKeys } from '../../../modules/LocalStorage';
@@ -21,7 +21,17 @@ import { formatPriceYen, ommisionText } from '../../../utils/function';
 import { formatDay } from '../../../utils/FormatDate';
 
 const ShoppingShow = (): JSX.Element => {
-  const [shopping, setShopping] = useState<TShopping>(shoppingInit);
+  const [shopping, setShopping] = useState<TShopping>({
+    id: null,
+    price: null,
+    date: null,
+    description: '',
+    isLineNotice: false,
+    shopId: null,
+    claimId: null,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  });
   const [shops, setShops] = useState<TShop[]>([]);
   const router = useRouter();
   const dispatch = useDispatch();

@@ -1,3 +1,4 @@
+/* サンプルファイル */
 export type TPost = {
   id: string | null;
   body: string | null;

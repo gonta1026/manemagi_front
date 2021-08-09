@@ -5,10 +5,7 @@ export type TSetting = {
   lineNoticeToken: string;
 };
 
-export type TSettingFormError = {
-  isUseLine: string;
-  lineNoticeToken: string;
-};
+export type TSettingFormError = Record<keyof TSetting, string>;
 
 export interface settingAndUser extends TLoadingAndErrorState {
   user: {
