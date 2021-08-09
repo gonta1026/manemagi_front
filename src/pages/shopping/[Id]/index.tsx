@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 /* components */
-import CommonWrapTemplate from '../../../components/common/template/CommonWrapTemplate';
+import CommonWrapTemplate from '../../../components/common/layout/CommonWrapTemplate';
 import { BasePageTitle } from '../../../components/common/uiParts/atoms';
 import { ExecutionAndBackButtons } from '../../../components/common/molecules';
 /* customHook */

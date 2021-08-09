@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 /* components */
-import CommonWrapTemplate from '../../components/common/template/CommonWrapTemplate';
+import CommonWrapTemplate from '../../components/common/layout/CommonWrapTemplate';
 import ConfirmModal from '../../components/common/modal/ConfirmModal';
 /* customHook */
 import useToastAction from '../../customHook/useToastAction';

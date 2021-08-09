@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 /* const */
 import { SHOP_FORM } from '../../const/form/shop';
 /* components */
-import CommonWrapTemplate from '../../components/common/template/CommonWrapTemplate';
+import CommonWrapTemplate from '../../components/common/layout/CommonWrapTemplate';
 import {
   LabelAndTextField,
   LabelAndTextArea,

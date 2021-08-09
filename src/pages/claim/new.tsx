@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 import { useSelector, useDispatch } from 'react-redux';
 /* components */
-import CommonWrapTemplate from '../../components/common/template/CommonWrapTemplate';
+import CommonWrapTemplate from '../../components/common/layout/CommonWrapTemplate';
 import { BasePageTitle, BaseButton, BaseCheckBox } from '../../components/common/uiParts/atoms';
 import { LabelAndSwitch, LabelAndCheckBox } from '../../components/common/molecules/';
 import ConfirmModal from '../../components/common/modal/ConfirmModal';

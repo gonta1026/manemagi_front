@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 /* components */
-import CommonWrapTemplate from '../../components/common/template/CommonWrapTemplate';
+import CommonWrapTemplate from '../../components/common/layout/CommonWrapTemplate';
 import { BasePageTitle } from '../../components/common/uiParts/atoms';
 import { ShoppingCardWrapper } from '../../components/common/organisms';
 import { LineNotice } from '../../components/pages/common';

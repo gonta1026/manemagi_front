@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 /* components */
-import TopPageTemplate from '../components/pages/index/template/TopPageTemplate';
+import TopPageTemplate from '../components/pages/index/layout/TopPageTemplate';
 import { BaseCard } from '../components/common/uiParts/atoms';
 import { BaseLinkButton } from '../components/common/molecules';
 import { BaseContainer } from '../components/common/uiParts/layout';

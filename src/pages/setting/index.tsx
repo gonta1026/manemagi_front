@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useFormik } from 'formik';
 import { useSelector, useDispatch } from 'react-redux';
 /* components */
-import CommonWrapTemplate from '../../components/common/template/CommonWrapTemplate';
+import CommonWrapTemplate from '../../components/common/layout/CommonWrapTemplate';
 import {
   LabelAndTextField,
   LabelAndSwitch,

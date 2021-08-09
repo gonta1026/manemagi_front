@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 /* components */
-import CommonWrapTemplate from '../../../components/common/template/CommonWrapTemplate';
+import CommonWrapTemplate from '../../../components/common/layout/CommonWrapTemplate';
 import {
   BaseErrorMessagesWrapper,
   BasePageTitle,
