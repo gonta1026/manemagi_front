@@ -1,11 +1,23 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
+/* material-ui */
 import { BottomNavigationAction, BottomNavigation } from '@material-ui/core';
 import { Settings, ShoppingCart, Store, Money } from '@material-ui/icons';
 /* pageMap */
 import { page } from '../../../../pageMap/index';
+/* styles */
+import { materialStyles } from '../../../../styles/js/material';
 
 const FooterNavigation = () => {
+  const classes = materialStyles({
+    root: {
+      backgroundColor: 'inherited',
+      '&$selected': {
+        color: '#13bd7b',
+      },
+    },
+    selected: {},
+  });
   const navagationPage = {
     shop: {
       label: 'お店',
@@ -66,10 +78,26 @@ const FooterNavigation = () => {
       }}
       showLabels
     >
-      <BottomNavigationAction label={navagationPage.shop.label} icon={<Store />} />
-      <BottomNavigationAction label={navagationPage.shopping.label} icon={<ShoppingCart />} />
-      <BottomNavigationAction label={navagationPage.claim.label} icon={<Money />} />
-      <BottomNavigationAction label={navagationPage.setting.label} icon={<Settings />} />
+      <BottomNavigationAction
+        classes={classes}
+        label={navagationPage.shop.label}
+        icon={<Store />}
+      />
+      <BottomNavigationAction
+        classes={classes}
+        label={navagationPage.shopping.label}
+        icon={<ShoppingCart />}
+      />
+      <BottomNavigationAction
+        classes={classes}
+        label={navagationPage.claim.label}
+        icon={<Money />}
+      />
+      <BottomNavigationAction
+        classes={classes}
+        label={navagationPage.setting.label}
+        icon={<Settings />}
+      />
     </BottomNavigation>
   );
 };
