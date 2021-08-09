@@ -10,8 +10,15 @@ import { mediaSize } from '../styles/js';
 import { COLORS } from '../const/color';
 /* pageMap */
 import { page } from '../pageMap/';
+/* modules */
+import Auth from '../modules/Auth';
+/* modules */
+import useIsAfterSsr from '../customHook/useIsAfterSsr';
 
 const Home: React.FC = () => {
+  const isAfterSsr = useIsAfterSsr();
+  const auth = new Auth();
+
   return (
     <TopPageTemplate>
       <MainVisual>
@@ -42,38 +49,22 @@ const Home: React.FC = () => {
           </BaseCard>
         </div>
 
-        {/* <hr className="my-8 bg-black" /> */}
-
-        {/* <section>
-          <h3 className={'font-bold'}>使ってみる</h3>
-          <ul>
-            <li className={'list-disc'}>
-              ライン通知を行う場合は
-              <a
-                className="text-blue-600"
-                href="https://notify-bot.line.me/ja/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                LINE NOTIFY
-              </a>
-              でアクセストークンを取得し後に専用のLINEグループを作成する必要があります。こちらのトークンがなくてもアプリで記録を残すことは使用はできますが、ラインを使った通知ができません。。
-            </li>
-          </ul>
-        </section> */}
-
-        {/* <hr className="my-5" /> */}
-
         <div className="mt-10 text-center">
-          <BaseLinkButton pathname={page.signup.link()} size={'large'} variant={'contained'}>
-            {page.signup.name()}
-          </BaseLinkButton>
-
-          <hr className="my-5" />
-
-          <BaseLinkButton pathname={page.login.link()} size={'large'} variant={'contained'}>
-            {page.login.name()}
-          </BaseLinkButton>
+          {isAfterSsr && auth.loginedStorageExists() ? (
+            <BaseLinkButton pathname={page.top.link()} size={'large'} variant={'contained'}>
+              {page.top.name()}
+            </BaseLinkButton>
+          ) : (
+            <>
+              <BaseLinkButton pathname={page.signup.link()} size={'large'} variant={'contained'}>
+                {page.signup.name()}
+              </BaseLinkButton>
+              <hr className="my-5" />
+              <BaseLinkButton pathname={page.login.link()} size={'large'} variant={'contained'}>
+                {page.login.name()}
+              </BaseLinkButton>
+            </>
+          )}
         </div>
       </BaseContainer>
     </TopPageTemplate>
@@ -84,7 +75,6 @@ const MainVisual = styled.div`
   text-align: center;
   height: 150px;
   position: relative;
-  /* border-bottom: 5px solid ${COLORS.TEXT_GREEN}; */
   @media (min-width: ${mediaSize.MD}px) {
     height: 300px;
   }
@@ -101,7 +91,6 @@ const MainVisual = styled.div`
     bottom: -1px;
   }
   .left-bottom {
-    /*1色パターン：border-leftだけに色指定*/
     border-top: 30px solid transparent;
     border-left: 60vw solid ${COLORS.TEXT_GREEN};
     left: 0;
@@ -111,7 +100,6 @@ const MainVisual = styled.div`
     }
   }
   .right-bottom {
-    /*1色パターン：border-leftだけに色指定*/
     border-top: 30px solid transparent;
     border-right: 60vw solid ${COLORS.TEXT_GREEN};
     right: 0;
