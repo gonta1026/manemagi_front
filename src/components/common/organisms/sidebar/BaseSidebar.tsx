@@ -1,10 +1,6 @@
 import React from 'react';
 import { useRouter } from 'next/router';
-/* styles */
-import { materialStyles } from '../../../../styles/js/material';
-/* pageMap */
-import { drawerLinks } from '../../../../pageMap';
-/* uiParts */
+/* components */
 import {
   BaseIcon,
   BaseLink,
@@ -13,6 +9,11 @@ import {
   BaseListItemText,
   BaseDrawer,
 } from '../../uiParts';
+/* pageMap */
+import { drawerLinks } from '../../../../pageMap';
+/* styles */
+import { materialStyles } from '../../../../styles/js/material';
+
 type TProps = {
   className?: string;
   toggleDrawer: any;

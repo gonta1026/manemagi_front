@@ -3,10 +3,9 @@ import { useDispatch } from 'react-redux';
 /* components */
 import CommonWrapTemplate from '../../components/common/layout/CommonWrapTemplate';
 import { ConfirmModal } from '../../components/common/uiParts';
+import { LineNotice } from '../../components/pages/common';
 /* customHook */
 import useToastAction from '../../customHook/useToastAction';
-// import { BasePageTitle } from '../../components/common/uiParts/atoms';
-import { LineNotice } from '../../components/pages/common';
 import { ShoppingCardWrapper, ClaimCardWrapper } from '../../components/pages/common';
 /* pageMap */
 import LocalStorage, { noticeStorageValues, storageKeys } from '../../modules/LocalStorage';

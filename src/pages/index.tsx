@@ -5,12 +5,12 @@ import TopPageTemplate from '../components/pages/index/layout/TopPageTemplate';
 /* const */
 import { mediaSize } from '../styles/js';
 import { COLORS } from '../const/color';
+/* components */
+import { BaseContainer, BaseLinkButton, BaseCard } from '../components/common/uiParts';
 /* modules */
 import Auth from '../modules/Auth';
 /* modules */
 import useIsAfterSsr from '../customHook/useIsAfterSsr';
-/* uiParts */
-import { BaseContainer, BaseLinkButton, BaseCard } from '../components/common/uiParts';
 /* pageMap */
 import { page } from '../pageMap/';
 

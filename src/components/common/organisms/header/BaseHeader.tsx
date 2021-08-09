@@ -4,7 +4,7 @@ import { AppBar, IconButton, Toolbar, Typography } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 /* const */
 import { COLORS } from '../../../../const/color';
-/* uiParts */
+/* components */
 import { BaseIcon, BaseLink } from '../../uiParts';
 /* material */
 import { Menu, MenuItem } from '@material-ui/core';

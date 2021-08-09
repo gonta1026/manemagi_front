@@ -1,12 +1,10 @@
 import React, { ReactNode, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
-/* BaseContainer */
-import { BaseContainer } from '../uiParts';
 /* organisms */
 import { BaseHeader, BaseSidebar, BaseFooterNavigation } from '../organisms';
 /* molecules */
-import { BaseToast, BaseLoading } from '../uiParts';
+import { BaseToast, BaseLoading, BaseContainer } from '../uiParts';
 /* customHook */
 import { ToastType } from '../../../customHook/useToastAction';
 /* reducks */
