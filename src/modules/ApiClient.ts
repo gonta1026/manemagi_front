@@ -13,7 +13,7 @@ type NormalizeError = {
 };
 
 class APIClient {
-  private axiosInstance: AxiosInstance;
+  private readonly axiosInstance: AxiosInstance;
   constructor() {
     this.axiosInstance = axios.create({
       baseURL: process.env.API_URL,

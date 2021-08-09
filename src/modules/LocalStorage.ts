@@ -39,7 +39,7 @@ export type TLocalStorage = {
 };
 
 class LocalStorage implements TLocalStorage {
-  private localStorage;
+  private readonly localStorage;
 
   constructor() {
     if (process.browser && window.localStorage) {
