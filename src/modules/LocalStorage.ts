@@ -32,9 +32,13 @@ type TPageMoveNoticeValue =
   | typeof noticeStorageValues.claimedNotice
   | typeof noticeStorageValues.createdShopNotice;
 
-export type TLocalStorage = typeof LocalStorage;
+export type TLocalStorage = {
+  getStorageItem: (itemKey: TStorageKey) => string | null | undefined;
+  setStorageItem: (itemKey: TStorageKey, value: any) => void;
+  removeStorageItem: (itemKey: TStorageKey) => void;
+};
 
-class LocalStorage {
+class LocalStorage implements TLocalStorage {
   private localStorage;
 
   constructor() {
