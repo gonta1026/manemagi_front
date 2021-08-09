@@ -6,7 +6,7 @@ import { BaseCard } from '../components/common/uiParts/atoms';
 import { BaseLinkButton } from '../components/common/molecules';
 import { BaseContainer } from '../components/common/uiParts/layout';
 /* const */
-import { mediaSize } from '../const/media';
+import { mediaSize } from '../styles/js';
 import { COLORS } from '../const/color';
 /* pageMap */
 import { page } from '../pageMap/';

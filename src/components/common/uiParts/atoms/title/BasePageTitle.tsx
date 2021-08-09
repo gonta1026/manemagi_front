@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import styled from 'styled-components';
-import { mediaSize } from '../../../../../const/media';
+import { mediaSize } from '../../../../../styles/js';
 import { COLORS } from '../../../../../const/color';
 
 const BasePageTitle = ({
