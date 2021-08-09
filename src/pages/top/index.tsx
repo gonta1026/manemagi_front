@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 /* components */
 import CommonWrapTemplate from '../../components/common/template/CommonWrapTemplate';
@@ -33,7 +32,6 @@ const Top = (): JSX.Element => {
   const [modalShopping, setModalShopping] = useState<TShopping>();
   const [open, setOpen] = useState<boolean>(false);
   const dispatch = useDispatch();
-  const router = useRouter();
   useEffect(() => {
     fetchShoppingsAndSetShops();
     fetchShopsAndSetShops();
