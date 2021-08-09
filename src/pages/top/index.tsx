@@ -62,14 +62,14 @@ const Top = (): JSX.Element => {
         break;
     }
     // 実機で確認をすると2重で絵画をするように見えるので対処
-    // setTimeout(() => {
-    storage.afterPageMoveNotice(() =>
-      toastActions.handleToastOpen({
-        message,
-      }),
-    );
-    // }, 500);
-  }, [router]);
+    setTimeout(() => {
+      storage.afterPageMoveNotice(() =>
+        toastActions.handleToastOpen({
+          message,
+        }),
+      );
+    }, 1000);
+  }, []);
 
   const fetchShoppingsAndSetShops = async () => {
     const response: any = await dispatch(fetchShoppings());
