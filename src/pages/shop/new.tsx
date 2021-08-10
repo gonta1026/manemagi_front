@@ -74,7 +74,7 @@ const NewShop = (): JSX.Element => {
     <CommonWrapTemplate>
       <ConfirmModal
         focus
-        open
+        open={open}
         handleClose={() => setOpen(false)}
         handleOk={async () => {
           const response: any = await dispatch(createShop(formik.values));
