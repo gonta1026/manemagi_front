@@ -25,9 +25,6 @@ class Auth {
   }
   /* NOTE ログイン時のstorageをセット */
   public setLoginedStorage(accessToken: string, client: string, uid: string) {
-    console.log(accessToken);
-    console.log(client);
-    console.log(uid);
     localStorage.setStorageItem(
       authStorageKeys.logined,
       JSON.stringify({
@@ -40,7 +37,6 @@ class Auth {
   // TODO localstorageを扱っているのでこちらを作成しているが、Auth系のクラスを作成して対応した方が良さそう？
   public loginedStorageExists(): boolean {
     const loginedKeys = this.getLoginedStorageKeys();
-    // console.log('loginedKeys', loginedKeys);
     return isBooleanCheck(!!(loginedKeys?.uid && loginedKeys?.accessToken && loginedKeys?.client)); // !!で真偽値にして返す
   }
   // TODO localstorageを扱っているのでこちらを作成しているが、Auth系のクラスを作成して対応した方が良さそう？

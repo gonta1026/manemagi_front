@@ -50,7 +50,6 @@ const Login = (): JSX.Element => {
           password,
         }),
       );
-      console.log({ response });
       if (response.payload.id) {
         const storage = new LocalStorage();
         storage.setItemAtPageMoveNotice('loginedNotice');

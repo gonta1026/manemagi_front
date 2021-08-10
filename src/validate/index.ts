@@ -44,7 +44,6 @@ export const validMaxNum = {
 export const validMinNum = {
   check: (value: number | null, minNum: number): boolean => {
     if (value === null) return false;
-    console.log(value);
     return isBooleanCheck(value < minNum);
   },
   message: (label: string, num: number) => minNumPrice(label, num),
