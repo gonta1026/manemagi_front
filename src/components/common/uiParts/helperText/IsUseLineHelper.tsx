@@ -1,5 +1,5 @@
 import React from 'react';
-import { BaseLink } from '../../../common/uiParts';
+import { BaseLink } from '..';
 import { SETTING_FORM } from '../../../../const/form/setting';
 import { page } from '../../../../pageMap';
 

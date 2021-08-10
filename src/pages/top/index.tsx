@@ -3,8 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 /* components */
 import CommonWrapTemplate from '../../components/common/layout/CommonWrapTemplate';
 import { LabelAndSwitch } from '../../components/common/molecules';
-import { ConfirmModal } from '../../components/common/uiParts';
-import { LineNotice, IsUseLineHelper } from '../../components/pages/common';
+import { ConfirmModal, LineNotice, IsUseLineHelper } from '../../components/common/uiParts';
 
 /* customHook */
 import useToastAction from '../../customHook/useToastAction';

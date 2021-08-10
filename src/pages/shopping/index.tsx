@@ -4,8 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import CommonWrapTemplate from '../../components/common/layout/CommonWrapTemplate';
 import { LabelAndSwitch } from '../../components/common/molecules';
 
-import { BasePageTitle, ConfirmModal } from '../../components/common/uiParts';
-import { LineNotice, ShoppingCardWrapper, IsUseLineHelper } from '../../components/pages/common';
+import {
+  BasePageTitle,
+  ConfirmModal,
+  IsUseLineHelper,
+  LineNotice,
+} from '../../components/common/uiParts';
+import { ShoppingCardWrapper } from '../../components/pages/common';
 /* pageMap */
 import { page } from '../../pageMap';
 /* reducks */

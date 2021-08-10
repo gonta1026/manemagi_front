@@ -16,8 +16,8 @@ import {
   BaseErrorMessagesWrapper,
   BaseLink,
   ConfirmModal,
+  IsUseLineHelper,
 } from '../../components/common/uiParts';
-import { IsUseLineHelper } from '../../components/pages/common';
 /* const */
 import { SHOPPING_FORM } from '../../const/form/shopping';
 /* customHook */

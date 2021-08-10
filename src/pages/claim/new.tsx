@@ -9,9 +9,9 @@ import {
   BaseButton,
   BaseCheckBox,
   ConfirmModal,
+  IsUseLineHelper,
 } from '../../components/common/uiParts';
 import { LabelAndSwitch, LabelAndCheckBox } from '../../components/common/molecules/';
-import { IsUseLineHelper } from '../../components/pages/common';
 /* const */
 import { SHOPPING_FORM } from '../../const/form/shopping';
 import { CLAIM_FORM } from '../../const/form/claim';

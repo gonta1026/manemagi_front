@@ -1,6 +1,8 @@
 /* button */
 export { default as BaseButton } from './button/BaseButton';
 export { default as CloseButton } from './button/CloseButton';
+/* badge */
+export { default as LineNotice } from './badge/LineNotice';
 /* card */
 export { default as BaseCard } from './card/BaseCard';
 /* container */
@@ -20,6 +22,8 @@ export { default as BaseTextArea } from './form/textarea/BaseTextArea';
 export { default as BaseRequired } from './form/required/BaseRequired';
 export { default as BaseSwitch } from './form/switch/BaseSwitch';
 export { default as BaseSelect } from './form/select/BaseSelect';
+/* helperText */
+export { default as IsUseLineHelper } from './helperText/IsUseLineHelper';
 /* icon */
 export { default as BaseIcon } from './icon/BaseIcon';
 /* item */
