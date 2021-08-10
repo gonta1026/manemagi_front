@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 /* components */
 import CommonWrapTemplate from '../../components/common/layout/CommonWrapTemplate';
+import { LabelAndSwitch } from '../../components/common/molecules';
+
 import { BasePageTitle, ConfirmModal } from '../../components/common/uiParts';
-import { LineNotice, ShoppingCardWrapper } from '../../components/pages/common';
+import { LineNotice, ShoppingCardWrapper, IsUseLineHelper } from '../../components/pages/common';
 /* pageMap */
 import { page } from '../../pageMap';
 /* reducks */
@@ -12,26 +14,34 @@ import { fetchShops } from '../../reducks/services/Shop';
 /* types */
 import { TShopping } from '../../types/Shopping';
 import { TShop } from '../../types/Shop';
+import { settingAndUser } from '../../types/Setting';
 /* utils */
 import { formatPriceYen, ommisionText } from '../../utils/function';
 import { formatDay } from '../../utils/FormatDate';
 /* const */
-import { LABEL_SHOPPING } from '../../const/form/shopping';
+import { LABEL_SHOPPING, SHOPPING_FORM } from '../../const/form/shopping';
 /* customHook */
 import useToastAction from '../../customHook/useToastAction';
 
 const Shopping = (): JSX.Element => {
+  const [isLineNotice, setIsLineNotice] = useState<boolean>(false);
   const [shoppings, setShopping] = useState<TShopping[]>([]);
   const [shops, setShops] = useState<TShop[]>([]);
   const [modalShopping, setModalShopping] = useState<TShopping>();
   const [open, setOpen] = useState<boolean>(false);
   const dispatch = useDispatch();
+  const { settingState } = useSelector((state: { settingState: settingAndUser }) => state);
+
   const toastActions = useToastAction();
 
   useEffect(() => {
     fetchShoppingsAndSetShops();
     fetchShopsAndSetShops();
   }, []);
+
+  useEffect(() => {
+    setIsLineNotice(settingState.user.setting.isUseLine);
+  }, [settingState]);
 
   const fetchShoppingsAndSetShops = async () => {
     const response: any = await dispatch(fetchShoppings());
@@ -52,7 +62,13 @@ const Shopping = (): JSX.Element => {
   const deleteShoppingAndSetShopping = async () => {
     if (modalShopping?.id) {
       const shoppingId = String(modalShopping.id);
-      const response: any = await dispatch(deleteShopping(shoppingId));
+      const response: any = await dispatch(
+        deleteShopping({
+          id: shoppingId,
+          data: { isLineNotice: isLineNotice },
+        }),
+      );
+
       const { handleToastOpen } = toastActions;
       if (response.payload.status === 'success') {
         fetchShoppingsAndSetShops();
@@ -100,8 +116,18 @@ const Shopping = (): JSX.Element => {
         </dl>
         <dl className={'list'}>
           <dt>{LABEL_SHOPPING.IS_LINE_NOTICE}</dt>
-          <dd>{modalShopping?.isLineNotice ? '通知する' : '通知しない'}</dd>
+          <dd>{modalShopping?.isLineNotice ? '通知済' : '未通知'}</dd>
         </dl>
+        {/* LINE通知(isLineNotice) */}
+        <LabelAndSwitch
+          className={'mt-2'}
+          checked={isLineNotice}
+          disabled={!settingState.user?.setting.isUseLine}
+          helperText={!settingState.user?.setting.isUseLine && <IsUseLineHelper />}
+          onChange={() => setIsLineNotice(!isLineNotice)}
+          id={SHOPPING_FORM.IS_LINE_NOTICE.ID}
+          label={`${SHOPPING_FORM.IS_LINE_NOTICE.LABEL}${isLineNotice ? 'ON' : 'OFF'}`}
+        />
       </ConfirmModal>
       <BasePageTitle className={'my-5'}>{page.shopping.list.name()}</BasePageTitle>
       <div className="space-y-3">

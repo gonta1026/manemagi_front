@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 /* components */
 import CommonWrapTemplate from '../../components/common/layout/CommonWrapTemplate';
+import { LabelAndSwitch } from '../../components/common/molecules';
 import { ConfirmModal } from '../../components/common/uiParts';
-import { LineNotice } from '../../components/pages/common';
+import { LineNotice, IsUseLineHelper } from '../../components/pages/common';
+
 /* customHook */
 import useToastAction from '../../customHook/useToastAction';
 import { ShoppingCardWrapper, ClaimCardWrapper } from '../../components/pages/common';
@@ -18,24 +20,28 @@ import { fetchShops } from '../../reducks/services/Shop';
 import { TShopping } from '../../types/Shopping';
 import { TClaim } from '../../types/Claim';
 import { TShop } from '../../types/Shop';
+/* types */
+import { settingAndUser } from '../../types/Setting';
 /* utils */
 import { formatPriceYen, ommisionText, totalSumPrice } from '../../utils/function';
 import { formatDay } from '../../utils/FormatDate';
 /* const */
-import { LABEL_SHOPPING } from '../../const/form/shopping';
+import { LABEL_SHOPPING, SHOPPING_FORM } from '../../const/form/shopping';
 
 const Top = (): JSX.Element => {
+  const [isLineNotice, setIsLineNotice] = useState<boolean>(false);
   const [shoppings, setShopping] = useState<TShopping[]>([]);
   const [shops, setShops] = useState<TShop[]>([]);
   const [claims, setClaims] = useState<TClaim[]>([]);
   const [modalShopping, setModalShopping] = useState<TShopping>();
   const [open, setOpen] = useState<boolean>(false);
   const dispatch = useDispatch();
+  const { settingState } = useSelector((state: { settingState: settingAndUser }) => state);
+
   useEffect(() => {
     fetchShoppingsAndSetShops();
     fetchShopsAndSetShops();
     fetchClaimsAndSetClaims();
-
     const storage = new LocalStorage();
     const targetNotice = storage.getStorageItem(storageKeys.pageMoveNotice)!;
     const { loginedNotice, signUpedNotice, shoppingedNotice, claimedNotice, createdShopNotice } =
@@ -66,6 +72,10 @@ const Top = (): JSX.Element => {
     );
   }, []);
 
+  useEffect(() => {
+    setIsLineNotice(settingState.user.setting.isUseLine);
+  }, [settingState]);
+
   const fetchShoppingsAndSetShops = async () => {
     const response: any = await dispatch(fetchShoppings());
     if (response.payload.status === 'success') {
@@ -94,7 +104,13 @@ const Top = (): JSX.Element => {
   const deleteShoppingAndSetShopping = async () => {
     if (modalShopping?.id) {
       const shoppingId = String(modalShopping.id);
-      const response: any = await dispatch(deleteShopping(shoppingId));
+      const response: any = await dispatch(
+        deleteShopping({
+          id: shoppingId,
+          data: { isLineNotice: isLineNotice },
+        }),
+      );
+
       const { handleToastOpen } = toastActions;
       if (response.payload.status === 'success') {
         fetchShoppingsAndSetShops();
@@ -143,79 +159,100 @@ const Top = (): JSX.Element => {
           <dd>{modalShopping?.description ? modalShopping.description : 'なし'}</dd>
         </dl>
         <dl className={'list'}>
-          <dt>{LABEL_SHOPPING.IS_LINE_NOTICE}</dt>
-          <dd>{modalShopping?.isLineNotice ? '通知する' : '通知しない'}</dd>
+          <dt>買い物の{LABEL_SHOPPING.IS_LINE_NOTICE}</dt>
+          <dd>{modalShopping?.isLineNotice ? '通知済' : '未通知'}</dd>
         </dl>
+        {/* LINE通知(isLineNotice) */}
+        <LabelAndSwitch
+          className={'mt-2'}
+          checked={isLineNotice}
+          disabled={!settingState.user?.setting.isUseLine}
+          helperText={!settingState.user?.setting.isUseLine && <IsUseLineHelper />}
+          onChange={() => setIsLineNotice(!isLineNotice)}
+          id={SHOPPING_FORM.IS_LINE_NOTICE.ID}
+          label={`${SHOPPING_FORM.IS_LINE_NOTICE.LABEL}${isLineNotice ? 'ON' : 'OFF'}`}
+        />
       </ConfirmModal>
       {/* <BasePageTitle className={'my-5'}>トップ画面（タイトル検討中）</BasePageTitle> */}
       <h3 className={'font-bold text-2xl mt-10'}>未請求買い物一覧</h3>
-      <p className={'mt-3'}>
-        未請求金額：{formatPriceYen ? formatPriceYen(totalSumPrice(shoppings, 'price')) : ''}
-      </p>
-
-      <div className="mt-1 space-y-3">
-        {shoppings.map((shopping, index) => (
-          <ShoppingCardWrapper
-            className={'border-t-2 p-3 relative'}
-            detailPathName={page.shopping.show.link(shopping.id!.toString())}
-            editPathName={page.shopping.edit.link(shopping.id!.toString())}
-            isEditShow={shopping.claimId === null}
-            isDeleteShow={shopping.claimId === null}
-            onClick={() => {
-              setModalShopping(shopping);
-              setOpen(true);
-            }}
-            key={index}
-          >
-            <div className="flex justify-between">
-              <div className="left">
-                <div>買い物日：{formatDay(shopping.date!)}</div>
-                <div>金額：{formatPriceYen(shopping.price)}</div>
-                <div>
-                  説明：{shopping.description ? ommisionText(shopping.description, 20) : 'なし'}
-                </div>
-              </div>
-              <div className="right">
-                <LineNotice isLineNotice={shopping.isLineNotice} />
-              </div>
-            </div>
-          </ShoppingCardWrapper>
-        ))}
-      </div>
-
-      <hr className={'my-5'} />
-
-      <h3 className={'font-bold text-2xl'}>未受領請求一覧</h3>
-      <p className={'mt-3'}>
-        未受領請求合計金額：
-        {formatPriceYen ? formatPriceYen(totalSumPrice(claims, 'totalPrice')) : ''}
-      </p>
-
-      <div className="mt-1 space-y-3">
-        {claims.map(
-          (claim, index) =>
-            !claim.isGetClaim && (
-              <ClaimCardWrapper
+      {shoppings.length ? (
+        <>
+          <p className={'mt-3'}>
+            未請求金額：{formatPriceYen ? formatPriceYen(totalSumPrice(shoppings, 'price')) : ''}
+          </p>
+          <div className="mt-1 space-y-3">
+            {shoppings.map((shopping, index) => (
+              <ShoppingCardWrapper
                 className={'border-t-2 p-3 relative'}
-                detailPathName={page.claim.show.link(claim.id!.toString())}
-                isDeleteShow={false}
-                ReceiptOnClick={() => console.log('click!')}
-                deleteOnClick={() => console.log('click!')}
+                detailPathName={page.shopping.show.link(shopping.id!.toString())}
+                editPathName={page.shopping.edit.link(shopping.id!.toString())}
+                isEditShow={shopping.claimId === null}
+                isDeleteShow={shopping.claimId === null}
+                onClick={() => {
+                  setModalShopping(shopping);
+                  setOpen(true);
+                }}
                 key={index}
               >
                 <div className="flex justify-between">
                   <div className="left">
-                    <div>請求日：{formatDay(claim.createdAt)}</div>
-                    <div>金額：{formatPriceYen(claim.totalPrice)}</div>
+                    <div>買い物日：{formatDay(shopping.date!)}</div>
+                    <div>金額：{formatPriceYen(shopping.price)}</div>
+                    <div>
+                      説明：{shopping.description ? ommisionText(shopping.description, 20) : 'なし'}
+                    </div>
                   </div>
                   <div className="right">
-                    <LineNotice isLineNotice={claim.isLineNotice} />
+                    <LineNotice isLineNotice={shopping.isLineNotice} />
                   </div>
                 </div>
-              </ClaimCardWrapper>
-            ),
-        )}
-      </div>
+              </ShoppingCardWrapper>
+            ))}
+          </div>
+        </>
+      ) : (
+        <p className={'mt-3'}>未請求の買い物登録はありません。</p>
+      )}
+
+      <hr className={'my-5'} />
+
+      <h3 className={'font-bold text-2xl'}>未受領請求一覧</h3>
+
+      {claims.length ? (
+        <>
+          <p className={'mt-3'}>
+            未受領請求合計金額：
+            {formatPriceYen ? formatPriceYen(totalSumPrice(claims, 'totalPrice')) : ''}
+          </p>
+          <div className="mt-1 space-y-3">
+            {claims.map(
+              (claim, index) =>
+                !claim.isGetClaim && (
+                  <ClaimCardWrapper
+                    className={'border-t-2 p-3 relative'}
+                    detailPathName={page.claim.show.link(claim.id!.toString())}
+                    isDeleteShow={false}
+                    ReceiptOnClick={() => console.log('click!')}
+                    deleteOnClick={() => console.log('click!')}
+                    key={index}
+                  >
+                    <div className="flex justify-between">
+                      <div className="left">
+                        <div>請求日：{formatDay(claim.createdAt)}</div>
+                        <div>金額：{formatPriceYen(claim.totalPrice)}</div>
+                      </div>
+                      <div className="right">
+                        <LineNotice isLineNotice={claim.isLineNotice} />
+                      </div>
+                    </div>
+                  </ClaimCardWrapper>
+                ),
+            )}
+          </div>
+        </>
+      ) : (
+        <p className={'mt-3'}>未受領の請求登録はありません。</p>
+      )}
     </CommonWrapTemplate>
   );
 };
