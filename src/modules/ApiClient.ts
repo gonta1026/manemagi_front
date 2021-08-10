@@ -79,7 +79,8 @@ class APIClient {
 
   public async deleteRequest(this: APIClient, url: string, config?: AxiosRequestConfig) {
     try {
-      const response = await this.axiosInstance.delete(url, config);
+      const data: any = snakecaseKeys(config?.data);
+      const response = await this.axiosInstance.delete(url, { ...config, data: data });
       const normalizeResponse = this.toCamelcaseKeys(response);
       return normalizeResponse;
     } catch (e) {
