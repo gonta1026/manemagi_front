@@ -4,6 +4,7 @@ export type TShopping = {
   date: Date | string | null;
   description: string | null;
   isLineNotice: boolean;
+  isLineNoticed: boolean;
   shopId: number | null;
   claimId: number | null;
   createdAt: Date;

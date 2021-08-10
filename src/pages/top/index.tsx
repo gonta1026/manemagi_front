@@ -219,7 +219,7 @@ const Top = (): JSX.Element => {
                     </div>
                   </div>
                   <div className="right">
-                    <LineNotice isLineNotice={shopping.isLineNotice} />
+                    <LineNotice isLineNotice={shopping.isLineNoticed} />
                   </div>
                 </div>
               </ShoppingCardWrapper>
@@ -260,7 +260,7 @@ const Top = (): JSX.Element => {
                         <div>金額：{formatPriceYen(claim.totalPrice)}</div>
                       </div>
                       <div className="right">
-                        <LineNotice isLineNotice={claim.isLineNotice} />
+                        <LineNotice isLineNotice={claim.isLineNoticed} />
                       </div>
                     </div>
                   </ClaimCardWrapper>
