@@ -22,6 +22,7 @@ export const END_POINT = {
     INDEX: '/claims', // 請求一覧
     CREATE: '/claims', // 請求登録
     NEW: '/claims/new', // 請求登録
+    UPDATE: (id: number | string) => `/claims/${id}`, // 請求受領
   },
   SETTINGS: {
     INDEX: '/settings',

@@ -14,7 +14,7 @@ import LocalStorage, { noticeStorageValues, storageKeys } from '../../modules/Lo
 import { page } from '../../pageMap';
 /* reducks */
 import { fetchShoppings, deleteShopping } from '../../reducks/services/Shopping';
-import { fetchClaims } from '../../reducks/services/Claim';
+import { fetchClaims, updateClaim } from '../../reducks/services/Claim';
 import { fetchShops } from '../../reducks/services/Shop';
 /* types */
 import { TShopping } from '../../types/Shopping';
@@ -26,7 +26,8 @@ import { settingAndUser } from '../../types/Setting';
 import { formatPriceYen, ommisionText, totalSumPrice } from '../../utils/function';
 import { formatDay } from '../../utils/FormatDate';
 /* const */
-import { LABEL_SHOPPING, SHOPPING_FORM } from '../../const/form/shopping';
+import { SHOPPING_FORM } from '../../const/form/shopping';
+import { LABEL_CLAIM } from '../../const/form/claim';
 
 const Top = (): JSX.Element => {
   const [isLineNotice, setIsLineNotice] = useState<boolean>(false);
@@ -34,10 +35,11 @@ const Top = (): JSX.Element => {
   const [shops, setShops] = useState<TShop[]>([]);
   const [claims, setClaims] = useState<TClaim[]>([]);
   const [modalShopping, setModalShopping] = useState<TShopping>();
-  const [open, setOpen] = useState<boolean>(false);
+  const [modalClaim, setModalClaim] = useState<TClaim>();
+  const [deleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
+  const [receiptModalOpen, setReceiptModalOpen] = useState<boolean>(false);
   const dispatch = useDispatch();
   const { settingState } = useSelector((state: { settingState: settingAndUser }) => state);
-
   useEffect(() => {
     fetchShoppingsAndSetShops();
     fetchShopsAndSetShops();
@@ -101,6 +103,33 @@ const Top = (): JSX.Element => {
     }
   };
 
+  const claimUpdateAndSetClaims = async () => {
+    if (modalClaim?.id) {
+      const claimId = String(modalClaim.id);
+      const response: any = await dispatch(
+        updateClaim({
+          id: claimId,
+          data: { isLineNotice, isReceipt: true },
+        }),
+      );
+
+      const { handleToastOpen } = toastActions;
+      if (response.payload.status === 'success') {
+        fetchClaimsAndSetClaims();
+        setReceiptModalOpen(false);
+        handleToastOpen({
+          message: `請求受領を登録しました。`,
+          severity: 'success',
+        });
+      } else {
+        handleToastOpen({
+          message: `請求受領の登録に失敗しました。`,
+          severity: 'error',
+        });
+      }
+    }
+  };
+
   const deleteShoppingAndSetShopping = async () => {
     if (modalShopping?.id) {
       const shoppingId = String(modalShopping.id);
@@ -114,7 +143,7 @@ const Top = (): JSX.Element => {
       const { handleToastOpen } = toastActions;
       if (response.payload.status === 'success') {
         fetchShoppingsAndSetShops();
-        setOpen(false);
+        setDeleteModalOpen(false);
 
         handleToastOpen({
           message: `買い物を削除しました。`,
@@ -135,31 +164,31 @@ const Top = (): JSX.Element => {
     <CommonWrapTemplate {...{ toastActions }}>
       <ConfirmModal
         focus
-        open={open}
-        handleClose={() => setOpen(false)}
+        open={deleteModalOpen}
+        handleClose={() => setDeleteModalOpen(false)}
         handleOk={() => deleteShoppingAndSetShopping()}
         modaltitle="削除"
       >
         <dl className={'list'}>
-          <dt>{LABEL_SHOPPING.PRICE}</dt>
+          <dt>{SHOPPING_FORM.PRICE.LABEL}</dt>
           <dd>{modalShopping?.price ? formatPriceYen(modalShopping.price) : ''}</dd>
         </dl>
         <dl className={'list'}>
-          <dt>{LABEL_SHOPPING.DATE}</dt>
+          <dt>{SHOPPING_FORM.DATE.LABEL}</dt>
           <dd>{modalShopping?.date ? formatDay(modalShopping.date) : ''}</dd>
         </dl>
         <dl className={'list'}>
-          <dt>{LABEL_SHOPPING.SHOP_ID}</dt>
+          <dt>{SHOPPING_FORM.SHOP_ID.LABEL}</dt>
           <dd>
             {modalShopping?.shopId ? shops.find(({ id }) => id === modalShopping.shopId)?.name : ''}
           </dd>
         </dl>
         <dl className={'list'}>
-          <dt>{LABEL_SHOPPING.DESCRIPTION}</dt>
+          <dt>{SHOPPING_FORM.DESCRIPTION.LABEL}</dt>
           <dd>{modalShopping?.description ? modalShopping.description : 'なし'}</dd>
         </dl>
         <dl className={'list'}>
-          <dt>買い物の{LABEL_SHOPPING.IS_LINE_NOTICE}</dt>
+          <dt>買い物の{SHOPPING_FORM.IS_LINE_NOTICE.LABEL}</dt>
           <dd>{modalShopping?.isLineNotice ? '通知済' : '未通知'}</dd>
         </dl>
         {/* LINE通知(isLineNotice) */}
@@ -173,7 +202,39 @@ const Top = (): JSX.Element => {
           label={`${SHOPPING_FORM.IS_LINE_NOTICE.LABEL}${isLineNotice ? 'ON' : 'OFF'}`}
         />
       </ConfirmModal>
-      {/* <BasePageTitle className={'my-5'}>トップ画面（タイトル検討中）</BasePageTitle> */}
+
+      {/* 請求受領確認 */}
+      <ConfirmModal
+        focus
+        open={receiptModalOpen}
+        handleClose={() => setReceiptModalOpen(false)}
+        handleOk={() => claimUpdateAndSetClaims()}
+        modaltitle="請求受領"
+      >
+        <dl className={'list'}>
+          <dt>{LABEL_CLAIM.TOTAL_PRICE}</dt>
+          <dd>{modalClaim?.totalPrice ? formatPriceYen(modalClaim.totalPrice) : ''}</dd>
+        </dl>
+        <dl className={'list'}>
+          <dt>{LABEL_CLAIM.CREATED_AT}</dt>
+          <dd>{modalClaim?.createdAt ? formatDay(modalClaim.createdAt) : ''}</dd>
+        </dl>
+        <dl className={'list'}>
+          <dt>請求の{LABEL_CLAIM.IS_LINE_NOTICE}</dt>
+          <dd>{modalClaim?.isLineNotice ? '通知済' : '未通知'}</dd>
+        </dl>
+        {/* LINE通知(isLineNotice) */}
+        <LabelAndSwitch
+          className={'mt-2'}
+          checked={isLineNotice}
+          disabled={!settingState.user?.setting.isUseLine}
+          helperText={!settingState.user?.setting.isUseLine && <IsUseLineHelper />}
+          onChange={() => setIsLineNotice(!isLineNotice)}
+          id={SHOPPING_FORM.IS_LINE_NOTICE.ID}
+          label={`${SHOPPING_FORM.IS_LINE_NOTICE.LABEL}${isLineNotice ? 'ON' : 'OFF'}`}
+        />
+      </ConfirmModal>
+
       <h3 className={'font-bold text-2xl mt-10'}>未請求買い物一覧</h3>
       {shoppings.length ? (
         <>
@@ -190,7 +251,7 @@ const Top = (): JSX.Element => {
                 isDeleteShow={shopping.claimId === null}
                 onClick={() => {
                   setModalShopping(shopping);
-                  setOpen(true);
+                  setDeleteModalOpen(true);
                 }}
                 key={index}
               >
@@ -218,7 +279,7 @@ const Top = (): JSX.Element => {
 
       <h3 className={'font-bold text-2xl'}>未受領請求一覧</h3>
 
-      {claims.length ? (
+      {claims.filter((claim) => !claim.isReceipt).length ? (
         <>
           <p className={'mt-3'}>
             未受領請求合計金額：
@@ -227,12 +288,14 @@ const Top = (): JSX.Element => {
           <div className="mt-1 space-y-3">
             {claims.map(
               (claim, index) =>
-                !claim.isGetClaim && (
+                !claim.isReceipt && (
                   <ClaimCardWrapper
                     className={'border-t-2 p-3 relative'}
                     detailPathName={page.claim.show.link(claim.id!.toString())}
-                    isDeleteShow={false}
-                    ReceiptOnClick={() => console.log('click!')}
+                    ReceiptOnClick={() => {
+                      setModalClaim(claim);
+                      setReceiptModalOpen(true);
+                    }}
                     deleteOnClick={() => console.log('click!')}
                     key={index}
                   >
