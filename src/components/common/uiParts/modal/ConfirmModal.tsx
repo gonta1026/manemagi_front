@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { BaseModal, CloseButton, BaseButton } from '../../uiParts';
 import { TIconType } from '../button/BaseSwitchIcon';
 
-type TModalTitle = '入力' | '変更' | '削除' | '請求' | '請求受領';
+export type TModalTitle = '入力' | '変更' | '削除' | '請求' | '請求受領';
 interface TProps {
   open: boolean;
   focus?: boolean;

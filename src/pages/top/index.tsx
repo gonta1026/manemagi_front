@@ -2,12 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 /* components */
 import CommonWrapTemplate from '../../components/common/layout/CommonWrapTemplate';
-import { LabelAndSwitch } from '../../components/common/molecules';
-import { ConfirmModal, LineNotice, IsUseLineHelper } from '../../components/common/uiParts';
+import { LineNotice } from '../../components/common/uiParts';
 
 /* customHook */
 import useToastAction from '../../customHook/useToastAction';
-import { ShoppingCardWrapper, ClaimCardWrapper } from '../../components/pages/common';
+import {
+  ShoppingCardWrapper,
+  ClaimCardWrapper,
+  ConfirmDeleteShoppingModal,
+  ConfirmReceiptClaimModal,
+} from '../../components/pages/common';
 /* pageMap */
 import LocalStorage, { noticeStorageValues, storageKeys } from '../../modules/LocalStorage';
 import { page } from '../../pageMap';
@@ -24,9 +28,6 @@ import { settingAndUser } from '../../types/Setting';
 /* utils */
 import { formatPriceYen, ommisionText, totalSumPrice } from '../../utils/function';
 import { formatDay } from '../../utils/FormatDate';
-/* const */
-import { SHOPPING_FORM } from '../../const/form/shopping';
-import { LABEL_CLAIM } from '../../const/form/claim';
 
 const Top = (): JSX.Element => {
   const [isLineNotice, setIsLineNotice] = useState<boolean>(false);
@@ -39,10 +40,19 @@ const Top = (): JSX.Element => {
   const [receiptModalOpen, setReceiptModalOpen] = useState<boolean>(false);
   const dispatch = useDispatch();
   const { settingState } = useSelector((state: { settingState: settingAndUser }) => state);
+
   useEffect(() => {
-    fetchShoppingsAndSetShops();
-    fetchShopsAndSetShops();
-    fetchClaimsAndSetClaims();
+    setIsLineNotice(settingState.user.setting.isUseLine);
+  }, [settingState]);
+
+  useEffect(() => {
+    fetchShoppingsAndSet();
+    fetchShopsAndSet();
+    fetchClaimsAndSet();
+    pageMoveNotice();
+  }, []);
+
+  const pageMoveNotice = () => {
     const storage = new LocalStorage();
     const targetNotice = storage.getStorageItem(storageKeys.pageMoveNotice)!;
     const { loginedNotice, signUpedNotice, shoppingedNotice, claimedNotice, createdShopNotice } =
@@ -71,13 +81,9 @@ const Top = (): JSX.Element => {
         message,
       }),
     );
-  }, []);
+  };
 
-  useEffect(() => {
-    setIsLineNotice(settingState.user.setting.isUseLine);
-  }, [settingState]);
-
-  const fetchShoppingsAndSetShops = async () => {
+  const fetchShoppingsAndSet = async () => {
     const response: any = await dispatch(fetchShoppings());
     if (response.payload.status === 'success') {
       const shoppings: TShopping[] = response.payload.data;
@@ -86,7 +92,7 @@ const Top = (): JSX.Element => {
     }
   };
 
-  const fetchClaimsAndSetClaims = async () => {
+  const fetchClaimsAndSet = async () => {
     const response: any = await dispatch(fetchClaims());
     if (response.payload.status === 'success') {
       const claims: TClaim[] = response.payload.data;
@@ -94,7 +100,7 @@ const Top = (): JSX.Element => {
     }
   };
 
-  const fetchShopsAndSetShops = async () => {
+  const fetchShopsAndSet = async () => {
     const response: any = await dispatch(fetchShops());
     if (response.payload.status === 'success') {
       const shops: TShop[] = response.payload.data.shops;
@@ -102,7 +108,7 @@ const Top = (): JSX.Element => {
     }
   };
 
-  const claimUpdateAndSetClaims = async () => {
+  const updateClaimAndSet = async () => {
     if (modalClaim?.id) {
       const claimId = String(modalClaim.id);
       const response: any = await dispatch(
@@ -114,7 +120,7 @@ const Top = (): JSX.Element => {
 
       const { handleToastOpen } = toastActions;
       if (response.payload.status === 'success') {
-        fetchClaimsAndSetClaims();
+        fetchClaimsAndSet();
         setReceiptModalOpen(false);
         handleToastOpen({
           message: `請求受領を登録しました。`,
@@ -141,7 +147,7 @@ const Top = (): JSX.Element => {
 
       const { handleToastOpen } = toastActions;
       if (response.payload.status === 'success') {
-        fetchShoppingsAndSetShops();
+        fetchShoppingsAndSet();
         setDeleteModalOpen(false);
 
         handleToastOpen({
@@ -161,78 +167,28 @@ const Top = (): JSX.Element => {
 
   return (
     <CommonWrapTemplate {...{ toastActions }}>
-      <ConfirmModal
-        focus
+      <ConfirmDeleteShoppingModal
         open={deleteModalOpen}
         handleClose={() => setDeleteModalOpen(false)}
         handleOk={() => deleteShoppingAndSetShopping()}
-        modaltitle="削除"
-      >
-        <dl className={'list'}>
-          <dt>{SHOPPING_FORM.PRICE.LABEL}</dt>
-          <dd>{modalShopping?.price ? formatPriceYen(modalShopping.price) : ''}</dd>
-        </dl>
-        <dl className={'list'}>
-          <dt>{SHOPPING_FORM.DATE.LABEL}</dt>
-          <dd>{modalShopping?.date ? formatDay(modalShopping.date) : ''}</dd>
-        </dl>
-        <dl className={'list'}>
-          <dt>{SHOPPING_FORM.SHOP_ID.LABEL}</dt>
-          <dd>
-            {modalShopping?.shopId ? shops.find(({ id }) => id === modalShopping.shopId)?.name : ''}
-          </dd>
-        </dl>
-        <dl className={'list'}>
-          <dt>{SHOPPING_FORM.DESCRIPTION.LABEL}</dt>
-          <dd>{modalShopping?.description ? modalShopping.description : 'なし'}</dd>
-        </dl>
-        <dl className={'list'}>
-          <dt>買い物の{SHOPPING_FORM.IS_LINE_NOTICE.LABEL}</dt>
-          <dd>{modalShopping?.isLineNotice ? '通知済' : '未通知'}</dd>
-        </dl>
-        {/* LINE通知(isLineNotice) */}
-        <LabelAndSwitch
-          className={'mt-2'}
-          checked={isLineNotice}
-          disabled={!settingState.user?.setting.isUseLine}
-          helperText={!settingState.user?.setting.isUseLine && <IsUseLineHelper />}
-          onChange={() => setIsLineNotice(!isLineNotice)}
-          id={SHOPPING_FORM.IS_LINE_NOTICE.ID}
-          label={`${SHOPPING_FORM.IS_LINE_NOTICE.LABEL}${isLineNotice ? 'ON' : 'OFF'}`}
-        />
-      </ConfirmModal>
+        isLineNotice={isLineNotice}
+        modalShopping={modalShopping}
+        modaltitle={'削除'}
+        onChangeLineNotice={() => setIsLineNotice(!isLineNotice)}
+        shops={shops}
+        isUseLineAtSetting={settingState.user.setting.isUseLine}
+      />
 
-      {/* 請求受領確認 */}
-      <ConfirmModal
-        focus
+      <ConfirmReceiptClaimModal
         open={receiptModalOpen}
         handleClose={() => setReceiptModalOpen(false)}
-        handleOk={() => claimUpdateAndSetClaims()}
-        modaltitle="請求受領"
-      >
-        <dl className={'list'}>
-          <dt>{LABEL_CLAIM.TOTAL_PRICE}</dt>
-          <dd>{modalClaim?.totalPrice ? formatPriceYen(modalClaim.totalPrice) : ''}</dd>
-        </dl>
-        <dl className={'list'}>
-          <dt>{LABEL_CLAIM.CREATED_AT}</dt>
-          <dd>{modalClaim?.createdAt ? formatDay(modalClaim.createdAt) : ''}</dd>
-        </dl>
-        <dl className={'list'}>
-          <dt>請求の{LABEL_CLAIM.IS_LINE_NOTICE}</dt>
-          <dd>{modalClaim?.isLineNotice ? '通知済' : '未通知'}</dd>
-        </dl>
-        {/* LINE通知(isLineNotice) */}
-        <LabelAndSwitch
-          className={'mt-2'}
-          checked={isLineNotice}
-          disabled={!settingState.user?.setting.isUseLine}
-          helperText={!settingState.user?.setting.isUseLine && <IsUseLineHelper />}
-          onChange={() => setIsLineNotice(!isLineNotice)}
-          id={SHOPPING_FORM.IS_LINE_NOTICE.ID}
-          label={`${SHOPPING_FORM.IS_LINE_NOTICE.LABEL}${isLineNotice ? 'ON' : 'OFF'}`}
-        />
-      </ConfirmModal>
+        handleOk={() => updateClaimAndSet()}
+        isLineNotice={isLineNotice}
+        modalClaim={modalClaim}
+        modaltitle={'請求受領'}
+        onChangeLineNotice={() => setIsLineNotice(!isLineNotice)}
+        isUseLineAtSetting={settingState.user.setting.isUseLine}
+      />
 
       <h3 className={'font-bold text-2xl mt-10'}>未請求買い物一覧</h3>
       {shoppings.length ? (
