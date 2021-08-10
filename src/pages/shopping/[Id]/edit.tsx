@@ -70,6 +70,7 @@ const ShoppingEdit = (): JSX.Element => {
     const shops: TShop[] = response.payload.data.shops;
     setShops(shops);
   };
+
   const validate = (values: TShoppingForm) => {
     let errors = {} as TShoppingFormError;
     errors = shoppingValidate(values, errors);

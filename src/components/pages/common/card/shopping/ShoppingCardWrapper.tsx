@@ -5,6 +5,7 @@ import ShoppingCardLinkGroup from './ShoppingCardLinkGroup';
 const ShoppingCardWrapper = ({
   children,
   className,
+  editPathName,
   isDeleteShow,
   onClick,
   detailPathName,
@@ -24,6 +25,7 @@ const ShoppingCardWrapper = ({
       <ShoppingCardLinkGroup
         className={'mt-2 text-right'}
         detailPathName={detailPathName}
+        editPathName={editPathName}
         onClick={onClick}
         isDeleteShow={isDeleteShow}
       />
