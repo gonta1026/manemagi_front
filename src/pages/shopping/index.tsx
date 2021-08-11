@@ -139,7 +139,10 @@ const Shopping = (): JSX.Element => {
                 <div>説明：{ommisionText(shopping.description, 20)}</div>
               </div>
               <div className="right">
-                <LineNotice isLineNotice={shopping.isLineNoticed} />
+                <LineNotice
+                  isLineNotice={shopping.isLineNoticed}
+                  text={shopping.isLineNoticed ? '買い物通知済' : '買い物未通知'}
+                />
               </div>
             </div>
           </ShoppingCardWrapper>

@@ -1,12 +1,19 @@
 import React from 'react';
 /* styles */
 import { materialStyles } from '../../../../styles/js/material';
+import { COLORS } from '../../../../const/color';
 
-const LineNotice = ({ isLineNotice }: { isLineNotice: boolean }): JSX.Element => {
+const LineNotice = ({
+  isLineNotice,
+  text,
+}: {
+  isLineNotice: boolean;
+  text: string;
+}): JSX.Element => {
   let badgeClass = {};
   if (isLineNotice) {
     badgeClass = {
-      backgroundColor: '#16c464',
+      backgroundColor: COLORS.LINE,
       color: '#fff',
     };
   } else {
@@ -24,7 +31,7 @@ const LineNotice = ({ isLineNotice }: { isLineNotice: boolean }): JSX.Element =>
     },
   });
 
-  return <div className={classes.badge}>{isLineNotice ? 'LINE通知済' : 'LINE未通知'}</div>;
+  return <div className={classes.badge}>{text}</div>;
 };
 
 export default LineNotice;
