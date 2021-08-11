@@ -23,7 +23,6 @@ import { fetchShops } from '../../reducks/services/Shop';
 import { TShopping } from '../../types/Shopping';
 import { TClaim } from '../../types/Claim';
 import { TShop } from '../../types/Shop';
-/* types */
 import { settingAndUser } from '../../types/Setting';
 /* utils */
 import { formatPriceYen, ommisionText, totalSumPrice } from '../../utils/function';
@@ -75,7 +74,7 @@ const Top = (): JSX.Element => {
         message = 'お店を登録しました！';
         break;
     }
-    // 実機で確認をすると2重で絵画をするように見えるので対処
+
     storage.afterPageMoveNotice(() =>
       toastActions.handleToastOpen({
         message,

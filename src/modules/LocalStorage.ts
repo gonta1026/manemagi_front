@@ -6,6 +6,7 @@ export const storageKeys = {
 } as const;
 
 export const noticeStorageValues = {
+  deleteShopping: 'deleteShopping',
   loginedNotice: 'loginedNotice',
   signUpedNotice: 'signUpedNotice',
   shoppingedNotice: 'shoppingedNotice',
@@ -25,6 +26,7 @@ type TPageMoveNotice = typeof storageKeys.pageMoveNotice;
 type TStorageKey = TPageMoveNotice | TLoginedStorageKey;
 // NOTE ここにページ遷移後に使うお知らせに使用をする型をを追加する事。
 type TPageMoveNoticeValue =
+  | typeof noticeStorageValues.deleteShopping
   | typeof noticeStorageValues.loginedNotice
   | typeof noticeStorageValues.shoppingedNotice
   | typeof noticeStorageValues.signUpedNotice

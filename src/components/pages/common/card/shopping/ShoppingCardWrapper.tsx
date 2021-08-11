@@ -7,6 +7,7 @@ const ShoppingCardWrapper = ({
   className,
   editPathName,
   isDeleteShow,
+  isEditShow,
   onClick,
   detailPathName,
 }: {
@@ -23,11 +24,8 @@ const ShoppingCardWrapper = ({
     <BaseCard className={className}>
       {children}
       <ShoppingCardLinkGroup
+        {...{ detailPathName, editPathName, isDeleteShow, isEditShow, onClick }}
         className={'mt-2 text-right'}
-        detailPathName={detailPathName}
-        editPathName={editPathName}
-        onClick={onClick}
-        isDeleteShow={isDeleteShow}
       />
     </BaseCard>
   );

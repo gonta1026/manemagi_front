@@ -19,6 +19,7 @@ import { formatPriceYen, ommisionText } from '../../utils/function';
 import { formatDay } from '../../utils/FormatDate';
 /* customHook */
 import useToastAction from '../../customHook/useToastAction';
+import LocalStorage, { noticeStorageValues, storageKeys } from '../../modules/LocalStorage';
 
 const Shopping = (): JSX.Element => {
   const [isLineNotice, setIsLineNotice] = useState<boolean>(false);
@@ -34,11 +35,29 @@ const Shopping = (): JSX.Element => {
   useEffect(() => {
     fetchShoppingsAndSet();
     fetchShopsAndSet();
+    pageMoveNotice();
   }, []);
 
   useEffect(() => {
     setIsLineNotice(settingState.user.setting.isUseLine);
   }, [settingState]);
+
+  const pageMoveNotice = () => {
+    const storage = new LocalStorage();
+    const targetNotice = storage.getStorageItem(storageKeys.pageMoveNotice)!;
+    const { deleteShopping } = noticeStorageValues;
+    let message = '';
+    switch (targetNotice) {
+      case deleteShopping:
+        message = '買い物を削除しました！';
+        break;
+    }
+    storage.afterPageMoveNotice(() =>
+      toastActions.handleToastOpen({
+        message,
+      }),
+    );
+  };
 
   const fetchShoppingsAndSet = async () => {
     const response: any = await dispatch(fetchShoppings());
