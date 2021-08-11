@@ -41,7 +41,7 @@ const Home: React.FC = () => {
             </p>
           </BaseCard>
           <BaseCard className={'shadow-lg'}>
-            <p className="p-3 font-bold">買い物時、建て替え時の詳細に関する記録</p>
+            <p className="p-3 font-bold">買い物時、立て替え時の詳細に関する記録</p>
           </BaseCard>
           <BaseCard className={'shadow-lg'}>
             <p className="p-3 font-bold">{`${page.setting.edit.name()}をすることによりLINEメッセージで買い物や請求の詳細を通知`}</p>
