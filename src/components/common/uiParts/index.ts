@@ -16,14 +16,13 @@ export { default as BaseCheckBox } from './form/checkbox/BaseCheckBox';
 export { default as BaseFormControl } from './form/control/BaseFormControl';
 export { default as BaseFormControlLabel } from './form/control/BaseFormControlLabel';
 export { default as BaseHelperText } from './form/helperText/BaseHelperText';
+export { default as IsUseLineHelper } from './form/helperText/IsUseLineHelper';
 export { default as BaseLabel } from './form/label/BaseLabel';
 export { default as BaseTextField } from './form/textfield/BaseTextField';
 export { default as BaseTextArea } from './form/textarea/BaseTextArea';
 export { default as BaseRequired } from './form/required/BaseRequired';
 export { default as BaseSwitch } from './form/switch/BaseSwitch';
 export { default as BaseSelect } from './form/select/BaseSelect';
-/* helperText */
-export { default as IsUseLineHelper } from './helperText/IsUseLineHelper';
 /* icon */
 export { default as BaseIcon } from './icon/BaseIcon';
 /* item */
