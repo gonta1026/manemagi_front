@@ -20,17 +20,18 @@ export type TLoginedStorageValue = {
   client?: string;
 };
 
-type TPageMoveNotice = typeof storageKeys.pageMoveNotice;
-/* ！！重要！！ ここにローカルストレージで使うkeyを定義する事。何がローカルストレージで使われているかを管理するため */
-type TStorageKey = TPageMoveNotice | TLoginedStorageKey;
 // NOTE ここにページ遷移後に使うお知らせに使用をする型をを追加する事。
-type TPageMoveNoticeValue =
+export type TPageMoveNoticeValue =
   | typeof noticeStorageValues.loginedNotice
   | typeof noticeStorageValues.shoppingedNotice
   | typeof noticeStorageValues.signUpedNotice
   | typeof noticeStorageValues.shoppingUpdatedNotice
   | typeof noticeStorageValues.claimedNotice
   | typeof noticeStorageValues.createdShopNotice;
+
+type TPageMoveNotice = typeof storageKeys.pageMoveNotice;
+/* ！！重要！！ ここにローカルストレージで使うkeyを定義する事。何がローカルストレージで使われているかを管理するため */
+type TStorageKey = TPageMoveNotice | TLoginedStorageKey;
 
 export type TLocalStorage = {
   getStorageItem: (itemKey: TStorageKey) => string | null | undefined;
@@ -39,7 +40,7 @@ export type TLocalStorage = {
 };
 
 class LocalStorage implements TLocalStorage {
-  private localStorage;
+  protected localStorage;
 
   constructor() {
     if (process.browser && window.localStorage) {
@@ -66,23 +67,23 @@ class LocalStorage implements TLocalStorage {
     }
   };
 
-  /* TODO 別クラス、もしくはmodulesに移動をしてに移動をさせる */
-  public setItemAtPageMoveNotice(targetNotice: TPageMoveNoticeValue) {
-    if (this.localStorage !== undefined) {
-      return this.setStorageItem(storageKeys.pageMoveNotice, targetNotice);
-    }
-  }
+  // /* TODO 別クラス、もしくはmodulesに移動をしてに移動をさせる */
+  // public setItemAtPageMoveNotice(targetNotice: TPageMoveNoticeValue) {
+  //   if (this.localStorage !== undefined) {
+  //     return this.setStorageItem(storageKeys.pageMoveNotice, targetNotice);
+  //   }
+  // }
 
-  /* TODO 別クラス、もしくはmodulesに移動をしてに移動をさせる */
-  public afterPageMoveNotice(this: LocalStorage, callbackToastExecution: VoidFunction) {
-    if (this.localStorage !== undefined) {
-      const storageItem = this.getStorageItem(storageKeys.pageMoveNotice);
-      if (storageItem) {
-        callbackToastExecution();
-        this.removeStorageItem(storageKeys.pageMoveNotice);
-      }
-    }
-  }
+  // /* TODO 別クラス、もしくはmodulesに移動をしてに移動をさせる */
+  // public afterPageMoveNotice(this: LocalStorage, callbackToastExecution: VoidFunction) {
+  //   if (this.localStorage !== undefined) {
+  //     const storageItem = this.getStorageItem(storageKeys.pageMoveNotice);
+  //     if (storageItem) {
+  //       callbackToastExecution();
+  //       this.removeStorageItem(storageKeys.pageMoveNotice);
+  //     }
+  //   }
+  // }
 }
 
 export default LocalStorage;
