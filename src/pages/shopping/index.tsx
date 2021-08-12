@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 /* components */
-import CommonWrapTemplate from '../../components/common/template/CommonWrapTemplate';
-import { BasePageTitle } from '../../components/common/uiParts/atoms';
-import { ShoppingCardWrapper } from '../../components/common/organisms';
-import { LineNotice } from '../../components/pages/common';
-import ConfirmModal from '../../components/common/modal/ConfirmModal';
+import CommonWrapTemplate from '../../components/common/layout/CommonWrapTemplate';
+import { BasePageTitle, LineNotice } from '../../components/common/uiParts';
+import { ShoppingCardWrapper, ConfirmDeleteShoppingModal } from '../../components/pages/common';
 /* pageMap */
 import { page } from '../../pageMap';
 /* reducks */
@@ -14,28 +12,48 @@ import { fetchShops } from '../../reducks/services/Shop';
 /* types */
 import { TShopping } from '../../types/Shopping';
 import { TShop } from '../../types/Shop';
+import { settingAndUser } from '../../types/Setting';
 /* utils */
 import { formatPriceYen, ommisionText } from '../../utils/function';
 import { formatDay } from '../../utils/FormatDate';
-/* const */
-import { LABEL_SHOPPING } from '../../const/form/shopping';
 /* customHook */
 import useToastAction from '../../customHook/useToastAction';
+import { storageKeys } from '../../modules/LocalStorage';
+import Notice from '../../modules/Notice';
 
 const Shopping = (): JSX.Element => {
+  const [isLineNotice, setIsLineNotice] = useState<boolean>(false);
   const [shoppings, setShopping] = useState<TShopping[]>([]);
   const [shops, setShops] = useState<TShop[]>([]);
   const [modalShopping, setModalShopping] = useState<TShopping>();
-  const [open, setOpen] = useState<boolean>(false);
+  const [deleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
   const dispatch = useDispatch();
+  const { settingState } = useSelector((state: { settingState: settingAndUser }) => state);
+
   const toastActions = useToastAction();
 
   useEffect(() => {
-    fetchShoppingsAndSetShops();
-    fetchShopsAndSetShops();
+    fetchShoppingsAndSet();
+    fetchShopsAndSet();
+    pageMoveNotice();
   }, []);
 
-  const fetchShoppingsAndSetShops = async () => {
+  useEffect(() => {
+    setIsLineNotice(settingState.user.setting.isUseLine);
+  }, [settingState]);
+
+  const pageMoveNotice = () => {
+    const notice = new Notice();
+    const targetNotice = notice.getStorageItem(storageKeys.pageMoveNotice)!;
+    const message = notice.getNoticeMessage(targetNotice);
+    notice.afterPageMoveNotice(() =>
+      toastActions.handleToastOpen({
+        message,
+      }),
+    );
+  };
+
+  const fetchShoppingsAndSet = async () => {
     const response: any = await dispatch(fetchShoppings());
     if (response.payload.status === 'success') {
       const shoppings: TShopping[] = response.payload.data;
@@ -43,7 +61,7 @@ const Shopping = (): JSX.Element => {
     }
   };
 
-  const fetchShopsAndSetShops = async () => {
+  const fetchShopsAndSet = async () => {
     const response: any = await dispatch(fetchShops());
     if (response.payload.status === 'success') {
       const shops: TShop[] = response.payload.data.shops;
@@ -51,14 +69,20 @@ const Shopping = (): JSX.Element => {
     }
   };
 
-  const deleteShoppingAndSetShopping = async () => {
+  const deleteShoppingAndSet = async () => {
     if (modalShopping?.id) {
       const shoppingId = String(modalShopping.id);
-      const response: any = await dispatch(deleteShopping(shoppingId));
+      const response: any = await dispatch(
+        deleteShopping({
+          id: shoppingId,
+          data: { isLineNotice: isLineNotice },
+        }),
+      );
+
       const { handleToastOpen } = toastActions;
       if (response.payload.status === 'success') {
-        fetchShoppingsAndSetShops();
-        setOpen(false);
+        fetchShoppingsAndSet();
+        setDeleteModalOpen(false);
 
         handleToastOpen({
           message: `買い物を削除しました。`,
@@ -75,38 +99,19 @@ const Shopping = (): JSX.Element => {
 
   return (
     <CommonWrapTemplate {...{ toastActions }}>
-      <ConfirmModal
-        open={open}
-        handleClose={() => setOpen(false)}
-        handleOk={() => deleteShoppingAndSetShopping()}
-        modaltitle="削除"
-      >
-        <dl className={'list'}>
-          <dt>{LABEL_SHOPPING.PRICE}</dt>
-          <dd>{modalShopping?.price ? formatPriceYen(modalShopping.price) : ''}</dd>
-        </dl>
-        <dl className={'list'}>
-          <dt>{LABEL_SHOPPING.DATE}</dt>
-          <dd>{modalShopping?.date ? formatDay(modalShopping.date) : ''}</dd>
-        </dl>
-        <dl className={'list'}>
-          <dt>{LABEL_SHOPPING.SHOP_ID}</dt>
-          <dd>
-            {modalShopping?.shopId ? shops.find(({ id }) => id === modalShopping.shopId)?.name : ''}
-          </dd>
-        </dl>
-        <dl className={'list'}>
-          <dt>{LABEL_SHOPPING.DESCRIPTION}</dt>
-          <dd>{modalShopping?.description ? modalShopping.description : 'なし'}</dd>
-        </dl>
-        <dl className={'list'}>
-          <dt>{LABEL_SHOPPING.IS_LINE_NOTICE}</dt>
-          <dd>{modalShopping?.isLineNotice ? '通知する' : '通知しない'}</dd>
-        </dl>
-      </ConfirmModal>
+      <ConfirmDeleteShoppingModal
+        open={deleteModalOpen}
+        handleClose={() => setDeleteModalOpen(false)}
+        handleOk={() => deleteShoppingAndSet()}
+        isLineNotice={isLineNotice}
+        modalShopping={modalShopping}
+        modaltitle={'削除'}
+        onChangeLineNotice={() => setIsLineNotice(!isLineNotice)}
+        shops={shops}
+        isUseLineAtSetting={settingState.user.setting.isUseLine}
+      />
+
       <BasePageTitle className={'my-5'}>{page.shopping.list.name()}</BasePageTitle>
-      <p>一旦一覧画面を作成、これからどのようにカスタマイズするか等を検討。</p>
-      <p>ソート機能、絞り込み機能、ページネーション、表示件数の制御をできたら入れたい。</p>
       <div className="space-y-3">
         {shoppings.map((shopping, index) => (
           <ShoppingCardWrapper
@@ -118,7 +123,7 @@ const Shopping = (): JSX.Element => {
             isDeleteShow={shopping.claimId === null}
             onClick={() => {
               setModalShopping(shopping);
-              setOpen(true);
+              setDeleteModalOpen(true);
             }}
           >
             <div className="flex justify-between">
@@ -128,7 +133,10 @@ const Shopping = (): JSX.Element => {
                 <div>説明：{ommisionText(shopping.description, 20)}</div>
               </div>
               <div className="right">
-                <LineNotice isLineNotice={shopping.isLineNotice} />
+                <LineNotice
+                  isLineNotice={shopping.isLineNoticed}
+                  text={shopping.isLineNoticed ? '買い物通知済' : '買い物未通知'}
+                />
               </div>
             </div>
           </ShoppingCardWrapper>

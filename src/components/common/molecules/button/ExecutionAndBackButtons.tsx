@@ -1,6 +1,5 @@
-import { BaseButton } from '../../uiParts/atoms';
-import { BaseLinkButton } from '../../molecules';
-import { TIconType } from '../../uiParts/atoms/button/BaseSwitchIcon';
+import { BaseButton, BaseLinkButton } from '../../uiParts';
+import { TIconType } from '../../uiParts/button/BaseSwitchIcon';
 
 import React from 'react';
 type TProps = {

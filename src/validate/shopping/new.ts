@@ -1,16 +1,19 @@
 import { TShoppingForm, TShoppingFormError } from '../../types/Shopping';
 import { SHOPPING_FORM } from '../../const/form/shopping';
-import { validBlank, validMaxNum, validNum } from '../';
+import { validBlank, validMaxNum, validMinNum, validNum } from '../';
 
 export const shoppingValidate = (values: TShoppingForm, errors: TShoppingFormError) => {
   const { PRICE, DATE, SHOP_ID, DESCRIPTION } = SHOPPING_FORM;
-  const { MAX_300 } = validNum;
+  const { MAX_300, MIN_10 } = validNum;
 
   /******************
    * 買い物金額
    ******************/
   if (validBlank.check(values.price)) {
     errors.price = validBlank.message(PRICE.LABEL);
+  }
+  if (validMinNum.check(values.price, MIN_10)) {
+    errors.price = validMinNum.message(PRICE.LABEL, MIN_10);
   }
   /******************
    * 買い物日

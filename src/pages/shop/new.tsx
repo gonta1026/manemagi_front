@@ -5,14 +5,17 @@ import { useDispatch } from 'react-redux';
 /* const */
 import { SHOP_FORM } from '../../const/form/shop';
 /* components */
-import CommonWrapTemplate from '../../components/common/template/CommonWrapTemplate';
+import CommonWrapTemplate from '../../components/common/layout/CommonWrapTemplate';
 import {
   LabelAndTextField,
   LabelAndTextArea,
   ExecutionAndBackButtons,
 } from '../../components/common/molecules';
-import ConfirmModal from '../../components/common/modal/ConfirmModal';
-import { BasePageTitle, BaseErrorMessagesWrapper } from '../../components/common/uiParts/atoms';
+import {
+  BasePageTitle,
+  BaseErrorMessagesWrapper,
+  ConfirmModal,
+} from '../../components/common/uiParts';
 /* page */
 import { page } from '../../pageMap';
 /* reducks */
@@ -70,6 +73,7 @@ const NewShop = (): JSX.Element => {
   return (
     <CommonWrapTemplate>
       <ConfirmModal
+        focus
         open={open}
         handleClose={() => setOpen(false)}
         handleOk={async () => {

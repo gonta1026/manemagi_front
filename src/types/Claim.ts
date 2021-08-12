@@ -3,7 +3,8 @@ import { TShopping } from './Shopping';
 export type TClaim = {
   id: number;
   isLineNotice: boolean;
-  isGetClaim: boolean;
+  isLineNoticed: boolean;
+  isReceipt: boolean;
   totalPrice: number; // NOTE DBのschemaには存在しない。
   userId: number;
   createdAt: Date;

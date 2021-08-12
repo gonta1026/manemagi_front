@@ -2,13 +2,13 @@ import React, { useEffect } from 'react';
 import { useFormik } from 'formik';
 import { useSelector, useDispatch } from 'react-redux';
 /* components */
-import CommonWrapTemplate from '../../components/common/template/CommonWrapTemplate';
+import CommonWrapTemplate from '../../components/common/layout/CommonWrapTemplate';
 import {
   LabelAndTextField,
   LabelAndSwitch,
   ExecutionAndBackButtons,
 } from '../../components/common/molecules';
-import { BasePageTitle, BaseErrorMessagesWrapper } from '../../components/common/uiParts/atoms';
+import { BasePageTitle, BaseErrorMessagesWrapper } from '../../components/common/uiParts';
 /* const */
 import { SETTING_FORM } from '../../const/form/setting';
 /* customHook */

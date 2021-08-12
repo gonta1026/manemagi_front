@@ -62,11 +62,17 @@ export const updateShopping = createAsyncThunk(
   },
 );
 
-export const deleteShopping = createAsyncThunk('shoppings/delete', async (id: string, thunkAPI) => {
-  try {
-    const response: any = await ApiClient.deleteRequest(SHOPPINGS.DELETE(id));
-    return response.data;
-  } catch (error) {
-    return thunkAPI.rejectWithValue({ errorMessage: error.message });
-  }
-});
+export const deleteShopping = createAsyncThunk(
+  'shoppings/delete',
+  async (params: { id: string; data: { isLineNotice: boolean } }, thunkAPI) => {
+    const { id, data } = params;
+    try {
+      const response: any = await ApiClient.deleteRequest(SHOPPINGS.DELETE(id), {
+        data,
+      });
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue({ errorMessage: error.message });
+    }
+  },
+);

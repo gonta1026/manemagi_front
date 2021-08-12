@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 import { useSelector, useDispatch } from 'react-redux';
 /* components */
-import CommonWrapTemplate from '../../components/common/template/CommonWrapTemplate';
+import CommonWrapTemplate from '../../components/common/layout/CommonWrapTemplate';
 import {
   LabelAndTextField,
   LabelAndTextArea,
@@ -15,9 +15,9 @@ import {
   BasePageTitle,
   BaseErrorMessagesWrapper,
   BaseLink,
-} from '../../components/common/uiParts/atoms';
-import ConfirmModal from '../../components/common/modal/ConfirmModal';
-import { IsUseLineHelper } from '../../components/pages/common';
+  ConfirmModal,
+  IsUseLineHelper,
+} from '../../components/common/uiParts';
 /* const */
 import { SHOPPING_FORM } from '../../const/form/shopping';
 /* customHook */
@@ -91,6 +91,7 @@ const ShoppingNew = (): JSX.Element => {
   return (
     <CommonWrapTemplate>
       <ConfirmModal
+        focus
         open={open}
         handleClose={() => setOpen(false)}
         handleOk={async () => {

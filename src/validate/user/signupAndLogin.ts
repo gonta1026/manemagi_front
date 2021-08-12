@@ -1,4 +1,4 @@
-import { TLoginUserOrUser, TUserOrLoginUserFormError } from '../../types/User';
+import { TLoginUserOrUser, TUserFormError } from '../../types/User';
 import { USER_FORM } from '../../const/form/user';
 import {
   emailFormat,
@@ -10,10 +10,7 @@ import {
   validNum,
 } from '../';
 
-export const signupAndLoginValidate = <T>(
-  values: TLoginUserOrUser,
-  errors: TUserOrLoginUserFormError,
-): T => {
+export const signupAndLoginValidate = <T>(values: TLoginUserOrUser, errors: TUserFormError): T => {
   const { NAME, EMAIL, PASSWORD, PASSWORD_CONFIRMATION } = USER_FORM;
   const { MAX_50, MAX_255 } = validNum;
   /******************

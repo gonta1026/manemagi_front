@@ -1,8 +1,14 @@
-import LocalStorage, {
-  storageKeys,
-  noticeStorageValues,
-  TPageMoveNoticeValue,
-} from './LocalStorage';
+import LocalStorage, { storageKeys, noticeStorageValues } from './LocalStorage';
+
+// NOTE ここにページ遷移後に使うお知らせに使用をする型をを追加する事。
+type TPageMoveNoticeValue =
+  | typeof noticeStorageValues.deleteShopping
+  | typeof noticeStorageValues.loginedNotice
+  | typeof noticeStorageValues.shoppingedNotice
+  | typeof noticeStorageValues.signUpedNotice
+  | typeof noticeStorageValues.shoppingUpdatedNotice
+  | typeof noticeStorageValues.claimedNotice
+  | typeof noticeStorageValues.createdShopNotice;
 
 class Notice extends LocalStorage {
   public getNoticeMessage(targetNotice: string) {
@@ -25,6 +31,9 @@ class Notice extends LocalStorage {
         break;
       case noticeStorageValues.shoppingUpdatedNotice:
         message = '買い物の更新をしました！';
+        break;
+      case noticeStorageValues.deleteShopping:
+        message = '買い物を削除しました！';
         break;
     }
     return message;

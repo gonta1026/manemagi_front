@@ -6,6 +6,7 @@ import {
   passwordRangeAndHankakuEngNum,
   blank,
   maxNum,
+  minNumPrice,
 } from './message';
 import { validHankakuEngNum, validEmail } from './regExp';
 import { isBooleanCheck } from '../utils/function';
@@ -19,6 +20,7 @@ export const validNum = {
   MAX_150: 150,
   MAX_255: 255,
   MAX_300: 300,
+  MIN_10: 10,
 } as const;
 
 /*********
@@ -30,12 +32,21 @@ export const validBlank = {
     isBooleanCheck(value === '' || value === null),
   message: (label: string) => blank(label),
 };
+
 export const validMaxNum = {
   check: (value: string | null, num: number): boolean => {
     if (value === null) return false;
     return isBooleanCheck(value.length > num);
   },
   message: (label: string, num: number) => maxNum(label, num),
+};
+
+export const validMinNum = {
+  check: (value: number | null, minNum: number): boolean => {
+    if (value === null) return false;
+    return isBooleanCheck(value < minNum);
+  },
+  message: (label: string, num: number) => minNumPrice(label, num),
 };
 
 export const validRange = {

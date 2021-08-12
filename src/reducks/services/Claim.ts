@@ -27,10 +27,25 @@ export const fetchNoClaimShoppings = createAsyncThunk('claims/new', async (_, th
 });
 
 export const createClaim = createAsyncThunk(
-  'shoppings/create',
+  'claims/create',
   async (shoppingIds: TClaimForm, thunkAPI) => {
     try {
       const response: any = await ApiClient.postRequest(CLAIMS.CREATE, shoppingIds);
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue({ errorMessage: error.message });
+    }
+  },
+);
+
+export const updateClaim = createAsyncThunk(
+  'claims/update',
+  async (
+    { id, data }: { id: string; data: { isLineNotice: boolean; isReceipt: boolean } },
+    thunkAPI,
+  ) => {
+    try {
+      const response: any = await ApiClient.patchRequest(CLAIMS.UPDATE(id), data);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue({ errorMessage: error.message });

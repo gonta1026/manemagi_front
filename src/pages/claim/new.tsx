@@ -3,11 +3,15 @@ import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 import { useSelector, useDispatch } from 'react-redux';
 /* components */
-import CommonWrapTemplate from '../../components/common/template/CommonWrapTemplate';
-import { BasePageTitle, BaseButton, BaseCheckBox } from '../../components/common/uiParts/atoms';
+import CommonWrapTemplate from '../../components/common/layout/CommonWrapTemplate';
+import {
+  BasePageTitle,
+  BaseButton,
+  BaseCheckBox,
+  ConfirmModal,
+  IsUseLineHelper,
+} from '../../components/common/uiParts';
 import { LabelAndSwitch, LabelAndCheckBox } from '../../components/common/molecules/';
-import ConfirmModal from '../../components/common/modal/ConfirmModal';
-import { IsUseLineHelper } from '../../components/pages/common';
 /* const */
 import { SHOPPING_FORM } from '../../const/form/shopping';
 import { CLAIM_FORM } from '../../const/form/claim';
@@ -87,6 +91,7 @@ const ClaimNew = (): JSX.Element => {
   return (
     <CommonWrapTemplate {...{ toastActions }}>
       <ConfirmModal
+        focus
         open={open}
         handleClose={() => setOpen(false)}
         handleOk={async () => {
@@ -137,8 +142,6 @@ const ClaimNew = (): JSX.Element => {
         </p>
       </ConfirmModal>
       <BasePageTitle className={'my-5'}>{page.claim.register.name()}</BasePageTitle>
-      <p>一旦一覧画面を作成、これからどのようにカスタマイズするか等を検討。</p>
-      <p>ソート機能、絞り込み機能、ページネーション、表示件数の制御をできたら入れたい。</p>
       <div className="mt-5">
         請求予定金額：
         {formatPriceYen ? formatPriceYen(totalSumPrice(checkShoppings, 'price')) : ''}

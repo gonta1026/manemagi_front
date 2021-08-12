@@ -3,12 +3,14 @@ import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 /* components */
-import CommonWrapTemplate from '../../../components/common/template/CommonWrapTemplate';
+import CommonWrapTemplate from '../../../components/common/layout/CommonWrapTemplate';
 import {
   BaseErrorMessagesWrapper,
   BasePageTitle,
   BaseLink,
-} from '../../../components/common/uiParts/atoms';
+  ConfirmModal,
+  IsUseLineHelper,
+} from '../../../components/common/uiParts';
 import {
   LabelAndSelect,
   LabelAndTextField,
@@ -16,8 +18,6 @@ import {
   LabelAndSwitch,
   ExecutionAndBackButtons,
 } from '../../../components/common/molecules';
-import ConfirmModal from '../../../components/common/modal/ConfirmModal';
-import { IsUseLineHelper } from '../../../components/pages/common';
 /* const */
 import { SHOPPING_FORM } from '../../../const/form/shopping';
 /* customHook */
@@ -70,6 +70,7 @@ const ShoppingEdit = (): JSX.Element => {
     const shops: TShop[] = response.payload.data.shops;
     setShops(shops);
   };
+
   const validate = (values: TShoppingForm) => {
     let errors = {} as TShoppingFormError;
     errors = shoppingValidate(values, errors);
@@ -91,6 +92,7 @@ const ShoppingEdit = (): JSX.Element => {
   return (
     <CommonWrapTemplate>
       <ConfirmModal
+        focus
         open={open}
         handleClose={() => setOpen(false)}
         handleOk={async () => {

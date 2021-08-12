@@ -9,7 +9,4 @@ export type TShop = {
 
 export type TShopForm = Pick<TShop, 'name' | 'description'>;
 
-export type TShopFormError = {
-  name: string;
-  description: string;
-};
+export type TShopFormError = Record<keyof TShopForm, string>;

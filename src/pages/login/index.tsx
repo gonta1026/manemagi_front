@@ -3,14 +3,14 @@ import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
 /* components */
-import CommonWrapTemplate from '../../components/common/template/CommonWrapTemplate';
+import CommonWrapTemplate from '../../components/common/layout/CommonWrapTemplate';
 import { LabelAndTextField } from '../../components/common/molecules';
 import {
   BasePageTitle,
   BaseButton,
   BaseErrorMessagesWrapper,
   BaseLink,
-} from '../../components/common/uiParts/atoms';
+} from '../../components/common/uiParts';
 /* const */
 import { USER_FORM } from '../../const/form/user';
 /* pageMap */
@@ -18,7 +18,7 @@ import { page } from '../../pageMap';
 /* reducks */
 import { loginUser } from '../../reducks/services/User';
 /* types */
-import { TLoginUser, TLoginUserFormError } from '../../types/User';
+import { TLoginUser, TUserFormError } from '../../types/User';
 /* utils */
 import { noticeStorageValues } from '../../modules/LocalStorage';
 import Notice from '../../modules/Notice';
@@ -31,7 +31,7 @@ const Login = (): JSX.Element => {
   const router = useRouter();
   const dispatch = useDispatch();
   const validate = (values: TLoginUser) => {
-    let errors = {} as TLoginUserFormError;
+    let errors = {} as TUserFormError;
     errors = signupAndLoginValidate(values, errors);
     return errors;
   };
@@ -51,7 +51,6 @@ const Login = (): JSX.Element => {
           password,
         }),
       );
-      console.log({ response });
       if (response.payload.id) {
         const notice = new Notice();
         notice.setItemAtPageMoveNotice(noticeStorageValues.loginedNotice);
