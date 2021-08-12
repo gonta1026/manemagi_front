@@ -9,7 +9,6 @@ import useToastAction from '../../customHook/useToastAction';
 import { LineNotice } from '../../components/pages/common';
 import { ShoppingCardWrapper, ClaimCardWrapper } from '../../components/common/organisms';
 /* pageMap */
-import LocalStorage, { noticeStorageValues, storageKeys } from '../../modules/LocalStorage';
 import { page } from '../../pageMap';
 /* reducks */
 import { fetchShoppings, deleteShopping } from '../../reducks/services/Shopping';
@@ -22,6 +21,8 @@ import { TShop } from '../../types/Shop';
 /* utils */
 import { formatPriceYen, ommisionText, totalSumPrice } from '../../utils/function';
 import { formatDay } from '../../utils/FormatDate';
+import { storageKeys } from '../../modules/LocalStorage';
+import Notice from '../../modules/Notice';
 /* const */
 import { LABEL_SHOPPING } from '../../const/form/shopping';
 
@@ -38,29 +39,10 @@ const Top = (): JSX.Element => {
     fetchShopsAndSetShops();
     fetchClaimsAndSetClaims();
 
-    const storage = new LocalStorage();
-    const targetNotice = storage.getStorageItem(storageKeys.pageMoveNotice)!;
-    const { loginedNotice, signUpedNotice, shoppingedNotice, claimedNotice, createdShopNotice } =
-      noticeStorageValues;
-    let message = '';
-    switch (targetNotice) {
-      case loginedNotice:
-        message = 'ログインをしました！';
-        break;
-      case signUpedNotice:
-        message = '新規登録をしてログインしました！';
-        break;
-      case shoppingedNotice:
-        message = '買い物を登録しました！';
-        break;
-      case claimedNotice:
-        message = '請求を登録しました！';
-        break;
-      case createdShopNotice:
-        message = 'お店を登録しました！';
-        break;
-    }
-    storage.afterPageMoveNotice(() =>
+    const notice = new Notice();
+    const targetNotice = notice.getStorageItem(storageKeys.pageMoveNotice)!;
+    const message = notice.getNoticeMessage(targetNotice);
+    notice.afterPageMoveNotice(() =>
       toastActions.handleToastOpen({
         message,
       }),

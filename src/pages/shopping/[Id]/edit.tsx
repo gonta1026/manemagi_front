@@ -31,11 +31,11 @@ import { fetchEditShopping, updateShopping } from '../../../reducks/services/Sho
 import { TShopping, TShoppingForm, TShoppingFormError } from '../../../types/Shopping';
 import { TShop } from '../../../types/Shop';
 import { settingAndUser } from '../../../types/Setting';
-
 /* utils */
 import { formatDay } from '../../../utils/FormatDate';
-import LocalStorage from '../../../modules/LocalStorage';
 import { isEmpty, formatPriceYen } from '../../../utils/function';
+import { noticeStorageValues } from '../../../modules/LocalStorage';
+import Notice from '../../../modules/Notice';
 /* validate */
 import { shoppingValidate } from '../../../validate/shopping/new';
 
@@ -98,8 +98,8 @@ const ShoppingEdit = (): JSX.Element => {
             updateShopping({ ShoppingForm: formik.values, id: router.query.Id as string }),
           );
           if (response.payload.status === 'success') {
-            const storage = new LocalStorage();
-            storage.setItemAtPageMoveNotice('shoppingUpdatedNotice');
+            const notice = new Notice();
+            notice.setItemAtPageMoveNotice(noticeStorageValues.shoppingUpdatedNotice);
             router.push(page.shopping.show.link(router.query.Id as string));
           } else {
             const { handleToastOpen } = toastActions;

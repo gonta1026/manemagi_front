@@ -16,9 +16,10 @@ import { fetchShopping } from '../../../reducks/services/Shopping';
 import { TShopping, shoppingInit } from '../../../types/Shopping';
 import { TShop } from '../../../types/Shop';
 /* utils */
-import LocalStorage, { noticeStorageValues, storageKeys } from '../../../modules/LocalStorage';
+import { storageKeys } from '../../../modules/LocalStorage';
 import { formatPriceYen, ommisionText } from '../../../utils/function';
 import { formatDay } from '../../../utils/FormatDate';
+import Notice from '../../../modules/Notice';
 
 const ShoppingShow = (): JSX.Element => {
   const [shopping, setShopping] = useState<TShopping>(shoppingInit);
@@ -53,16 +54,10 @@ const ShoppingShow = (): JSX.Element => {
   };
 
   const shoppingedUpdateNotice = () => {
-    const storage = new LocalStorage();
-    const targetNotice = storage.getStorageItem(storageKeys.pageMoveNotice)!;
-    const { shoppingUpdatedNotice } = noticeStorageValues;
-    let message = '';
-    switch (targetNotice) {
-      case shoppingUpdatedNotice:
-        message = '買い物の更新をしました！';
-        break;
-    }
-    storage.afterPageMoveNotice(() =>
+    const notice = new Notice();
+    const targetNotice = notice.getStorageItem(storageKeys.pageMoveNotice)!;
+    const message = notice.getNoticeMessage(targetNotice);
+    notice.afterPageMoveNotice(() =>
       toastActions.handleToastOpen({
         message,
       }),

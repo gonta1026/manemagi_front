@@ -20,7 +20,8 @@ import { loginUser } from '../../reducks/services/User';
 /* types */
 import { TLoginUser, TLoginUserFormError } from '../../types/User';
 /* utils */
-import LocalStorage from '../../modules/LocalStorage';
+import { noticeStorageValues } from '../../modules/LocalStorage';
+import Notice from '../../modules/Notice';
 /* validate */
 import { signupAndLoginValidate } from '../../validate/user/signupAndLogin';
 import { emailOrPassword } from '../../validate/message';
@@ -52,8 +53,8 @@ const Login = (): JSX.Element => {
       );
       console.log({ response });
       if (response.payload.id) {
-        const storage = new LocalStorage();
-        storage.setItemAtPageMoveNotice('loginedNotice');
+        const notice = new Notice();
+        notice.setItemAtPageMoveNotice(noticeStorageValues.loginedNotice);
         router.push(page.top.link());
       }
       if (response.payload.status === 401) {
