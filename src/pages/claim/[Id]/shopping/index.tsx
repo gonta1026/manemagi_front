@@ -1,8 +1,76 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
+/* reducks */
+import { fetchClaimShoppings } from '../../../../reducks/services/Claim';
+/* types */
+import { TShopping } from '../../../../types/Shopping';
+/* components */
 import CommonWrapTemplate from '../../../../components/common/layout/CommonWrapTemplate';
+import { ShoppingCardWrapper } from '../../../../components/pages/common';
+import { LineNotice, BasePageTitle } from '../../../../components/common/uiParts';
+/* pageMap */
+import { page } from '../../../../pageMap';
+/* utils */
+import { formatPriceYen, ommisionText } from '../../../../utils/function';
+import { formatDay } from '../../../../utils/FormatDate';
 
 const ClaimShoppings = (): JSX.Element => {
-  return <CommonWrapTemplate>ClaimShoppings 請求中の買い物一覧を出力</CommonWrapTemplate>;
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const [shoppings, setShopping] = useState<TShopping[]>([]);
+
+  const fetchClaimShoppingsAndSet = async (claimId: string) => {
+    const response: any = await dispatch(fetchClaimShoppings(claimId));
+    if (response.payload.status === 'success') {
+      const shoppings: TShopping[] = response.payload.data;
+      setShopping(shoppings);
+    }
+  };
+
+  useEffect(() => {
+    fetchClaimShoppingsAndSet(router.query.Id as string);
+  }, [router]);
+  console.log(shoppings);
+  return (
+    <CommonWrapTemplate>
+      <BasePageTitle className={'my-5'}>{page.claim.shopping.name()}</BasePageTitle>
+
+      {shoppings.length ? (
+        <>
+          <div className="mt-10 space-y-3">
+            {shoppings.map((shopping, index) => (
+              <ShoppingCardWrapper
+                className={'border-t-2 p-3 relative'}
+                detailPathName={page.shopping.show.link(shopping.id!.toString())}
+                isEditShow={false}
+                isDeleteShow={false}
+                key={index}
+              >
+                <div className="flex justify-between">
+                  <div className="left">
+                    <div>買い物日：{formatDay(shopping.date!)}</div>
+                    <div>金額：{formatPriceYen(shopping.price)}</div>
+                    <div>
+                      説明：{shopping.description ? ommisionText(shopping.description, 20) : 'なし'}
+                    </div>
+                  </div>
+                  <div className="right">
+                    <LineNotice
+                      isLineNotice={shopping.isLineNoticed}
+                      text={shopping.isLineNoticed ? '買い物通知済' : '買い物未通知'}
+                    />
+                  </div>
+                </div>
+              </ShoppingCardWrapper>
+            ))}
+          </div>
+        </>
+      ) : (
+        <p className={'mt-3'}>未請求の買い物登録はありません。</p>
+      )}
+    </CommonWrapTemplate>
+  );
 };
 
 export default ClaimShoppings;

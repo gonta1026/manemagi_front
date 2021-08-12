@@ -1,8 +1,7 @@
-// railsのコントローラーに一致する形でエンドポイントを整理している。こちらは試作で作っているので使わない可能性もあり。（2021/6/26）
 const auth = 'auth';
+const claims = 'claims';
 const shops = 'shops';
 const shoppings = 'shoppings';
-const claims = 'claims';
 const settings = 'settings';
 
 export const END_POINT = {
@@ -29,6 +28,7 @@ export const END_POINT = {
     CREATE: `/${claims}`, // 請求登録
     NEW: `/${claims}/new`, // 請求登録
     UPDATE: (id: number | string) => `/${claims}/${id}`, // 請求受領
+    SHOPPINGS: (claimId: number | string) => `/${claims}/${claimId}/${shoppings}`, // 請求内訳一覧
   },
   SETTINGS: {
     INDEX: `/${settings}`,

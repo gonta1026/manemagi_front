@@ -29,9 +29,6 @@ const Shop = (): JSX.Element => {
   return (
     <CommonWrapTemplate>
       <BasePageTitle className={'my-5'}>{page.shop.list.name()}</BasePageTitle>
-      <p>
-        一旦一覧画面を作成、これからどのようにカスタマイズするか等を検討。お店の情報も少ないので詳細画面は作らない予定。
-      </p>
       <ul className="py-4">
         {shops.map((shop, index) => (
           <li key={index} className={'border-t-2 p-3'}>

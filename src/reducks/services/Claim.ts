@@ -52,3 +52,15 @@ export const updateClaim = createAsyncThunk(
     }
   },
 );
+
+export const fetchClaimShoppings = createAsyncThunk(
+  'claims/shoppings',
+  async (claimId: string, thunkAPI) => {
+    try {
+      const response: any = await ApiClient.getRequest(CLAIMS.SHOPPINGS(claimId));
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue({ errorMessage: error.message });
+    }
+  },
+);
