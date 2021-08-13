@@ -7,6 +7,7 @@ const CardLinkGroup = ({
   detailPathName,
   deleteOnClick,
   isDetailShow = true,
+  isReceiptShow = true,
   isDeleteShow = true,
   ReceiptOnClick,
 }: {
@@ -14,6 +15,7 @@ const CardLinkGroup = ({
   detailPathName: string;
   deleteOnClick: any;
   isDetailShow?: boolean;
+  isReceiptShow?: boolean;
   isDeleteShow?: boolean;
   ReceiptOnClick: any;
 }): JSX.Element => {
@@ -24,9 +26,11 @@ const CardLinkGroup = ({
           <BaseButton customType={'description'}>詳細</BaseButton>
         </BaseLink>
       )}
-      <BaseButton customType={'receipt'} onClick={ReceiptOnClick}>
-        受領
-      </BaseButton>
+      {isReceiptShow && (
+        <BaseButton customType={'receipt'} onClick={ReceiptOnClick}>
+          受領
+        </BaseButton>
+      )}
       {isDeleteShow && (
         <BaseButton customType={'delete'} onClick={deleteOnClick}>
           削除

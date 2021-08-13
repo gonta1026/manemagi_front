@@ -7,6 +7,7 @@ const ClaimCardWrapper = ({
   children,
   deleteOnClick,
   detailPathName,
+  isReceiptShow,
   isDetailShow,
   isDeleteShow,
   ReceiptOnClick,
@@ -15,6 +16,7 @@ const ClaimCardWrapper = ({
   children: ReactNode;
   detailPathName: string;
   deleteOnClick: any;
+  isReceiptShow?: boolean;
   isDetailShow?: boolean;
   isDeleteShow?: boolean;
   ReceiptOnClick: any;
@@ -24,11 +26,14 @@ const ClaimCardWrapper = ({
       {children}
       <ClaimCardLinkGroup
         className={'mt-2 text-right'}
-        detailPathName={detailPathName}
-        isDetailShow={isDetailShow}
-        isDeleteShow={isDeleteShow}
-        ReceiptOnClick={ReceiptOnClick}
-        deleteOnClick={deleteOnClick}
+        {...{
+          detailPathName,
+          isDetailShow,
+          isDeleteShow,
+          isReceiptShow,
+          ReceiptOnClick,
+          deleteOnClick,
+        }}
       />
     </BaseCard>
   );
