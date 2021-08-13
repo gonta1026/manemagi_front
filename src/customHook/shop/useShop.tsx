@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { TShop } from '../../types/Shop';
 import { fetchShops } from '../../reducks/services/Shop';
 
-const useIsAfterSsr = () => {
+const useShop = () => {
   const [shops, setShops] = useState<TShop[]>([]);
   const dispatch = useDispatch();
 
@@ -11,7 +11,6 @@ const useIsAfterSsr = () => {
     const response: any = await dispatch(fetchShops());
     if (response.payload.status === 'success') {
       const shops: TShop[] = response.payload.data;
-      console.log('shopsは', shops);
       setShops(shops);
     }
   };
@@ -19,4 +18,4 @@ const useIsAfterSsr = () => {
   return { shops, fetchShopsAndSet };
 };
 
-export default useIsAfterSsr;
+export default useShop;
