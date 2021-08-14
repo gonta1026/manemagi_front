@@ -1,30 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
 /* components */
 import CommonWrapTemplate from '../../components/common/layout/CommonWrapTemplate';
 import { BasePageTitle } from '../../components/common/uiParts';
+//customHook */
+import { useShop } from '../../customHook';
 /* pageMap */
 import { page } from '../../pageMap';
-/* reducks */
-import { fetchShops } from '../../reducks/services/Shop';
-/* types */
-import { TShop } from '../../types/Shop';
 
 const Shop = (): JSX.Element => {
-  const [shops, setShopNames] = useState<TShop[]>([]);
-  const dispatch = useDispatch();
+  const { shops, fetchShopsAndSet } = useShop();
 
   useEffect(() => {
-    fetchShopsAndSetShops();
+    fetchShopsAndSet();
   }, []);
-
-  const fetchShopsAndSetShops = async () => {
-    const response: any = await dispatch(fetchShops());
-    if (response.payload.status === 'success') {
-      const shops: TShop[] = response.payload.data.shops;
-      setShopNames(shops);
-    }
-  };
 
   return (
     <CommonWrapTemplate>

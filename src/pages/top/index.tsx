@@ -18,8 +18,8 @@ import LocalStorage, { noticeStorageValues, storageKeys } from '../../modules/Lo
 /* pageMap */
 import { page } from '../../pageMap';
 /* types */
-import { TShopping } from '../../types/Shopping';
-import { TClaim } from '../../types/Claim';
+import { TShopping, initialShopping } from '../../types/Shopping';
+import { initialClaim, TClaim } from '../../types/Claim';
 import { settingAndUser } from '../../types/Setting';
 /* utils */
 import { formatPriceYen, ommisionText, totalSumPrice } from '../../utils/function';
@@ -27,8 +27,8 @@ import { formatDay } from '../../utils/FormatDate';
 
 const Top = (): JSX.Element => {
   const [isLineNotice, setIsLineNotice] = useState<boolean>(false);
-  const [modalShopping, setModalShopping] = useState<TShopping>();
-  const [modalClaim, setModalClaim] = useState<TClaim>();
+  const [modalShopping, setModalShopping] = useState<TShopping>(initialShopping);
+  const [modalClaim, setModalClaim] = useState<TClaim>(initialClaim);
   const [deleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
   const [claimModalOpen, setClaimModalOpen] = useState<boolean>(false);
   const [deleteClaimModalOpen, setDeleteClaimModalOpen] = useState<boolean>(false);
@@ -89,7 +89,7 @@ const Top = (): JSX.Element => {
         open={deleteModalOpen}
         handleClose={() => setDeleteModalOpen(false)}
         handleOk={async () => {
-          await deleteShoppingAndSet(modalShopping!, isLineNotice, toastActions);
+          await deleteShoppingAndSet(modalShopping, isLineNotice, toastActions);
           setDeleteModalOpen(false);
         }}
         isLineNotice={isLineNotice}
@@ -104,7 +104,7 @@ const Top = (): JSX.Element => {
         open={claimModalOpen}
         handleClose={() => setClaimModalOpen(false)}
         handleOk={async () => {
-          await updateClaimAndSet(modalClaim!, isLineNotice, toastActions);
+          await updateClaimAndSet(modalClaim, isLineNotice, toastActions);
           setClaimModalOpen(false);
         }}
         isLineNotice={isLineNotice}
@@ -118,7 +118,7 @@ const Top = (): JSX.Element => {
         open={deleteClaimModalOpen}
         handleClose={() => setDeleteClaimModalOpen(false)}
         handleOk={async () => {
-          await deleteClaimAndSet(modalClaim!, isLineNotice, toastActions);
+          await deleteClaimAndSet(modalClaim, isLineNotice, toastActions);
           await fetchNoClaimShoppingsAndSet();
           setDeleteClaimModalOpen(false);
         }}

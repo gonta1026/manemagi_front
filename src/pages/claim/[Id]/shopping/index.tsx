@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { useDispatch } from 'react-redux';
-/* reducks */
-import { fetchClaimShoppings } from '../../../../reducks/services/Claim';
-/* types */
-import { TShopping } from '../../../../types/Shopping';
+/* components */
+import { useClaim } from '../../../../customHook';
 /* components */
 import CommonWrapTemplate from '../../../../components/common/layout/CommonWrapTemplate';
 import { ShoppingCardWrapper } from '../../../../components/pages/common';
@@ -16,22 +13,13 @@ import { formatPriceYen, ommisionText } from '../../../../utils/function';
 import { formatDay } from '../../../../utils/FormatDate';
 
 const ClaimShoppings = (): JSX.Element => {
-  const dispatch = useDispatch();
   const router = useRouter();
-  const [shoppings, setShopping] = useState<TShopping[]>([]);
-
-  const fetchClaimShoppingsAndSet = async (claimId: string) => {
-    const response: any = await dispatch(fetchClaimShoppings(claimId));
-    if (response.payload.status === 'success') {
-      const shoppings: TShopping[] = response.payload.data;
-      setShopping(shoppings);
-    }
-  };
+  const { fetchClaimShoppingsAndSet, shoppings } = useClaim();
 
   useEffect(() => {
     fetchClaimShoppingsAndSet(router.query.Id as string);
   }, [router]);
-  console.log(shoppings);
+
   return (
     <CommonWrapTemplate>
       <BasePageTitle className={'my-5'}>{page.claim.shopping.name()}</BasePageTitle>

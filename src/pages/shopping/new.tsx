@@ -18,18 +18,16 @@ import {
   ConfirmModal,
   IsUseLineHelper,
 } from '../../components/common/uiParts';
+//customHook */
+import { useToastAction, useShop } from '../../customHook';
 /* const */
 import { SHOPPING_FORM } from '../../const/form/shopping';
-/* customHook */
-import useToastAction from '../../customHook/useToastAction';
 /* pageMap */
 import { page } from '../../pageMap';
 /* reducks */
-import { fetchShops } from '../../reducks/services/Shop';
 import { createShopping } from '../../reducks/services/Shopping';
 /* types */
 import { TShoppingForm, TShoppingFormError } from '../../types/Shopping';
-import { TShop } from '../../types/Shop';
 import { settingAndUser } from '../../types/Setting';
 /* utils */
 import { formatDay } from '../../utils/FormatDate';
@@ -37,14 +35,15 @@ import { isEmpty, formatPriceYen } from '../../utils/function';
 import LocalStorage from '../../modules/LocalStorage';
 /* validate */
 import { shoppingValidate } from '../../validate/shopping/new';
-/* utils */
 
 const ShoppingNew = (): JSX.Element => {
   const router = useRouter();
-  const [open, setOpen] = useState<boolean>(false);
-  const [shops, setShops] = useState<TShop[]>([]);
   const dispatch = useDispatch();
+  const [open, setOpen] = useState<boolean>(false);
+
   const toastActions = useToastAction();
+  const { shops, fetchShopsAndSet } = useShop();
+
   const { settingState } = useSelector((state: { settingState: settingAndUser }) => state);
 
   const validate = (values: TShoppingForm) => {
@@ -66,7 +65,7 @@ const ShoppingNew = (): JSX.Element => {
   });
 
   useEffect(() => {
-    fetchShopsAndSetShops();
+    fetchShopsAndSet();
   }, []);
 
   useEffect(() => {
@@ -78,14 +77,6 @@ const ShoppingNew = (): JSX.Element => {
       formik.setFieldError;
     }, 100);
   }, [settingState]);
-
-  const fetchShopsAndSetShops = async () => {
-    const response: any = await dispatch(fetchShops());
-    if (response.payload.status === 'success') {
-      const shops: TShop[] = response.payload.data.shops;
-      setShops(shops);
-    }
-  };
 
   return (
     <CommonWrapTemplate>
