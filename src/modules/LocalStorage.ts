@@ -1,29 +1,18 @@
-import { TLoginedStorageKey } from '../modules/Auth';
-
-export const storageKeys = {
-  logined: 'logined',
+export const noticeStorageKeys = {
   pageMoveNotice: 'pageMoveNotice',
 } as const;
 
-export const noticeStorageValues = {
-  deleteShopping: 'deleteShopping',
-  loginedNotice: 'loginedNotice',
-  signUpedNotice: 'signUpedNotice',
-  shoppingedNotice: 'shoppingedNotice',
-  shoppingUpdatedNotice: 'shoppingUpdatedNotice',
-  claimedNotice: 'claimedNotice',
-  createdShopNotice: 'createdShopNotice',
+export const authStorageKeys = {
+  logined: 'logined',
 } as const;
 
-export type TLoginedStorageValue = {
-  accessToken?: string;
-  uid?: string;
-  client?: string;
-};
+export const storageKeys = {
+  ...authStorageKeys,
+  ...noticeStorageKeys,
+} as const;
 
-type TPageMoveNotice = typeof storageKeys.pageMoveNotice;
-/* ！！重要！！ ここにローカルストレージで使うkeyを定義する事。何がローカルストレージで使われているかを管理するため */
-type TStorageKey = TPageMoveNotice | TLoginedStorageKey;
+/* NOTE `TStorageKey` ここにローカルストレージで使うkeyを定義する事。何がローカルストレージで使われているかを管理するため */
+type TStorageKey = keyof typeof storageKeys;
 
 export type TLocalStorage = {
   getStorageItem: (itemKey: TStorageKey) => string | null | undefined;

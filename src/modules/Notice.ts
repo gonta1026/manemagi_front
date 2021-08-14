@@ -1,16 +1,20 @@
-import LocalStorage, { storageKeys, noticeStorageValues } from './LocalStorage';
+import LocalStorage, { storageKeys } from './LocalStorage';
 
-// NOTE ここにページ遷移後に使うお知らせに使用をする型をを追加する事。
-type TPageMoveNoticeValue =
-  | typeof noticeStorageValues.deleteShopping
-  | typeof noticeStorageValues.loginedNotice
-  | typeof noticeStorageValues.shoppingedNotice
-  | typeof noticeStorageValues.signUpedNotice
-  | typeof noticeStorageValues.shoppingUpdatedNotice
-  | typeof noticeStorageValues.claimedNotice
-  | typeof noticeStorageValues.createdShopNotice;
+export const noticeStorageValues = {
+  deleteShopping: 'deleteShopping',
+  loginedNotice: 'loginedNotice',
+  signUpedNotice: 'signUpedNotice',
+  shoppingedNotice: 'shoppingedNotice',
+  shoppingUpdatedNotice: 'shoppingUpdatedNotice',
+  claimedNotice: 'claimedNotice',
+  createdShopNotice: 'createdShopNotice',
+} as const;
 
-class Notice extends LocalStorage {
+type TPageMoveNoticeValue = keyof typeof noticeStorageValues;
+
+const storage = new LocalStorage();
+
+class Notice {
   public getNoticeMessage(targetNotice: string) {
     let message = '';
     switch (targetNotice) {
@@ -40,20 +44,16 @@ class Notice extends LocalStorage {
   }
 
   public setItemAtPageMoveNotice(targetNotice: TPageMoveNoticeValue) {
-    if (this.localStorage !== undefined) {
-      return this.setStorageItem(storageKeys.pageMoveNotice, targetNotice);
-    }
+    return storage.setStorageItem(storageKeys.pageMoveNotice, targetNotice);
   }
 
   public afterPageMoveNotice(this: Notice, callbackToastExecution: VoidFunction) {
-    if (this.localStorage !== undefined) {
-      const storageItem = this.getStorageItem(storageKeys.pageMoveNotice);
-      if (storageItem) {
-        callbackToastExecution();
-        this.removeStorageItem(storageKeys.pageMoveNotice);
-      }
+    const storageItem = storage.getStorageItem(storageKeys.pageMoveNotice);
+    if (storageItem) {
+      callbackToastExecution();
+      storage.removeStorageItem(storageKeys.pageMoveNotice);
     }
   }
 }
 
-export default Notice;
+export default new Notice();

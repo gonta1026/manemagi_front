@@ -1,31 +1,22 @@
 import { isBooleanCheck } from '../utils/function';
-import LocalStorage from '../modules/LocalStorage';
+import LocalStorage, { authStorageKeys } from '../modules/LocalStorage';
 
-const localStorage = new LocalStorage();
-
-const authStorageKeys = {
-  logined: 'logined',
-} as const;
-
+const storage = new LocalStorage();
 type TLoginedStorageValue = {
   accessToken?: string;
   uid?: string;
   client?: string;
 };
 
-export type TLoginedStorageKey = typeof authStorageKeys.logined;
-export type TLocalStorage = typeof LocalStorage;
-
 class Auth {
   public getLoginedStorageKeys() {
     const loginedKeys = JSON.parse(
-      localStorage.getStorageItem(authStorageKeys.logined)!,
+      storage.getStorageItem(authStorageKeys.logined)!,
     ) as TLoginedStorageValue;
     return loginedKeys;
   }
-  /* NOTE ログイン時のstorageをセット */
   public setLoginedStorage(accessToken: string, client: string, uid: string) {
-    localStorage.setStorageItem(
+    storage.setStorageItem(
       authStorageKeys.logined,
       JSON.stringify({
         accessToken,
@@ -34,14 +25,12 @@ class Auth {
       }),
     );
   }
-  // TODO localstorageを扱っているのでこちらを作成しているが、Auth系のクラスを作成して対応した方が良さそう？
   public loginedStorageExists(): boolean {
     const loginedKeys = this.getLoginedStorageKeys();
     return isBooleanCheck(!!(loginedKeys?.uid && loginedKeys?.accessToken && loginedKeys?.client)); // !!で真偽値にして返す
   }
-  // TODO localstorageを扱っているのでこちらを作成しているが、Auth系のクラスを作成して対応した方が良さそう？
   public removeLoginedStorage() {
-    return localStorage.removeStorageItem(authStorageKeys.logined);
+    return storage.removeStorageItem(authStorageKeys.logined);
   }
 }
 
