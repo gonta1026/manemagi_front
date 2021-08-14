@@ -1,11 +1,21 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { TClaim } from '../../types/Claim';
-import { fetchClaims, updateClaim, deleteClaim } from '../../reducks/services/Claim';
+/* customHook */
 import { ToastType } from '../../customHook/useToastAction';
+/* reducks */
+import {
+  fetchClaims,
+  updateClaim,
+  deleteClaim,
+  fetchClaimShoppings,
+} from '../../reducks/services/Claim';
+/* types */
+import { TClaim } from '../../types/Claim';
+import { TShopping } from '../../types/Shopping';
 
 const useClaim = () => {
   const [claims, setClaims] = useState<TClaim[]>([]);
+  const [shoppings, setShoppings] = useState<TShopping[]>([]);
   const dispatch = useDispatch();
   const fetchClaimsAndSet = async () => {
     const response: any = await dispatch(fetchClaims());
@@ -71,7 +81,22 @@ const useClaim = () => {
     }
   };
 
-  return { claims, fetchClaimsAndSet, updateClaimAndSet, deleteClaimAndSet };
+  const fetchClaimShoppingsAndSet = async (claimId: string) => {
+    const response: any = await dispatch(fetchClaimShoppings(claimId));
+    if (response.payload.status === 'success') {
+      const shoppings: TShopping[] = response.payload.data;
+      setShoppings(shoppings);
+    }
+  };
+
+  return {
+    claims,
+    shoppings,
+    fetchClaimsAndSet,
+    updateClaimAndSet,
+    deleteClaimAndSet,
+    fetchClaimShoppingsAndSet,
+  };
 };
 
 export default useClaim;
