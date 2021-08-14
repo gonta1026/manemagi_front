@@ -20,7 +20,7 @@ import { signupUser } from '../../reducks/services/User';
 /* types */
 import { TUser, TUserFormError } from '../../types/User';
 /* utils */
-import { noticeStorageValues } from '../../modules/LocalStorage';
+import { noticeStorageValues } from '../../modules/Notice';
 import Notice from '../../modules/Notice';
 /* validate */
 import { signupAndLoginValidate } from '../../validate/user/signupAndLogin';
@@ -58,8 +58,7 @@ const SignUp = (): JSX.Element => {
         formik.setFieldError(USER_FORM.EMAIL.ID, 'こちらのメールアドレスは既に登録されています。');
       }
       if (response.payload.status === 'success') {
-        const notice = new Notice();
-        notice.setItemAtPageMoveNotice(noticeStorageValues.signUpedNotice);
+        Notice.setItemAtPageMoveNotice(noticeStorageValues.signUpedNotice);
         router.push(page.top.link());
       }
       setIsLoading(false);

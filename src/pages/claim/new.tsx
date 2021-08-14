@@ -28,7 +28,7 @@ import { settingAndUser } from '../../types/Setting';
 /* utils */
 import { formatPriceYen, ommisionText, totalSumPrice } from '../../utils/function';
 import { formatDay } from '../../utils/FormatDate';
-import { noticeStorageValues } from '../../modules/LocalStorage';
+import { noticeStorageValues } from '../../modules/Notice';
 import Notice from '../../modules/Notice';
 
 const ClaimNew = (): JSX.Element => {
@@ -100,8 +100,7 @@ const ClaimNew = (): JSX.Element => {
             createClaim({ shoppingIds: shoppingIds, isLineNotice: true }),
           );
           if (response.payload.status === 'success') {
-            const notice = new Notice();
-            notice.setItemAtPageMoveNotice(noticeStorageValues.claimedNotice);
+            Notice.setItemAtPageMoveNotice(noticeStorageValues.claimedNotice);
             router.push(page.top.link());
           } else {
             const { handleToastOpen } = toastActions;

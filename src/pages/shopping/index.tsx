@@ -15,7 +15,7 @@ import { settingAndUser } from '../../types/Setting';
 import { formatPriceYen, ommisionText } from '../../utils/function';
 import { formatDay } from '../../utils/FormatDate';
 /* modules */
-import { storageKeys } from '../../modules/LocalStorage';
+import LocalStorage, { storageKeys } from '../../modules/LocalStorage';
 import Notice from '../../modules/Notice';
 
 const Shopping = (): JSX.Element => {
@@ -40,10 +40,10 @@ const Shopping = (): JSX.Element => {
   }, [settingState]);
 
   const pageMoveNotice = () => {
-    const notice = new Notice();
-    const targetNotice = notice.getStorageItem(storageKeys.pageMoveNotice)!;
-    const message = notice.getNoticeMessage(targetNotice);
-    notice.afterPageMoveNotice(() =>
+    const localStorage = new LocalStorage();
+    const targetNotice = localStorage.getStorageItem(storageKeys.pageMoveNotice)!;
+    const message = Notice.getNoticeMessage(targetNotice);
+    Notice.afterPageMoveNotice(() =>
       toastActions.handleToastOpen({
         message,
       }),

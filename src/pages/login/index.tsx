@@ -20,7 +20,7 @@ import { loginUser } from '../../reducks/services/User';
 /* types */
 import { TLoginUser, TUserFormError } from '../../types/User';
 /* utils */
-import { noticeStorageValues } from '../../modules/LocalStorage';
+import { noticeStorageValues } from '../../modules/Notice';
 import Notice from '../../modules/Notice';
 /* validate */
 import { signupAndLoginValidate } from '../../validate/user/signupAndLogin';
@@ -52,8 +52,7 @@ const Login = (): JSX.Element => {
         }),
       );
       if (response.payload.id) {
-        const notice = new Notice();
-        notice.setItemAtPageMoveNotice(noticeStorageValues.loginedNotice);
+        Notice.setItemAtPageMoveNotice(noticeStorageValues.loginedNotice);
         router.push(page.top.link());
       }
       if (response.payload.status === 401) {

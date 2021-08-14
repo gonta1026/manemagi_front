@@ -32,7 +32,8 @@ import { settingAndUser } from '../../types/Setting';
 /* utils */
 import { formatDay } from '../../utils/FormatDate';
 import { isEmpty, formatPriceYen } from '../../utils/function';
-import { noticeStorageValues } from '../../modules/LocalStorage';
+/* modules */
+import { noticeStorageValues } from '../../modules/Notice';
 import Notice from '../../modules/Notice';
 /* validate */
 import { shoppingValidate } from '../../validate/shopping/new';
@@ -89,8 +90,7 @@ const ShoppingNew = (): JSX.Element => {
           const response: any = await dispatch(createShopping(formik.values));
           setOpen(false);
           if (response.payload.status === 'success') {
-            const notice = new Notice();
-            notice.setItemAtPageMoveNotice(noticeStorageValues.shoppingedNotice);
+            Notice.setItemAtPageMoveNotice(noticeStorageValues.shoppingedNotice);
             router.push(page.top.link());
           } else {
             const { handleToastOpen } = toastActions;

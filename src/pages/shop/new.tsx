@@ -25,7 +25,7 @@ import { createShop } from '../../reducks/services/Shop';
 import { TShopForm, TShopFormError } from '../../types/Shop';
 /* utils */
 import { isEmpty } from '../../utils/function';
-import { noticeStorageValues } from '../../modules/LocalStorage';
+/* modules */
 import Notice from '../../modules/Notice';
 /* validate */
 import { shopNewValidate } from '../../validate/shop/new';
@@ -66,8 +66,7 @@ const NewShop = (): JSX.Element => {
     const response: any = await dispatch(createShop(formik.values));
     setOpen(false);
     if (response.payload.status === 'success') {
-      const storage = new LocalStorage();
-      storage.setItemAtPageMoveNotice('createdShopNotice');
+      Notice.setItemAtPageMoveNotice('createdShopNotice');
       router.push(page.top.link());
     }
   };

@@ -14,7 +14,8 @@ import {
   ConfirmReceiptClaimModal,
 } from '../../components/pages/common';
 /* modules */
-import LocalStorage, { noticeStorageValues, storageKeys } from '../../modules/LocalStorage';
+import LocalStorage, { storageKeys } from '../../modules/LocalStorage';
+import Notice from '../../modules/Notice';
 /* pageMap */
 import { page } from '../../pageMap';
 /* types */
@@ -24,8 +25,6 @@ import { settingAndUser } from '../../types/Setting';
 /* utils */
 import { formatPriceYen, ommisionText, totalSumPrice } from '../../utils/function';
 import { formatDay } from '../../utils/FormatDate';
-import { storageKeys } from '../../modules/LocalStorage';
-import Notice from '../../modules/Notice';
 
 const Top = (): JSX.Element => {
   const [isLineNotice, setIsLineNotice] = useState<boolean>(false);
@@ -53,10 +52,10 @@ const Top = (): JSX.Element => {
   }, []);
 
   const pageMoveNotice = () => {
-    const notice = new Notice();
-    const targetNotice = notice.getStorageItem(storageKeys.pageMoveNotice)!;
-    const message = notice.getNoticeMessage(targetNotice);
-    notice.afterPageMoveNotice(() =>
+    const localStorage = new LocalStorage();
+    const targetNotice = localStorage.getStorageItem(storageKeys.pageMoveNotice)!;
+    const message = Notice.getNoticeMessage(targetNotice);
+    Notice.afterPageMoveNotice(() =>
       toastActions.handleToastOpen({
         message,
       }),
