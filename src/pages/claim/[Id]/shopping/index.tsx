@@ -5,7 +5,7 @@ import { useClaim } from '../../../../customHook';
 /* components */
 import CommonWrapTemplate from '../../../../components/common/layout/CommonWrapTemplate';
 import { ShoppingCardWrapper } from '../../../../components/pages/common';
-import { LineNotice, BasePageTitle } from '../../../../components/common/uiParts';
+import { LineNotice, BasePageTitle, BaseButton } from '../../../../components/common/uiParts';
 /* pageMap */
 import { page } from '../../../../pageMap';
 /* utils */
@@ -57,6 +57,17 @@ const ClaimShoppings = (): JSX.Element => {
       ) : (
         <p className={'mt-3'}>未請求の買い物登録はありません。</p>
       )}
+
+      <div className="mt-10 text-center">
+        <BaseButton
+          customType={'arrowBack'}
+          onClick={() => {
+            router.back();
+          }}
+        >
+          前に戻る
+        </BaseButton>
+      </div>
     </CommonWrapTemplate>
   );
 };

@@ -16,9 +16,8 @@ const ShoppingCardWrapper = ({
   detailPathName: string;
   editPathName?: string;
   onClick?: any;
-  isDetailShow?: boolean;
-  isEditShow?: boolean;
-  isDeleteShow?: boolean;
+  isEditShow: boolean;
+  isDeleteShow: boolean;
 }): JSX.Element => {
   return (
     <BaseCard className={className}>

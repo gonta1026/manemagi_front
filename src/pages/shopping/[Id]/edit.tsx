@@ -8,6 +8,7 @@ import {
   BaseErrorMessagesWrapper,
   BasePageTitle,
   BaseLink,
+  BaseButton,
   ConfirmModal,
   IsUseLineHelper,
 } from '../../../components/common/uiParts';
@@ -16,7 +17,6 @@ import {
   LabelAndTextField,
   LabelAndTextArea,
   LabelAndSwitch,
-  ExecutionAndBackButtons,
 } from '../../../components/common/molecules';
 /* const */
 import { SHOPPING_FORM } from '../../../const/form/shopping';
@@ -216,13 +216,22 @@ const ShoppingEdit = (): JSX.Element => {
             formik.values.isLineNotice ? 'ON' : 'OFF'
           }`}
         />
-        <ExecutionAndBackButtons
-          backPathname={page.shopping.list.link()}
-          backName={`${page.shopping.list.name()}へ戻る`}
-          className={'base-vertical-item'}
-          nextName={'確認'}
-          disabledExecution={!isEmpty(formik.errors)}
-        />
+
+        <div className="base-vertical-item text-center">
+          <BaseButton type={'submit'} disabled={!isEmpty(formik.errors)}>
+            確認
+          </BaseButton>
+          <hr className="my-5" />
+
+          <BaseButton
+            customType={'arrowBack'}
+            onClick={() => {
+              router.back();
+            }}
+          >
+            前に戻る
+          </BaseButton>
+        </div>
       </form>
     </CommonWrapTemplate>
   );

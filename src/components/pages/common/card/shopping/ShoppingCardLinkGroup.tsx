@@ -7,21 +7,19 @@ const ShoppingCardLinkGroup = ({
   detailPathName,
   editPathName,
   onClick,
-  isDetailShow = true,
-  isEditShow = true,
-  isDeleteShow = true,
+  isEditShow,
+  isDeleteShow,
 }: {
   className?: string;
   detailPathName: string;
   editPathName?: string;
   onClick: any;
-  isDetailShow?: boolean;
-  isEditShow?: boolean;
-  isDeleteShow?: boolean;
+  isEditShow: boolean;
+  isDeleteShow: boolean;
 }): JSX.Element => {
   return (
     <LinkGroup className={className}>
-      {isDetailShow && (
+      {detailPathName && (
         <BaseLink pathname={detailPathName}>
           <BaseButton customType={'description'}>詳細</BaseButton>
         </BaseLink>

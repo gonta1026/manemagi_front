@@ -98,27 +98,38 @@ const ShoppingShow = (): JSX.Element => {
         </li>
       </ul>
       <div className="mt-5 text-center">
-        <BaseLinkButton
-          pathname={page.shopping.edit.link(router.query.Id! as string)}
-          size={'large'}
-          customType={'edit'}
-        >
-          編集
-        </BaseLinkButton>
+        {shopping.claimId === null && (
+          <>
+            <BaseLinkButton
+              pathname={page.shopping.edit.link(router.query.Id! as string)}
+              size={'large'}
+              customType={'edit'}
+            >
+              編集
+            </BaseLinkButton>
+            <BaseButton
+              className={'ml-10'}
+              customType={'delete'}
+              onClick={() => {
+                setDeleteModalOpen(true);
+              }}
+              size={'large'}
+            >
+              削除
+            </BaseButton>
+            <hr className="my-5" />
+          </>
+        )}
+
         <BaseButton
-          className={'ml-10'}
-          customType={'delete'}
+          customType={'arrowBack'}
           onClick={() => {
-            setDeleteModalOpen(true);
+            router.back();
           }}
           size={'large'}
         >
-          削除
+          前に戻る
         </BaseButton>
-        <hr className="my-5" />
-        <BaseLinkButton pathname={page.shopping.list.link()} size={'large'}>
-          {page.shopping.list.name()}へ戻る
-        </BaseLinkButton>
       </div>
     </CommonWrapTemplate>
   );

@@ -63,7 +63,7 @@ const Shopping = (): JSX.Element => {
             className={'border-t-2 p-3 relative'}
             detailPathName={page.shopping.show.link(shopping.id!.toString())}
             editPathName={page.shopping.edit.link(shopping.id!.toString())}
-            isEditShow={shopping.claimId === null}
+            isEditShow={false}
             isDeleteShow={shopping.claimId === null}
             onClick={() => {
               setModalShopping(shopping);
