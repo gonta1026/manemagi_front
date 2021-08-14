@@ -24,8 +24,9 @@ import { createShop } from '../../reducks/services/Shop';
 /* types */
 import { TShopForm, TShopFormError } from '../../types/Shop';
 /* utils */
-import LocalStorage from '../../modules/LocalStorage';
 import { isEmpty } from '../../utils/function';
+import { noticeStorageValues } from '../../modules/LocalStorage';
+import Notice from '../../modules/Notice';
 /* validate */
 import { shopNewValidate } from '../../validate/shop/new';
 

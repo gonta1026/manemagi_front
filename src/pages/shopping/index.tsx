@@ -14,7 +14,9 @@ import { settingAndUser } from '../../types/Setting';
 /* utils */
 import { formatPriceYen, ommisionText } from '../../utils/function';
 import { formatDay } from '../../utils/FormatDate';
-import LocalStorage, { noticeStorageValues, storageKeys } from '../../modules/LocalStorage';
+/* modules */
+import { storageKeys } from '../../modules/LocalStorage';
+import Notice from '../../modules/Notice';
 
 const Shopping = (): JSX.Element => {
   const [isLineNotice, setIsLineNotice] = useState<boolean>(false);
@@ -38,16 +40,10 @@ const Shopping = (): JSX.Element => {
   }, [settingState]);
 
   const pageMoveNotice = () => {
-    const storage = new LocalStorage();
-    const targetNotice = storage.getStorageItem(storageKeys.pageMoveNotice)!;
-    const { deleteShopping } = noticeStorageValues;
-    let message = '';
-    switch (targetNotice) {
-      case deleteShopping:
-        message = '買い物を削除しました！';
-        break;
-    }
-    storage.afterPageMoveNotice(() =>
+    const notice = new Notice();
+    const targetNotice = notice.getStorageItem(storageKeys.pageMoveNotice)!;
+    const message = notice.getNoticeMessage(targetNotice);
+    notice.afterPageMoveNotice(() =>
       toastActions.handleToastOpen({
         message,
       }),

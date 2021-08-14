@@ -15,9 +15,10 @@ import { fetchShopping, deleteShopping } from '../../../reducks/services/Shoppin
 import { TShopping, initialShopping } from '../../../types/Shopping';
 import { settingAndUser } from '../../../types/Setting';
 /* utils */
-import LocalStorage, { noticeStorageValues, storageKeys } from '../../../modules/LocalStorage';
+import { storageKeys, noticeStorageValues } from '../../../modules/LocalStorage';
 import { formatPriceYen, ommisionText } from '../../../utils/function';
 import { formatDay } from '../../../utils/FormatDate';
+import Notice from '../../../modules/Notice';
 
 const ShoppingShow = (): JSX.Element => {
   const [shopping, setShopping] = useState<TShopping>(initialShopping);
@@ -53,16 +54,10 @@ const ShoppingShow = (): JSX.Element => {
   };
 
   const shoppingedUpdateNotice = () => {
-    const storage = new LocalStorage();
-    const targetNotice = storage.getStorageItem(storageKeys.pageMoveNotice)!;
-    const { shoppingUpdatedNotice } = noticeStorageValues;
-    let message = '';
-    switch (targetNotice) {
-      case shoppingUpdatedNotice:
-        message = '買い物の更新をしました！';
-        break;
-    }
-    storage.afterPageMoveNotice(() =>
+    const notice = new Notice();
+    const targetNotice = notice.getStorageItem(storageKeys.pageMoveNotice)!;
+    const message = notice.getNoticeMessage(targetNotice);
+    notice.afterPageMoveNotice(() =>
       toastActions.handleToastOpen({
         message,
       }),
@@ -80,8 +75,8 @@ const ShoppingShow = (): JSX.Element => {
 
     const { handleToastOpen } = toastActions;
     if (response.payload.status === 'success') {
-      const storage = new LocalStorage();
-      storage.setItemAtPageMoveNotice('deleteShopping');
+      const notice = new Notice();
+      notice.setItemAtPageMoveNotice(noticeStorageValues.deleteShopping);
       router.push(page.shopping.list.link());
     } else {
       handleToastOpen({
