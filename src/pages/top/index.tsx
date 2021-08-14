@@ -14,7 +14,6 @@ import {
   ConfirmReceiptClaimModal,
 } from '../../components/pages/common';
 /* modules */
-import LocalStorage, { storageKeys } from '../../modules/LocalStorage';
 import Notice from '../../modules/Notice';
 /* pageMap */
 import { page } from '../../pageMap';
@@ -45,22 +44,11 @@ const Top = (): JSX.Element => {
   }, [settingState]);
 
   useEffect(() => {
+    Notice.pageMovedNotice(toastActions);
     fetchNoClaimShoppingsAndSet();
     fetchShopsAndSet();
     fetchClaimsAndSet();
-    pageMoveNotice();
   }, []);
-
-  const pageMoveNotice = () => {
-    const localStorage = new LocalStorage();
-    const targetNotice = localStorage.getStorageItem(storageKeys.pageMoveNotice)!;
-    const message = Notice.getNoticeMessage(targetNotice);
-    Notice.afterPageMoveNotice(() =>
-      toastActions.handleToastOpen({
-        message,
-      }),
-    );
-  };
 
   const noReceiptClaims = () => claims.filter((claim) => !claim.isReceipt);
 

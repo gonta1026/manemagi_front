@@ -1,4 +1,5 @@
 import LocalStorage, { storageKeys } from './LocalStorage';
+import { ToastType } from '../customHook/useToastAction';
 
 export const noticeStorageValues = {
   deleteShopping: 'deleteShopping',
@@ -15,7 +16,7 @@ type TPageMoveNoticeValue = keyof typeof noticeStorageValues;
 const storage = new LocalStorage();
 
 class Notice {
-  public getNoticeMessage(targetNotice: string) {
+  private getTargetMessage(targetNotice: string) {
     let message = '';
     switch (targetNotice) {
       case noticeStorageValues.loginedNotice:
@@ -53,6 +54,16 @@ class Notice {
       callbackToastExecution();
       storage.removeStorageItem(storageKeys.pageMoveNotice);
     }
+  }
+
+  public pageMovedNotice(toastActions: ToastType) {
+    const targetNotice = storage.getStorageItem(storageKeys.pageMoveNotice)!;
+    const message = this.getTargetMessage(targetNotice);
+    this.afterPageMoveNotice(() =>
+      toastActions.handleToastOpen({
+        message,
+      }),
+    );
   }
 }
 

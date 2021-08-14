@@ -17,8 +17,6 @@ import { settingAndUser } from '../../../types/Setting';
 /* utils */
 import { formatPriceYen, ommisionText } from '../../../utils/function';
 import { formatDay } from '../../../utils/FormatDate';
-/* modules */
-import LocalStorage, { storageKeys } from '../../../modules/LocalStorage';
 import { noticeStorageValues } from '../../../modules/Notice';
 import Notice from '../../../modules/Notice';
 
@@ -33,7 +31,7 @@ const ShoppingShow = (): JSX.Element => {
   const { shops, fetchShopsAndSet } = useShop();
 
   useEffect(() => {
-    shoppingedUpdateNotice();
+    Notice.pageMovedNotice(toastActions);
     fetchShopsAndSet();
   }, []);
 
@@ -53,17 +51,6 @@ const ShoppingShow = (): JSX.Element => {
         setShopping(shopping);
       }
     }
-  };
-
-  const shoppingedUpdateNotice = () => {
-    const localStorage = new LocalStorage();
-    const targetNotice = localStorage.getStorageItem(storageKeys.pageMoveNotice)!;
-    const message = Notice.getNoticeMessage(targetNotice);
-    Notice.afterPageMoveNotice(() =>
-      toastActions.handleToastOpen({
-        message,
-      }),
-    );
   };
 
   const deleteShoppingAndSetShopping = async () => {

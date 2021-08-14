@@ -15,7 +15,6 @@ import { settingAndUser } from '../../types/Setting';
 import { formatPriceYen, ommisionText } from '../../utils/function';
 import { formatDay } from '../../utils/FormatDate';
 /* modules */
-import LocalStorage, { storageKeys } from '../../modules/LocalStorage';
 import Notice from '../../modules/Notice';
 
 const Shopping = (): JSX.Element => {
@@ -32,23 +31,12 @@ const Shopping = (): JSX.Element => {
   useEffect(() => {
     fetchShoppingsAndSet();
     fetchShopsAndSet();
-    pageMoveNotice();
+    Notice.pageMovedNotice(toastActions);
   }, []);
 
   useEffect(() => {
     setIsLineNotice(settingState.user.setting.isUseLine);
   }, [settingState]);
-
-  const pageMoveNotice = () => {
-    const localStorage = new LocalStorage();
-    const targetNotice = localStorage.getStorageItem(storageKeys.pageMoveNotice)!;
-    const message = Notice.getNoticeMessage(targetNotice);
-    Notice.afterPageMoveNotice(() =>
-      toastActions.handleToastOpen({
-        message,
-      }),
-    );
-  };
 
   return (
     <CommonWrapTemplate {...{ toastActions }}>
