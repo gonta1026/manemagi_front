@@ -21,15 +21,13 @@ import {
 /* const */
 import { SHOPPING_FORM } from '../../../const/form/shopping';
 /* customHook */
-import useToastAction from '../../../customHook/useToastAction';
+import { useShop, useToastAction } from '../../../customHook/';
 /* pageMap */
 import { page } from '../../../pageMap';
 /* reducks */
-import { fetchShops } from '../../../reducks/services/Shop';
 import { fetchEditShopping, updateShopping } from '../../../reducks/services/Shopping';
 /* types */
 import { TShopping, TShoppingForm, TShoppingFormError } from '../../../types/Shopping';
-import { TShop } from '../../../types/Shop';
 import { settingAndUser } from '../../../types/Setting';
 /* utils */
 import { formatDay } from '../../../utils/FormatDate';
@@ -41,14 +39,14 @@ import { shoppingValidate } from '../../../validate/shopping/new';
 
 const ShoppingEdit = (): JSX.Element => {
   const router = useRouter();
-  const [shops, setShops] = useState<TShop[]>([]);
   const [open, setOpen] = useState<boolean>(false);
   const toastActions = useToastAction();
+  const { shops, fetchShopsAndSet } = useShop();
   const { settingState } = useSelector((state: { settingState: settingAndUser }) => state);
 
   const dispatch = useDispatch();
   useEffect(() => {
-    fetchShopsAndSetShops();
+    fetchShopsAndSet();
     fetchShoppingAndSetShopping();
   }, [router]);
 
@@ -64,11 +62,6 @@ const ShoppingEdit = (): JSX.Element => {
         formik.setFieldValue(SHOPPING_FORM.SHOP_ID.ID, shopping.shopId);
       }
     }
-  };
-  const fetchShopsAndSetShops = async () => {
-    const response: any = await dispatch(fetchShops());
-    const shops: TShop[] = response.payload.data.shops;
-    setShops(shops);
   };
 
   const validate = (values: TShoppingForm) => {

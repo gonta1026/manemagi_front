@@ -1,27 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 /* components */
 import CommonWrapTemplate from '../../components/common/layout/CommonWrapTemplate';
 import { LineNotice } from '../../components/common/uiParts';
-
 /* customHook */
 import useToastAction from '../../customHook/useToastAction';
+import { useShop, useShopping, useClaim } from '../../customHook';
 import {
   ShoppingCardWrapper,
   ClaimCardWrapper,
   ConfirmDeleteShoppingModal,
+  ConfirmDeleteClaimModal,
   ConfirmReceiptClaimModal,
 } from '../../components/pages/common';
+/* modules */
+import LocalStorage, { noticeStorageValues, storageKeys } from '../../modules/LocalStorage';
 /* pageMap */
 import { page } from '../../pageMap';
-/* reducks */
-import { fetchShoppings, deleteShopping } from '../../reducks/services/Shopping';
-import { fetchClaims, updateClaim } from '../../reducks/services/Claim';
-import { fetchShops } from '../../reducks/services/Shop';
 /* types */
-import { TShopping } from '../../types/Shopping';
-import { TClaim } from '../../types/Claim';
-import { TShop } from '../../types/Shop';
+import { TShopping, initialShopping } from '../../types/Shopping';
+import { initialClaim, TClaim } from '../../types/Claim';
 import { settingAndUser } from '../../types/Setting';
 /* utils */
 import { formatPriceYen, ommisionText, totalSumPrice } from '../../utils/function';
@@ -31,22 +29,24 @@ import Notice from '../../modules/Notice';
 
 const Top = (): JSX.Element => {
   const [isLineNotice, setIsLineNotice] = useState<boolean>(false);
-  const [shoppings, setShopping] = useState<TShopping[]>([]);
-  const [shops, setShops] = useState<TShop[]>([]);
-  const [claims, setClaims] = useState<TClaim[]>([]);
-  const [modalShopping, setModalShopping] = useState<TShopping>();
-  const [modalClaim, setModalClaim] = useState<TClaim>();
+  const [modalShopping, setModalShopping] = useState<TShopping>(initialShopping);
+  const [modalClaim, setModalClaim] = useState<TClaim>(initialClaim);
   const [deleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
-  const [receiptModalOpen, setReceiptModalOpen] = useState<boolean>(false);
-  const dispatch = useDispatch();
+  const [claimModalOpen, setClaimModalOpen] = useState<boolean>(false);
+  const [deleteClaimModalOpen, setDeleteClaimModalOpen] = useState<boolean>(false);
   const { settingState } = useSelector((state: { settingState: settingAndUser }) => state);
+
+  const { shoppings, fetchNoClaimShoppingsAndSet, deleteShoppingAndSet } = useShopping();
+  const { claims, fetchClaimsAndSet, updateClaimAndSet, deleteClaimAndSet } = useClaim();
+  const { shops, fetchShopsAndSet } = useShop();
+  const toastActions = useToastAction();
 
   useEffect(() => {
     setIsLineNotice(settingState.user.setting.isUseLine);
   }, [settingState]);
 
   useEffect(() => {
-    fetchShoppingsAndSet();
+    fetchNoClaimShoppingsAndSet();
     fetchShopsAndSet();
     fetchClaimsAndSet();
     pageMoveNotice();
@@ -63,94 +63,17 @@ const Top = (): JSX.Element => {
     );
   };
 
-  const fetchShoppingsAndSet = async () => {
-    const response: any = await dispatch(fetchShoppings());
-    if (response.payload.status === 'success') {
-      const shoppings: TShopping[] = response.payload.data;
-      const noClaimShoppings = shoppings.filter((shopping) => shopping.claimId === null);
-      setShopping(noClaimShoppings);
-    }
-  };
-
-  const fetchClaimsAndSet = async () => {
-    const response: any = await dispatch(fetchClaims());
-    if (response.payload.status === 'success') {
-      const claims: TClaim[] = response.payload.data;
-      setClaims(claims);
-    }
-  };
-
-  const fetchShopsAndSet = async () => {
-    const response: any = await dispatch(fetchShops());
-    if (response.payload.status === 'success') {
-      const shops: TShop[] = response.payload.data.shops;
-      setShops(shops);
-    }
-  };
-
-  const updateClaimAndSet = async () => {
-    if (modalClaim?.id) {
-      const claimId = String(modalClaim.id);
-      const response: any = await dispatch(
-        updateClaim({
-          id: claimId,
-          data: { isLineNotice, isReceipt: true },
-        }),
-      );
-
-      const { handleToastOpen } = toastActions;
-      if (response.payload.status === 'success') {
-        fetchClaimsAndSet();
-        setReceiptModalOpen(false);
-        handleToastOpen({
-          message: `請求受領を登録しました。`,
-          severity: 'success',
-        });
-      } else {
-        handleToastOpen({
-          message: `請求受領の登録に失敗しました。`,
-          severity: 'error',
-        });
-      }
-    }
-  };
-
-  const deleteShoppingAndSetShopping = async () => {
-    if (modalShopping?.id) {
-      const shoppingId = String(modalShopping.id);
-      const response: any = await dispatch(
-        deleteShopping({
-          id: shoppingId,
-          data: { isLineNotice: isLineNotice },
-        }),
-      );
-
-      const { handleToastOpen } = toastActions;
-      if (response.payload.status === 'success') {
-        fetchShoppingsAndSet();
-        setDeleteModalOpen(false);
-
-        handleToastOpen({
-          message: `買い物を削除しました。`,
-          severity: 'success',
-        });
-      } else {
-        handleToastOpen({
-          message: `削除に失敗しました。`,
-          severity: 'error',
-        });
-      }
-    }
-  };
-
-  const toastActions = useToastAction();
+  const noReceiptClaims = () => claims.filter((claim) => !claim.isReceipt);
 
   return (
     <CommonWrapTemplate {...{ toastActions }}>
       <ConfirmDeleteShoppingModal
         open={deleteModalOpen}
         handleClose={() => setDeleteModalOpen(false)}
-        handleOk={() => deleteShoppingAndSetShopping()}
+        handleOk={async () => {
+          await deleteShoppingAndSet(modalShopping, isLineNotice, toastActions);
+          setDeleteModalOpen(false);
+        }}
         isLineNotice={isLineNotice}
         modalShopping={modalShopping}
         modaltitle={'削除'}
@@ -160,12 +83,30 @@ const Top = (): JSX.Element => {
       />
 
       <ConfirmReceiptClaimModal
-        open={receiptModalOpen}
-        handleClose={() => setReceiptModalOpen(false)}
-        handleOk={() => updateClaimAndSet()}
+        open={claimModalOpen}
+        handleClose={() => setClaimModalOpen(false)}
+        handleOk={async () => {
+          await updateClaimAndSet(modalClaim, isLineNotice, toastActions);
+          setClaimModalOpen(false);
+        }}
         isLineNotice={isLineNotice}
         modalClaim={modalClaim}
         modaltitle={'請求受領'}
+        onChangeLineNotice={() => setIsLineNotice(!isLineNotice)}
+        isUseLineAtSetting={settingState.user.setting.isUseLine}
+      />
+
+      <ConfirmDeleteClaimModal
+        open={deleteClaimModalOpen}
+        handleClose={() => setDeleteClaimModalOpen(false)}
+        handleOk={async () => {
+          await deleteClaimAndSet(modalClaim, isLineNotice, toastActions);
+          await fetchNoClaimShoppingsAndSet();
+          setDeleteClaimModalOpen(false);
+        }}
+        isLineNotice={isLineNotice}
+        modalClaim={modalClaim}
+        modaltitle={'請求削除'}
         onChangeLineNotice={() => setIsLineNotice(!isLineNotice)}
         isUseLineAtSetting={settingState.user.setting.isUseLine}
       />
@@ -217,11 +158,11 @@ const Top = (): JSX.Element => {
 
       <h3 className={'font-bold text-2xl'}>未受領請求一覧</h3>
 
-      {claims.filter((claim) => !claim.isReceipt).length ? (
+      {noReceiptClaims().length ? (
         <>
           <p className={'mt-3'}>
             未受領請求合計金額：
-            {formatPriceYen ? formatPriceYen(totalSumPrice(claims, 'totalPrice')) : ''}
+            {formatPriceYen ? formatPriceYen(totalSumPrice(noReceiptClaims(), 'totalPrice')) : ''}
           </p>
           <div className="mt-1 space-y-3">
             {claims.map(
@@ -232,9 +173,12 @@ const Top = (): JSX.Element => {
                     detailPathName={page.claim.show.link(claim.id!.toString())}
                     ReceiptOnClick={() => {
                       setModalClaim(claim);
-                      setReceiptModalOpen(true);
+                      setClaimModalOpen(true);
                     }}
-                    deleteOnClick={() => console.log('click!')}
+                    deleteOnClick={() => {
+                      setModalClaim(claim);
+                      setDeleteClaimModalOpen(true);
+                    }}
                     key={index}
                   >
                     <div className="flex justify-between">

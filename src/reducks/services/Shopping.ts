@@ -67,7 +67,7 @@ export const deleteShopping = createAsyncThunk(
   async (params: { id: string; data: { isLineNotice: boolean } }, thunkAPI) => {
     const { id, data } = params;
     try {
-      const response: any = await ApiClient.deleteRequest(SHOPPINGS.DELETE(id), {
+      const response: any = await ApiClient.deleteRequest(SHOPPINGS.DESTROY(id), {
         data,
       });
       return response.data;

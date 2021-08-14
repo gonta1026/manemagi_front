@@ -1,8 +1,7 @@
-// railsのコントローラーに一致する形でエンドポイントを整理している。こちらは試作で作っているので使わない可能性もあり。（2021/6/26）
 const auth = 'auth';
+const claims = 'claims';
 const shops = 'shops';
 const shoppings = 'shoppings';
-const claims = 'claims';
 const settings = 'settings';
 
 export const END_POINT = {
@@ -19,16 +18,18 @@ export const END_POINT = {
   SHOPPINGS: {
     INDEX: `/${shoppings}`, // ショップ一覧
     CREATE: `/${shoppings}`, // 買い物登録
-    SHOW: (id: number | string) => `/${shoppings}/${id}`, // 買い物詳細
-    EDIT: (id: number | string) => `/${shoppings}/${id}/edit`, // 買い物編集
-    UPDATE: (id: number | string) => `/${shoppings}/${id}`, // 買い物編集
-    DELETE: (id: number | string) => `/${shoppings}/${id}`, // 買い物削除
+    SHOW: (id: string) => `/${shoppings}/${id}`, // 買い物詳細
+    EDIT: (id: string) => `/${shoppings}/${id}/edit`, // 買い物編集
+    UPDATE: (id: string) => `/${shoppings}/${id}`, // 買い物編集
+    DESTROY: (id: string) => `/${shoppings}/${id}`, // 買い物削除
   },
   CLAIMS: {
     INDEX: `/${claims}`, // 請求一覧
     CREATE: `/${claims}`, // 請求登録
     NEW: `/${claims}/new`, // 請求登録
-    UPDATE: (id: number | string) => `/${claims}/${id}`, // 請求受領
+    UPDATE: (id: string) => `/${claims}/${id}`, // 請求受領
+    DESTROY: (id: string) => `/${claims}/${id}`, // 請求解除
+    SHOPPINGS: (claimId: string) => `/${claims}/${claimId}/${shoppings}`, // 請求内訳一覧
   },
   SETTINGS: {
     INDEX: `/${settings}`,

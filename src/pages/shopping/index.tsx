@@ -1,36 +1,33 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 /* components */
 import CommonWrapTemplate from '../../components/common/layout/CommonWrapTemplate';
 import { BasePageTitle, LineNotice } from '../../components/common/uiParts';
 import { ShoppingCardWrapper, ConfirmDeleteShoppingModal } from '../../components/pages/common';
+/* customHook */
+import { useToastAction, useShop, useShopping } from '../../customHook';
 /* pageMap */
 import { page } from '../../pageMap';
-/* reducks */
-import { fetchShoppings, deleteShopping } from '../../reducks/services/Shopping';
-import { fetchShops } from '../../reducks/services/Shop';
 /* types */
-import { TShopping } from '../../types/Shopping';
-import { TShop } from '../../types/Shop';
+import { TShopping, initialShopping } from '../../types/Shopping';
 import { settingAndUser } from '../../types/Setting';
 /* utils */
 import { formatPriceYen, ommisionText } from '../../utils/function';
 import { formatDay } from '../../utils/FormatDate';
-/* customHook */
-import useToastAction from '../../customHook/useToastAction';
+/* modules */
 import { storageKeys } from '../../modules/LocalStorage';
 import Notice from '../../modules/Notice';
 
 const Shopping = (): JSX.Element => {
   const [isLineNotice, setIsLineNotice] = useState<boolean>(false);
-  const [shoppings, setShopping] = useState<TShopping[]>([]);
-  const [shops, setShops] = useState<TShop[]>([]);
-  const [modalShopping, setModalShopping] = useState<TShopping>();
+  const [modalShopping, setModalShopping] = useState<TShopping>(initialShopping);
   const [deleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
-  const dispatch = useDispatch();
+
   const { settingState } = useSelector((state: { settingState: settingAndUser }) => state);
 
   const toastActions = useToastAction();
+  const { shops, fetchShopsAndSet } = useShop();
+  const { shoppings, fetchShoppingsAndSet, deleteShoppingAndSet } = useShopping();
 
   useEffect(() => {
     fetchShoppingsAndSet();
@@ -53,56 +50,15 @@ const Shopping = (): JSX.Element => {
     );
   };
 
-  const fetchShoppingsAndSet = async () => {
-    const response: any = await dispatch(fetchShoppings());
-    if (response.payload.status === 'success') {
-      const shoppings: TShopping[] = response.payload.data;
-      setShopping(shoppings);
-    }
-  };
-
-  const fetchShopsAndSet = async () => {
-    const response: any = await dispatch(fetchShops());
-    if (response.payload.status === 'success') {
-      const shops: TShop[] = response.payload.data.shops;
-      setShops(shops);
-    }
-  };
-
-  const deleteShoppingAndSet = async () => {
-    if (modalShopping?.id) {
-      const shoppingId = String(modalShopping.id);
-      const response: any = await dispatch(
-        deleteShopping({
-          id: shoppingId,
-          data: { isLineNotice: isLineNotice },
-        }),
-      );
-
-      const { handleToastOpen } = toastActions;
-      if (response.payload.status === 'success') {
-        fetchShoppingsAndSet();
-        setDeleteModalOpen(false);
-
-        handleToastOpen({
-          message: `買い物を削除しました。`,
-          severity: 'success',
-        });
-      } else {
-        handleToastOpen({
-          message: `削除に失敗しました。`,
-          severity: 'error',
-        });
-      }
-    }
-  };
-
   return (
     <CommonWrapTemplate {...{ toastActions }}>
       <ConfirmDeleteShoppingModal
         open={deleteModalOpen}
         handleClose={() => setDeleteModalOpen(false)}
-        handleOk={() => deleteShoppingAndSet()}
+        handleOk={async () => {
+          await deleteShoppingAndSet(modalShopping, isLineNotice, toastActions);
+          setDeleteModalOpen(false);
+        }}
         isLineNotice={isLineNotice}
         modalShopping={modalShopping}
         modaltitle={'削除'}

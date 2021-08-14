@@ -15,7 +15,7 @@ const ShoppingCardWrapper = ({
   children: ReactNode;
   detailPathName: string;
   editPathName?: string;
-  onClick: any;
+  onClick?: any;
   isDetailShow?: boolean;
   isEditShow?: boolean;
   isDeleteShow?: boolean;

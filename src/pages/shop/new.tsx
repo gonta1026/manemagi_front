@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { SHOP_FORM } from '../../const/form/shop';
 /* components */
 import CommonWrapTemplate from '../../components/common/layout/CommonWrapTemplate';
+import { useShop } from '../../customHook';
 import {
   LabelAndTextField,
   LabelAndTextArea,
@@ -19,9 +20,9 @@ import {
 /* page */
 import { page } from '../../pageMap';
 /* reducks */
-import { createShop, fetchShops } from '../../reducks/services/Shop';
+import { createShop } from '../../reducks/services/Shop';
 /* types */
-import { TShop, TShopForm, TShopFormError } from '../../types/Shop';
+import { TShopForm, TShopFormError } from '../../types/Shop';
 /* utils */
 import { isEmpty } from '../../utils/function';
 import { noticeStorageValues } from '../../modules/LocalStorage';
@@ -32,8 +33,9 @@ import { shopNewValidate } from '../../validate/shop/new';
 const NewShop = (): JSX.Element => {
   const router = useRouter();
   const [open, setOpen] = useState<boolean>(false);
-  const [shops, setShops] = useState<TShop[]>([]);
   const dispatch = useDispatch();
+  const { shops, fetchShopsAndSet } = useShop();
+
   const validate = (values: TShopForm) => {
     let errors = {} as TShopFormError;
 
@@ -51,20 +53,22 @@ const NewShop = (): JSX.Element => {
       description: '',
     },
     validate,
-    onSubmit: async () => {
+    onSubmit: () => {
       setOpen(true);
     },
   });
 
   useEffect(() => {
-    fetchShopsAndSetShops();
+    fetchShopsAndSet();
   }, []);
 
-  const fetchShopsAndSetShops = async () => {
-    const response: any = await dispatch(fetchShops());
+  const handleCreateShop = async () => {
+    const response: any = await dispatch(createShop(formik.values));
+    setOpen(false);
     if (response.payload.status === 'success') {
-      const shops: TShop[] = response.payload.data.shops;
-      setShops(shops);
+      const storage = new LocalStorage();
+      storage.setItemAtPageMoveNotice('createdShopNotice');
+      router.push(page.top.link());
     }
   };
 
@@ -76,15 +80,7 @@ const NewShop = (): JSX.Element => {
         focus
         open={open}
         handleClose={() => setOpen(false)}
-        handleOk={async () => {
-          const response: any = await dispatch(createShop(formik.values));
-          setOpen(false);
-          if (response.payload.status === 'success') {
-            const notice = new Notice();
-            notice.setItemAtPageMoveNotice(noticeStorageValues.createdShopNotice);
-            router.push(page.top.link());
-          }
-        }}
+        handleOk={handleCreateShop}
       >
         <dl className={'list'}>
           <dt>{SHOP_FORM.NAME.LABEL}</dt>

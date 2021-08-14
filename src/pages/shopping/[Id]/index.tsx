@@ -6,16 +6,14 @@ import CommonWrapTemplate from '../../../components/common/layout/CommonWrapTemp
 import { BasePageTitle, BaseLinkButton, BaseButton } from '../../../components/common/uiParts';
 import { ConfirmDeleteShoppingModal } from '../../../components/pages/common';
 /* customHook */
-import useToastAction from '../../../customHook/useToastAction';
+import { useToastAction, useShop } from '../../../customHook';
 /* pageMap */
 import { page } from '../../../pageMap';
 /* reducks */
-import { fetchShops } from '../../../reducks/services/Shop';
 import { fetchShopping, deleteShopping } from '../../../reducks/services/Shopping';
 /* types */
-import { TShopping } from '../../../types/Shopping';
+import { TShopping, initialShopping } from '../../../types/Shopping';
 import { settingAndUser } from '../../../types/Setting';
-import { TShop } from '../../../types/Shop';
 /* utils */
 import { storageKeys, noticeStorageValues } from '../../../modules/LocalStorage';
 import { formatPriceYen, ommisionText } from '../../../utils/function';
@@ -23,29 +21,18 @@ import { formatDay } from '../../../utils/FormatDate';
 import Notice from '../../../modules/Notice';
 
 const ShoppingShow = (): JSX.Element => {
-  const [shopping, setShopping] = useState<TShopping>({
-    id: null,
-    price: null,
-    date: null,
-    description: '',
-    isLineNotice: false,
-    isLineNoticed: false,
-    shopId: null,
-    claimId: null,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  });
+  const [shopping, setShopping] = useState<TShopping>(initialShopping);
   const router = useRouter();
-  const [shops, setShops] = useState<TShop[]>([]);
   const [isLineNotice, setIsLineNotice] = useState<boolean>(false);
   const dispatch = useDispatch();
-  const toastActions = useToastAction();
   const [deleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
   const { settingState } = useSelector((state: { settingState: settingAndUser }) => state);
+  const toastActions = useToastAction();
+  const { shops, fetchShopsAndSet } = useShop();
 
   useEffect(() => {
     shoppingedUpdateNotice();
-    fetchShopsAndSetShops();
+    fetchShopsAndSet();
   }, []);
 
   useEffect(() => {
@@ -64,12 +51,6 @@ const ShoppingShow = (): JSX.Element => {
         setShopping(shopping);
       }
     }
-  };
-
-  const fetchShopsAndSetShops = async () => {
-    const response: any = await dispatch(fetchShops());
-    const shops: TShop[] = response.payload.data.shops;
-    setShops(shops);
   };
 
   const shoppingedUpdateNotice = () => {

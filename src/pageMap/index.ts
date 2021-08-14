@@ -26,11 +26,11 @@ export const page = {
     },
     show: {
       name: () => '買い物詳細',
-      link: (id: string) => `/shopping/${id}`,
+      link: (shoppingId: string) => `/shopping/${shoppingId}`,
     },
     edit: {
       name: () => '買い物編集',
-      link: (id: string) => `/shopping/${id}/edit`,
+      link: (shoppingId: string) => `/shopping/${shoppingId}/edit`,
     },
   },
   shop: {
@@ -50,11 +50,15 @@ export const page = {
     },
     show: {
       name: () => '請求詳細',
-      link: (id: string) => `/claim/${id}/shopping`,
+      link: (claimId: string) => `/claim/${claimId}/shopping`,
     },
     register: {
       name: () => '請求登録',
       link: () => '/claim/new',
+    },
+    shopping: {
+      name: () => '請求内訳一覧',
+      link: (claimId: string) => `/claim/${claimId}/shopping`,
     },
   },
   setting: {
