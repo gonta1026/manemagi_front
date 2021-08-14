@@ -3,19 +3,25 @@ import React, { useEffect } from 'react';
 import CommonWrapTemplate from '../../components/common/layout/CommonWrapTemplate';
 import { BasePageTitle } from '../../components/common/uiParts';
 //customHook */
-import { useShop } from '../../customHook';
+/* customHook */
+import { useShop, useToastAction } from '../../customHook';
 /* pageMap */
 import { page } from '../../pageMap';
+/* modules */
+import Notice from '../../modules/Notice';
 
 const Shop = (): JSX.Element => {
   const { shops, fetchShopsAndSet } = useShop();
 
+  const toastActions = useToastAction();
+
   useEffect(() => {
+    Notice.pageMovedNotice(toastActions);
     fetchShopsAndSet();
   }, []);
 
   return (
-    <CommonWrapTemplate>
+    <CommonWrapTemplate {...{ toastActions }}>
       <BasePageTitle className={'my-5'}>{page.shop.list.name()}</BasePageTitle>
       <ul className="py-4">
         {shops.map((shop, index) => (

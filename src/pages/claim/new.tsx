@@ -101,7 +101,7 @@ const ClaimNew = (): JSX.Element => {
           );
           if (response.payload.status === 'success') {
             Notice.setItemAtPageMoveNotice(noticeStorageValues.claimedNotice);
-            router.push(page.top.link());
+            router.push(page.claim.list.link());
           } else {
             const { handleToastOpen } = toastActions;
             handleToastOpen({

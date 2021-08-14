@@ -91,7 +91,7 @@ const ShoppingNew = (): JSX.Element => {
           setOpen(false);
           if (response.payload.status === 'success') {
             Notice.setItemAtPageMoveNotice(noticeStorageValues.shoppingedNotice);
-            router.push(page.top.link());
+            router.push(page.shopping.list.link());
           } else {
             const { handleToastOpen } = toastActions;
             handleToastOpen({

@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import CommonWrapTemplate from '../../components/common/layout/CommonWrapTemplate';
 import { BasePageTitle, LineNotice } from '../../components/common/uiParts';
 import { ConfirmReceiptClaimModal, ConfirmDeleteClaimModal } from '../../components/pages/common';
-/* components */
+/* customHook */
 import { useClaim, useToastAction } from '../../customHook';
 /* pageMap */
 import { page } from '../../pageMap';
@@ -15,6 +15,8 @@ import { settingAndUser } from '../../types/Setting';
 import { formatPriceYen, totalSumPrice } from '../../utils/function';
 import { formatDay } from '../../utils/FormatDate';
 import { ClaimCardWrapper } from '../../components/pages/common';
+/* modules */
+import Notice from '../../modules/Notice';
 
 const Claim = (): JSX.Element => {
   const [isLineNotice, setIsLineNotice] = useState<boolean>(false);
@@ -28,6 +30,7 @@ const Claim = (): JSX.Element => {
   const toastActions = useToastAction();
 
   useEffect(() => {
+    Notice.pageMovedNotice(toastActions);
     fetchClaimsAndSet();
   }, []);
 

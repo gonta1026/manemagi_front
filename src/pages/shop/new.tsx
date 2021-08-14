@@ -26,7 +26,7 @@ import { TShopForm, TShopFormError } from '../../types/Shop';
 /* utils */
 import { isEmpty } from '../../utils/function';
 /* modules */
-import Notice from '../../modules/Notice';
+import Notice, { noticeStorageValues } from '../../modules/Notice';
 /* validate */
 import { shopNewValidate } from '../../validate/shop/new';
 
@@ -66,8 +66,8 @@ const NewShop = (): JSX.Element => {
     const response: any = await dispatch(createShop(formik.values));
     setOpen(false);
     if (response.payload.status === 'success') {
-      Notice.setItemAtPageMoveNotice('createdShopNotice');
-      router.push(page.top.link());
+      Notice.setItemAtPageMoveNotice(noticeStorageValues.createdShopNotice);
+      router.push(page.shop.list.link());
     }
   };
 
