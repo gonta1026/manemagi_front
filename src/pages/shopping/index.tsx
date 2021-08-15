@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 /* components */
 import CommonWrapTemplate from '../../components/common/layout/CommonWrapTemplate';
-import { BasePageTitle, LineNotice } from '../../components/common/uiParts';
+import { BasePageTitle, LineNotice, BaseLinkButton } from '../../components/common/uiParts';
 import { ShoppingCardWrapper, ConfirmDeleteShoppingModal } from '../../components/pages/common';
 /* customHook */
 import { useToastAction, useShop, useShopping } from '../../customHook';
@@ -85,6 +85,11 @@ const Shopping = (): JSX.Element => {
             </div>
           </ShoppingCardWrapper>
         ))}
+      </div>
+      <div className="mt-10 text-center">
+        <BaseLinkButton pathname={page.top.link()} customType={'arrowBack'}>
+          {page.top.name()}へ戻る
+        </BaseLinkButton>
       </div>
     </CommonWrapTemplate>
   );

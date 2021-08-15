@@ -102,7 +102,6 @@ const ShoppingShow = (): JSX.Element => {
           <>
             <BaseLinkButton
               pathname={page.shopping.edit.link(router.query.Id! as string)}
-              size={'large'}
               customType={'edit'}
             >
               編集
@@ -113,23 +112,15 @@ const ShoppingShow = (): JSX.Element => {
               onClick={() => {
                 setDeleteModalOpen(true);
               }}
-              size={'large'}
             >
               削除
             </BaseButton>
             <hr className="my-5" />
           </>
         )}
-
-        <BaseButton
-          customType={'arrowBack'}
-          onClick={() => {
-            router.back();
-          }}
-          size={'large'}
-        >
-          前に戻る
-        </BaseButton>
+        <BaseLinkButton pathname={page.shopping.list.link()} customType={'arrowBack'}>
+          {page.shopping.list.name()}へ戻る
+        </BaseLinkButton>
       </div>
     </CommonWrapTemplate>
   );

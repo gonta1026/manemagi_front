@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 /* components */
 import CommonWrapTemplate from '../../components/common/layout/CommonWrapTemplate';
-import { BasePageTitle } from '../../components/common/uiParts';
+import { BasePageTitle, BaseLinkButton } from '../../components/common/uiParts';
 //customHook */
 /* customHook */
 import { useShop, useToastAction } from '../../customHook';
@@ -31,6 +31,11 @@ const Shop = (): JSX.Element => {
           </li>
         ))}
       </ul>
+      <div className="text-center">
+        <BaseLinkButton pathname={page.top.link()} customType={'arrowBack'}>
+          {page.top.name()}へ戻る
+        </BaseLinkButton>
+      </div>
     </CommonWrapTemplate>
   );
 };

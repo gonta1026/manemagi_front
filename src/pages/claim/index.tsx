@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 /* components */
 import CommonWrapTemplate from '../../components/common/layout/CommonWrapTemplate';
-import { BasePageTitle, LineNotice } from '../../components/common/uiParts';
+import { BasePageTitle, LineNotice, BaseLinkButton } from '../../components/common/uiParts';
 import { ConfirmReceiptClaimModal, ConfirmDeleteClaimModal } from '../../components/pages/common';
 /* customHook */
 import { useClaim, useToastAction } from '../../customHook';
@@ -109,8 +109,14 @@ const Claim = (): JSX.Element => {
           </div>
         </>
       ) : (
-        <p className={'mt-3'}>未受領の請求登録はありません。</p>
+        <p className={'mt-10'}>未受領の請求登録はありません。</p>
       )}
+
+      <div className="mt-10 text-center">
+        <BaseLinkButton pathname={page.top.link()} customType={'arrowBack'}>
+          {page.top.name()}へ戻る
+        </BaseLinkButton>
+      </div>
     </CommonWrapTemplate>
   );
 };
