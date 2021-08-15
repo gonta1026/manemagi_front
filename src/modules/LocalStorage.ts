@@ -1,8 +1,10 @@
 export const noticeStorageKeys = {
+  // ページ遷移をした後のtoastの表示に使用。ページ遷移前にセット、遷移後に削除
   pageMoveNotice: 'pageMoveNotice',
 } as const;
 
 export const authStorageKeys = {
+  // ログインをした後のtokenの管理等に使用。全ページで使用。ログアウト時に削除される。
   logined: 'logined',
 } as const;
 
