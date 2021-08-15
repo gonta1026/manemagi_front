@@ -32,7 +32,7 @@ export const END_POINT = {
     SHOPPINGS: (claimId: string) => `/${claims}/${claimId}/${shoppings}`, // 請求内訳一覧
   },
   SETTINGS: {
-    INDEX: `/${settings}`,
-    UPDATE: `/${settings}`,
+    INDEX: `/${settings}`, // 設定情報表示
+    UPDATE: `/${settings}`, // 設定情報の更新
   },
 } as const;
