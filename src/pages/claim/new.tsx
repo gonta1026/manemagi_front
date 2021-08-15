@@ -11,7 +11,7 @@ import {
   ConfirmModal,
   IsUseLineHelper,
 } from '../../components/common/uiParts';
-import { LabelAndSwitch, LabelAndCheckBox } from '../../components/common/molecules/';
+import { LabelAndSwitch, LabelAndCheckBox } from '../../components/common/uiParts';
 /* const */
 import { SHOPPING_FORM } from '../../const/form/shopping';
 import { CLAIM_FORM } from '../../const/form/claim';

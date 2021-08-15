@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
-import { BaseLabel, BaseRequired, BaseTextField, BaseHelperText } from '../../uiParts';
-import { TSize, TVariant, TType } from '../../uiParts/form/textfield/BaseTextField';
-import useIsAfterSsr from '../../../../customHook/useIsAfterSsr';
+import { BaseLabel, BaseRequired, BaseTextField, BaseHelperText } from '../..';
+import { TSize, TVariant, TType } from './BaseTextField';
+import useIsAfterSsr from '../../../../../customHook/useIsAfterSsr';
 
 type TProps = {
   FieldClass?: string;

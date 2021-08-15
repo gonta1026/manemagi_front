@@ -1,12 +1,6 @@
 import React, { useState, ReactNode } from 'react';
-import {
-  BaseLabel,
-  BaseFormControl,
-  BaseSelect,
-  BaseRequired,
-  BaseHelperText,
-} from '../../uiParts';
-import { TOptions } from '../../uiParts/form/select/BaseSelect';
+import { BaseLabel, BaseFormControl, BaseSelect, BaseRequired, BaseHelperText } from '../..';
+import { TOptions } from './BaseSelect';
 
 type TProps = {
   className?: string;

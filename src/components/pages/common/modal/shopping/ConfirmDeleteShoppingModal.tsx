@@ -1,7 +1,7 @@
 import React from 'react';
 /* components */
 import { ConfirmModal, IsUseLineHelper } from '../../../../common/uiParts';
-import { LabelAndSwitch } from '../../../../common/molecules';
+import { LabelAndSwitch } from '../../../../common/uiParts';
 import { TModalTitle } from '../../../../common/uiParts/modal/ConfirmModal';
 /* const */
 import { SHOPPING_FORM } from '../../../../../const/form/shopping';
