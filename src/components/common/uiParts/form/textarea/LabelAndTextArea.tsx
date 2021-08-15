@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
-import { BaseLabel, BaseTextArea } from '../../uiParts';
-import { TSize, TVariant } from '../../uiParts/form/textfield/BaseTextField';
-import useIsAfterSsr from '../../../../customHook/useIsAfterSsr';
+import { BaseLabel, BaseTextArea } from '../..';
+import { TSize, TVariant } from '../textfield/BaseTextField';
+import useIsAfterSsr from '../../../../../customHook/useIsAfterSsr';
 
 type TProps = {
   AreaClass?: string;

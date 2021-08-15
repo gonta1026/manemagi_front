@@ -1,4 +1,4 @@
-import { BaseSwitch, BaseFormControlLabel, BaseHelperText } from '../../uiParts';
+import { BaseSwitch, BaseFormControlLabel, BaseHelperText } from '../..';
 
 import React, { ReactNode } from 'react';
 

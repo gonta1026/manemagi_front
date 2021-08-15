@@ -4,7 +4,7 @@ import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
 /* components */
 import CommonWrapTemplate from '../../components/common/layout/CommonWrapTemplate';
-import { LabelAndTextField } from '../../components/common/molecules';
+import { LabelAndTextField } from '../../components/common/uiParts';
 import {
   BasePageTitle,
   BaseButton,

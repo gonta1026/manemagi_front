@@ -11,7 +11,7 @@ import {
   LabelAndTextField,
   LabelAndTextArea,
   ExecutionAndBackButtons,
-} from '../../components/common/molecules';
+} from '../../components/common/uiParts';
 import {
   BasePageTitle,
   BaseErrorMessagesWrapper,

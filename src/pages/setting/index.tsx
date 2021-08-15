@@ -7,7 +7,7 @@ import {
   LabelAndTextField,
   LabelAndSwitch,
   ExecutionAndBackButtons,
-} from '../../components/common/molecules';
+} from '../../components/common/uiParts';
 import { BasePageTitle, BaseErrorMessagesWrapper } from '../../components/common/uiParts';
 /* const */
 import { SETTING_FORM } from '../../const/form/setting';

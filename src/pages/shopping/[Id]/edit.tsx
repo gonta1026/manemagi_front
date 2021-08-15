@@ -17,7 +17,7 @@ import {
   LabelAndTextField,
   LabelAndTextArea,
   LabelAndSwitch,
-} from '../../../components/common/molecules';
+} from '../../../components/common/uiParts';
 /* const */
 import { SHOPPING_FORM } from '../../../const/form/shopping';
 /* customHook */
