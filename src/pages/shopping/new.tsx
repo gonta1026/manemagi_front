@@ -42,6 +42,7 @@ const ShoppingNew = (): JSX.Element => {
   const router = useRouter();
   const dispatch = useDispatch();
   const [open, setOpen] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const toastActions = useToastAction();
   const { shops, fetchShopsAndSet } = useShop();
@@ -81,14 +82,14 @@ const ShoppingNew = (): JSX.Element => {
   }, [settingState]);
 
   return (
-    <CommonWrapTemplate>
+    <CommonWrapTemplate {...{ isLoading }}>
       <ConfirmModal
         focus
         open={open}
         handleClose={() => setOpen(false)}
         handleOk={async () => {
+          setIsLoading(true);
           const response: any = await dispatch(createShopping(formik.values));
-          setOpen(false);
           if (response.payload.status === 'success') {
             Notice.setItemAtPageMoveNotice(noticeStorageValues.shoppingedNotice);
             router.push(page.shopping.list.link());
@@ -99,6 +100,8 @@ const ShoppingNew = (): JSX.Element => {
               severity: 'error',
             });
           }
+          setOpen(false);
+          setIsLoading(false);
         }}
       >
         <dl className={'list'}>

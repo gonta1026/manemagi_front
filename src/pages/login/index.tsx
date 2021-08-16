@@ -12,6 +12,7 @@ import {
   BaseLink,
 } from '../../components/common/uiParts';
 /* const */
+import { TestUser } from '../../const';
 import { USER_FORM } from '../../const/form/user';
 /* customHook */
 import { useToastAction } from '../../customHook';
@@ -79,8 +80,9 @@ const Login = (): JSX.Element => {
       <BasePageTitle className={'my-5'}>{page.login.name()}</BasePageTitle>
       <p>テストユーザー情報</p>
       <ul>
-        <li>email：test@example.com</li>
-        <li>password：11111111</li>
+        <li>name：{TestUser.name}</li>
+        <li>email：{TestUser.email}</li>
+        <li>password：{TestUser.password}</li>
       </ul>
       <form className="base-vertical-20" onSubmit={formik.handleSubmit}>
         <LabelAndTextField

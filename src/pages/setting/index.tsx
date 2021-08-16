@@ -7,6 +7,7 @@ import CommonWrapTemplate from '../../components/common/layout/CommonWrapTemplat
 import { LabelAndTextField, LabelAndSwitch, BaseButton } from '../../components/common/uiParts';
 import { BasePageTitle, BaseErrorMessagesWrapper } from '../../components/common/uiParts';
 /* const */
+import { TestUser } from '../../const';
 import { SETTING_FORM } from '../../const/form/setting';
 /* customHook */
 import useToastAction from '../../customHook/useToastAction';
@@ -89,6 +90,12 @@ const Setting = (): JSX.Element => {
     );
   })();
 
+  const isDisabled = () => {
+    if (!isEmpty(formik.errors) || settingState.user.name === 'test') {
+      return true;
+    }
+  };
+
   return (
     <CommonWrapTemplate {...{ toastActions }}>
       <BasePageTitle className={'my-5'}>{page.setting.edit.name()}</BasePageTitle>
@@ -119,8 +126,13 @@ const Setting = (): JSX.Element => {
           id={SETTING_FORM.IS_USE_LINE.ID}
           label={`${SETTING_FORM.IS_USE_LINE.LABEL}${formik.values.isUseLine ? 'ON' : 'OFF'}`}
         />
+        {settingState.user.email === TestUser.email && (
+          <p className="text-red-500 text-xs">
+            ※こちらのユーザーアカウントは共通の動作確認用のアカウントになるためラインの通知を行うことは出来ません。
+          </p>
+        )}
         <div className="base-vertical-item text-center">
-          <BaseButton type={'submit'} disabled={!isEmpty(formik.errors)}>
+          <BaseButton type={'submit'} disabled={isDisabled()}>
             確認
           </BaseButton>
           <hr className="my-5" />

@@ -11,6 +11,7 @@ export const initialState: TTUserAndSettingAndError = {
   user: {
     id: null,
     name: '',
+    email: '',
     setting: {
       isUseLine: false,
       lineNoticeToken: '',
