@@ -11,6 +11,7 @@ export interface settingAndUser extends TLoadingAndErrorState {
   user: {
     id: number | null;
     name: string;
+    email: string;
     setting: TSetting;
   };
 }
