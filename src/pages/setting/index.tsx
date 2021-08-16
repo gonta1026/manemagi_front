@@ -1,13 +1,10 @@
 import React, { useEffect } from 'react';
 import { useFormik } from 'formik';
+import { useRouter } from 'next/router';
 import { useSelector, useDispatch } from 'react-redux';
 /* components */
 import CommonWrapTemplate from '../../components/common/layout/CommonWrapTemplate';
-import {
-  LabelAndTextField,
-  LabelAndSwitch,
-  ExecutionAndBackButtons,
-} from '../../components/common/uiParts';
+import { LabelAndTextField, LabelAndSwitch, BaseButton } from '../../components/common/uiParts';
 import { BasePageTitle, BaseErrorMessagesWrapper } from '../../components/common/uiParts';
 /* const */
 import { SETTING_FORM } from '../../const/form/setting';
@@ -26,6 +23,7 @@ import { settingsValidate } from '../../validate/setting/setting';
 
 const Setting = (): JSX.Element => {
   const dispatch = useDispatch();
+  const router = useRouter();
   const toastActions = useToastAction();
   const { settingState } = useSelector((state: { settingState: settingAndUser }) => state);
   const validate = (values: TSetting) => {
@@ -121,13 +119,21 @@ const Setting = (): JSX.Element => {
           id={SETTING_FORM.IS_USE_LINE.ID}
           label={`${SETTING_FORM.IS_USE_LINE.LABEL}${formik.values.isUseLine ? 'ON' : 'OFF'}`}
         />
-        <ExecutionAndBackButtons
-          disabledExecution={!isEmpty(formik.errors)}
-          className={'base-vertical-item flex justify-center mt-5'}
-          backPathname={page.shop.register.link()}
-          backName={`${page.shop.register.name()}へ戻る`}
-          nextName={'更新'}
-        />
+        <div className="base-vertical-item text-center">
+          <BaseButton type={'submit'} disabled={!isEmpty(formik.errors)}>
+            確認
+          </BaseButton>
+          <hr className="my-5" />
+
+          <BaseButton
+            customType={'arrowBack'}
+            onClick={() => {
+              router.back();
+            }}
+          >
+            前に戻る
+          </BaseButton>
+        </div>
       </form>
     </CommonWrapTemplate>
   );
