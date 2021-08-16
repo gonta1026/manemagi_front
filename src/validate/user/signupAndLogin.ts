@@ -2,7 +2,7 @@ import { TLoginUserOrUser, TUserFormError } from '../../types/User';
 import { USER_FORM } from '../../const/form/user';
 import {
   emailFormat,
-  validRange,
+  validRangePassword,
   validhankakuEngNum,
   validNotSame,
   validBlank,
@@ -12,7 +12,7 @@ import {
 
 export const signupAndLoginValidate = <T>(values: TLoginUserOrUser, errors: TUserFormError): T => {
   const { NAME, EMAIL, PASSWORD, PASSWORD_CONFIRMATION } = USER_FORM;
-  const { MAX_50, MAX_255 } = validNum;
+  const { MAX_50, MAX_128, MAX_255, MIN_6 } = validNum;
   /******************
    *      名前
    ******************/
@@ -43,8 +43,8 @@ export const signupAndLoginValidate = <T>(values: TLoginUserOrUser, errors: TUse
   if (validBlank.check(values.password)) {
     errors.password = validBlank.message(PASSWORD.LABEL);
   }
-  if (validRange.check(values.password, 4, 30)) {
-    errors.password = validRange.message(PASSWORD.LABEL);
+  if (validRangePassword.check(values.password, MIN_6, MAX_128)) {
+    errors.password = validRangePassword.message(PASSWORD.LABEL, MIN_6, MAX_128);
   }
   if (validhankakuEngNum.check(values.password)) {
     errors.password = validhankakuEngNum.message(PASSWORD.LABEL);
@@ -56,8 +56,12 @@ export const signupAndLoginValidate = <T>(values: TLoginUserOrUser, errors: TUse
     if (validBlank.check(values.passwordConfirmation)) {
       errors.passwordConfirmation = validBlank.message(PASSWORD_CONFIRMATION.LABEL);
     }
-    if (validRange.check(values.passwordConfirmation, 4, 30)) {
-      errors.passwordConfirmation = validRange.message(PASSWORD_CONFIRMATION.LABEL);
+    if (validRangePassword.check(values.passwordConfirmation, MIN_6, MAX_128)) {
+      errors.passwordConfirmation = validRangePassword.message(
+        PASSWORD_CONFIRMATION.LABEL,
+        MIN_6,
+        MAX_128,
+      );
     }
     if (validNotSame.check(values.passwordConfirmation, values.password)) {
       errors.passwordConfirmation = validNotSame.message(

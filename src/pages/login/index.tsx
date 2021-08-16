@@ -13,6 +13,8 @@ import {
 } from '../../components/common/uiParts';
 /* const */
 import { USER_FORM } from '../../const/form/user';
+/* customHook */
+import { useToastAction } from '../../customHook';
 /* pageMap */
 import { page } from '../../pageMap';
 /* reducks */
@@ -24,12 +26,15 @@ import { noticeStorageValues } from '../../modules/Notice';
 import Notice from '../../modules/Notice';
 /* validate */
 import { signupAndLoginValidate } from '../../validate/user/signupAndLogin';
-import { emailOrPassword } from '../../validate/message';
 
 const Login = (): JSX.Element => {
   const [isLoading, setIsLoading] = useState(false);
+
   const router = useRouter();
   const dispatch = useDispatch();
+
+  const toastActions = useToastAction();
+
   const validate = (values: TLoginUser) => {
     let errors = {} as TUserFormError;
     errors = signupAndLoginValidate(values, errors);
@@ -54,9 +59,11 @@ const Login = (): JSX.Element => {
       if (response.payload.id) {
         Notice.setItemAtPageMoveNotice(noticeStorageValues.loginedNotice);
         router.push(page.top.link());
-      }
-      if (response.payload.status === 401) {
-        formik.setFieldError(USER_FORM.PASSWORD.ID, emailOrPassword());
+      } else {
+        toastActions.handleToastOpen({
+          message: '無効なメールアドレスが指定されました。',
+          severity: 'error',
+        });
       }
       setIsLoading(false);
     },
@@ -68,7 +75,7 @@ const Login = (): JSX.Element => {
   }, []);
 
   return (
-    <CommonWrapTemplate {...{ isLoading }}>
+    <CommonWrapTemplate {...{ isLoading, toastActions }}>
       <BasePageTitle className={'my-5'}>{page.login.name()}</BasePageTitle>
       <p>テストユーザー情報</p>
       <ul>

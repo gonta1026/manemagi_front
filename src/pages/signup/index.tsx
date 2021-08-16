@@ -13,6 +13,8 @@ import {
 } from '../../components/common/uiParts';
 /* const */
 import { USER_FORM } from '../../const/form/user';
+/* customHook */
+import { useToastAction } from '../../customHook';
 /* pageMap */
 import { page } from '../../pageMap';
 /* reducks */
@@ -27,8 +29,12 @@ import { signupAndLoginValidate } from '../../validate/user/signupAndLogin';
 
 const SignUp = (): JSX.Element => {
   const [isLoading, setIsLoading] = useState(false);
+
   const router = useRouter();
   const dispatch = useDispatch();
+
+  const toastActions = useToastAction();
+
   const validate = (values: TUser) => {
     let errors = {} as TUserFormError;
     errors = signupAndLoginValidate(values, errors);
@@ -55,7 +61,10 @@ const SignUp = (): JSX.Element => {
         }),
       );
       if (response.payload.status === 422) {
-        formik.setFieldError(USER_FORM.EMAIL.ID, 'こちらのメールアドレスは既に登録されています。');
+        toastActions.handleToastOpen({
+          message: '無効なメールアドレスが指定されました。',
+          severity: 'error',
+        });
       }
       if (response.payload.status === 'success') {
         Notice.setItemAtPageMoveNotice(noticeStorageValues.signUpedNotice);
@@ -66,7 +75,7 @@ const SignUp = (): JSX.Element => {
   });
 
   return (
-    <CommonWrapTemplate {...{ isLoading }}>
+    <CommonWrapTemplate {...{ isLoading, toastActions }}>
       <BasePageTitle className={'my-5'}>{page.signup.name()}</BasePageTitle>
       <form className="base-vertical-20" onSubmit={formik.handleSubmit}>
         <LabelAndTextField

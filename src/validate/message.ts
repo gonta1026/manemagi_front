@@ -6,8 +6,8 @@ export const minNum = (label: string, minNum: number) =>
   `${label}は${minNum}以上を入力してください。`;
 export const minNumPrice = (label: string, minNum: number) =>
   `${label}は${minNum}円以上を入力してください。`;
-export const passwordRangeAndHankakuEngNum = (label: string) =>
-  label + 'は4～30桁の半角英数字' + endMessage;
+export const passwordRangeAndHankakuEngNum = (label: string, minNum: number, maxNum: number) =>
+  label + `は${minNum}～${maxNum}桁の半角英数字` + endMessage;
 export const hankakuEngNum = (label: string) => label + 'は半額英数字のみ' + endMessage;
 export const notSame = (label01: string, label02: string) =>
   `${label01}は${label02}と同じにしてください。`;
