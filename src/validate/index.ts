@@ -17,10 +17,12 @@ import { isBooleanCheck } from '../utils/function';
 export const validNum = {
   MAX_50: 50,
   MAX_100: 100,
+  MAX_128: 128,
   MAX_150: 150,
   MAX_255: 255,
   MAX_300: 300,
   MIN_10: 10,
+  MIN_6: 6,
 } as const;
 
 /*********
@@ -49,10 +51,11 @@ export const validMinNum = {
   message: (label: string, num: number) => minNumPrice(label, num),
 };
 
-export const validRange = {
+export const validRangePassword = {
   check: (value: string, minNum: number, maxNum: number): boolean =>
     isBooleanCheck((value.length !== 0 && value.length < minNum) || value.length > maxNum),
-  message: (label: string) => passwordRangeAndHankakuEngNum(label),
+  message: (label: string, minNum: number, maxNum: number) =>
+    passwordRangeAndHankakuEngNum(label, minNum, maxNum),
 };
 
 export const validhankakuEngNum = {
