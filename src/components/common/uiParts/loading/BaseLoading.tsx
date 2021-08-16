@@ -6,7 +6,7 @@ import { materialStyles } from '../../../../styles/js/material';
 const BaseLoading = ({ open = false }: { open: boolean }) => {
   const classes = materialStyles({
     backDrop: {
-      zIndex: 11,
+      zIndex: 1301, // モーダルmaskの上を指定。
     },
     progress: {
       color: '#fff',
