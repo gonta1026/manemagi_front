@@ -17,6 +17,8 @@ import {
   BaseErrorMessagesWrapper,
   ConfirmModal,
 } from '../../components/common/uiParts';
+//customHook */
+import { useToastAction } from '../../customHook';
 /* page */
 import { page } from '../../pageMap';
 /* reducks */
@@ -33,8 +35,12 @@ import { shopNewValidate } from '../../validate/shop/new';
 const NewShop = (): JSX.Element => {
   const router = useRouter();
   const [open, setOpen] = useState<boolean>(false);
-  const dispatch = useDispatch();
   const { shops, fetchShopsAndSet } = useShop();
+
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const dispatch = useDispatch();
+  const toastActions = useToastAction();
 
   const validate = (values: TShopForm) => {
     let errors = {} as TShopFormError;
@@ -63,18 +69,26 @@ const NewShop = (): JSX.Element => {
   }, []);
 
   const handleCreateShop = async () => {
+    setIsLoading(true);
     const response: any = await dispatch(createShop(formik.values));
-    setOpen(false);
     if (response.payload.status === 'success') {
       Notice.setItemAtPageMoveNotice(noticeStorageValues.createdShopNotice);
       router.push(page.shop.list.link());
+    } else {
+      const { handleToastOpen } = toastActions;
+      handleToastOpen({
+        message: `お店の登録に失敗しました。`,
+        severity: 'error',
+      });
+      setIsLoading(false);
+      setOpen(false);
     }
   };
 
   const { name, description } = formik.values;
 
   return (
-    <CommonWrapTemplate>
+    <CommonWrapTemplate {...{ isLoading }}>
       <ConfirmModal
         focus
         open={open}

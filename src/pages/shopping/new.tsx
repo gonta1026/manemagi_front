@@ -99,9 +99,9 @@ const ShoppingNew = (): JSX.Element => {
               message: `買い物の登録に失敗しました。`,
               severity: 'error',
             });
+            setIsLoading(false);
+            setOpen(false);
           }
-          setOpen(false);
-          setIsLoading(false);
         }}
       >
         <dl className={'list'}>
