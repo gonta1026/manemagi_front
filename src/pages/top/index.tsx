@@ -26,6 +26,7 @@ import { formatPriceYen, ommisionText, totalSumPrice } from '../../utils/functio
 import { formatDay } from '../../utils/FormatDate';
 
 const Top = (): JSX.Element => {
+  const [isLoading, setIsLoading] = useState(false);
   const [isLineNotice, setIsLineNotice] = useState<boolean>(false);
   const [modalShopping, setModalShopping] = useState<TShopping>(initialShopping);
   const [modalClaim, setModalClaim] = useState<TClaim>(initialClaim);
@@ -53,13 +54,15 @@ const Top = (): JSX.Element => {
   const noReceiptClaims = () => claims.filter((claim) => !claim.isReceipt);
 
   return (
-    <CommonWrapTemplate {...{ toastActions }}>
+    <CommonWrapTemplate {...{ isLoading, toastActions }}>
       <ConfirmDeleteShoppingModal
         open={deleteModalOpen}
         handleClose={() => setDeleteModalOpen(false)}
         handleOk={async () => {
+          setIsLoading(true);
           await deleteShoppingAndSet(modalShopping, isLineNotice, toastActions);
           setDeleteModalOpen(false);
+          setIsLoading(false);
         }}
         isLineNotice={isLineNotice}
         modalShopping={modalShopping}
@@ -73,8 +76,10 @@ const Top = (): JSX.Element => {
         open={claimModalOpen}
         handleClose={() => setClaimModalOpen(false)}
         handleOk={async () => {
+          setIsLoading(true);
           await updateClaimAndSet(modalClaim, isLineNotice, toastActions);
           setClaimModalOpen(false);
+          setIsLoading(false);
         }}
         isLineNotice={isLineNotice}
         modalClaim={modalClaim}
@@ -87,9 +92,11 @@ const Top = (): JSX.Element => {
         open={deleteClaimModalOpen}
         handleClose={() => setDeleteClaimModalOpen(false)}
         handleOk={async () => {
+          setIsLoading(true);
           await deleteClaimAndSet(modalClaim, isLineNotice, toastActions);
           await fetchNoClaimShoppingsAndSet();
           setDeleteClaimModalOpen(false);
+          setIsLoading(false);
         }}
         isLineNotice={isLineNotice}
         modalClaim={modalClaim}
