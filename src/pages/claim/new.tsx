@@ -32,12 +32,15 @@ import { noticeStorageValues } from '../../modules/Notice';
 import Notice from '../../modules/Notice';
 
 const ClaimNew = (): JSX.Element => {
-  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
   const [open, setOpen] = useState<boolean>(false);
   const [checkShoppings, setCheckShoppings] = useState<TShopping[]>([]);
+
+  const router = useRouter();
   const dispatch = useDispatch();
-  const toastActions = useToastAction();
   const { settingState } = useSelector((state: { settingState: settingAndUser }) => state);
+
+  const toastActions = useToastAction();
 
   useEffect(() => {
     fetchShoppingsAndSetShops();
@@ -89,12 +92,13 @@ const ClaimNew = (): JSX.Element => {
   };
 
   return (
-    <CommonWrapTemplate {...{ toastActions }}>
+    <CommonWrapTemplate {...{ isLoading, toastActions }}>
       <ConfirmModal
         focus
         open={open}
         handleClose={() => setOpen(false)}
         handleOk={async () => {
+          setIsLoading(true);
           const shoppingIds = checkShoppings.map((shopping) => shopping.id!);
           const response: any = await dispatch(
             createClaim({ shoppingIds: shoppingIds, isLineNotice: true }),
@@ -108,6 +112,8 @@ const ClaimNew = (): JSX.Element => {
               message: `買い物の更新に失敗しました。`,
               severity: 'error',
             });
+            setIsLoading(false);
+            setOpen(false);
           }
         }}
         modaltitle={'請求'}
@@ -165,14 +171,15 @@ const ClaimNew = (): JSX.Element => {
           />
         </div>
 
-        <BaseButton
-          className={'mt-3'}
-          type={'submit'}
-          disabled={checkShoppings.length === 0}
-          onClick={() => setOpen(true)}
-        >
-          請求確認
-        </BaseButton>
+        <div className="flex justify-center mt-3">
+          <BaseButton
+            type={'submit'}
+            disabled={checkShoppings.length === 0}
+            onClick={() => setOpen(true)}
+          >
+            請求確認
+          </BaseButton>
+        </div>
         <ul className="py-4">
           {formik.values.shoppings.map((shopping, index) => (
             <li key={index} className={'border-t-2 p-3'}>
