@@ -145,31 +145,34 @@ const ClaimNew = (): JSX.Element => {
         請求予定金額：
         {formatPriceYen ? formatPriceYen(totalSumPrice(checkShoppings, 'price')) : ''}
       </div>
-      <LabelAndCheckBox
-        control={<BaseCheckBox checked={isAllChecked()} onChange={handleAllCheck} />}
-        label="まとめてチェック"
-      />
-      <BaseButton
-        className={'mt-5'}
-        type={'submit'}
-        disabled={checkShoppings.length === 0}
-        onClick={() => setOpen(true)}
-      >
-        請求確認
-      </BaseButton>
-      <form className="base-vertical-20" onSubmit={formik.handleSubmit}>
-        {/* LINE通知(isLineNotice) */}
-        <LabelAndSwitch
-          className={'base-vertical-item'}
-          checked={formik.values.isLineNotice}
-          disabled={!settingState.user?.setting.isUseLine}
-          helperText={!settingState.user?.setting.isUseLine && <IsUseLineHelper />}
-          onChange={() =>
-            formik.setFieldValue(SHOPPING_FORM.IS_LINE_NOTICE.ID, !formik.values.isLineNotice)
-          }
-          id={CLAIM_FORM.IS_LINE_NOTICE.ID}
-          label={`${CLAIM_FORM.IS_LINE_NOTICE.LABEL}${formik.values.isLineNotice ? 'ON' : 'OFF'}`}
-        />
+      <form onSubmit={formik.handleSubmit}>
+        <div className="flex flex-wrap items-center">
+          <LabelAndCheckBox
+            control={<BaseCheckBox checked={isAllChecked()} onChange={handleAllCheck} />}
+            label="まとめてチェック"
+          />
+          {/* LINE通知(isLineNotice) */}
+          <LabelAndSwitch
+            className={'base-vertical-item'}
+            checked={formik.values.isLineNotice}
+            disabled={!settingState.user?.setting.isUseLine}
+            helperText={!settingState.user?.setting.isUseLine && <IsUseLineHelper />}
+            onChange={() =>
+              formik.setFieldValue(SHOPPING_FORM.IS_LINE_NOTICE.ID, !formik.values.isLineNotice)
+            }
+            id={CLAIM_FORM.IS_LINE_NOTICE.ID}
+            label={`${CLAIM_FORM.IS_LINE_NOTICE.LABEL}${formik.values.isLineNotice ? 'ON' : 'OFF'}`}
+          />
+        </div>
+
+        <BaseButton
+          className={'mt-3'}
+          type={'submit'}
+          disabled={checkShoppings.length === 0}
+          onClick={() => setOpen(true)}
+        >
+          請求確認
+        </BaseButton>
         <ul className="py-4">
           {formik.values.shoppings.map((shopping, index) => (
             <li key={index} className={'border-t-2 p-3'}>
