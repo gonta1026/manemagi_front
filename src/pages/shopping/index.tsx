@@ -18,6 +18,7 @@ import { formatDay } from '../../utils/FormatDate';
 import Notice from '../../modules/Notice';
 
 const Shopping = (): JSX.Element => {
+  const [isLoading, setIsLoading] = useState(false);
   const [isLineNotice, setIsLineNotice] = useState<boolean>(false);
   const [modalShopping, setModalShopping] = useState<TShopping>(initialShopping);
   const [deleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
@@ -39,13 +40,15 @@ const Shopping = (): JSX.Element => {
   }, [settingState]);
 
   return (
-    <CommonWrapTemplate {...{ toastActions }}>
+    <CommonWrapTemplate {...{ isLoading, toastActions }}>
       <ConfirmDeleteShoppingModal
         open={deleteModalOpen}
         handleClose={() => setDeleteModalOpen(false)}
         handleOk={async () => {
+          setIsLoading(true);
           await deleteShoppingAndSet(modalShopping, isLineNotice, toastActions);
           setDeleteModalOpen(false);
+          setIsLoading(false);
         }}
         isLineNotice={isLineNotice}
         modalShopping={modalShopping}
