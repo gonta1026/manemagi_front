@@ -35,12 +35,12 @@ import { shopNewValidate } from '../../validate/shop/new';
 const NewShop = (): JSX.Element => {
   const router = useRouter();
   const [open, setOpen] = useState<boolean>(false);
-  const { shops, fetchShopsAndSet } = useShop();
-
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const dispatch = useDispatch();
+
   const toastActions = useToastAction();
+  const { shops, fetchShopsAndSet } = useShop();
 
   const validate = (values: TShopForm) => {
     let errors = {} as TShopFormError;

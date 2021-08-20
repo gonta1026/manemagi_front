@@ -14,6 +14,7 @@ import { formatDay } from '../../../../utils/FormatDate';
 
 const ClaimShoppings = (): JSX.Element => {
   const router = useRouter();
+
   const { fetchClaimShoppingsAndSet, shoppings } = useClaim();
 
   useEffect(() => {

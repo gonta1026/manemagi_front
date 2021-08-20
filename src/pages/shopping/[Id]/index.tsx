@@ -22,10 +22,12 @@ import Notice from '../../../modules/Notice';
 
 const ShoppingShow = (): JSX.Element => {
   const [shopping, setShopping] = useState<TShopping>(initialShopping);
-  const router = useRouter();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isLineNotice, setIsLineNotice] = useState<boolean>(false);
-  const dispatch = useDispatch();
   const [deleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
+
+  const router = useRouter();
+  const dispatch = useDispatch();
   const { settingState } = useSelector((state: { settingState: settingAndUser }) => state);
   const toastActions = useToastAction();
   const { shops, fetchShopsAndSet } = useShop();
@@ -55,6 +57,7 @@ const ShoppingShow = (): JSX.Element => {
 
   const deleteShoppingAndSetShopping = async () => {
     const shoppingId = String(shopping.id);
+    setIsLoading(true);
     const response: any = await dispatch(
       deleteShopping({
         id: shoppingId,
@@ -71,11 +74,12 @@ const ShoppingShow = (): JSX.Element => {
         message: `削除に失敗しました。`,
         severity: 'error',
       });
+      setIsLoading(false);
     }
   };
 
   return (
-    <CommonWrapTemplate {...{ toastActions }}>
+    <CommonWrapTemplate {...{ isLoading, toastActions }}>
       <ConfirmDeleteShoppingModal
         open={deleteModalOpen}
         handleClose={() => setDeleteModalOpen(false)}

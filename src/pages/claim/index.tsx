@@ -19,6 +19,7 @@ import { ClaimCardWrapper } from '../../components/pages/common';
 import Notice from '../../modules/Notice';
 
 const Claim = (): JSX.Element => {
+  const [isLoading, setIsLoading] = useState(false);
   const [isLineNotice, setIsLineNotice] = useState<boolean>(false);
   const [modalClaim, setModalClaim] = useState<TClaim>(initialClaim);
   const [claimModalOpen, setClaimModalOpen] = useState<boolean>(false);
@@ -39,13 +40,15 @@ const Claim = (): JSX.Element => {
   }, [settingState]);
 
   return (
-    <CommonWrapTemplate {...{ toastActions }}>
+    <CommonWrapTemplate {...{ isLoading, toastActions }}>
       <ConfirmReceiptClaimModal
         open={claimModalOpen}
         handleClose={() => setClaimModalOpen(false)}
         handleOk={async () => {
+          setIsLoading(true);
           await updateClaimAndSet(modalClaim, isLineNotice, toastActions);
           setClaimModalOpen(false);
+          setIsLoading(false);
         }}
         isLineNotice={isLineNotice}
         modalClaim={modalClaim}
@@ -58,8 +61,10 @@ const Claim = (): JSX.Element => {
         open={deleteClaimModalOpen}
         handleClose={() => setDeleteClaimModalOpen(false)}
         handleOk={async () => {
+          setIsLoading(true);
           await deleteClaimAndSet(modalClaim, isLineNotice, toastActions);
           setDeleteClaimModalOpen(false);
+          setIsLoading(false);
         }}
         isLineNotice={isLineNotice}
         modalClaim={modalClaim}

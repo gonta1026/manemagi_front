@@ -41,6 +41,7 @@ import { shoppingValidate } from '../../../validate/shopping/new';
 const ShoppingEdit = (): JSX.Element => {
   const router = useRouter();
   const [open, setOpen] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const toastActions = useToastAction();
   const { shops, fetchShopsAndSet } = useShop();
   const { settingState } = useSelector((state: { settingState: settingAndUser }) => state);
@@ -84,12 +85,13 @@ const ShoppingEdit = (): JSX.Element => {
   });
 
   return (
-    <CommonWrapTemplate>
+    <CommonWrapTemplate {...{ isLoading }}>
       <ConfirmModal
         focus
         open={open}
         handleClose={() => setOpen(false)}
         handleOk={async () => {
+          setIsLoading(true);
           const response: any = await dispatch(
             updateShopping({ ShoppingForm: formik.values, id: router.query.Id as string }),
           );
@@ -102,6 +104,7 @@ const ShoppingEdit = (): JSX.Element => {
               message: `買い物の更新に失敗しました。`,
               severity: 'error',
             });
+            setIsLoading(false);
           }
         }}
         modaltitle={'変更'}
