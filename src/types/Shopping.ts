@@ -1,7 +1,7 @@
 export const initialShopping = {
   id: null,
   price: null,
-  date: null,
+  date: new Date(),
   description: '',
   isLineNotice: false,
   isLineNoticed: false,
