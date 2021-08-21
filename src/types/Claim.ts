@@ -12,18 +12,19 @@ export const initialClaim = {
 };
 
 export type TClaim = {
-  id: number | null;
+  id: number;
   isLineNotice: boolean;
   isLineNoticed: boolean;
   isReceipt: boolean;
-  totalPrice: number | null; // NOTE DBのschemaには存在しない。
-  userId: number | null;
+  totalPrice: number; // NOTE DBのschemaには存在しない。
+  userId: number;
   createdAt: Date;
   updatedAt: Date;
 };
 
-export type TClaimForm = {
-  isLineNotice: boolean;
+export type TClaimNullable = Utilty.Nullable<TClaim, 'id' | 'totalPrice' | 'userId'>;
+
+export type TClaimForm = Pick<TClaimNullable, 'isLineNotice'> & {
   shoppingIds: number[];
 };
 

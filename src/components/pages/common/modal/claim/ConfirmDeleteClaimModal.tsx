@@ -6,7 +6,7 @@ import { TModalTitle } from '../../../../common/uiParts/modal/ConfirmModal';
 /* const */
 import { CLAIM_FORM, LABEL_CLAIM } from '../../../../../const/form/claim';
 /* types */
-import { TClaim } from '../../../../../types/Claim';
+import { TClaimNullable } from '../../../../../types/Claim';
 /* utils */
 import { formatPriceYen } from '../../../../../utils/function';
 import { formatDay } from '../../../../../utils/FormatDate';
@@ -28,7 +28,7 @@ const ConfirmDeleteClaimModal = ({
   isLineNotice: boolean;
   isUseLineAtSetting: boolean;
   modaltitle: TModalTitle;
-  modalClaim: TClaim | undefined;
+  modalClaim: TClaimNullable;
   open: boolean;
   onChangeLineNotice: any;
 }): JSX.Element => {

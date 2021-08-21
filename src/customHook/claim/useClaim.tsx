@@ -10,7 +10,7 @@ import {
   fetchClaimShoppings,
 } from '../../reducks/services/Claim';
 /* types */
-import { TClaim } from '../../types/Claim';
+import { TClaim, TClaimNullable } from '../../types/Claim';
 import { TShopping } from '../../types/Shopping';
 
 const useClaim = () => {
@@ -26,7 +26,7 @@ const useClaim = () => {
   };
 
   const updateClaimAndSet = async (
-    claim: TClaim,
+    claim: TClaimNullable,
     isLineNotice: boolean,
     toastActions: ToastType,
   ) => {
@@ -55,7 +55,7 @@ const useClaim = () => {
   };
 
   const deleteClaimAndSet = async (
-    claim: TClaim,
+    claim: TClaimNullable,
     isLineNotice: boolean,
     toastActions: ToastType,
   ) => {

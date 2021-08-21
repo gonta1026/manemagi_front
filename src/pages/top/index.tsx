@@ -19,7 +19,7 @@ import Notice from '../../modules/Notice';
 import { page } from '../../pageMap';
 /* types */
 import { initialShopping, TShoppingNullable } from '../../types/Shopping';
-import { initialClaim, TClaim } from '../../types/Claim';
+import { initialClaim, TClaimNullable } from '../../types/Claim';
 import { settingAndUser } from '../../types/Setting';
 /* utils */
 import { formatPriceYen, ommisionText, totalSumPrice } from '../../utils/function';
@@ -29,7 +29,7 @@ const Top = (): JSX.Element => {
   const [isLoading, setIsLoading] = useState(false);
   const [isLineNotice, setIsLineNotice] = useState<boolean>(false);
   const [modalShopping, setModalShopping] = useState<TShoppingNullable>(initialShopping);
-  const [modalClaim, setModalClaim] = useState<TClaim>(initialClaim);
+  const [modalClaim, setModalClaim] = useState<TClaimNullable>(initialClaim);
   const [deleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
   const [claimModalOpen, setClaimModalOpen] = useState<boolean>(false);
   const [deleteClaimModalOpen, setDeleteClaimModalOpen] = useState<boolean>(false);

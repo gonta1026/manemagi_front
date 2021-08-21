@@ -9,7 +9,7 @@ import { useToastAction, useShop, useShopping } from '../../customHook';
 /* pageMap */
 import { page } from '../../pageMap';
 /* types */
-import { TShopping, TShoppingNullable, initialShopping } from '../../types/Shopping';
+import { TShoppingNullable, initialShopping } from '../../types/Shopping';
 import { settingAndUser } from '../../types/Setting';
 /* utils */
 import { formatPriceYen, ommisionText } from '../../utils/function';
@@ -27,7 +27,7 @@ const Shopping = (): JSX.Element => {
 
   const toastActions = useToastAction();
   const { shops, fetchShopsAndSet } = useShop();
-  const { shoppings, fetchShoppingsAndSet, deleteShoppingAndSet } = useShopping<TShopping>();
+  const { shoppings, fetchShoppingsAndSet, deleteShoppingAndSet } = useShopping();
 
   useEffect(() => {
     fetchShoppingsAndSet();

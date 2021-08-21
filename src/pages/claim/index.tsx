@@ -9,7 +9,7 @@ import { useClaim, useToastAction } from '../../customHook';
 /* pageMap */
 import { page } from '../../pageMap';
 /* types */
-import { TClaim, initialClaim } from '../../types/Claim';
+import { TClaimNullable, initialClaim } from '../../types/Claim';
 import { settingAndUser } from '../../types/Setting';
 /* utils */
 import { formatPriceYen, totalSumPrice } from '../../utils/function';
@@ -21,7 +21,7 @@ import Notice from '../../modules/Notice';
 const Claim = (): JSX.Element => {
   const [isLoading, setIsLoading] = useState(false);
   const [isLineNotice, setIsLineNotice] = useState<boolean>(false);
-  const [modalClaim, setModalClaim] = useState<TClaim>(initialClaim);
+  const [modalClaim, setModalClaim] = useState<TClaimNullable>(initialClaim);
   const [claimModalOpen, setClaimModalOpen] = useState<boolean>(false);
   const [deleteClaimModalOpen, setDeleteClaimModalOpen] = useState<boolean>(false);
 
