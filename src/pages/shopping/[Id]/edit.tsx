@@ -19,7 +19,7 @@ import {
   LabelAndSwitch,
 } from '../../../components/common/uiParts';
 /* const */
-import { SHOPPING_FORM } from '../../../const/form/shopping';
+import { SHOPPING_FORM } from '../../../form/shopping';
 /* customHook */
 import { useShop, useToastAction } from '../../../customHook/';
 /* pageMap */

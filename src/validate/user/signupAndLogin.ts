@@ -1,5 +1,5 @@
 import { TLoginUserOrUser, TUserFormError } from '../../model/user';
-import { USER_FORM } from '../../const/form/user';
+import { USER_FORM } from '../../form/user';
 import {
   emailFormat,
   validRangePassword,

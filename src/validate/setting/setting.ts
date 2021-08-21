@@ -1,5 +1,5 @@
 import { TSetting, TSettingFormError } from '../../model/setting';
-import { SETTING_FORM } from '../../const/form/setting';
+import { SETTING_FORM } from '../../form/setting';
 import { validMaxNum, validNum } from '../';
 import { lineToken } from '../message';
 export const settingsValidate = (values: TSetting, errors: TSettingFormError) => {

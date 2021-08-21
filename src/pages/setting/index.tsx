@@ -8,7 +8,7 @@ import { LabelAndTextField, LabelAndSwitch, BaseButton } from '../../components/
 import { BasePageTitle, BaseErrorMessagesWrapper } from '../../components/common/uiParts';
 /* const */
 import { TestUser } from '../../const';
-import { SETTING_FORM } from '../../const/form/setting';
+import { SETTING_FORM } from '../../form/setting';
 /* customHook */
 import useToastAction from '../../customHook/useToastAction';
 /* utils */

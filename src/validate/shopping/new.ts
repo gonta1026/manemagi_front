@@ -1,5 +1,5 @@
 import { TShoppingForm, TShoppingFormError } from '../../model/shopping';
-import { SHOPPING_FORM } from '../../const/form/shopping';
+import { SHOPPING_FORM } from '../../form/shopping';
 import { validBlank, validMaxNum, validMinNum, validNum } from '../';
 
 export const shoppingValidate = (values: TShoppingForm, errors: TShoppingFormError) => {

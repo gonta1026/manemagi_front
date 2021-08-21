@@ -13,7 +13,7 @@ import {
 } from '../../components/common/uiParts';
 /* const */
 import { TestUser } from '../../const';
-import { USER_FORM } from '../../const/form/user';
+import { USER_FORM } from '../../form/user';
 /* customHook */
 import { useToastAction } from '../../customHook';
 /* pageMap */

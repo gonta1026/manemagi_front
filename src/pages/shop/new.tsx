@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
 /* const */
-import { SHOP_FORM } from '../../const/form/shop';
+import { SHOP_FORM } from '../../form/shop';
 /* components */
 import CommonWrapTemplate from '../../components/common/layout/CommonWrapTemplate';
 import { useShop } from '../../customHook';

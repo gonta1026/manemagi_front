@@ -21,7 +21,7 @@ import {
 //customHook */
 import { useToastAction, useShop } from '../../customHook';
 /* const */
-import { SHOPPING_FORM } from '../../const/form/shopping';
+import { SHOPPING_FORM } from '../../form/shopping';
 /* pageMap */
 import { page } from '../../pageMap';
 /* reducks */

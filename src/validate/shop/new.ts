@@ -1,5 +1,5 @@
 import { TShopForm } from '../../model/shop';
-import { SHOP_FORM } from '../../const/form/shop';
+import { SHOP_FORM } from '../../form/shop';
 import { validBlank, validRegisterdName, validMaxNum, validNum } from '..';
 
 export const shopNewValidate = (values: TShopForm, errors: TShopForm, shopNames: string[]) => {

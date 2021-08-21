@@ -4,7 +4,7 @@ import { ConfirmModal, IsUseLineHelper } from '../../../../common/uiParts';
 import { LabelAndSwitch } from '../../../../common/uiParts';
 import { TModalTitle } from '../../../../common/uiParts/modal/ConfirmModal';
 /* const */
-import { SHOPPING_FORM } from '../../../../../const/form/shopping';
+import { SHOPPING_FORM } from '../../../../../form/shopping';
 /* types */
 import { TShoppingNullable } from '../../../../../model/shopping';
 import { TShop } from '../../../../../model/shop';

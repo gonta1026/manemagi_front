@@ -4,7 +4,7 @@ import { ConfirmModal, IsUseLineHelper } from '../../../../common/uiParts';
 import { LabelAndSwitch } from '../../../../common/uiParts';
 import { TModalTitle } from '../../../../common/uiParts/modal/ConfirmModal';
 /* const */
-import { CLAIM_FORM, LABEL_CLAIM } from '../../../../../const/form/claim';
+import { CLAIM_FORM, LABEL_CLAIM } from '../../../../../form/claim';
 /* types */
 import { TClaimNullable } from '../../../../../model/claim';
 /* utils */

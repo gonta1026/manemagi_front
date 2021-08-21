@@ -13,8 +13,8 @@ import {
 } from '../../components/common/uiParts';
 import { LabelAndSwitch, LabelAndCheckBox } from '../../components/common/uiParts';
 /* const */
-import { SHOPPING_FORM } from '../../const/form/shopping';
-import { CLAIM_FORM } from '../../const/form/claim';
+import { SHOPPING_FORM } from '../../form/shopping';
+import { CLAIM_FORM } from '../../form/claim';
 /* customHook */
 import useToastAction from '../../customHook/useToastAction';
 /* pageMap */

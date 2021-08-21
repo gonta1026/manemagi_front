@@ -1,6 +1,6 @@
 import React from 'react';
 import { BaseLink } from '../..';
-import { SETTING_FORM } from '../../../../../const/form/setting';
+import { SETTING_FORM } from '../../../../../form/setting';
 import { page } from '../../../../../pageMap';
 
 const IsUseLineHelper = (): JSX.Element => {
