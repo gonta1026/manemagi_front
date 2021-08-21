@@ -13,7 +13,7 @@ import { page } from '../../../../pageMap/index';
 import { materialStyles } from '../../../../styles/js/material';
 
 const FooterNavigation = () => {
-  const classes = materialStyles({
+  const classNames = {
     root: {
       backgroundColor: 'inherited',
       '&$selected': {
@@ -21,7 +21,8 @@ const FooterNavigation = () => {
       },
     },
     selected: {},
-  });
+  };
+  const classes = materialStyles(classNames) as Record<keyof typeof classNames, string>;
 
   const navagationPage = {
     shop: {

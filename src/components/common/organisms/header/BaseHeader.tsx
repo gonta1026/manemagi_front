@@ -29,11 +29,12 @@ const BaseHeader = ({
   toggleDrawer: any;
   settingState: settingAndUser;
 }) => {
-  const classes = materialStyles({
+  const classNames = {
     headerTitle: {
       color: COLORS.TEXT_GREEN,
     },
-  });
+  };
+  const classes = materialStyles(classNames) as Record<keyof typeof classNames, string>;
 
   const auth = new Auth();
   const router = useRouter();

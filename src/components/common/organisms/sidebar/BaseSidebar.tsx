@@ -22,14 +22,15 @@ type TProps = {
 
 const Drawer = ({ className = '', toggleDrawer, isDrawerOpen }: TProps) => {
   const router = useRouter();
-  const classes = materialStyles({
+  const classNames = {
     list: {
       width: 250,
     },
     childLink: {
       paddingLeft: 35,
     },
-  });
+  };
+  const classes = materialStyles(classNames) as Record<keyof typeof classNames, string>;
 
   return (
     <BaseDrawer className={className} open={isDrawerOpen} onClose={toggleDrawer}>

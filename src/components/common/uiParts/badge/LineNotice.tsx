@@ -22,14 +22,16 @@ const LineNotice = ({
       color: '#gray',
     };
   }
-  const classes = materialStyles({
+
+  const classNames = {
     badge: {
       fontSize: '13px',
       padding: '3px 7px',
       borderRadius: '20px',
       ...badgeClass,
     },
-  });
+  };
+  const classes = materialStyles(classNames) as Record<keyof typeof classNames, string>;
 
   return <div className={classes.badge}>{text}</div>;
 };

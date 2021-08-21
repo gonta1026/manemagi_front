@@ -16,7 +16,7 @@ const BaseToast = ({
   onClose,
 }: OmitTToastType) => {
   // NOTE  スマホ表示の際に崩れる現象があったので非表示で対応
-  const classes = materialStyles({
+  const classNames = {
     alert: {
       '& .MuiAlert-icon': {
         '@media (max-width: 768px)': {
@@ -29,7 +29,10 @@ const BaseToast = ({
         },
       },
     },
-  });
+  };
+
+  const classes = materialStyles(classNames) as Record<keyof typeof classNames, string>;
+
   const anchorOrigin = { horizontal: 'right', vertical: 'top' } as const;
   return (
     <Snackbar {...{ anchorOrigin, autoHideDuration, onClose, open }}>
