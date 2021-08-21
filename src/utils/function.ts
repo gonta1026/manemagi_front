@@ -1,6 +1,3 @@
-// import { TShopping } from '../types/Shopping';
-// import { TClaim } from '../types/Claim';
-
 /* オブジェクトの空チェック */
 export const isEmpty = (obj: any) => !Object.keys(obj).length;
 
