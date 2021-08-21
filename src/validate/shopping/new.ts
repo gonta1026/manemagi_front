@@ -1,4 +1,4 @@
-import { TShoppingForm, TShoppingFormError } from '../../types/Shopping';
+import { TShoppingForm, TShoppingFormError } from '../../model/shopping';
 import { SHOPPING_FORM } from '../../const/form/shopping';
 import { validBlank, validMaxNum, validMinNum, validNum } from '../';
 

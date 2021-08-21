@@ -16,7 +16,7 @@ import { page } from '../../../../pageMap';
 import { ommisionText } from '../../../../utils/function';
 import useIsAfterSsr from '../../../../customHook/useIsAfterSsr';
 /* types */
-import { settingAndUser } from '../../../../types/Setting';
+import { settingAndUser } from '../../../../model/setting';
 /* styles */
 import { materialStyles } from '../../../../styles/js/material';
 

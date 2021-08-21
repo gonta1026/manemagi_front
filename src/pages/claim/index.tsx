@@ -9,8 +9,8 @@ import { useClaim, useToastAction } from '../../customHook';
 /* pageMap */
 import { page } from '../../pageMap';
 /* types */
-import { TClaimNullable, initialClaim } from '../../types/Claim';
-import { settingAndUser } from '../../types/Setting';
+import { TClaimNullable, initialClaim } from '../../model/claim';
+import { settingAndUser } from '../../model/setting';
 /* utils */
 import { formatPriceYen, totalSumPrice } from '../../utils/function';
 import { formatDay } from '../../utils/FormatDate';

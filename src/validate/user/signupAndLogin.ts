@@ -1,4 +1,4 @@
-import { TLoginUserOrUser, TUserFormError } from '../../types/User';
+import { TLoginUserOrUser, TUserFormError } from '../../model/user';
 import { USER_FORM } from '../../const/form/user';
 import {
   emailFormat,

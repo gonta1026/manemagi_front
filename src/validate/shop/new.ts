@@ -1,4 +1,4 @@
-import { TShopForm } from '../../types/Shop';
+import { TShopForm } from '../../model/shop';
 import { SHOP_FORM } from '../../const/form/shop';
 import { validBlank, validRegisterdName, validMaxNum, validNum } from '..';
 

@@ -18,7 +18,7 @@ import { page } from '../../pageMap';
 /* reducks */
 import { updateSetting } from '../../reducks/services/Setting';
 /* types */
-import { TSetting, settingAndUser, TSettingFormError } from '../../types/Setting';
+import { TSetting, settingAndUser, TSettingFormError } from '../../model/setting';
 /* validate */
 import { settingsValidate } from '../../validate/setting/setting';
 

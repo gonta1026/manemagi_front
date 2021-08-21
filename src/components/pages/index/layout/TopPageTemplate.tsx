@@ -6,7 +6,7 @@ import { BaseToast } from '../../../common/uiParts';
 import { useRouter } from 'next/router';
 import { ToastType } from '../../../../customHook/useToastAction';
 /* types */
-import { settingAndUser } from '../../../../types/Setting';
+import { settingAndUser } from '../../../../model/setting';
 /* modules */
 import Auth from '../../../../modules/Auth';
 const TopPageTemplate = ({

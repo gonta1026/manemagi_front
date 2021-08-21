@@ -1,4 +1,4 @@
-import { TSetting, TSettingFormError } from '../../types/Setting';
+import { TSetting, TSettingFormError } from '../../model/setting';
 import { SETTING_FORM } from '../../const/form/setting';
 import { validMaxNum, validNum } from '../';
 import { lineToken } from '../message';

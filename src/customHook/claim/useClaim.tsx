@@ -10,8 +10,8 @@ import {
   fetchClaimShoppings,
 } from '../../reducks/services/Claim';
 /* types */
-import { TClaim, TClaimNullable } from '../../types/Claim';
-import { TShopping } from '../../types/Shopping';
+import { TClaim, TClaimNullable } from '../../model/claim';
+import { TShopping } from '../../model/shopping';
 
 const useClaim = () => {
   const [claims, setClaims] = useState<TClaim[]>([]);

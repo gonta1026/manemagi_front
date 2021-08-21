@@ -20,7 +20,7 @@ import { page } from '../../pageMap';
 /* reducks */
 import { signupUser } from '../../reducks/services/User';
 /* types */
-import { TUser, TUserFormError } from '../../types/User';
+import { TUser, TUserFormError } from '../../model/user';
 /* utils */
 import { noticeStorageValues } from '../../modules/Notice';
 import Notice from '../../modules/Notice';

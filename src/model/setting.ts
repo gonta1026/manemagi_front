@@ -1,4 +1,4 @@
-import { TLoadingAndErrorState } from './Common';
+import { TLoadingAndErrorState } from './common';
 
 export type TSetting = {
   isUseLine: boolean;

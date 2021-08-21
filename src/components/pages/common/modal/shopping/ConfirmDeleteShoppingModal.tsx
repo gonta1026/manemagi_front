@@ -6,8 +6,8 @@ import { TModalTitle } from '../../../../common/uiParts/modal/ConfirmModal';
 /* const */
 import { SHOPPING_FORM } from '../../../../../const/form/shopping';
 /* types */
-import { TShoppingNullable } from '../../../../../types/Shopping';
-import { TShop } from '../../../../../types/Shop';
+import { TShoppingNullable } from '../../../../../model/shopping';
+import { TShop } from '../../../../../model/shop';
 /* utils */
 import { formatPriceYen } from '../../../../../utils/function';
 import { formatDay } from '../../../../../utils/FormatDate';

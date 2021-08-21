@@ -21,7 +21,7 @@ import { page } from '../../pageMap';
 /* reducks */
 import { loginUser } from '../../reducks/services/User';
 /* types */
-import { TLoginUser, TUserFormError } from '../../types/User';
+import { TLoginUser, TUserFormError } from '../../model/user';
 /* utils */
 import { noticeStorageValues } from '../../modules/Notice';
 import Notice from '../../modules/Notice';

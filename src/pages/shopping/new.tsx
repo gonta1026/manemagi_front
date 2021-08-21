@@ -27,8 +27,8 @@ import { page } from '../../pageMap';
 /* reducks */
 import { createShopping } from '../../reducks/services/Shopping';
 /* types */
-import { TShoppingForm, TShoppingFormError } from '../../types/Shopping';
-import { settingAndUser } from '../../types/Setting';
+import { TShoppingForm, TShoppingFormError } from '../../model/shopping';
+import { settingAndUser } from '../../model/setting';
 /* utils */
 import { formatDay } from '../../utils/FormatDate';
 import { isEmpty, formatPriceYen } from '../../utils/function';

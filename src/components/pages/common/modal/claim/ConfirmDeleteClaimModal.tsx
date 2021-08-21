@@ -6,7 +6,7 @@ import { TModalTitle } from '../../../../common/uiParts/modal/ConfirmModal';
 /* const */
 import { CLAIM_FORM, LABEL_CLAIM } from '../../../../../const/form/claim';
 /* types */
-import { TClaimNullable } from '../../../../../types/Claim';
+import { TClaimNullable } from '../../../../../model/claim';
 /* utils */
 import { formatPriceYen } from '../../../../../utils/function';
 import { formatDay } from '../../../../../utils/FormatDate';

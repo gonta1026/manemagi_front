@@ -5,7 +5,7 @@ import { END_POINT } from '../../const/endPoint';
 /* network */
 import ApiClient from '../../modules/ApiClient';
 /* types */
-import { TSetting } from '../../types/Setting';
+import { TSetting } from '../../model/setting';
 
 const { SETTINGS } = END_POINT;
 

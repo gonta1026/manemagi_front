@@ -24,7 +24,7 @@ import { page } from '../../pageMap';
 /* reducks */
 import { createShop } from '../../reducks/services/Shop';
 /* types */
-import { TShopForm, TShopFormError } from '../../types/Shop';
+import { TShopForm, TShopFormError } from '../../model/shop';
 /* utils */
 import { isEmpty } from '../../utils/function';
 /* modules */

@@ -4,7 +4,7 @@ import { END_POINT } from '../../const/endPoint';
 /* network */
 import ApiClient from '../../modules/ApiClient';
 /* types */
-import { TShopForm } from '../../types/Shop';
+import { TShopForm } from '../../model/shop';
 
 const { SHOPS } = END_POINT;
 

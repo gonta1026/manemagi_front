@@ -18,9 +18,9 @@ import Notice from '../../modules/Notice';
 /* pageMap */
 import { page } from '../../pageMap';
 /* types */
-import { initialShopping, TShoppingNullable } from '../../types/Shopping';
-import { initialClaim, TClaimNullable } from '../../types/Claim';
-import { settingAndUser } from '../../types/Setting';
+import { initialShopping, TShoppingNullable } from '../../model/shopping';
+import { initialClaim, TClaimNullable } from '../../model/claim';
+import { settingAndUser } from '../../model/setting';
 /* utils */
 import { formatPriceYen, ommisionText, totalSumPrice } from '../../utils/function';
 import { formatDay } from '../../utils/FormatDate';

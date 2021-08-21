@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { fetchSettingAndUser } from '../services/Setting';
 import { commonState } from './type/common';
-import { TLoadingAndErrorState } from '../../types/Common';
-import { settingAndUser } from '../../types/Setting';
+import { TLoadingAndErrorState } from '../../model/common';
+import { settingAndUser } from '../../model/setting';
 
 export type TTUserAndSettingAndError = settingAndUser & TLoadingAndErrorState;
 

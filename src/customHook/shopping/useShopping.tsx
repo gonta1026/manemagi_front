@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { TShopping, TShoppingNullable } from '../../types/Shopping';
+import { TShopping, TShoppingNullable } from '../../model/shopping';
 import { fetchShoppings, deleteShopping } from '../../reducks/services/Shopping';
 
 const useShopping = () => {

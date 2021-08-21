@@ -9,8 +9,8 @@ import { useToastAction, useShop, useShopping } from '../../customHook';
 /* pageMap */
 import { page } from '../../pageMap';
 /* types */
-import { TShoppingNullable, initialShopping } from '../../types/Shopping';
-import { settingAndUser } from '../../types/Setting';
+import { TShoppingNullable, initialShopping } from '../../model/shopping';
+import { settingAndUser } from '../../model/setting';
 /* utils */
 import { formatPriceYen, ommisionText } from '../../utils/function';
 import { formatDay } from '../../utils/FormatDate';

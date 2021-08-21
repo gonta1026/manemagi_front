@@ -22,9 +22,9 @@ import { page } from '../../pageMap';
 /* reducks */
 import { fetchNoClaimShoppings, createClaim } from '../../reducks/services/Claim';
 /* types */
-import { TShopping } from '../../types/Shopping';
-import { TClaimFormikForm } from '../../types/Claim';
-import { settingAndUser } from '../../types/Setting';
+import { TShopping } from '../../model/shopping';
+import { TClaimFormikForm } from '../../model/claim';
+import { settingAndUser } from '../../model/setting';
 /* utils */
 import { formatPriceYen, ommisionText, totalSumPrice } from '../../utils/function';
 import { formatDay } from '../../utils/FormatDate';

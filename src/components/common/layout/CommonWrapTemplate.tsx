@@ -10,7 +10,7 @@ import { ToastType } from '../../../customHook/useToastAction';
 /* reducks */
 import { fetchSettingAndUser } from '../../../reducks/services/Setting';
 /* types */
-import { settingAndUser } from '../../../types/Setting';
+import { settingAndUser } from '../../../model/setting';
 /* modules */
 import Auth from '../../../modules/Auth';
 

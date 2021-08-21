@@ -4,7 +4,7 @@ import { END_POINT } from '../../const/endPoint';
 /* network */
 import ApiClient from '../../modules/ApiClient';
 /* types */
-import { TClaimForm } from '../../types/Claim';
+import { TClaimForm } from '../../model/claim';
 
 const { CLAIMS } = END_POINT;
 

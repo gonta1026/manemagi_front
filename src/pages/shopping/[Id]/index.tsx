@@ -12,8 +12,8 @@ import { page } from '../../../pageMap';
 /* reducks */
 import { fetchShopping, deleteShopping } from '../../../reducks/services/Shopping';
 /* types */
-import { TShopping, initialShopping, TShoppingNullable } from '../../../types/Shopping';
-import { settingAndUser } from '../../../types/Setting';
+import { TShopping, initialShopping, TShoppingNullable } from '../../../model/shopping';
+import { settingAndUser } from '../../../model/setting';
 /* utils */
 import { formatPriceYen, ommisionText } from '../../../utils/function';
 import { formatDay } from '../../../utils/FormatDate';

@@ -4,7 +4,7 @@ import { END_POINT } from '../../const/endPoint';
 /* network */
 import ApiClient from '../../modules/ApiClient';
 /* types */
-import { TUser, TLoginUser } from '../../types/User';
+import { TUser, TLoginUser } from '../../model/user';
 // import LocalStorage from '../../modules/LocalStorage';
 import Auth from '../../modules/Auth';
 const auth = new Auth();

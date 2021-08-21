@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { TShop } from '../../types/Shop';
+import { TShop } from '../../model/shop';
 import { fetchShops } from '../../reducks/services/Shop';
 
 const useShop = () => {

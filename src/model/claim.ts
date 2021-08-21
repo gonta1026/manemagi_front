@@ -1,4 +1,4 @@
-import { TShopping } from './Shopping';
+import { TShopping } from './shopping';
 
 export const initialClaim = {
   id: null,
