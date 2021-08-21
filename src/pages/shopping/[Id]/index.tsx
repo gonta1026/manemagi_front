@@ -12,7 +12,7 @@ import { page } from '../../../pageMap';
 /* reducks */
 import { fetchShopping, deleteShopping } from '../../../reducks/services/Shopping';
 /* types */
-import { TShopping, initialShopping } from '../../../types/Shopping';
+import { TShopping, initialShopping, TShoppingNullable } from '../../../types/Shopping';
 import { settingAndUser } from '../../../types/Setting';
 /* utils */
 import { formatPriceYen, ommisionText } from '../../../utils/function';
@@ -21,7 +21,7 @@ import { noticeStorageValues } from '../../../modules/Notice';
 import Notice from '../../../modules/Notice';
 
 const ShoppingShow = (): JSX.Element => {
-  const [shopping, setShopping] = useState<TShopping>(initialShopping);
+  const [shopping, setShopping] = useState<TShoppingNullable>(initialShopping);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isLineNotice, setIsLineNotice] = useState<boolean>(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);

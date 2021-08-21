@@ -18,7 +18,7 @@ import Notice from '../../modules/Notice';
 /* pageMap */
 import { page } from '../../pageMap';
 /* types */
-import { TShopping, initialShopping } from '../../types/Shopping';
+import { initialShopping, TShoppingNullable } from '../../types/Shopping';
 import { initialClaim, TClaim } from '../../types/Claim';
 import { settingAndUser } from '../../types/Setting';
 /* utils */
@@ -28,7 +28,7 @@ import { formatDay } from '../../utils/FormatDate';
 const Top = (): JSX.Element => {
   const [isLoading, setIsLoading] = useState(false);
   const [isLineNotice, setIsLineNotice] = useState<boolean>(false);
-  const [modalShopping, setModalShopping] = useState<TShopping>(initialShopping);
+  const [modalShopping, setModalShopping] = useState<TShoppingNullable>(initialShopping);
   const [modalClaim, setModalClaim] = useState<TClaim>(initialClaim);
   const [deleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
   const [claimModalOpen, setClaimModalOpen] = useState<boolean>(false);

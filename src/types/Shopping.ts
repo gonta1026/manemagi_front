@@ -12,20 +12,22 @@ export const initialShopping = {
 };
 
 export type TShopping = {
-  id: number | null;
-  price: number | null;
-  date: Date | string | null;
-  description: string | null;
+  id: number;
+  price: number;
+  date: Date | string;
+  description: string;
   isLineNotice: boolean;
   isLineNoticed: boolean;
-  shopId: number | null;
-  claimId: number | null;
+  shopId: number;
+  claimId: number;
   createdAt: Date;
   updatedAt: Date;
 };
 
+export type TShoppingNullable = Utilty.Nullable<TShopping, 'id' | 'price' | 'shopId' | 'claimId'>;
+
 export type TShoppingForm = Pick<
-  TShopping,
+  TShoppingNullable,
   'price' | 'date' | 'description' | 'isLineNotice' | 'shopId'
 >;
 

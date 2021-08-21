@@ -6,7 +6,7 @@ import { TModalTitle } from '../../../../common/uiParts/modal/ConfirmModal';
 /* const */
 import { SHOPPING_FORM } from '../../../../../const/form/shopping';
 /* types */
-import { TShopping } from '../../../../../types/Shopping';
+import { TShoppingNullable } from '../../../../../types/Shopping';
 import { TShop } from '../../../../../types/Shop';
 /* utils */
 import { formatPriceYen } from '../../../../../utils/function';
@@ -30,7 +30,7 @@ const ConfirmDeleteShoppingModal = ({
   isLineNotice: boolean;
   isUseLineAtSetting: boolean;
   modaltitle: TModalTitle;
-  modalShopping: TShopping | undefined;
+  modalShopping: TShoppingNullable;
   open: boolean;
   onChangeLineNotice: any;
   shops: TShop[];
@@ -39,21 +39,21 @@ const ConfirmDeleteShoppingModal = ({
     <ConfirmModal {...{ focus, open, handleClose, handleOk, modaltitle }}>
       <dl className={'list'}>
         <dt>{SHOPPING_FORM.PRICE.LABEL}</dt>
-        <dd>{modalShopping?.price ? formatPriceYen(modalShopping.price) : ''}</dd>
+        <dd>{modalShopping.price ? formatPriceYen(modalShopping.price) : ''}</dd>
       </dl>
       <dl className={'list'}>
         <dt>{SHOPPING_FORM.DATE.LABEL}</dt>
-        <dd>{modalShopping?.date ? formatDay(modalShopping.date) : ''}</dd>
+        <dd>{modalShopping.date ? formatDay(modalShopping.date) : ''}</dd>
       </dl>
       <dl className={'list'}>
         <dt>{SHOPPING_FORM.SHOP_ID.LABEL}</dt>
         <dd>
-          {modalShopping?.shopId ? shops.find(({ id }) => id === modalShopping.shopId)?.name : ''}
+          {modalShopping.shopId ? shops.find(({ id }) => id === modalShopping.shopId)?.name : ''}
         </dd>
       </dl>
       <dl className={'list'}>
         <dt>{SHOPPING_FORM.DESCRIPTION.LABEL}</dt>
-        <dd>{modalShopping?.description ? modalShopping.description : 'なし'}</dd>
+        <dd>{modalShopping.description ? modalShopping.description : 'なし'}</dd>
       </dl>
       <dl className={'list'}>
         <dt>買い物の{SHOPPING_FORM.IS_LINE_NOTICE.LABEL}</dt>

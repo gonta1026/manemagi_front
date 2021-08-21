@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { TShopping } from '../../types/Shopping';
+import { TShopping, TShoppingNullable } from '../../types/Shopping';
 import { fetchShoppings, deleteShopping } from '../../reducks/services/Shopping';
 
 const useShopping = () => {
-  const [shoppings, setShopping] = useState<TShopping[]>([]);
+  const [shoppings, setShopping] = useState<TShoppingNullable[]>([]);
   const dispatch = useDispatch();
 
   const fetchNoClaimShoppingsAndSet = async () => {
@@ -26,7 +26,7 @@ const useShopping = () => {
   };
 
   const deleteShoppingAndSet = async (
-    shopping: TShopping,
+    shopping: TShoppingNullable,
     isLineNotice: boolean,
     toastActions: any,
   ) => {

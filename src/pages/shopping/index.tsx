@@ -9,7 +9,7 @@ import { useToastAction, useShop, useShopping } from '../../customHook';
 /* pageMap */
 import { page } from '../../pageMap';
 /* types */
-import { TShopping, initialShopping } from '../../types/Shopping';
+import { TShopping, TShoppingNullable, initialShopping } from '../../types/Shopping';
 import { settingAndUser } from '../../types/Setting';
 /* utils */
 import { formatPriceYen, ommisionText } from '../../utils/function';
@@ -20,14 +20,14 @@ import Notice from '../../modules/Notice';
 const Shopping = (): JSX.Element => {
   const [isLoading, setIsLoading] = useState(false);
   const [isLineNotice, setIsLineNotice] = useState<boolean>(false);
-  const [modalShopping, setModalShopping] = useState<TShopping>(initialShopping);
+  const [modalShopping, setModalShopping] = useState<TShoppingNullable>(initialShopping);
   const [deleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
 
   const { settingState } = useSelector((state: { settingState: settingAndUser }) => state);
 
   const toastActions = useToastAction();
   const { shops, fetchShopsAndSet } = useShop();
-  const { shoppings, fetchShoppingsAndSet, deleteShoppingAndSet } = useShopping();
+  const { shoppings, fetchShoppingsAndSet, deleteShoppingAndSet } = useShopping<TShopping>();
 
   useEffect(() => {
     fetchShoppingsAndSet();
