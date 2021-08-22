@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { TShop } from '../../model/shop';
+import { TShop, ResponseFetchShops } from '../../model/shop';
 import { fetchShops } from '../../reducks/services/Shop';
 
 const useShop = () => {
@@ -8,9 +8,9 @@ const useShop = () => {
   const dispatch = useDispatch();
 
   const fetchShopsAndSet = async () => {
-    const response: any = await dispatch(fetchShops());
+    const response: { payload: ResponseFetchShops } = await dispatch(fetchShops() as any);
     if (response.payload.status === 'success') {
-      const shops: TShop[] = response.payload.data;
+      const shops = response.payload.data;
       setShops(shops);
     }
   };

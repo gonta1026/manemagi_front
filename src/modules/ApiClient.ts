@@ -37,8 +37,8 @@ class APIClient {
     );
   }
 
-  public async getRequest(this: APIClient, url: string, config?: AxiosRequestConfig) {
-    const response = await this.axiosInstance.get(url, config);
+  public async getRequest<T = any>(this: APIClient, url: string, config?: AxiosRequestConfig) {
+    const response = await this.axiosInstance.get<T>(url, config);
     const normalizeResponse = this.toCamelcaseKeys(response);
     return normalizeResponse;
   }

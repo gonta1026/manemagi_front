@@ -24,7 +24,7 @@ import { page } from '../../pageMap';
 /* reducks */
 import { createShop } from '../../reducks/services/Shop';
 /* types */
-import { TShopForm, TShopFormError } from '../../model/shop';
+import { TShopForm, TShopFormError, PayloadResponseCreateShop } from '../../model/shop';
 /* utils */
 import { isEmpty } from '../../utils/function';
 /* modules */
@@ -70,7 +70,7 @@ const NewShop = (): JSX.Element => {
 
   const handleCreateShop = async () => {
     setIsLoading(true);
-    const response: any = await dispatch(createShop(formik.values));
+    const response = await dispatch<PayloadResponseCreateShop>(createShop(formik.values) as any);
     if (response.payload.status === 'success') {
       Notice.setItemAtPageMoveNotice(noticeStorageValues.createdShopNotice);
       router.push(page.shop.list.link());
