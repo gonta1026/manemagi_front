@@ -18,7 +18,7 @@ import { page } from '../../pageMap';
 /* reducks */
 import { updateSetting } from '../../reducks/services/Setting';
 /* types */
-import { TSetting, settingAndUser, TSettingFormError } from '../../model/setting';
+import { TSettingFormik, settingAndUser, TSettingFormError } from '../../model/setting';
 /* validate */
 import { settingsValidate } from '../../validate/setting/setting';
 
@@ -27,7 +27,7 @@ const Setting = (): JSX.Element => {
   const router = useRouter();
   const toastActions = useToastAction();
   const { settingState } = useSelector((state: { settingState: settingAndUser }) => state);
-  const validate = (values: TSetting) => {
+  const validate = (values: TSettingFormik) => {
     let errors = {} as TSettingFormError;
     errors = settingsValidate(values, errors);
     return errors;
@@ -39,7 +39,7 @@ const Setting = (): JSX.Element => {
     formik.setFieldValue(SETTING_FORM.LINE_NOTICE_TOKEN.ID, lineNoticeToken);
   }, [settingState]);
 
-  const formik = useFormik<TSetting>({
+  const formik = useFormik<TSettingFormik>({
     initialValues: {
       isUseLine: false,
       lineNoticeToken: '',

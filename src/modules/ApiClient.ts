@@ -3,14 +3,12 @@ import camelcaseKeys from 'camelcase-keys';
 import snakecaseKeys from 'snakecase-keys';
 import Auth from './Auth';
 
-// type NormalizeError = {
-//   data: {
-//     status: number;
-//     message: string;
-//     statusText: string;
-//     raw: any;
-//   };
-// };
+export type NormalizeError = {
+  status: number;
+  message: string;
+  statusText: string;
+  raw: any;
+};
 
 class APIClient {
   private readonly axiosInstance: AxiosInstance;
@@ -78,6 +76,16 @@ class APIClient {
     const data = camelcaseKeys({ ...response.data }, { deep: true }); // NOTE deepによりネストされた箇所も変換対象となる。
     const normalizeResponse = { ...response, data };
     return normalizeResponse;
+  }
+
+  public _normalizeError(error: any) {
+    const normalizeError: NormalizeError = {
+      status: error.response && error.response.status,
+      statusText: error.response.statusText,
+      message: error.message,
+      raw: error,
+    };
+    return normalizeError;
   }
 }
 

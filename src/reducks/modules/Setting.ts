@@ -13,6 +13,7 @@ export const initialState: TTUserAndSettingAndError = {
     name: '',
     email: '',
     setting: {
+      id: null,
       isUseLine: false,
       lineNoticeToken: '',
     },

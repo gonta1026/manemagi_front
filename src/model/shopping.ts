@@ -1,3 +1,5 @@
+import { ResponseError } from './common';
+
 export const initialShopping = {
   id: null,
   price: null,
@@ -31,4 +33,23 @@ export type TShoppingForm = Pick<
   'price' | 'date' | 'description' | 'isLineNotice' | 'shopId'
 >;
 
+export type ResponseCreateShopping = {
+  data: Utilty.Nullable<TShopping, 'claimId'>;
+  status: 'success';
+};
+
 export type TShoppingFormError = Record<keyof TShoppingForm, string>;
+
+export type ResponseFetchShoppings = {
+  data: Utilty.Nullable<TShopping, 'claimId'>[];
+  status: 'success';
+};
+
+export type ResponseDeleteShopping = {
+  data: Utilty.Nullable<TShopping, 'claimId'>[];
+  status: 'success';
+};
+
+export type PayloadResponseCreateShopping = {
+  payload: ResponseCreateShopping | ResponseError;
+};

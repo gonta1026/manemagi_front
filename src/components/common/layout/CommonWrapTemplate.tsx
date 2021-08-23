@@ -10,7 +10,7 @@ import { ToastType } from '../../../customHook/useToastAction';
 /* reducks */
 import { fetchSettingAndUser } from '../../../reducks/services/Setting';
 /* types */
-import { settingAndUser } from '../../../model/setting';
+import { settingAndUser, ResponseFetchSetting } from '../../../model/setting';
 /* modules */
 import Auth from '../../../modules/Auth';
 
@@ -52,10 +52,16 @@ const CommonWrapTemplate = ({
     isLogindCheck();
     if (auth.loginedStorageExists()) {
       (async () => {
-        const response: any = await dispatch(fetchSettingAndUser());
+        const response: { payload: ResponseFetchSetting } = (await dispatch(
+          fetchSettingAndUser(),
+        )) as any;
         // 認証に失敗した場合はtokenの破棄
         // 401はdeviseの指定されている
-        if (response.payload?.statusText === 'Unauthorized') {
+        if (
+          response.payload.status !== 'success' &&
+          response.payload.statusText === 'Unauthorized'
+        ) {
+          // ここにくるのはtokenがあるけど間違っているパターン。tokenをはきさせてリダイレクトをさせる。
           auth.removeLoginedStorage();
           router.push('/login');
         }

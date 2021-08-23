@@ -1,8 +1,8 @@
-import { TSetting, TSettingFormError } from '../../model/setting';
+import { TSettingFormik, TSettingFormError } from '../../model/setting';
 import { SETTING_FORM } from '../../form/setting';
 import { validMaxNum, validNum } from '../';
 import { lineToken } from '../message';
-export const settingsValidate = (values: TSetting, errors: TSettingFormError) => {
+export const settingsValidate = (values: TSettingFormik, errors: TSettingFormError) => {
   const { LINE_NOTICE_TOKEN, IS_USE_LINE } = SETTING_FORM;
   const { MAX_100 } = validNum;
   /******************

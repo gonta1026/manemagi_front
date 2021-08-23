@@ -10,9 +10,9 @@ type TLoginedStorageValue = {
 
 class Auth {
   public getLoginedStorageKeys() {
-    const loginedKeys = JSON.parse(
+    const loginedKeys: TLoginedStorageValue = JSON.parse(
       storage.getStorageItem(authStorageKeys.logined)!,
-    ) as TLoginedStorageValue;
+    );
     return loginedKeys;
   }
   public setLoginedStorage(accessToken: string, client: string, uid: string) {
