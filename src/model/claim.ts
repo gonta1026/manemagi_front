@@ -16,11 +16,10 @@ export type TClaim = {
   isLineNotice: boolean;
   isLineNoticed: boolean;
   isReceipt: boolean;
-  totalPrice: number; // NOTE DBのschemaには存在しない。
   userId: number;
   createdAt: Date;
   updatedAt: Date;
-};
+} & { totalPrice: number }; // NOTE DBのschemaには存在しない。
 
 export type TClaimNullable = Utilty.Nullable<TClaim, 'id' | 'totalPrice' | 'userId'>;
 
@@ -30,4 +29,34 @@ export type TClaimForm = Pick<TClaimNullable, 'isLineNotice'> & {
 
 export type TClaimFormikForm = Omit<TClaimForm, 'shoppingIds'> & {
   shoppings: TShopping[];
+};
+
+export type ResponseCreateClaim = {
+  data: Omit<TClaim, 'totalPrice'>;
+  status: 'success';
+};
+
+export type ResponseUpdateClaim = {
+  data: Omit<TClaim, 'totalPrice'>;
+  status: 'success';
+};
+
+export type ResponseDeleteClaim = {
+  data: Omit<TClaim, 'totalPrice'>;
+  status: 'success';
+};
+
+export type ResponseFetchClaims = {
+  data: TClaim[];
+  status: 'success';
+};
+
+export type ResponseNoClaimShoppings = {
+  data: Utilty.Change<TShopping, 'claimId', null>;
+  status: 'success';
+};
+
+export type ResponseFetchClaimShoppings = {
+  data: TShopping[];
+  status: 'success';
 };

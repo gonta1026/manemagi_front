@@ -23,7 +23,7 @@ import { page } from '../../pageMap';
 import { fetchNoClaimShoppings, createClaim } from '../../reducks/services/Claim';
 /* types */
 import { TShopping } from '../../model/shopping';
-import { TClaimFormikForm } from '../../model/claim';
+import { TClaimFormikForm, ResponseNoClaimShoppings, ResponseCreateClaim } from '../../model/claim';
 import { settingAndUser } from '../../model/setting';
 /* utils */
 import { formatPriceYen, ommisionText, totalSumPrice } from '../../utils/function';
@@ -51,9 +51,11 @@ const ClaimNew = (): JSX.Element => {
   }, [settingState]);
 
   const fetchShoppingsAndSetShops = async () => {
-    const response: any = await dispatch(fetchNoClaimShoppings());
+    const response: { payload: ResponseNoClaimShoppings } = (await dispatch(
+      fetchNoClaimShoppings(),
+    )) as any;
     if (response.payload.status === 'success') {
-      const shoppings: TShopping[] = response.payload.data;
+      const shoppings = response.payload.data;
       formik.setFieldValue('shoppings', shoppings);
     }
   };
@@ -100,9 +102,9 @@ const ClaimNew = (): JSX.Element => {
         handleOk={async () => {
           setIsLoading(true);
           const shoppingIds = checkShoppings.map((shopping) => shopping.id!);
-          const response: any = await dispatch(
+          const response: { payload: ResponseCreateClaim } = (await dispatch(
             createClaim({ shoppingIds: shoppingIds, isLineNotice: true }),
-          );
+          )) as any;
           if (response.payload.status === 'success') {
             Notice.setItemAtPageMoveNotice(noticeStorageValues.claimedNotice);
             router.push(page.claim.list.link());

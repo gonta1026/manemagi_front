@@ -4,13 +4,18 @@ import { END_POINT } from '../../const/endPoint';
 /* network */
 import ApiClient from '../../modules/ApiClient';
 /* types */
-import { TClaimForm } from '../../model/claim';
+import {
+  TClaimForm,
+  ResponseFetchClaims,
+  ResponseNoClaimShoppings,
+  ResponseCreateClaim,
+} from '../../model/claim';
 
 const { CLAIMS } = END_POINT;
 
 export const fetchClaims = createAsyncThunk('claims/index', async (_, thunkAPI) => {
   try {
-    const response: any = await ApiClient.getRequest(CLAIMS.INDEX);
+    const response = await ApiClient.getRequest<ResponseFetchClaims>(CLAIMS.INDEX);
     return response.data;
   } catch (error) {
     return thunkAPI.rejectWithValue({ errorMessage: error.message });
@@ -19,7 +24,7 @@ export const fetchClaims = createAsyncThunk('claims/index', async (_, thunkAPI) 
 
 export const fetchNoClaimShoppings = createAsyncThunk('claims/new', async (_, thunkAPI) => {
   try {
-    const response: any = await ApiClient.getRequest(CLAIMS.NEW);
+    const response = await ApiClient.getRequest<ResponseNoClaimShoppings>(CLAIMS.NEW);
     return response.data;
   } catch (error) {
     return thunkAPI.rejectWithValue({ errorMessage: error.message });
@@ -30,7 +35,7 @@ export const createClaim = createAsyncThunk(
   'claims/create',
   async (shoppingIds: TClaimForm, thunkAPI) => {
     try {
-      const response: any = await ApiClient.postRequest(CLAIMS.CREATE, shoppingIds);
+      const response = await ApiClient.postRequest<ResponseCreateClaim>(CLAIMS.CREATE, shoppingIds);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue({ errorMessage: error.message });

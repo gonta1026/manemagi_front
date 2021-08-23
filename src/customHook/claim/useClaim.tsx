@@ -10,7 +10,14 @@ import {
   fetchClaimShoppings,
 } from '../../reducks/services/Claim';
 /* types */
-import { TClaim, TClaimNullable } from '../../model/claim';
+import {
+  TClaim,
+  TClaimNullable,
+  ResponseFetchClaims,
+  ResponseUpdateClaim,
+  ResponseFetchClaimShoppings,
+  ResponseDeleteClaim,
+} from '../../model/claim';
 import { TShopping } from '../../model/shopping';
 
 const useClaim = () => {
@@ -18,9 +25,9 @@ const useClaim = () => {
   const [shoppings, setShoppings] = useState<TShopping[]>([]);
   const dispatch = useDispatch();
   const fetchClaimsAndSet = async () => {
-    const response: any = await dispatch(fetchClaims());
+    const response: { payload: ResponseFetchClaims } = (await dispatch(fetchClaims())) as any;
     if (response.payload.status === 'success') {
-      const claims: TClaim[] = response.payload.data;
+      const claims = response.payload.data;
       setClaims(claims);
     }
   };
@@ -31,15 +38,14 @@ const useClaim = () => {
     toastActions: ToastType,
   ) => {
     const claimId = String(claim.id);
-    const response: any = await dispatch(
+    const response: { payload: ResponseUpdateClaim } = await dispatch(
       updateClaim({
         id: claimId,
         data: { isLineNotice, isReceipt: true },
-      }),
+      }) as any,
     );
 
     const { handleToastOpen } = toastActions;
-    console.log(response);
     if (response.payload.status === 'success') {
       fetchClaimsAndSet();
       handleToastOpen({
@@ -60,12 +66,12 @@ const useClaim = () => {
     toastActions: ToastType,
   ) => {
     const claimId = String(claim.id);
-    const response: any = await dispatch(
+    const response: { payload: ResponseDeleteClaim } = (await dispatch(
       deleteClaim({
         id: claimId,
         data: { isLineNotice: isLineNotice },
       }),
-    );
+    )) as any;
     const { handleToastOpen } = toastActions;
     if (response.payload.status === 'success') {
       fetchClaimsAndSet();
@@ -82,9 +88,12 @@ const useClaim = () => {
   };
 
   const fetchClaimShoppingsAndSet = async (claimId: string) => {
-    const response: any = await dispatch(fetchClaimShoppings(claimId));
+    const response: { payload: ResponseFetchClaimShoppings } = (await dispatch(
+      fetchClaimShoppings(claimId),
+    )) as any;
     if (response.payload.status === 'success') {
-      const shoppings: TShopping[] = response.payload.data;
+      const shoppings = response.payload.data;
+      console.log({ shoppings });
       setShoppings(shoppings);
     }
   };
