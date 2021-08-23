@@ -30,7 +30,9 @@ export const settingSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(fetchSettingAndUser.fulfilled, (state, action) => {
-      state.user = action.payload.data;
+      if (action.payload.status === 'success') {
+        state.user = action.payload.data;
+      }
       state.loading = false;
     });
     builder.addCase(fetchSettingAndUser.rejected, (state, action) => {
