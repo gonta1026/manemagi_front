@@ -30,7 +30,7 @@ class Auth {
     return isBooleanCheck(!!(loginedKeys?.uid && loginedKeys?.accessToken && loginedKeys?.client)); // !!で真偽値にして返す
   }
   public removeLoginedStorage() {
-    return storage.removeStorageItem(authStorageKeys.logined);
+    storage.removeStorageItem(authStorageKeys.logined);
   }
 }
 

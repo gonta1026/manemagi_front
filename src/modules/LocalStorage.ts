@@ -45,7 +45,7 @@ class LocalStorage implements TLocalStorage {
 
   public removeStorageItem = (itemKey: TStorageKey) => {
     if (this.localStorage !== undefined) {
-      return this.localStorage.removeItem(itemKey);
+      this.localStorage.removeItem(itemKey);
     }
   };
 }
