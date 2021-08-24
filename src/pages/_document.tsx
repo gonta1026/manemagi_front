@@ -6,7 +6,7 @@ import { ServerStyleSheet } from 'styled-components';
 import theme from '../styles/js/theme';
 
 export default class MyDocument extends Document {
-  render() {
+  render(): JSX.Element {
     return (
       <Html lang="ja-JP">
         <Head>

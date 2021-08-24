@@ -26,7 +26,7 @@ const BaseButton = ({
   size = 'medium',
   type = 'button',
   variant = 'outlined',
-}: TProps) => {
+}: TProps): JSX.Element => {
   const CustomButton = withStyles((theme) => ({
     root: buttonStyle(theme, customType, variant),
   }))(Button);

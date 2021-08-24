@@ -35,7 +35,7 @@ const BaseTextField = ({
   type,
   value,
   variant = 'outlined',
-}: TBaseTextField) => {
+}: TBaseTextField): JSX.Element => {
   const inputEl = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
     if (focus) {

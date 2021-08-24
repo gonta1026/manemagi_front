@@ -24,7 +24,7 @@ const BaseSelect = ({
   onChange: VoidFunction;
   options: TOptions;
   value: number | string;
-}) => {
+}): JSX.Element => {
   return (
     <Select {...{ className, id, onChange, onClose, onOpen, open, value }} variant="outlined">
       {options.map((option) => {

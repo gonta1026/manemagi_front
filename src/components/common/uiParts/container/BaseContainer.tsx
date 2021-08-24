@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import styled from 'styled-components';
 
-const BaseContainer = ({ children }: { children: ReactNode }) => {
+const BaseContainer = ({ children }: { children: ReactNode }): JSX.Element => {
   return <Container>{children}</Container>;
 };
 

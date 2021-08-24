@@ -14,7 +14,7 @@ const BaseToast = ({
   severity = 'info',
   autoHideDuration,
   onClose,
-}: OmitTToastType) => {
+}: OmitTToastType): JSX.Element => {
   // NOTE  スマホ表示の際に崩れる現象があったので非表示で対応
   const classNames = {
     alert: {

@@ -18,7 +18,7 @@ const BaseLinkButton = ({
   pathname: string;
   size?: 'large' | 'medium' | 'small';
   children: ReactNode;
-}) => {
+}): JSX.Element => {
   return (
     <BaseLink pathname={pathname}>
       <BaseButton {...{ className, customType, variant, disabled, size }}>{children}</BaseButton>

@@ -19,7 +19,7 @@ const BaseSwitch = ({
   name?: string;
   onChange: any; // 型をvoidやvoidfunctionにすると弾かれる
   size?: 'medium' | 'small';
-}) => {
+}): JSX.Element => {
   return <Switch {...{ className, checked, color, disabled, id, name, onChange, size }} />;
 };
 

@@ -20,7 +20,7 @@ type TProps = {
   isDrawerOpen: boolean;
 };
 
-const Drawer = ({ className = '', toggleDrawer, isDrawerOpen }: TProps) => {
+const Drawer = ({ className = '', toggleDrawer, isDrawerOpen }: TProps): JSX.Element => {
   const router = useRouter();
   const classNames = {
     list: {

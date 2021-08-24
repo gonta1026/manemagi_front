@@ -24,7 +24,7 @@ const LabelAndSelect = ({
   options,
   required,
   value,
-}: TProps) => {
+}: TProps): JSX.Element => {
   const [open, setOpen] = useState(false);
 
   return (

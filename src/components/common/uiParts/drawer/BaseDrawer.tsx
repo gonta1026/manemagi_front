@@ -11,7 +11,7 @@ const BaseDrawer = ({
   className?: string;
   open: any;
   onClose: any;
-}) => {
+}): JSX.Element => {
   return (
     <Drawer anchor={'left'} open={open} onClose={onClose(false)} className={className}>
       {children}

@@ -6,7 +6,7 @@ type TProps = {
   label: string;
 };
 
-const LabelAndCheckBox = ({ control, label }: TProps) => {
+const LabelAndCheckBox = ({ control, label }: TProps): JSX.Element => {
   return <BaseFormControlLabel {...{ control, label }} />;
 };
 

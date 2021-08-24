@@ -3,7 +3,7 @@ import { Backdrop, CircularProgress } from '@material-ui/core';
 /* styles */
 import { materialStyles } from '../../../../styles/js/material';
 
-const BaseLoading = ({ open = false }: { open: boolean }) => {
+const BaseLoading = ({ open = false }: { open: boolean }): JSX.Element => {
   const classNames = {
     backDrop: {
       zIndex: 1301, // モーダルmaskの上を指定。

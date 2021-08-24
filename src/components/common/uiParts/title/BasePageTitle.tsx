@@ -9,7 +9,7 @@ const BasePageTitle = ({
 }: {
   children: ReactNode;
   className: string;
-}) => {
+}): JSX.Element => {
   return (
     <Heading className={className}>
       <span>{children}</span>

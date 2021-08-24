@@ -11,7 +11,7 @@ const BaseLabel = ({
   children: ReactNode;
   htmlFor: string;
   onClick?: VoidFunction;
-}) => {
+}): JSX.Element => {
   return <Label {...{ className, htmlFor, onClick }}>{children}</Label>;
 };
 

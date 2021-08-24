@@ -21,7 +21,7 @@ const LabelAndSwitch = ({
   id = '',
   label,
   onChange,
-}: TProps) => {
+}: TProps): JSX.Element => {
   return (
     <>
       <BaseFormControlLabel

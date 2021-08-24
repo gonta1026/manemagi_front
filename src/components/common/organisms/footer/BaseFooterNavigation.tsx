@@ -12,7 +12,7 @@ import { page } from '../../../../pageMap/index';
 /* styles */
 import { materialStyles } from '../../../../styles/js/material';
 
-const FooterNavigation = () => {
+const FooterNavigation = (): JSX.Element => {
   const classNames = {
     root: {
       backgroundColor: 'inherited',

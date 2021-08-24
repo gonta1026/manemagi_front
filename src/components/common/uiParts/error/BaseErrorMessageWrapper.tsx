@@ -7,7 +7,7 @@ const BaseErrorMessagesWrapper = ({
 }: {
   children: ReactNode;
   className?: string;
-}) => {
+}): JSX.Element => {
   return <Wrapper className={className + ' text-xs'}>{children}</Wrapper>;
 };
 

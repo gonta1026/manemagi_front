@@ -7,7 +7,7 @@ const BaseRequired = ({
 }: {
   className?: string;
   children: ReactNode;
-}) => {
+}): JSX.Element => {
   return <Required className={className}>{children}</Required>;
 };
 

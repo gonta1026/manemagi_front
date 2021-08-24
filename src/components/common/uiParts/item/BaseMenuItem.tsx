@@ -10,7 +10,7 @@ const BaseMenuItem = ({
   className?: string;
   children: ReactNode;
   value: string;
-}) => {
+}): JSX.Element => {
   return <MenuItem {...{ className, value }}>{children}</MenuItem>;
 };
 

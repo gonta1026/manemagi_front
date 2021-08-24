@@ -15,7 +15,7 @@ const TopPageTemplate = ({
 }: {
   children: ReactNode;
   toastActions?: ToastType;
-}) => {
+}): JSX.Element => {
   const auth = new Auth();
   const dispatch = useDispatch();
   const router = useRouter();

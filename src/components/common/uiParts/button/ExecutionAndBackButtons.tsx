@@ -22,7 +22,7 @@ const ExecutionAndBackButtons = ({
   nextName,
   nextCustomType = 'normal',
   backCustomType = 'arrowBack',
-}: TProps) => {
+}: TProps): JSX.Element => {
   return (
     <>
       <div className={className + ' flex justify-center'}>

@@ -13,7 +13,7 @@ const CheckBox = ({
   className?: string;
   id?: string;
   onChange: any;
-}) => {
+}): JSX.Element => {
   return (
     <Checkbox
       {...{ checked, className, color, id, onChange }}

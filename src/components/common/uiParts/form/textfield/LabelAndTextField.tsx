@@ -45,7 +45,7 @@ const LabelAndTextField = ({
   variant = 'outlined',
   wrapClass = '',
   labelClass = '',
-}: TProps) => {
+}: TProps): JSX.Element => {
   const isAfterSsr = useIsAfterSsr();
   return (
     <>

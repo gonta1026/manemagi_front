@@ -22,7 +22,7 @@ const CommonWrapTemplate = ({
   children: ReactNode;
   toastActions?: ToastType;
   isLoading?: boolean;
-}) => {
+}): JSX.Element => {
   const dispatch = useDispatch();
   const router = useRouter();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);

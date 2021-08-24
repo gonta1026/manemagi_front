@@ -28,7 +28,7 @@ const BaseHeader = ({
   className?: string;
   toggleDrawer: any;
   settingState: settingAndUser;
-}) => {
+}): JSX.Element => {
   const classNames = {
     headerTitle: {
       color: COLORS.TEXT_GREEN,

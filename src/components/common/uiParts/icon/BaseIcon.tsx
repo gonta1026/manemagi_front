@@ -12,7 +12,7 @@ const BaseIcon = ({
   className?: string;
   icon: TIcon;
   onClick?: any;
-}) => {
+}): JSX.Element => {
   const switchIcon = (icon: TIcon): ReactNode => {
     switch (icon) {
       case 'settings':

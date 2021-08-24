@@ -37,7 +37,7 @@ const LabelAndTextArea = ({
   placeholder,
   wrapClass = '',
   labelClass = '',
-}: TProps) => {
+}: TProps): JSX.Element => {
   const isAfterSsr = useIsAfterSsr();
   return (
     <>
