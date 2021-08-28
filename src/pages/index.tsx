@@ -14,7 +14,7 @@ import useIsAfterSsr from '../customHook/useIsAfterSsr';
 /* pageMap */
 import { page } from '../pageMap/';
 
-const Home: React.FC = () => {
+const Home = (): JSX.Element => {
   const isAfterSsr = useIsAfterSsr();
   const auth = new Auth();
 
